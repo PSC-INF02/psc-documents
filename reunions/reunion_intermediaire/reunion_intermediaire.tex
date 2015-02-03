@@ -56,8 +56,56 @@
 \subsection{Réseau de concepts}
 % Schrotty !
 \begin{frame}
+\frametitle{État actuel du réseau}
+
+\begin{itemize}
+ \item Environ 7000 articles analysés (30 jours);
+ \item Environ 12 000 concepts et 8000 noms récupérés (chiffre stable);
+ \item Génération à partir d'un grand nombre de requêtes, de types différents, d'un réseau de :
+ \begin{itemize}
+  \item 21 000 n\oe uds ;
+  \item 60 000 arêtes ;
+ \end{itemize}
+ \pause
+ Où l'on atteint les limites d'une utilisation intensive de \texttt{networkx}
+ 
+\end{itemize}
 
 \end{frame}
+
+\begin{frame}
+\frametitle{Utilisation du réseau}
+
+\begin{itemize}
+ \item Pour l'instant : sur des exemples précis, des résultats très encourageants : une bonne interconnectivité et le respect du sens commun ;
+ \item Utilisation sur des phrases complètes dans les prochains jours.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Exemple}
+
+\begin{itemize}
+ \item "wayne rooney"
+ \item athlete, person, "soccer player"
+ \item "sport event", profession, "break record", sprint, "very competitive", "jump high", "play sport"
+ \item television, obsolete, entertainment, addictive, watch, "in live room", bedroom, entertain, appliance...
+\end{itemize}
+
+%%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+%%ce n'était pas mentionné dans le rapport
+%%mais c'est ce que je pense, là, à l'instant t
+\begin{block}{Données importantes}
+L'ordre dans lequel vont être activés les n\oe uds, le nombre de n\oe uds que l'on va activer.
+
+Nécessite de complexifier notre vision initiale.
+\end{block}
+
+
+\end{frame}
+
 
 \subsection{Élaboration du workspace}
 \begin{frame}
