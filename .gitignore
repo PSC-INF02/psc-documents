@@ -9,3 +9,7 @@
 *.log
 *.fls
 *.bib
+*.nav
+*.toc
+*.out
+*.snm
