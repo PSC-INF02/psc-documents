@@ -7,7 +7,6 @@
 *.toc
 *.log
 *.blg
-*.ind
-*.bib
 *.idx
+*.out
 
