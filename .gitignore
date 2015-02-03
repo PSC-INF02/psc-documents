@@ -5,3 +5,10 @@
 localConfig.py
 *.backup
 *.bst
+
+*.aux
+*.pdf
+*latexmk
+*.log
+*.fls
+*.bib

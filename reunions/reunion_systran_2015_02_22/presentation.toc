@@ -1,0 +1,11 @@
+\beamer@endinputifotherversion {3.33pt}
+\select@language {french}
+\beamer@sectionintoc {1}{Introduction}{2}{0}{1}
+\beamer@sectionintoc {2}{Project structure}{4}{0}{2}
+\beamer@subsectionintoc {2}{1}{The project}{5}{0}{2}
+\beamer@sectionintoc {3}{TF-idf}{7}{0}{3}
+\beamer@sectionintoc {4}{Analyser's structure}{9}{0}{4}
+\beamer@subsectionintoc {4}{1}{Concept network}{10}{0}{4}
+\beamer@subsectionintoc {4}{2}{Workspace}{11}{0}{4}
+\beamer@subsectionintoc {4}{3}{Workers}{12}{0}{4}
+\beamer@sectionintoc {5}{Syntactic Analysis}{13}{0}{5}

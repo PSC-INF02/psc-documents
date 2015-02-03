@@ -1,0 +1,199 @@
+\documentclass{beamer}
+\usepackage{pgfpages}
+\usepackage[francais]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amsthm}
+\usepackage{amsfonts,amssymb}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%THEMES DU DOCUMENT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%– th`emes globaux~: albatross, beetle, crane, fly, seagull.
+%– th`emes internes~: lily  orchid, rose.
+%– th`emes externes~: whale, seahorse, dolphin
+%JuanLesPins Malmoe PaloAlto Berlin Boadilla Copenhagen Hannover Goettingen Montpellier Rochester
+%Madrid Antibes Singapore Szeged Warsaw, thème par défaut Ilmenau Luebeck AnnArbor CambridgeUS Dresden
+
+%themes de polices~: professionalfonts serif structurebold structureitalicserif structuresmallcapsserif
+
+
+\usetheme{Warsaw}
+%\usecolortheme{dolphin}
+\usefonttheme{structurebold}
+%\useinnertheme{nom du theme interne}
+%\useoutertheme{split}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%AUTRES COMMANDES PRÉLIMINAIRES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\AtBeginSection[]{% génère une tableofcontents au début de chaque section
+  \begin{frame}
+  \frametitle{Sommaire}
+	\tableofcontents[sectionstyle = show/shaded,subsectionstyle = show/show/shaded]
+  \end{frame}
+}
+
+\setbeamertemplate{itemize item}[triangle]
+\setbeamertemplate{enumerate item}[square]
+\setbeamertemplate{blocks} [rounded] [shadow=true]
+
+\setbeameroption{show notes}%%ou hide notes
+%%\setbeameroption{show notes on second screen=right}
+
+
+% \title{Réunion de lancement}
+\title{Automatic summarizer}
+\author{}
+\institute{École polytechnique}
+\date{}
+
+\logo{\includegraphics[height=0.8cm]{logohori.eps}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%DEBUT DU DOCUMENT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+
+
+%%page de titre
+\begin{frame}
+  \titlepage{}
+\end{frame}
+
+%% sommaire %%
+% \begin{frame}
+% \frametitle{Sommaire}
+% \tableofcontents
+% \end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%VRAI DEBUT DU DOCUMENT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Introduction}
+
+    \begin{frame}%[allowframebreaks=0.8]
+    \frametitle{Motives}%cadre général
+
+        \begin{block}{Need for summarization and difficulties}
+            \begin{itemize}
+                \item Vast amount of textual data
+                \item Complex grammar (natural language)
+                \item A lot of prerequisites
+            \end{itemize}
+        \end{block}
+
+
+        \begin{block}{Two solutions}
+            \begin{itemize}
+                \item Abstractive summarization
+                \item Extractive summmarization
+            \end{itemize}
+        \end{block}
+    \end{frame}
+
+\section{Project structure}
+    \subsection{The project}
+
+        \begin{frame}
+        \frametitle{The abstractor in six steps}
+
+            \begin{columns}[t]
+                \begin{column}{6cm}
+                    \begin{enumerate} %éviter la liste
+                        \item Syntactic analysis
+                        \item Finding entities
+                        \item Finding links between entities
+                        \item Concept analysis
+                        \item Deeper search of links
+                        \item Simple text generation
+                    \end{enumerate}
+                \end{column}
+                %à droite, ce que ça donne aux différents stades
+
+                \begin{column}{7cm}
+                    \begin{itemize}
+                        \item Subject, Verb, Object\ldots{}
+                        \item Zinedine Zidane\ldots{}
+                        \item Zidane is a football player\ldots{}
+                        \item Football is a sport\ldots{}
+                        \item Zinedine Zidane is thus a sportsman,
+                        \item Subjects-Actions-Objects-Complements
+                    \end{itemize}
+                \end{column}
+            \end{columns}
+        \end{frame}
+
+        \begin{frame}
+        \frametitle{Where are we now~?}
+            \begin{enumerate}
+                \item TF-IDF implementation ... Done
+                \item Syntactic and linguistic analysis ... Under Way
+                \item ``Smart'' analysis ... Running %but/gros du PSC
+                \item Generation and study of the summary's quality ... Bonus
+            \end{enumerate}
+        \end{frame}
+
+\section{TF-idf}
+    \begin{frame}
+    \frametitle{TF-IDF(Term Frequency-Inverse Document Frequency)}
+        \begin{itemize}
+          \item Base for the rest of our work
+          \item Programmed a little extractive summary script using TF-IDF
+          \item Crawling the web to build a database
+        \end{itemize}
+    \end{frame}
+
+\section{Analyser's structure}%Guillaume
+    \subsection{Concept network}
+        \begin{frame}
+        \frametitle{Concept network}
+            \begin{itemize}
+                \item \textbf{Graph of concepts} (objects, actions or more abstract ideas) linked with each other~;
+                \item Two concepts are close if it is relevant to think of the second after having met the former~;
+                \item Represents an \textbf{understanding of the world} for our program~;
+                \item Able to learn and change after analyzing texts.
+            \end{itemize}
+        \end{frame}
+
+    \subsection{Workspace}
+        \begin{frame}
+        \frametitle{Workspace}
+            \begin{itemize}
+                \item Blackboard containing instances of concepts already met and of structures being constructed~; 
+                \item Represents \textbf{understanding of the text}
+                \item When analysis is over, important structures represent important information from the text.
+            \end{itemize}
+        \end{frame}
+
+    \subsection{Workers}
+        \begin{frame}
+        \frametitle{Workers}
+        Set of methods to extract information from the text and the concept network.
+        For instance~:
+            \begin{itemize}
+                \item Reading the text and parse it;
+                \item Identification of references to the same object~;
+                \item Activating nodes in the concept network.
+            \end{itemize}
+        \end{frame}
+
+        \section{Syntactic Analysis}
+        \begin{frame}{Syntactic Analysis}
+          \begin{itemize}
+            \item First try with nltk grammars (cfg)~;
+
+              Accurate but very rigid.
+            \item Currently trying probabilistic grammars (pcfg)
+
+              More flexible, but not as accurate.
+         \end{itemize} 
+       \end{frame} 
+\end{document}
