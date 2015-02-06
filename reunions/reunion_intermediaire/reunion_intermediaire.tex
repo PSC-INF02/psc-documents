@@ -34,7 +34,7 @@
 
 \begin{document}
 \beamertemplatenavigationsymbolsempty{}
-\beamerdefaultoverlayspecification{<+->}
+%\beamerdefaultoverlayspecification{<+->}
 \begin{frame}
   \titlepage{}
 \end{frame}
@@ -111,7 +111,7 @@ Nécessite de complexifier notre vision initiale.
 \begin{frame}
   \begin{block}{Ajustements de direction}
     \begin{itemize}
-      \item Les workers ne semblent plus indispensables à notre travail
+      \item Une part non négligeable du travail sur le workspace sera faite sans workers, qui seront implémentés plus tard.
       \item Nous nous orientons désormais vers des résumés très synthétiques (une ou deux phrases au plus)
     \end{itemize}
   \end{block}
@@ -125,19 +125,7 @@ Nécessite de complexifier notre vision initiale.
 \end{frame}
 
 \section{Prochaines étapes}
-\subsection{Importance conceptuelle}
-\begin{frame}
-  \begin{block}{Objectif~:}
-    Rendre compte de l'importance à accorder à la présence d'un concept
-  \end{block}
 
-  \begin{block}{Calcul de l'indice}
-    \begin{itemize}
-      \item Équivalent dans l'espace des concepts de l'indice idf
-      \item Calculé par une analyse statistique sur un corpus
-    \end{itemize}
-  \end{block}
-\end{frame}
 \subsection{Workspace}
 \begin{frame}
   \begin{block}{Structure}
@@ -153,6 +141,22 @@ Nécessite de complexifier notre vision initiale.
     	\item Les changements sont représentés par des liens entre les attributs.
     \end{itemize}
   \end{itemize}
+  
+  Exemple : "Wayne Rooney was appointed captain as the fans turned their backs on the team."
+  \end{block}
+\end{frame}
+
+\subsection{Importance conceptuelle}
+\begin{frame}
+  \begin{block}{Objectif~:}
+    Rendre compte de l'importance à accorder à la présence d'un concept
+  \end{block}
+
+  \begin{block}{Calcul de l'indice}
+    \begin{itemize}
+      \item Équivalent dans l'espace des concepts de l'indice idf
+      \item Calculé par une analyse statistique sur un corpus
+    \end{itemize}
   \end{block}
 \end{frame}
 
@@ -162,7 +166,7 @@ Nécessite de complexifier notre vision initiale.
 \begin{frame}
 	\begin{block}{Retour sur le plan prévisionnel}
 		\begin{itemize}
-			\item Grammaire -> Terminé, en retard
+			\item Grammaire -> Problème résolu par Systran.
 			\item Résumés basés sur TF-IDF pour évaluation de notre algorithme -> Terminé
 			\item Réseau de concepts -> 80\% terminé, reste à affiner l'importance conceptuelle.
 			\item Workspace -> Spécification largement établie, début de l'implémentation avec un léger retard
