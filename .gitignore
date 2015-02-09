@@ -8,7 +8,6 @@
 *latexmk
 *.log
 *.fls
-*.bib
 *.nav
 *.toc
 *.out
