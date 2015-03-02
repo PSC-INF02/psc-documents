@@ -1,0 +1,65 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}%%seul package à charger : pour éviter les problèmes sordides d'encodage
+\usepackage[fiche,psc]{andre}%%bon eh bien sûr...
+%%fiche, psc pour faire une fiche
+%%rapport, psc pour faire un rapport
+%%pour insérer du code : \langage{java} , puis \begin{lstlisting} \end{lstlisting}
+%%pour insérer des guillemets : \eg \og
+
+\title{Réunion du 3 mars 2015}
+\author{André\\ Guillaume\\ Théophane\\ Zhixing } %%\membres uniquement avec l'option psc
+\date{Le 3 mars 2015}
+
+\begin{document}
+
+%\titrelong%%une page complète
+\titrecourt %titre plus court, typiquement pour les fiches
+
+\section{Objectifs}
+
+Durée de la réunion : une grosse heure (entre 15h et 16h).
+
+Le but était de savoir ce qu'on allait faire sur la partie workspace.
+
+
+\section{Workspace}
+
+Le parsing syntaxique de Systran contient un très grand nombre d'informations : de nombreux liens entre les concepts et les entités, notamment. En revanche, il souffre de quelques insuffisances grammaticales notamment sur les prépositions (Guillaume, si tu veux rajouter ici un exemple...).
+
+La structure du workspace reprend dans un premier temps celle issue de ce fameux parsing. Le workspace contient un certain nombre d'entités (sujets). Ces entités effectuent des actions ou changent d'état. On gère aussi les variables de temps. Des prépositions relient les entités entre elles.
+
+La construction de ce workspace préliminaire se fait par un parsing python, directement à partir des fichiers de Systran. Le workspace est une instance de la classe Workspace qui hérite de la classe Network, qui fait appel à networkx. On peut redéfinir les méthodes de création de n\oe uds, etc, en demandant en paramètre exactement ce dont on a besoin.
+
+\section{Traitement du workspace}
+
+Le traitement du workspace ainsi bâti se fait ensuite avec les workers.
+
+Le point central est la reconnaissance d'entités. En effet, les phrases disposent chacune de leurs entités distinctes et il faut les relier. Il y a en fait deux volets :
+\begin{itemize}
+ \item La reco de pronoms ;
+ \item La reco de noms ou de périphrases.
+\end{itemize}
+
+La reco de périphrases vise, d'une phrase à l'autre ou d'une proposition à l'autre, à partir de deux choses catégorisées comme sujets (ex : Aston Martin et Car), à faire le lien entre les deux. Le RC est l'outil approprié dans ce cas.
+
+La reco de pronoms va être un peu plus dure et ne peut pas faire intervenir le RC.
+
+\section{Et le résumé dans tout ça ?}
+
+La reconnaissance d'entités permet de réduire l'ampleur du workspace, et de se concentrer sur les entités qui font effectivement des trucs, qui apparaissent souvent etc. On n'a pas encore parlé de l'activation du RC à ce moment. Il peut donc être opportun de la faire intervenir ici, en même temps que des considérations sur le nombre maximum d'entités à garder dans le résumé, et sur le nombre de trucs à garder sur chaque entité.
+
+À la fin, le workspace est élagué en conséquence, et on obtient un résumé sous forme de graphe.
+
+ 
+\section{Prospectives}
+URGENT : le parsing de Systran et la transformation en embryon de workspace.
+(Antonin, Théophane, Guillaume).
+
+Relier des sujets entre eux à l'aide du RC (André).
+
+
+ 
+\end{document}
+
+
+
