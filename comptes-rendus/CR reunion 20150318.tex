@@ -1,0 +1,48 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}%%seul package à charger : pour éviter les problèmes sordides d'encodage
+\usepackage[fiche,psc]{andre}%%bon eh bien sûr...
+%%fiche, psc pour faire une fiche
+%%rapport, psc pour faire un rapport
+%%pour insérer du code : \langage{java} , puis \begin{lstlisting} \end{lstlisting}
+%%pour insérer des guillemets : \eg \og
+
+\title{Réunion du 18 mars 2015}
+\author{\membres} %%\membres uniquement avec l'option psc
+\date{Le 18 mars 2015}
+
+\begin{document}
+
+%\titrelong%%une page complète
+\titrecourt %titre plus court, typiquement pour les fiches
+
+\section{Déroulé}
+
+Antonin subit assez gravement la construction du workspace parce qu'il n'est pas sûr de ce qu'il veut ajouter.
+
+Sarah n'est pas sûre de ce qu'elle doit faire.
+
+\section{Recherche d'entités}
+
+Avec pronom : recherche flemmarde, au plus près.
+Tu remontes doucement. Matcher le genre pronom/nom.
+
+Information sujet-objet : vient du parsing des fichiers de crego, permet de matcher les pronoms.
+
+Important : crego to json. Puis json to workspace.
+
+Guillaume : crego to json. Plus simple pour le parsing.
+Antonin : json to workspace avec Théo, car il subit beaucoup trop. Il faut regrouper les groupes nominaux.
+
+pipeline découplé, c'est un mot qui fait peur (en deux mots).
+
+Sarah fait un wrapper autour du workspace, basé sur Network.
+
+André : reco pronoms. À partir de Crego : phrases, références.
+Réimplémenter une technique simple, sauf si c'est trop compliqué.
+
+
+
+\end{document}
+
+
+
