@@ -1,0 +1,69 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}%%seul package à charger : pour éviter les problèmes sordides d'encodage
+\usepackage[fiche,psc]{andre}%%bon eh bien sûr...
+%%fiche, psc pour faire une fiche
+%%rapport, psc pour faire un rapport
+%%pour insérer du code : \langage{java} , puis \begin{lstlisting} \end{lstlisting}
+%%pour insérer des guillemets : \eg \og
+
+\title{Fiche résolution de pronoms}
+\author{André} %%\membres uniquement avec l'option psc
+\date{aujourd'hui}
+
+\begin{document}
+
+%\titrelong%%une page complète
+\titrecourt %titre plus court, typiquement pour les fiches
+
+Le but de la résolution de pronoms est, étant donné une phrase qui peut être par exemple :
+
+\begin{quotation}
+ Sepp_+_Blatter is the favourite to win a Fifa race he vowed he would not stand for.
+\end{quotation}
+Rapporter chaque pronom à un groupe nominal. Ici, les deux pronoms que l'on repère ("he") se rapportent à Sepp Blatter.
+
+Nous disposons pour nous aider des données fournies par le parser de Systran. En voici une liste non exhaustive :
+\begin{itemize}
+ \item POS
+ \item Type de chaque mot : nom propre, acronyme, verbe, auxiliaire, préposition...
+ \item Différentes liens entre les mots : adjectif relié à un nom, article...
+\end{itemize}
+
+
+\subsection{Étape 1}
+On commence par trouver l'ensemble des groupes nominaux. Nous avons deux choix :
+\begin{itemize}
+ \item Ou bien les trouver tous ;
+ \item Ou bien se limiter d'emblée à ceux qui ont leurs chances.
+\end{itemize}
+Nous prenons le deuxième choix : le parser de Systran nous indique en particulier, étant donné un mot, s'il est objet ou sujet d'un verbe. Nous considérons donc, dans un premier temps, que les noms concernés sont les noms principaux et que tous 
+les groupes nominaux qui nous intéressent se construisent autour d'eux.
+
+Problème : Le parser de Systran tokenize mal et en particulier, ne reconnaît pas aussi bien les noms propres qu'on aimerait. (Nous le faisons mieux !) Donc certains plantages alors que ce sont des données importantes. Possibilité de recouper ? De se débrouiller avec des données partielles ?
+
+\subsection{Étape 2}
+On prend maintenant l'ensemble des pronoms.
+
+Pour un pronom situé à une position donnée, les groupes nominaux potentiels font l'objet d'un classement, relatif à un score, que nous calculons de la manière suivante :
+
+\begin{itemize}
+ \item Un candidat a le droit d'être situé dans une phrase précédente (sous une limite fixée à 1 ou 2). Plus il est éloigné du pronom, plus son score diminue. S'il est après le pronom, son score diminue drastiquement (voire $-\infty$).
+ \item Le candidat doit vérifier certaines correspondances avec le pronom : en particulier, il doit avoir le même genre et le même nombre. Si c'est vérifié, le score augmente. Sinon, le score diminue. Cette information n'est pas tout le temps disponible. En revanche, on sait parfois si le groupe nominal concerné (son nom principal) est un humain ou non.
+ \item On a parfois (notamment avec le pronom "that") de manière directe l'information de l'antécédent. L'antécédent désigné gagne alors un score énorme (voire $+\infty$, mais le parser de Systran n'est pas infaillible).
+ \item Un GN qui apparaît au début d'une phrase doit, quels que soient les pronoms, avoir un meilleur score.
+ \item Un Gn répété gagne également en score.
+ \item Un GN précédé d'une préposition perd en score.
+ \item Un GN sujet gagne en score, et un GN objet perd en score. 
+ \item Un GN comportant un article indéfini perd en score.
+ \item Un GN comportant un nom propre gagne en score.
+\end{itemize}
+
+Ces différentes exigences satisfont à un impératif de simplicité. On cherche ensuite à balancer le mieux possible les augmentations/diminutions de score afin de maximiser la pertinence des résultats.
+
+Nous nous inspirons pour cette méthode de "<Robust pronoun resolution with limited knowledge">, pour sa simplicité et son adaptabilité quant aux données dont nous disposons.
+
+
+\end{document}
+
+
+
