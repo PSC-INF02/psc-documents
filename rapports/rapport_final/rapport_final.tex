@@ -46,12 +46,14 @@
 \subsection{Notre sujet}
 
 \subsubsection{But du projet}
+%reprise textuelle
 
-Le but de notre projet est de produire un programme capable d'analyser sémantiquement\index{Analyse sémantique} un texte ayant pour sujet le sport (et plus particulièrement encore le football) de façon à en produire un résumé. Il s'agit là d'une véritable innovation par rapport à l'état actuel du résumé automatique, dans la mesure où les programmes existants se basent prioritairement sur une analyse statistique plus ou moins poussée de fréquence d'apparition des mots pour juger de leur importance~; notre programme s'appuierait plutôt sur le sens pour juger de la pertinence d'un concept et savoir s'il doit le faire figurer ou non dans le résumé final.
+Le but de notre projet était de produire un programme capable d'analyser sémantiquement\index{Analyse sémantique} un texte ayant pour sujet le sport (et plus particulièrement encore le football) de façon à en produire un résumé. Il s'agit là d'une véritable innovation par rapport à l'état actuel du résumé automatique, dans la mesure où les programmes existants se basent prioritairement sur une analyse statistique plus ou moins poussée de fréquence d'apparition des mots pour juger de leur importance~; notre programme s'appuierait plutôt sur le sens pour juger de la pertinence d'un concept et savoir s'il doit le faire figurer ou non dans le résumé final.
 
-Dans l'état actuel des choses, nous n'espérons pas produire un programme utilisable dans l'industrie ou plus efficace que ceux déjà existants~; nous pensons en revanche que cette autre manière d'aborder le résumé automatique est plus viable, dans la mesure où elle analyse plus directement que par la méthode statistique.
 
 \subsubsection{Modules du projet et répartition du travail}
+%%reprise textuelle
+
 Pour atteindre cet objectif, plusieurs modules assez indépendants ont pu être identifiés et traités séparément~:
 
 \begin{description}
@@ -59,28 +61,30 @@ Pour atteindre cet objectif, plusieurs modules assez indépendants ont pu être 
 	\item[Création du réseau de concepts] et remplissage de celui-ci. Il s'agissait ici d'une part de définir sa structure et d'autre part d'y introduire les données nécessaires. Responsables~: André Schrottenloher, Guillaume Boisseau.
 	\item[Analyse syntaxique] à l'aide d'outil existants. Il s'agissait de trouver une grammaire capable d'analyser une phrase et d'en faire ressortir les relations de type verbe-objet ou nom-qualificatif. Responsables~: Antonin Angibault, Théophane Hufschmitt, Sarah Fernandes-Pinto-Fachada.
 	\item[Réflexion] sur l'utilisation du réseau de concepts et de l'analyse grammaticale pour produire un réseau capable de rendre compte de la compréhension du texte. Responsables~: tous.
-	\item[Implémentation] d'un algorithme simple de résumé stastique (basé sur l'algorithme TF-IDF), devant servir de base de comparaison pour tester la qualité des résumés produits par notre algorithme.  Responsable~: Zhixing Cao.
+	\item[Implémentation] d'un algorithme simple de résumé statistique (basé sur l'algorithme TF-IDF), devant servir de base de comparaison pour tester la qualité des résumés produits par notre algorithme.  Responsable~: Zhixing Cao.
 \end{description}
 
 \subsubsection{Outils extérieurs utilisés}
 
-Le volume de travail représenté par la création et l'utilisation du réseau de concepts\index{Réseau de concepts} est tel que nous nous appuyons sur un certain nombre d'outils pour traiter le texte en amont de notre résumé. La construction du réseau s'appuie, elle aussi, sur des bases de connaissances déjà existantes (et libres) dont voici la liste~:
+Nous reviendrons sur ces outils et détaillerons au fur et à mesure du rapport.
 
 \begin{itemize}
 	\item[WordNet~: ]Dictionnaire permettant d'obtenir la classe grammaticale des mots présents dans le réseau.
 	\item[Conceptnet~: ]Grande base de connaissances permettant d'établir la proximité conceptuelle entre différents termes du réseau.
 	\item[Freebase~: ]Cette base de connaissances très étendue permet d'identifier les noms propres, par exemple des joueurs de football ou différents stades.
 	\item[Natural Language ToolKit (\pyt{nltk})~: ]Divers outils grammaticaux pour l'étude du langage naturel.
+	\item Un analyseur syntaxique dont les résultats nous ont été fournis par Systran.
 \end{itemize}
 
 
 
-\section{Avancement du projet}
+\section{Sources de données et traitement de celles-ci}
 
-Le groupe a essentiellement travaillé sur la récupération de données pour la création du réseau de concepts et l'utilisation de TF-IDF, ainsi que sur la mise en place de ce réseau. Cette section décrit d'une part les sources de données que nous avons employées, et d'autre part la structure et la construction du réseau de concepts.
+\subsection{Résumé}
 
-\subsection{Sources de données}
+Les données occupent une place essentielle dans notre projet et elles ont revêtu différentes formes.
 
+%%reprise textuelle
 Nous utilisons deux sources de données~: des données brutes, sous forme de langage naturel (textes d'articles écrits en anglais), et des données déjà travaillées, le plus souvent mises sous la forme de graphe sémantique.\index{Graphe sémantique}
 
 \begin{definition}[Graphe sémantique]
@@ -88,11 +92,12 @@ En première approximation, nous faisons renvoyer la notion de graphe sémantiqu
 \end{definition}
 
 
-\subsubsection{Données textuelles brutes}
+\subsection{Données textuelles brutes}
 
-Nous récupérons automatiquement des données sur différents sites internet et flux rss, en moyenne 400 articles de sports par jour.
+Nous avons récupéré automatiquement des données sur différents sites internet et flux rss, en moyenne 400 articles de sports par jour ; ce qui représentait à la fin du projet plus de 30~000 articles.
 
-Ces données vont servir à différents niveaux~:
+%%reprise textuelle
+Ces données servent à différents niveaux~:
 \begin{itemize}
  \item Dans la création du réseau de concepts (partie suivante)~;
  \item Dans la production de résumés automatiques.
@@ -100,9 +105,10 @@ Ces données vont servir à différents niveaux~:
 
 
 
-\subsubsection{Traitement de données textuelles}
+\subsection{Traitement de données textuelles}
+%%reprise textuelle
 
-Les mots présents dans les articles, pour être relié à leur signification et décorrélés de leur rôle grammatical, doivent être mis sous forme normale.
+Les mots présents dans les articles, pour être reliés à leur signification et décorrélés de leur rôle grammatical, doivent être mis sous forme normale.
 
 \begin{definition}[Forme normale]
 La forme normale d'un mot\index{Forme normale} est tout simplement celle qu'il a lorsqu'on le recherche dans le dictionnaire, par exemple~:
@@ -122,7 +128,7 @@ Le Part-of-speech tagger\index{Part-of-speech tagger}, abrégé en POS, est un p
 Par le terme de concept\index{Concept}, qui sera constamment réutilisé par la suite, nous entendons : un mot (adjectif, verbe, nom, nom propre, adverbe) ou un ensemble de mots exprimant une unité sémantique et que l'on peut définir. Par exemple, "football" est un concept, tandis que "if" pour nous n'en est pas un.
 \end{definition}
 
-\`A partir d'articles consacrés au sport (texte brut), les manipulations suivantes permettent de récupérer les noms propres et les concepts sous forme normale~:
+\`A partir d'articles consacrés au sport (texte brut), les manipulations suivantes permettent de récupérer les noms propres et les concepts sous forme normale\index{forme normale}~:
 \begin{itemize}
  \item Découpage du texte en phrases et en mots (\textit{tokens})~;
  \item Utilisation d'un POS, celui de \pyt{nltk}\index{Natural Language ToolKit} par défaut~;
@@ -133,24 +139,41 @@ Par le terme de concept\index{Concept}, qui sera constamment réutilisé par la 
  \item Nous ne sommes pas à l'abri d'erreurs liées à l'une des étapes. De manière générale, un concept qui apparaît au moins deux fois dans l'ensemble du corpus considéré peut être considéré comme valide.
 \end{itemize}
 
+Les noms propres mis à part, nous parvenons à en extraire les noms complets. Dans un texte comme ceux que nous étudions, le nom complet (nom et prénom) n'est souvent mentionné qu'une seule fois, et il faut repérer sans faire d'erreur que le nom propre utilisé seul par la suite renvoie à la même personne.
 
-\subsubsection{WordNet}
+La récupération des noms propres et concepts sous forme normale permet de nous constituer des listes de termes relatifs au sport. La figure \ref{fig:conceptsnoms} donne une idée de l'évolution de la taille de ces données. Nous n'avons jamais espéré une exhaustivité, mais il est clair que la croissance observée vers la fin peut être imputée en majeure partie aux données parasites (mots mal orthographiés, erreurs de lecture) et que nous avons, pour ainsi dire, fait le tour du sujet.
+
+
+ \begin{figure}[h]
+ \centering
+ \includegraphics[width=16cm]{./conceptsnoms.eps}
+ % conceptsnoms.eps: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=0 0 653 354
+ \caption{Évolution en fonction du temps du nombre total de concepts et de noms propres tirés des articles}
+ \label{fig:conceptsnoms}
+\end{figure}
+
+
+
+\subsection{WordNet}
+%%reprise textuelle
 
 WordNet est une base de données lexicale pour l'anglais, produite par l'université de Princeton.
 
 Nous l'utilisons à travers son interface \pyt{nltk}, pour récupérer des informations sur les mots et les mettre sous forme normale.
 
 
-\subsubsection{Conceptnet5}
+\subsection{Conceptnet5}
+%%reprise textuelle
 
 Conceptnet (\href{http://conceptnet5.media.mit.edu/}{leur site}) est un projet libre de réseau sémantique représentant des connaissances usuelles, aussi bien de la vie de tous les jours que culturelles et scientifiques. Il fait partie du \ang{Commonsense Computing Initiative} qui relie différents laboratoires, dont le MIT Media Lab, et entreprises.
 
-Il est important de noter que Conceptnet5 est généré à partir de données brutes. Conceptnet5 est relié à DBPedia, une grande partie de ses connaissances provient de Wiktionary, une partie de WordNet.
+Il est important de noter que Conceptnet5\index{Concepnet5} est généré à partir de données brutes. Conceptnet5 est relié à DBPedia, une grande partie de ses connaissances provient de Wiktionary, une partie de WordNet.
 
 Nous avons utilisé une partie de code source provenant de \href{https://github.com/commonsense/conceptnet5}{<github>}.
 
 
-\subsubsection{Structure de Conceptnet5}
+\subsection{Structure de Conceptnet5}
+%%reprise textuelle
 
 Conceptnet5\index{Conceptnet5} est un graphe sémantique\index{Graphe sémantique} contenant de l'ordre du million de nœuds et d'ar\^etes.
 
@@ -189,7 +212,8 @@ La correspondance entre relations de WordNet et de Conceptnet est par exemple~:
 
 Nous avons décidé après coup de conserver ces relations dans le réseau de concepts, et d'en utiliser un sous-ensemble. En effet, elles nous paraissent bien adaptées pour exprimer l'information que nous souhaitons voir contenue dans ce réseau.
 
-\subsubsection{Détail de l'API (\ang{Application's Programmer Interface})}
+\subsection{Détail de l'API (\ang{Application's Programmer Interface})}
+%%reprise textuelle
 
 Nous pouvons faire un certain nombre de requêtes à Conceptnet5. Il existe trois types différents de requêtes~:
 \begin{itemize}
@@ -204,7 +228,8 @@ Search permet de récupérer une liste d'arêtes (\ang{edges}) entre concepts, s
 Lookup permet d'analyser un concept (on aura par exemple accès à des listes d'arêtes dans lequel il intervient).
 
 
-\subsubsection{Utilisation de Conceptnet5}
+\subsection{Utilisation de Conceptnet5}
+%%reprise textuelle
 
 Nous utilisons en majorité Association et Search.
 
@@ -212,22 +237,32 @@ Nous utilisons en majorité Association et Search.
 
 Nous ajoutons alors une arête SimilarTo.
 
-\subsubsection{Freebase}
+\subsection{Freebase}
+%%reprise textuelle
 
 Freebase\index{Freebase} est une immense base de données sémantiques qui contient beaucoup d'informations, sur des noms propres notamment. Le projet, repris par Google mais sous une licence qui laisse les données libres d'accès, de téléchargement et d'utilisation, a lui aussi une API, un peu plus complexe que celle de Conceptnet5. Freebase permet notamment de récupérer des informations sur une personne à partir de son nom, et à peu de frais, de vérifier que cette personne existe bel et bien.
 
 
-\subsection{Réseau de concepts}
+\section{Réseau de concepts}
 
-\subsubsection{Structure du réseau de concepts}
+\subsection{Cahier des charges}
+
+Le réseau de concepts\index{Réseau de concepts} est la ``mémoire à long terme'' de notre programme. L'objectif est de disposer d'une représentation souple (sous forme de graphe sémantique) de données conceptuelles qui puissent ensuite être utilisées à mieux comprendre le texte lu.
+
+Étant donné un concept (par exemple \verb|Wayne Rooney|), à quels autres concepts est-il relié et par quelles relations ? Il est essentiel, lorsque le texte ne contient pas suffisamment d'informations ou qu'elles ne sont pas exploitables (on n'a pas toujours "vu" à la lecture que Wayne Rooney était un nom propre ou un humain, par exemple), d'insérer ce type de données au cœur du processus de lecture. C'est pourquoi nous avons besoin du réseau de concepts.
+
+D'autre part, nous pouvons exiger du résumé qu'il contienne une information explicite que le texte avait sous-entendu ; par exemple, que Wayne Rooney est un joueur de football. Le réseau devra donc contenir \verb|Wayne Rooney -> isA -> Soccer player|.
+
+Ses prérogatives ont évolué au cours de notre projet. Au début, nous pensions faire reposer une plus grande partie de l'activité de résumé du texte sur lui (notamment par le processus d'activation et le repérage des nœuds activés), alors que celle-ci s'est dirigée ensuite sur le workspace\index{Workspace}.
+
+
+\subsection{Structure du réseau de concepts}
 
 \begin{definition}[Réseau de concepts]
-Le réseau de concepts\index{Réseau de concepts} est la ``mémoire à long terme'' de notre programme.
-
-Ce réseau est au carrefour entre les réseaux sémantiques\index{Graphe sémantique} et les réseaux de neurones. Les nœuds du réseau peuvent être vus comme représentant les concepts\index{Concept}. On peut aussi considérer que les concepts émergent à partir de groupes de n\oe{}uds fortement interconnectés. Le réseau de concepts est dynamique~; les nœuds évoluent au cours du temps, lors de l'utilisation du programme.
+Ce réseau est au carrefour entre les réseaux sémantiques\index{Graphe sémantique} et les réseaux de neurones. Les nœuds du réseau peuvent être vus comme représentant les concepts\index{Concept}.
 \end{definition}
 
-
+%%reprise textuelle
 Le Réseau est constitué de n\oe{}uds. Chaque n\oe{}ud comporte~:
 \begin{itemize}
   \item Une étiquette (mot) nommée concept\index{Concept}~;
@@ -239,110 +274,152 @@ Le Réseau est constitué de n\oe{}uds. Chaque n\oe{}ud comporte~:
 Chaque lien comporte~:
 \begin{itemize}
  \item Une proximité conceptuelle\index{Proximité conceptuelle} (ou poids w)~;
- \item Une relation\index{Relation} qui le caractérise.
+ \item Une relation\index{Relation} qui le caractérise, prise sur le modèle de Conceptnet5\index{Conceptnet5}.
 \end{itemize}
 
-L'intérêt du réseau de concepts est qu'il évolue. En première approximation, la lecture d'un texte active un certain nombre de nœuds du réseau, lesquels propagent cette activation à leurs voisins, et ainsi de suite. L'utilisation du réseau de concepts fait notamment intervenir une variable de temps.
+Le réseau de concepts est dynamique. Il évolue au cours de la lecture du texte, notamment par un processus d'activation des n\oe uds. L'écoulement du temps est donc une donnée importante.
 
-La connaissance du réseau de concept se comprend comme suit : étant donné un concept (par exemple \verb|Wayne Rooney|), que peut m'évoquer ce concept ? À quoi est-il relié et de quelle manière ? Nous attendons du réseau qu'il "sache" que \verb|Wayne Rooney| est un joueur de football, et par conséquent, qu'il contienne l'information \verb|Wayne Rooney -> isA -> Soccer player|.
+L'activation d'un mot (provoquée par exemple par sa lecture dans un texte) est propagée à tous les n\oe uds voisins, selon un processus décrit dans la partie [].
 
-\subsubsection{Construction du réseau}
 
-Étant donné que le réseau de concepts apporte de l'information pour mieux lire le texte, il nous faut la trouver quelque part. Nous avons eu recours à toutes les sources de données précitées. Nous présentons le premier essai grandeur nature de la construction du réseau. Celui-ci, rappelons-le, est censé contenir des données relatives au sport. Chaque concept (joueur de football, mais aussi terme courant comme ``win'', ``loose'') y porte une certaine importance conceptuelle, une activation qui est modifiée selon la lecture du texte, et est relié à d'autres concepts par des liens dotés d'un poids (plus celui-ci est élevé, plus le premier concept est susceptible de \textit{faire penser} au deuxième) et d'une relation sur le modèle de Conceptnet5 (RelatedTo, MemberOf, etc).
+
+\subsection{Construction du réseau}
+%%reprise textuelle
+
+Étant donné que le réseau de concepts apporte de l'information pour mieux lire le texte, il nous faut la trouver quelque part. Nous avons eu recours à toutes les sources de données précitées. Nous présentons le dernier essai grandeur nature de la construction du réseau. Celui-ci, rappelons-le, est censé contenir des données relatives au sport. Chaque concept (joueur de football, mais aussi terme courant comme ``win'', ``loose'') y porte une certaine importance conceptuelle, une activation qui est modifiée selon la lecture du texte, et est relié à d'autres concepts par des liens dotés d'un poids (plus celui-ci est élevé, plus le premier concept est susceptible de \textit{faire penser} au deuxième) et d'une relation sur le modèle de Conceptnet5 (RelatedTo, MemberOf, etc).
 
 
 \paragraph{Récupération de concepts et de noms}
 
-Nous analysons un certain nombre d'articles, ici 3043 issus de 7 flux rss différents sur 16 jours.
+Nous analysons un certain nombre d'articles, ici 17~000 issus de 7 flux rss différents sur 89 jours.
 
-Nous utilisons en partie les \ang{tokenizers} de \pyt{nltk}, et nous complétons si besoin (en particulier, ceux-ci n'étaient pas adaptés à certains détails techniques liés aux données récupérées).
+
+Nous avons écrit des \ang{tokenizers} adaptés aux contraintes techniques et erreurs d'écriture des données récupérées, qui viennent compléter ceux fournis par \pyt{nltk}.
 
 Pour récupérer les noms propres, nous repérons à l'intérieur d'un article les mots marqués comme noms propres par le POS-tagger\index{Part-of-speech tagger} de \pyt{nltk}. Puis nous concaténons deux noms propres successifs. Enfin, nous retirons de la liste des noms propres ceux qui sont contenus à l'intérieur d'autres. Cette étape, largement sous-estimée au début, est cruciale puisqu'elle évite de considérer ``< nom + prénom >'' et ``<prénom>'' comme deux personnes différentes.
 
-Nous comptons aussi la fréquence d'apparition de chaque concept. On obtient 9744 noms et environ 12700 concepts, ce qui est très raisonnable.
+Nous comptons aussi la fréquence d'apparition de chaque nom et de chaque concept. 
+On obtient 32~702 concepts et 35~488 noms. En réalité, un tiers d'entre eux sont des mots qui n'apparaissent qu'une seule fois, contenant par exemple des fautes d'orthographe, des néologismes ou résultant d'erreurs de notre part. On obtient par exemple :
+\begin{verbatim}
+["aaron cresswell", 78]
+["aaron creswell", 1]
+\end{verbatim}
+Ce qui suggère que dans l'un des articles trouvés, quelqu'un a commis une erreur sur le nom \verb|cresswell|. Nous éliminons donc les mots qui n'apparaissent qu'une fois. Cela nous laisse 27~070 concepts.
 
 \paragraph{Traitement des noms avec Freebase}
 
-Nous n'utilisons pour l'instant l'API Freebase que de fa\c{c}on très superficielle. Chaque nom propre donne lieu à une requête. Si celle-ci aboutit, on analyse le résultat et si celui-ci comporte une donnée (exemple~: à l'envoi de \verb|"scott_jamieson"|, on récupère \verb|"soccer_midfielder"|), on ajoute un nouveau nœud correspondant au réseau, et une arête ``<IsA>'' dont le poids dépend du résultat de la requête.
+Nous n'utilisons l'API Freebase que de fa\c{c}on assez simple. Chaque nom propre donne lieu à une requête. Si celle-ci aboutit, on analyse le résultat et si celui-ci comporte une donnée (exemple~: à l'envoi de \verb|"scott_jamieson"|, on récupère \verb|"soccer_midfielder"|), on ajoute un nouveau nœud correspondant au réseau, et une arête ``<IsA>'' dont le poids dépend du résultat de la requête.
 
-Dans notre exemple, 676 noms seront rejetés par Freebase~: c'étaient donc des résultats erronés de la première étape.
-
-Environ 7500 nœuds sont créés dans le réseau.
+L'importance conceptuelle d'un nom est prise comme importante, par défaut.
 
 \paragraph{Traitement des concepts avec Conceptnet5}
 
-Pour chaque concept dans la liste, on envoie deux requêtes~: l'une vise à trouver des arêtes qui partent de lui (Search), l'autre à trouver des concepts proches (Association).
+Chaque nouveau concept donne lieu à une requête de type Lookup. Nous sélectionnons parmi les résultats les informations les plus pertinentes (en terme de poids, mais aussi en fonction des relations, que nous ne gardons pas toutes~: par exemple, RelatedTo n'est pas une relation très pertinente, alors que IsA est souvent pertinente).
 
-En l'absence de résultat, le concept ne sera pas ajouté au réseau.
+L'importance conceptuelle allouée à un nouveau n\oe ud dépend pour beaucoup de sa fréquence d'apparition dans les articles.
 
-Dans le cas contraire, de nouvelles arêtes sont créées. Leurs poids dépendent des résultats des requêtes. Pour la requête Association, nous mettons une relation ``<SimilarTo>''.
-
-L'importance conceptuelle d'un nouveau nœud dépend essentiellement de son nombre d'apparitions dans les articles. D'autres possibilités sont envisageables (nombre de synonymes trouvés avec WordNet, par exemple, ou nombre de sens différents : plus un mots a de sens, plus il est conceptuel).\\
-
-Dans notre exemple, sur les 12700 concepts, 4800 ne donnent lieu à aucun résultat. Cela peut paraître beaucoup~; en réalité, quand on regarde de plus près la ``<liste noire>'' (que nous stockons), on a par exemple~:``reimagining'', ``money-grabbers'', ``whoscored'', ``impeccable'', ``amateurish'', ``dawkins'', ``rat-a-tat'', ``petered'', ``real-politik'', ``re-tweet'', ``throwing''.
-
-Ce sont des mots composés pour certains, pour d'autres, des mots tout à fait compréhensibles mais qui ont dû être considérés à tort comme des noms propres (respectivement, comme des noms communs).
-
-Cette liste pourra bien sûr donner lieu à une analyse plus fine (nouvelles requêtes Freebase, Concepnet).
-
-\`A ce stade, notre réseau possède 24000 nœuds environ, ce qui reste modique.
 
 \paragraph{Extension des nœuds du réseau}
 
-Nous envisageons maintenant, par de nouvelles requêtes, d'étendre les nœuds que nous venons de créer. Le but est que le réseau soit au mieux interconnecté, or de nombreux nœuds résultant des requêtes précédentes ne pointent vers aucun nœud.
+Pour étendre les n\oe uds du réseau, nous sommes souvent amenés à chercher des liens partant d'un n\oe ud donné. Cela est effectué avec des recherches Search. Nous pouvons aussi effectuer des requêtes Association (bien que beaucoup plus lentes) afin d'induire de nouveaux liens avec des concepts similaires.
 
-D'autres opérations sont possibles.
 
-Nous regardons 5000 de ces nœuds faiblement connectés. Après requêtes, 2300 sont reliés au réseau. (Cette étape a été particulièrement lente).
 
 \paragraph{Suppression des nœuds inutiles}
-
+%%reprise textuelle
 Malgré les nombreux paramètres servant à filtrer, les requêtes n'ont pas donné des résultats toujours pertinents. Nous choisissons de retirer du réseau les nœuds faiblement reliés (un seul voisin). Ceux-ci seront de toute fa\c{c}on peu utiles lors de la propagation de l'activation.
 
-\`A  ce stade, le réseau comporte 24000 nœuds et 35000 arêtes. Après nettoyage, il reste 17500 nœuds et 29000 arêtes.
 
-Nous disposons maintenant d'un réseau utilisable (en théorie).
+\subsection{Exemple de réseau de concepts}
 
-\subsubsection{Premiers tests avec ce réseau}
+Nous prenons l'exemple du dernier réseau de concepts que nous avons généré.
 
-Pour chaque test, nous activons un nœud et laissons l'activation se propager à ses successeurs au cours du temps (sans désactivation). \`A chaque étape (nouvel instant) se produit un calcul d'activation.
+\paragraph{Étape 1 : premières requêtes}
 
-\begin{itemize}
- \item \verb|"manchester", 60|
- \begin{verbatim}
-  [...]
-  Time=10
-  comic_book_character : 1 ; furniture : 4
-  house : 5 ; manchester : 60
-  object : 9 ; place : 11
-  thing : 6 ; desk : 4
-  location : 21 ; loft : 3
- \end{verbatim}
-\item \verb|"francis_lastic", 60|
-\begin{verbatim}
-  [...]
-  Time=5
-  coach : 23 ; francis_lastic : 60
-\end{verbatim}
-\item \verb|"ball_sport", 60|
-\begin{verbatim}
-  [...]
-  Time=10
-  ball_sport : 60 ; team_sport : 40
-  basketball : 40 ; interest : 7
-  football : 40
-\end{verbatim}
-\end{itemize}
+Les requêtes Freebase liées aux noms propres créent 10405 n\oe uds dans le réseau, ainsi que 8255 arêtes.
 
-\subsubsection{Choix de programmation et prospectives}
+On lance immédiatement des requêtes Search correspondant à tous les n\oe uds du réseau sur Conceptnet5, afin d'acquérir plus d'information : on passe alors à 14103 n\oe uds et 28393 arêtes.
 
+On Lookup sur l'ensemble des concepts trouvés dans les articles (27070), on passe alors à 35780 n\oe uds et 56942 arêtes. Pour le moment, 18762 n\oe uds sont certains d'être conservés (ce sont des résultats primaires de requêtes positives).
+
+On étend alors l'ensemble des n\oe uds encore litigieux (17018), en essayant de créer des liens vers des n\oe uds déjà existants, augmentant ainsi la connectivité du réseau. On passe à 76497 arêtes.
+
+On regarde quels n\oe uds sont bien reliés à leur voisins, après cette opération. Au total, 28583 n\oe uds semblent prometteurs.
+
+On supprime les autres n\oe uds. On obtient un réseau avec 28583 n\oe uds et 69307 arêtes.
+
+
+
+\subsection{Choix de programmation du réseau de concepts}
+
+%%reprise textuelle
 Nous avons d'abord cru que l'utilisation massive de requêtes donnerait des contraintes de temps importantes à nos programmes. C'est en réalité une erreur. La parallélisation des requêtes, que nous avons commencé à effectuer, permet un gain de temps exceptionnel et va nous conduire dans les prochaines semaines à améliorer considérablement le temps d'exécution.
 
-Le réseau est pour le moment enregistré sous forme de JSON Stream\index{JSON Stream}, un type de données repris à Conceptnet5. Le nombre de nœuds étant resté raisonnable, nous n'avons pas eu à abandonner prématurément le package \pyt{networkx} qui nous permet de le représenter en mémoire.
+Le réseau est enregistré sous forme de JSON Stream\index{JSON Stream}, un type de données repris à Conceptnet5. Le nombre de nœuds étant resté raisonnable, nous n'avons pas eu à abandonner prématurément le package \pyt{networkx} qui nous permet de le représenter en mémoire.
 
-Cependant, nous envisageons de passer à une base de données.
+%Cependant, nous envisageons de passer à une base de données.
 
-Enfin, nous nous orientons maintenant vers des fonctions permettant de construire incrémentalement le réseau, donc d'ajouter les nouveaux concepts et noms propres au fur et à mesure qu'ils sont lus dans les articles (notre but initial était naturellement de construire un réseau ``<de base>'').
+%Enfin, nous nous orientons maintenant vers des fonctions permettant de construire incrémentalement le réseau, donc d'ajouter les nouveaux concepts et noms propres au fur et à mesure qu'ils sont lus dans les articles (notre but initial était naturellement de construire un réseau ``<de base>'').
+
+
+\section{À intégrer}
+
+\subsection{Résolution de pronoms}
+
+Le but de la résolution de pronoms\index{Résolution de pronoms} est, étant donné une phrase qui peut être par exemple :
+
+\begin{verbatim}
+ Sepp_+_Blatter is the favourite to win a Fifa race he vowed he would not stand for.
+\end{verbatim}
+de rapporter chaque pronom à un groupe nominal. Ici, les deux pronoms que l'on repère ("he") se rapportent évidemment à \verb|Sepp_+_Blatter|.
+
+Nous disposons pour nous aider des données fournies par l'analyseur syntaxique de Systran. En voici une liste non exhaustive :
+\begin{itemize}
+ \item POS\index{Part-of-speech}
+ \item Type grammatical de chaque mot : nom propre, acronyme, verbe, auxiliaire, préposition...
+ \item Différents liens entre les mots : adjectif relié à un nom, article...
+\end{itemize}
+
+
+\subsubsection{Étape 1}
+On commence par trouver l'ensemble des groupes nominaux. Nous avons deux choix :
+\begin{itemize}
+ \item Ou bien les trouver tous ;
+ \item Ou bien se limiter d'emblée à ceux qui ont leurs chances.
+\end{itemize}
+
+Nous prenons d'abord le deuxième choix : l'analyseur de Systran nous indique en particulier, étant donné un mot, s'il est objet ou sujet d'un verbe. Nous considérons donc, dans un premier temps, que les noms concernés sont les noms principaux et que tous les groupes nominaux qui nous intéressent se construisent autour d'eux.
+
+Après expérience, nous avons étendu le "droit" de créer un groupe nominal à de simples compléments d'objet, constatant qu'ils apparaissaient eux aussi.
+
+
+\subsubsection{Étape 2}
+On considère maintenant l'ensemble des pronoms.
+
+Pour un pronom situé à une position donnée, les groupes nominaux\index{Groupe nominal} potentiels font l'objet d'un classement, relatif à un score, que nous calculons de la manière suivante :
+
+\begin{itemize}
+ \item Un candidat a le droit d'être situé dans une phrase précédente (sous une limite fixée à 2 ou 3). Plus il est éloigné du pronom, plus son score diminue. S'il est après le pronom, son score diminue drastiquement (voire $-\infty$).
+ \item Le candidat doit vérifier certaines correspondances avec le pronom : en particulier, il doit avoir le même genre et le même nombre. Si c'est vérifié, le score augmente. Sinon, le score diminue. Cette information n'est pas tout le temps disponible. En revanche, on sait parfois si le groupe nominal concerné (son nom principal) est un humain ou non.
+ \item On a parfois (notamment avec le pronom "that") de manière directe l'information de l'antécédent. L'antécédent désigné doit alors gagner un score énorme (voire $+\infty$, mais l'analyseur de Systran n'est pas infaillible).
+ \item Un groupe nominal qui apparaît au début d'une phrase doit, quels que soient les pronoms, avoir un meilleur score. Les noms propres apparaissent souvent au début de la phrase pour être ensuite rappelés par des pronoms, c'est d'ailleurs le cas dans l'exemple ci-dessus.
+ \item Un groupe nominal répété gagne également en score.
+ \item Un groupe nominal précédé d'une préposition perd en score.
+ \item Un groupe nominal sujet gagne en score, et un groupe objet perd en score. 
+ \item Un groupe nominal comportant un article indéfini perd en score.
+ \item Un groupe nominal comportant un nom propre gagne en score.
+\end{itemize}
+
+Ces différentes exigences satisfont à un impératif de simplicité. On cherche ensuite à balancer le mieux possible les augmentations/diminutions de score afin de maximiser la pertinence des résultats.
+
+Nous nous inspirons pour cette méthode de "<Robust pronoun resolution with limited knowledge">, pour sa simplicité et son adaptabilité quant aux données dont nous disposons.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%ù
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%ù
 
 \section{Traitement du réseau}
 
@@ -423,6 +500,8 @@ Le faible nombre de résumés que nous prévoyons de produire nous permettra d'u
 L'idée est la suivante~: l'un de nous résumera un texte, nous emploierons notre programme pour résumer le même texte, et enfin nous utiliserons un simple algorithme statistique (basé sur TF-IDF) pour résumer ce même texte. Nous comparerons ensuite ces résumés du point de vue de l'information qu'ils contiennent~: sont-ils des images assez fidèles du document original~?
 
 Compte-tenu de la simplicité de l'algorithme statistique, nous espérons que le résumé produit par notre programme se situera quelque part entre le résumé statistique et le résumé humain.
+
+
 
 \section{Références bibliographiques}
 

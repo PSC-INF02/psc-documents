@@ -12,3 +12,6 @@
 *.toc
 *.out
 *.snm
+*.ind
+*.ilg
+*.idx
