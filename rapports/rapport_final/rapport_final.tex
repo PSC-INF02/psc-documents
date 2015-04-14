@@ -277,21 +277,78 @@ Chaque lien comporte~:
  \item Une relation\index{Relation} qui le caractérise, prise sur le modèle de Conceptnet5\index{Conceptnet5}.
 \end{itemize}
 
+Ces différentes données numériques (proximité conceptuelle, activation, importance conceptuelle) sont normalisées entre $0$ et $100$.
+
+\begin{figure}[h]
+ \centering
+ \includegraphics[width=14cm]{./rc_exemple.png}
+ % rc_exemple.png: 812x612 pixel, 100dpi, 20.62x15.54 cm, bb=0 0 585 441
+ \caption{Exemple de réseau de concepts}
+ \label{fig:rc_exemple}
+\end{figure}
+
+\paragraph{}
+Sur l'exemple de la figure \ref{fig:rc_exemple}, nous revoyons les données qui nous intéressent. Les relations entre concepts sont exprimées de manière intuitive (\textit{Wayne Rooney IsA soccer player}, \textit{a soccer player is capableOf winning a match}). Nous ne représentons pas ici les poids, mais nous attendons d'eux qu'ils rendent compte du fait que si Wayne Rooney est effectivement un \textit{athlete}, il est plus pertinent de dire de lui qu'il est un \textit{soccer player}.
+
+
+\subsection{Propagation d'activation}
+
 Le réseau de concepts est dynamique. Il évolue au cours de la lecture du texte, notamment par un processus d'activation des n\oe uds. L'écoulement du temps est donc une donnée importante.
 
-L'activation d'un mot (provoquée par exemple par sa lecture dans un texte) est propagée à tous les n\oe uds voisins, selon un processus décrit dans la partie [].
+L'activation d'un mot (provoquée par exemple par sa lecture dans un texte) est propagée à tous les n\oe uds voisins. Elle permet intuitivement de penser à de nouvelles idées, de compléter l'information du texte si celle-ci est parcellaire.
+
+Sur l'exemple de la figure \ref{fig:rc_exemple}, l'activation du concept \verb|wayne_rooney| va provoquer dans un premier temps celle de \verb|soccer_player|, \verb|athlete|, mais aussi \verb|play_sport|, \verb|win_match|, etc.
+
+La propagation d'activation doit tenir compte de plusieurs facteurs : les poids des liens et l'importance conceptuelle des n\oe uds. Ainsi, un n\oe ud fortement relié à \verb|wayne_rooney| devra être activé plus rapidement et de façon plus importante.
+
+Selon la manière dont nous voulons utiliser le réseau, il y a deux possibilités :
+\begin{itemize}
+ \item Ou bien introduire un facteur de désactivation des n\oe uds au cours du temps, permettant éventuellement d'arriver à un état d'équilibre ;
+ \item Ou bien rester en situation potentielle de déséquilibre (l'activation de chaque n\oe ud de la composante connexe ne cesse d'augmenter).
+\end{itemize}
+
+La notion de désactivation est assez satisfaisante intuitivement ; il existe en effet des concepts fortement activés mais peu importants, que l'on espère oublier assez rapidement. 
+
+\paragraph{}
+Formellement, nous utilisons les formules suivantes, inspirées de [].
+
+\begin{itemize}
+ \item Pour l'activation du n\oe ud $n$ à l'instant $t+1$ :
+\begin{align}
+ A_n^{t+1} = A_n^t + D^t + A^t
+\end{align}
+\item Pour la réactivation de ce n\oe ud :
+\begin{align}
+ A^t = \sum_{(n' \rightarrow n \text{ arcs entrants})} W_{(n'\rightarrow  n)} \times A_{n'}^t
+\end{align}
+\item Pour la désactivation de ce n\oe ud :
+\begin{align}
+ D^t = \frac{100 \times A^t}{IC_n}
+\end{align}
+Où le facteur $100$ (modifiable) est dû à la normalisation.
+\end{itemize}
+
+\paragraph{}
+Nous avons mis un temps plus important à extraire des importances conceptuelles véritablement utiles, et n'avons donc que peu utilisé la désactivation (qui repose sur l'importance conceptuelle). Ces importances conceptuelles ont été finalement calculées en nous inspirant de l'indice TF-IDF\index{TF-IDF} ; ce sera développé dans la partie [].
 
 
 
 \subsection{Construction du réseau}
-%%reprise textuelle
+Comme cela a déjà été souligné plus haut, nous nous limitons au domaine du sport, domaine balayé par les articles qui constituent notre première source de données. 
 
-Étant donné que le réseau de concepts apporte de l'information pour mieux lire le texte, il nous faut la trouver quelque part. Nous avons eu recours à toutes les sources de données précitées. Nous présentons le dernier essai grandeur nature de la construction du réseau. Celui-ci, rappelons-le, est censé contenir des données relatives au sport. Chaque concept (joueur de football, mais aussi terme courant comme ``win'', ``loose'') y porte une certaine importance conceptuelle, une activation qui est modifiée selon la lecture du texte, et est relié à d'autres concepts par des liens dotés d'un poids (plus celui-ci est élevé, plus le premier concept est susceptible de \textit{faire penser} au deuxième) et d'une relation sur le modèle de Conceptnet5 (RelatedTo, MemberOf, etc).
+La construction du réseau se déroule en différentes étapes, qui font intervenir quasiment toutes les sources de données de notre projet.
+
+
+\paragraph{}
+Certaines informations sur les éléments du réseau (poids des liens entre concepts notamment) sont relativement faciles à extraire des bases de données utilisées (Freebase, Conceptnet5 comportent déjà de telles informations, qu'il faut simplement renormaliser). En revanche, la seule manière probante d'obtenir une importance conceptuelle est de la calculer nous-mêmes.
+
+Le réseau comporte à la fois des noms propres et des noms communs, des adjectifs, des verbes à l'infinitif ; des termes tout à fait courants (et qui ne sont pas inhérents au sport), comme des termes spécialisés.
+
 
 
 \paragraph{Récupération de concepts et de noms}
 
-Nous analysons un certain nombre d'articles, ici 17~000 issus de 7 flux rss différents sur 89 jours.
+Nous analysons un certain nombre d'articles, ici 17~000 issus de 7 flux rss différents sur 89 jours (quasiment l'intégralité des données de notre projet).
 
 
 Nous avons écrit des \ang{tokenizers} adaptés aux contraintes techniques et erreurs d'écriture des données récupérées, qui viennent compléter ceux fournis par \pyt{nltk}.
@@ -314,7 +371,7 @@ L'importance conceptuelle d'un nom est prise comme importante, par défaut.
 
 \paragraph{Traitement des concepts avec Conceptnet5}
 
-Chaque nouveau concept donne lieu à une requête de type Lookup. Nous sélectionnons parmi les résultats les informations les plus pertinentes (en terme de poids, mais aussi en fonction des relations, que nous ne gardons pas toutes~: par exemple, RelatedTo n'est pas une relation très pertinente, alors que IsA est souvent pertinente).
+Chaque nouveau concept donne lieu à une requête de type \verb|Lookup|. Nous sélectionnons parmi les résultats les informations les plus pertinentes (en terme de poids, mais aussi en fonction des relations, que nous ne gardons pas toutes~: par exemple, \verb|RelatedTo| n'est pas une relation très pertinente, alors que \verb|IsA| est souvent pertinente).
 
 L'importance conceptuelle allouée à un nouveau n\oe ud dépend pour beaucoup de sa fréquence d'apparition dans les articles.
 
@@ -332,35 +389,42 @@ Malgré les nombreux paramètres servant à filtrer, les requêtes n'ont pas don
 
 \subsection{Exemple de réseau de concepts}
 
-Nous prenons l'exemple du dernier réseau de concepts que nous avons généré.
+Nous avons eu l'occasion d'effectuer différents essais de construction du réseau de concepts et nous présenterons dans cette sous-section le dernier, qui a donné les résultats les plus intéressants.
 
-\paragraph{Étape 1 : premières requêtes}
+\paragraph{Étape 1 : noms propres}
 
-Les requêtes Freebase liées aux noms propres créent 10405 n\oe uds dans le réseau, ainsi que 8255 arêtes.
+\begin{itemize}
+ \item Les requêtes Freebase liées aux noms propres créent 10405 n\oe uds dans le réseau, ainsi que 8255 arêtes.
+ \item On lance immédiatement des requêtes Search correspondant à tous les n\oe uds du réseau sur Conceptnet5, afin d'acquérir plus d'information : on passe alors à 14103 n\oe uds et 28393 arêtes.
+\end{itemize}
 
-On lance immédiatement des requêtes Search correspondant à tous les n\oe uds du réseau sur Conceptnet5, afin d'acquérir plus d'information : on passe alors à 14103 n\oe uds et 28393 arêtes.
+\paragraph{Étape 2 : concepts}
 
-On Lookup sur l'ensemble des concepts trouvés dans les articles (27070), on passe alors à 35780 n\oe uds et 56942 arêtes. Pour le moment, 18762 n\oe uds sont certains d'être conservés (ce sont des résultats primaires de requêtes positives).
+\begin{itemize}
+ \item On lance une requête Lookup sur chaque concept trouvé dans les articles (27070, les noms propres ont déjà été traités) ; on passe alors à 35780 n\oe uds et 56942 arêtes. Pour le moment, 18762 n\oe uds sont certains d'être conservés (ce sont des résultats primaires de requêtes positives).
+\end{itemize}
 
-On étend alors l'ensemble des n\oe uds encore litigieux (17018), en essayant de créer des liens vers des n\oe uds déjà existants, augmentant ainsi la connectivité du réseau. On passe à 76497 arêtes.
 
-On regarde quels n\oe uds sont bien reliés à leur voisins, après cette opération. Au total, 28583 n\oe uds semblent prometteurs.
+\paragraph{Étape 3 : Extension et élagage du réseau}
 
-On supprime les autres n\oe uds. On obtient un réseau avec 28583 n\oe uds et 69307 arêtes.
+\begin{itemize}
+ \item On étend alors l'ensemble des n\oe uds encore litigieux (17018), en essayant de créer des liens vers des n\oe uds déjà existants, augmentant ainsi la connectivité du réseau. On passe à 76497 arêtes.
+ \item On regarde quels n\oe uds sont bien reliés à leur voisins, après cette opération. Au total, 28583 n\oe uds semblent prometteurs.
+ \item On supprime les autres n\oe uds. On obtient un réseau avec 28583 n\oe uds et 69307 arêtes.
+\end{itemize}
 
 
 
 \subsection{Choix de programmation du réseau de concepts}
 
-%%reprise textuelle
-Nous avons d'abord cru que l'utilisation massive de requêtes donnerait des contraintes de temps importantes à nos programmes. C'est en réalité une erreur. La parallélisation des requêtes, que nous avons commencé à effectuer, permet un gain de temps exceptionnel et va nous conduire dans les prochaines semaines à améliorer considérablement le temps d'exécution.
+Le réseau est enregistré sous forme de JSON Stream\index{JSON Stream}, un type de données repris à Conceptnet5, qui permet sans contrainte technique majeure de l'écrire sous forme facilement lisible par un utilisateur extérieur. Le nombre de nœuds étant resté raisonnable, nous n'avons pas eu à abandonner le package \pyt{networkx} qui nous permet de le représenter en mémoire sous forme de graphe.
 
-Le réseau est enregistré sous forme de JSON Stream\index{JSON Stream}, un type de données repris à Conceptnet5. Le nombre de nœuds étant resté raisonnable, nous n'avons pas eu à abandonner prématurément le package \pyt{networkx} qui nous permet de le représenter en mémoire.
+\paragraph{}
+Nous avons parallélisé les requêtes afin de les effectuer dans un temps raisonnable, même si l'opération de construction du réseau reste longue dans son ensemble (plus d'une heure) et que les quantités de données mises en jeu suggèrent qu'une utilisation différente, notamment de Conceptnet5 (téléchargement et recherche dans la base de données de façon locale), pourrait être faite.
 
-%Cependant, nous envisageons de passer à une base de données.
 
-%Enfin, nous nous orientons maintenant vers des fonctions permettant de construire incrémentalement le réseau, donc d'ajouter les nouveaux concepts et noms propres au fur et à mesure qu'ils sont lus dans les articles (notre but initial était naturellement de construire un réseau ``<de base>'').
 
+\section{TF-IDF}
 
 \section{À intégrer}
 
@@ -512,6 +576,10 @@ En revanche, pour la recherche des mots-clés, la méthode TF-IDF est assez effi
  
 
 \section{Références bibliographiques}
+
+\begin{quotation}
+ This work includes data from ConceptNet 5, which was compiled by the Commonsense Computing Initiative. ConceptNet 5 is freely available under the Creative Commons Attribution-ShareAlike license (CC BY SA 3.0) from http://conceptnet5.media.mit.edu. The included data was created by contributors to Commonsense Computing projects, contributors to Wikimedia projects, Games with a Purpose, Princeton University's WordNet, DBPedia, OpenCyc, and Umbel.
+\end{quotation}
 
 \nocite{*}
 \printbibliography{}
