@@ -502,6 +502,14 @@ L'idée est la suivante~: l'un de nous résumera un texte, nous emploierons notr
 Compte-tenu de la simplicité de l'algorithme statistique, nous espérons que le résumé produit par notre programme se situera quelque part entre le résumé statistique et le résumé humain.
 
 
+\subsubsection{\ 'Algorithme statistique}
+Les analyses statistiques sont basé sur la méthode TF-IDF qui permet d'évaluer l'importance d'un terme contenu dans un document, relativement à une collection ou un corpus. L'idée principale ici est de donner à chaque terme une indice d'importance et éventuellement à chaque phrase. Puis faire un résumé en tirant les phrases plus importantes.
+
+
+\subsubsection{\ 'Qualité de résumé}
+La qualité de résumé par la méthode TF-IDF est peu optimale. En effet, avec un regroupement simple de phrases, on perd beaucoup d'information contextuel. Et comme une phrase sans contexte est souvent peu compréhensible, c'est toujours difficile de lire ces résumés.
+En revanche, pour la recherche des mots-clés, la méthode TF-IDF est assez efficace. Nous avous remarqués qu'à partir de ces mots-clés, à l'aide d'une méthode synthétique, nous pouvons construire des phrases plus claires et éventuellement faire un résumé du texte.
+ 
 
 \section{Références bibliographiques}
 
