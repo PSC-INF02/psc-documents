@@ -228,13 +228,19 @@ Lookup permet d'analyser un concept (on aura par exemple accès à des listes d'
 
 
 \subsection{Utilisation de Conceptnet5}
-%%reprise textuelle
 
-Nous utilisons en majorité Association et Search.
+Nous utilisons en majorité LookUp et Search, les requêtes Association étant beaucoup plus lentes et ne pouvant être réalisées en temps tout à fait raisonnable sur des données mettant en jeu plusieurs milliers de requêtes.
 
-Étant donné un concept dont nous savons qu'il doit être étendu, nous utilisons Conceptnet5 pour créer de nouveaux concepts au sein du réseau, et pour ajouter de nouveaux liens. Une première requête de type Search permet d'avoir accès à un certain nombre de liens vers d'autres concepts, qui sont ajoutés (on ne récupère que les plus pertinents). Une requête de type Association permet de créer de nouveaux liens vers d'autres concepts similaires.
+Considérons un concept dont nous cherchons des voisins dans le réseau.
+\begin{itemize}
+ \item Une requête LookUp nous donne déjà une idée desdits voisins (liens entrants ou sortants) ;
+ \item Une recherche Search précise pourra nous donner par exemple un certain nombre de voisins, par des liens sortants, que nous pourrons ajouter (en sélectionnant bien sûr les concepts jugés pertinents, selon quelques critères empiriques) ;
+ \item Une requête Association renvoie une liste de concepts similaires. On peut alors les relier au précédent avec un lien SimilarTo.
+\end{itemize}
 
-Nous ajoutons alors une arête SimilarTo.
+\paragraph{Pertinence des concepts}
+Conceptnet5 contient beaucoup d'information et les concepts sur lesquels il nous aiguille ne sont pas forcément pertinents. Il faut vérifier le poids des liens renvoyés, la similarité quand elle a lieu, ainsi que d'autres facteurs : nous ne pouvons pas garder les liens RelatedTo car ils renvoient souvent à la traduction du mot dans une autre langue. Nous ne pouvons pas non plus garder les concepts formés d'une expression trop longue (atteignant parfois la taille d'une phrase entière), car celle-ci renvoie souvent à un événement ou un domaine très particulier, et sera de toute façon impossible à retrouver telle quelle dans un texte.
+
 
 \subsection{Freebase}
 %%reprise textuelle
@@ -321,9 +327,9 @@ Formellement, nous utilisons les formules suivantes, inspirées de [].
 \end{align}
 \item Pour la désactivation de ce n\oe{}ud~:
 \begin{align}
- D^t = \frac{100 \times A^t}{IC_n}
+ D^t = A^t \frac{100- IC_n}{100}
 \end{align}
-Où le facteur $100$ (modifiable) est dû à la normalisation.
+Où le facteur $100$ (modifiable) est dû à la normalisation. Si le concept a une très grande importance ($IC_n = 100$), il tend donc à ne pas être désactivé du tout. S'il a une importance très faible ($IC_n \rightarrow 0$), il a une tendance à se désactiver très rapidement.
 \end{itemize}
 
 \paragraph{}
@@ -422,7 +428,26 @@ Nous avons parallélisé les requêtes afin de les effectuer dans un temps raiso
 
 
 
-\section{TF-IDF}
+\section{Méthodes statistiques avec TF-IDF}
+
+
+\subsection{Algorithme statistique}
+Les analyses statistiques sont basées sur la méthode TF-IDF qui permet d'évaluer l'importance d'un terme contenu dans un document, relativement à une collection ou un corpus. L'idée principale ici est de donner à chaque terme une indice d'importance et éventuellement à chaque phrase. Puis faire un résumé en tirant les phrases plus importantes.
+
+\subsection{TF-IDF pour le résumé automatique}
+
+
+
+\subsection{Tests et qualité des résumés obtenus}
+
+
+La qualité de résumé par la méthode TF-IDF est peu optimale. En effet, avec un regroupement simple de phrases, on perd beaucoup d'information contextuel. Et comme une phrase sans contexte est souvent peu compréhensible, c'est toujours difficile de lire ces résumés.
+En revanche, pour la recherche des mots-clés, la méthode TF-IDF est assez efficace. Nous avous remarqués qu'à partir de ces mots-clés, à l'aide d'une méthode synthétique, nous pouvons construire des phrases plus claires et éventuellement faire un résumé du texte.
+
+\subsection{TF-IDF pour l'importance conceptuelle}
+On peut utiliser l'indice TF-IDF sur des concepts et des noms.
+
+
 
 \section{À intégrer}
 
@@ -594,13 +619,7 @@ L'idée est la suivante~: l'un de nous résumera un texte, nous emploierons notr
 Compte-tenu de la simplicité de l'algorithme statistique, nous espérons que le résumé produit par notre programme se situera quelque part entre le résumé statistique et le résumé humain.
 
 
-\subsubsection{Algorithme statistique}
-Les analyses statistiques sont basé sur la méthode TF-IDF qui permet d'évaluer l'importance d'un terme contenu dans un document, relativement à une collection ou un corpus. L'idée principale ici est de donner à chaque terme une indice d'importance et éventuellement à chaque phrase. Puis faire un résumé en tirant les phrases plus importantes.
 
-
-\subsubsection{Qualité de résumé}
-La qualité de résumé par la méthode TF-IDF est peu optimale. En effet, avec un regroupement simple de phrases, on perd beaucoup d'information contextuel. Et comme une phrase sans contexte est souvent peu compréhensible, c'est toujours difficile de lire ces résumés.
-En revanche, pour la recherche des mots-clés, la méthode TF-IDF est assez efficace. Nous avous remarqués qu'à partir de ces mots-clés, à l'aide d'une méthode synthétique, nous pouvons construire des phrases plus claires et éventuellement faire un résumé du texte.
  
 
 \section{Références bibliographiques}
