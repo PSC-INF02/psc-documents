@@ -94,7 +94,7 @@ En première approximation, nous faisons renvoyer la notion de graphe sémantiqu
 
 \subsection{Données textuelles brutes}
 
-Nous avons récupéré automatiquement des données sur différents sites internet et flux rss, en moyenne 400 articles de sports par jour ; ce qui représentait à la fin du projet plus de 30~000 articles.
+Nous avons récupéré automatiquement des données sur différents sites internet et flux rss, en moyenne 400 articles de sports par jour~; ce qui représentait à la fin du projet plus de 30~000 articles.
 
 %%reprise textuelle
 Ces données servent à différents niveaux~:
@@ -125,7 +125,7 @@ Le Part-of-speech tagger\index{Part-of-speech tagger}, abrégé en POS, est un p
 \end{definition}
 
 \begin{definition}[Concept]
-Par le terme de concept\index{Concept}, qui sera constamment réutilisé par la suite, nous entendons : un mot (adjectif, verbe, nom, nom propre, adverbe) ou un ensemble de mots exprimant une unité sémantique et que l'on peut définir. Par exemple, "football" est un concept, tandis que "if" pour nous n'en est pas un.
+Par le terme de concept\index{Concept}, qui sera constamment réutilisé par la suite, nous entendons~: un mot (adjectif, verbe, nom, nom propre, adverbe) ou un ensemble de mots exprimant une unité sémantique et que l'on peut définir. Par exemple, ``football'' est un concept, tandis que ``if'' pour nous n'en est pas un.
 \end{definition}
 
 \`A partir d'articles consacrés au sport (texte brut), les manipulations suivantes permettent de récupérer les noms propres et les concepts sous forme normale\index{forme normale}~:
@@ -141,15 +141,14 @@ Par le terme de concept\index{Concept}, qui sera constamment réutilisé par la 
 
 Les noms propres mis à part, nous parvenons à en extraire les noms complets. Dans un texte comme ceux que nous étudions, le nom complet (nom et prénom) n'est souvent mentionné qu'une seule fois, et il faut repérer sans faire d'erreur que le nom propre utilisé seul par la suite renvoie à la même personne.
 
-La récupération des noms propres et concepts sous forme normale permet de nous constituer des listes de termes relatifs au sport. La figure \ref{fig:conceptsnoms} donne une idée de l'évolution de la taille de ces données. Nous n'avons jamais espéré une exhaustivité, mais il est clair que la croissance observée vers la fin peut être imputée en majeure partie aux données parasites (mots mal orthographiés, erreurs de lecture) et que nous avons, pour ainsi dire, fait le tour du sujet.
+La récupération des noms propres et concepts sous forme normale permet de nous constituer des listes de termes relatifs au sport. La figure~\ref{fig:conceptsnoms} donne une idée de l'évolution de la taille de ces données. Nous n'avons jamais espéré une exhaustivité, mais il est clair que la croissance observée vers la fin peut être imputée en majeure partie aux données parasites (mots mal orthographiés, erreurs de lecture) et que nous avons, pour ainsi dire, fait le tour du sujet.
 
 
- \begin{figure}[h]
+\begin{figure}[h]
  \centering
  \includegraphics[width=16cm]{./conceptsnoms.eps}
  % conceptsnoms.eps: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=0 0 653 354
- \caption{Évolution en fonction du temps du nombre total de concepts et de noms propres tirés des articles}
- \label{fig:conceptsnoms}
+ \caption{\label{fig:conceptsnoms}Évolution en fonction du temps du nombre total de concepts et de noms propres tirés des articles}
 \end{figure}
 
 
@@ -249,9 +248,9 @@ Freebase\index{Freebase} est une immense base de données sémantiques qui conti
 
 Le réseau de concepts\index{Réseau de concepts} est la ``mémoire à long terme'' de notre programme. L'objectif est de disposer d'une représentation souple (sous forme de graphe sémantique) de données conceptuelles qui puissent ensuite être utilisées à mieux comprendre le texte lu.
 
-Étant donné un concept (par exemple \verb|Wayne Rooney|), à quels autres concepts est-il relié et par quelles relations ? Il est essentiel, lorsque le texte ne contient pas suffisamment d'informations ou qu'elles ne sont pas exploitables (on n'a pas toujours "vu" à la lecture que Wayne Rooney était un nom propre ou un humain, par exemple), d'insérer ce type de données au cœur du processus de lecture. C'est pourquoi nous avons besoin du réseau de concepts.
+Étant donné un concept (par exemple \verb|Wayne Rooney|), à quels autres concepts est-il relié et par quelles relations~? Il est essentiel, lorsque le texte ne contient pas suffisamment d'informations ou qu'elles ne sont pas exploitables (on n'a pas toujours ``vu'' à la lecture que Wayne Rooney était un nom propre ou un humain, par exemple), d'insérer ce type de données au cœur du processus de lecture. C'est pourquoi nous avons besoin du réseau de concepts.
 
-D'autre part, nous pouvons exiger du résumé qu'il contienne une information explicite que le texte avait sous-entendu ; par exemple, que Wayne Rooney est un joueur de football. Le réseau devra donc contenir \verb|Wayne Rooney -> isA -> Soccer player|.
+D'autre part, nous pouvons exiger du résumé qu'il contienne une information explicite que le texte avait sous-entendu~; par exemple, que Wayne Rooney est un joueur de football. Le réseau devra donc contenir \verb|Wayne Rooney -> isA -> Soccer player|.
 
 Ses prérogatives ont évolué au cours de notre projet. Au début, nous pensions faire reposer une plus grande partie de l'activité de résumé du texte sur lui (notamment par le processus d'activation et le repérage des nœuds activés), alors que celle-ci s'est dirigée ensuite sur le workspace\index{Workspace}.
 
@@ -283,45 +282,44 @@ Ces différentes données numériques (proximité conceptuelle, activation, impo
  \centering
  \includegraphics[width=14cm]{./rc_exemple.png}
  % rc_exemple.png: 812x612 pixel, 100dpi, 20.62x15.54 cm, bb=0 0 585 441
- \caption{Exemple de réseau de concepts}
- \label{fig:rc_exemple}
+ \caption{\label{fig:rc_exemple}Exemple de réseau de concepts}
 \end{figure}
 
 \paragraph{}
-Sur l'exemple de la figure \ref{fig:rc_exemple}, nous revoyons les données qui nous intéressent. Les relations entre concepts sont exprimées de manière intuitive (\textit{Wayne Rooney IsA soccer player}, \textit{a soccer player is capableOf winning a match}). Nous ne représentons pas ici les poids, mais nous attendons d'eux qu'ils rendent compte du fait que si Wayne Rooney est effectivement un \textit{athlete}, il est plus pertinent de dire de lui qu'il est un \textit{soccer player}.
+Sur l'exemple de la figure~\ref{fig:rc_exemple}, nous revoyons les données qui nous intéressent. Les relations entre concepts sont exprimées de manière intuitive (\textit{Wayne Rooney IsA soccer player}, \textit{a soccer player is capableOf winning a match}). Nous ne représentons pas ici les poids, mais nous attendons d'eux qu'ils rendent compte du fait que si Wayne Rooney est effectivement un \textit{athlete}, il est plus pertinent de dire de lui qu'il est un \textit{soccer player}.
 
 
 \subsection{Propagation d'activation}
 
-Le réseau de concepts est dynamique. Il évolue au cours de la lecture du texte, notamment par un processus d'activation des n\oe uds. L'écoulement du temps est donc une donnée importante.
+Le réseau de concepts est dynamique. Il évolue au cours de la lecture du texte, notamment par un processus d'activation des n\oe{}uds. L'écoulement du temps est donc une donnée importante.
 
-L'activation d'un mot (provoquée par exemple par sa lecture dans un texte) est propagée à tous les n\oe uds voisins. Elle permet intuitivement de penser à de nouvelles idées, de compléter l'information du texte si celle-ci est parcellaire.
+L'activation d'un mot (provoquée par exemple par sa lecture dans un texte) est propagée à tous les n\oe{}uds voisins. Elle permet intuitivement de penser à de nouvelles idées, de compléter l'information du texte si celle-ci est parcellaire.
 
-Sur l'exemple de la figure \ref{fig:rc_exemple}, l'activation du concept \verb|wayne_rooney| va provoquer dans un premier temps celle de \verb|soccer_player|, \verb|athlete|, mais aussi \verb|play_sport|, \verb|win_match|, etc.
+Sur l'exemple de la figure~\ref{fig:rc_exemple}, l'activation du concept \verb|wayne_rooney| va provoquer dans un premier temps celle de \verb|soccer_player|, \verb|athlete|, mais aussi \verb|play_sport|, \verb|win_match|, etc.
 
-La propagation d'activation doit tenir compte de plusieurs facteurs : les poids des liens et l'importance conceptuelle des n\oe uds. Ainsi, un n\oe ud fortement relié à \verb|wayne_rooney| devra être activé plus rapidement et de façon plus importante.
+La propagation d'activation doit tenir compte de plusieurs facteurs~: les poids des liens et l'importance conceptuelle des n\oe{}uds. Ainsi, un n\oe{}ud fortement relié à \verb|wayne_rooney| devra être activé plus rapidement et de façon plus importante.
 
-Selon la manière dont nous voulons utiliser le réseau, il y a deux possibilités :
+Selon la manière dont nous voulons utiliser le réseau, il y a deux possibilités~:
 \begin{itemize}
- \item Ou bien introduire un facteur de désactivation des n\oe uds au cours du temps, permettant éventuellement d'arriver à un état d'équilibre ;
- \item Ou bien rester en situation potentielle de déséquilibre (l'activation de chaque n\oe ud de la composante connexe ne cesse d'augmenter).
+  \item Ou bien introduire un facteur de désactivation des n\oe{}uds au cours du temps, permettant éventuellement d'arriver à un état d'équilibre~;
+ \item Ou bien rester en situation potentielle de déséquilibre (l'activation de chaque n\oe{}ud de la composante connexe ne cesse d'augmenter).
 \end{itemize}
 
-La notion de désactivation est assez satisfaisante intuitivement ; il existe en effet des concepts fortement activés mais peu importants, que l'on espère oublier assez rapidement. 
+La notion de désactivation est assez satisfaisante intuitivement~; il existe en effet des concepts fortement activés mais peu importants, que l'on espère oublier assez rapidement. 
 
 \paragraph{}
 Formellement, nous utilisons les formules suivantes, inspirées de [].
 
 \begin{itemize}
- \item Pour l'activation du n\oe ud $n$ à l'instant $t+1$ :
+  \item Pour l'activation du n\oe{}ud $n$ à l'instant $t+1$~:
 \begin{align}
  A_n^{t+1} = A_n^t + D^t + A^t
 \end{align}
-\item Pour la réactivation de ce n\oe ud :
+\item Pour la réactivation de ce n\oe{}ud~:
 \begin{align}
- A^t = \sum_{(n' \rightarrow n \text{ arcs entrants})} W_{(n'\rightarrow  n)} \times A_{n'}^t
+ A^t = \sum_{(n' \rightarrow n \text{\ arcs entrants})} W_{(n'\rightarrow  n)} \times A_{n'}^t
 \end{align}
-\item Pour la désactivation de ce n\oe ud :
+\item Pour la désactivation de ce n\oe{}ud~:
 \begin{align}
  D^t = \frac{100 \times A^t}{IC_n}
 \end{align}
@@ -329,7 +327,7 @@ Où le facteur $100$ (modifiable) est dû à la normalisation.
 \end{itemize}
 
 \paragraph{}
-Nous avons mis un temps plus important à extraire des importances conceptuelles véritablement utiles, et n'avons donc que peu utilisé la désactivation (qui repose sur l'importance conceptuelle). Ces importances conceptuelles ont été finalement calculées en nous inspirant de l'indice TF-IDF\index{TF-IDF} ; ce sera développé dans la partie [].
+Nous avons mis un temps plus important à extraire des importances conceptuelles véritablement utiles, et n'avons donc que peu utilisé la désactivation (qui repose sur l'importance conceptuelle). Ces importances conceptuelles ont été finalement calculées en nous inspirant de l'indice TF-IDF\index{TF-IDF}~; ce sera développé dans la partie [].
 
 
 
@@ -342,7 +340,7 @@ La construction du réseau se déroule en différentes étapes, qui font interve
 \paragraph{}
 Certaines informations sur les éléments du réseau (poids des liens entre concepts notamment) sont relativement faciles à extraire des bases de données utilisées (Freebase, Conceptnet5 comportent déjà de telles informations, qu'il faut simplement renormaliser). En revanche, la seule manière probante d'obtenir une importance conceptuelle est de la calculer nous-mêmes.
 
-Le réseau comporte à la fois des noms propres et des noms communs, des adjectifs, des verbes à l'infinitif ; des termes tout à fait courants (et qui ne sont pas inhérents au sport), comme des termes spécialisés.
+Le réseau comporte à la fois des noms propres et des noms communs, des adjectifs, des verbes à l'infinitif~; des termes tout à fait courants (et qui ne sont pas inhérents au sport), comme des termes spécialisés.
 
 
 
@@ -356,7 +354,7 @@ Nous avons écrit des \ang{tokenizers} adaptés aux contraintes techniques et er
 Pour récupérer les noms propres, nous repérons à l'intérieur d'un article les mots marqués comme noms propres par le POS-tagger\index{Part-of-speech tagger} de \pyt{nltk}. Puis nous concaténons deux noms propres successifs. Enfin, nous retirons de la liste des noms propres ceux qui sont contenus à l'intérieur d'autres. Cette étape, largement sous-estimée au début, est cruciale puisqu'elle évite de considérer ``< nom + prénom >'' et ``<prénom>'' comme deux personnes différentes.
 
 Nous comptons aussi la fréquence d'apparition de chaque nom et de chaque concept. 
-On obtient 32~702 concepts et 35~488 noms. En réalité, un tiers d'entre eux sont des mots qui n'apparaissent qu'une seule fois, contenant par exemple des fautes d'orthographe, des néologismes ou résultant d'erreurs de notre part. On obtient par exemple :
+On obtient 32~702 concepts et 35~488 noms. En réalité, un tiers d'entre eux sont des mots qui n'apparaissent qu'une seule fois, contenant par exemple des fautes d'orthographe, des néologismes ou résultant d'erreurs de notre part. On obtient par exemple~:
 \begin{verbatim}
 ["aaron cresswell", 78]
 ["aaron creswell", 1]
@@ -373,12 +371,12 @@ L'importance conceptuelle d'un nom est prise comme importante, par défaut.
 
 Chaque nouveau concept donne lieu à une requête de type \verb|Lookup|. Nous sélectionnons parmi les résultats les informations les plus pertinentes (en terme de poids, mais aussi en fonction des relations, que nous ne gardons pas toutes~: par exemple, \verb|RelatedTo| n'est pas une relation très pertinente, alors que \verb|IsA| est souvent pertinente).
 
-L'importance conceptuelle allouée à un nouveau n\oe ud dépend pour beaucoup de sa fréquence d'apparition dans les articles.
+L'importance conceptuelle allouée à un nouveau n\oe{}ud dépend pour beaucoup de sa fréquence d'apparition dans les articles.
 
 
 \paragraph{Extension des nœuds du réseau}
 
-Pour étendre les n\oe uds du réseau, nous sommes souvent amenés à chercher des liens partant d'un n\oe ud donné. Cela est effectué avec des recherches Search. Nous pouvons aussi effectuer des requêtes Association (bien que beaucoup plus lentes) afin d'induire de nouveaux liens avec des concepts similaires.
+Pour étendre les n\oe{}uds du réseau, nous sommes souvent amenés à chercher des liens partant d'un n\oe{}ud donné. Cela est effectué avec des recherches Search. Nous pouvons aussi effectuer des requêtes Association (bien que beaucoup plus lentes) afin d'induire de nouveaux liens avec des concepts similaires.
 
 
 
@@ -391,26 +389,26 @@ Malgré les nombreux paramètres servant à filtrer, les requêtes n'ont pas don
 
 Nous avons eu l'occasion d'effectuer différents essais de construction du réseau de concepts et nous présenterons dans cette sous-section le dernier, qui a donné les résultats les plus intéressants.
 
-\paragraph{Étape 1 : noms propres}
+\paragraph{Étape 1~: noms propres}
 
 \begin{itemize}
- \item Les requêtes Freebase liées aux noms propres créent 10405 n\oe uds dans le réseau, ainsi que 8255 arêtes.
- \item On lance immédiatement des requêtes Search correspondant à tous les n\oe uds du réseau sur Conceptnet5, afin d'acquérir plus d'information : on passe alors à 14103 n\oe uds et 28393 arêtes.
+ \item Les requêtes Freebase liées aux noms propres créent 10405 n\oe{}uds dans le réseau, ainsi que 8255 arêtes.
+ \item On lance immédiatement des requêtes Search correspondant à tous les n\oe{}uds du réseau sur Conceptnet5, afin d'acquérir plus d'information~: on passe alors à 14103 n\oe{}uds et 28393 arêtes.
 \end{itemize}
 
-\paragraph{Étape 2 : concepts}
+\paragraph{Étape 2~: concepts}
 
 \begin{itemize}
- \item On lance une requête Lookup sur chaque concept trouvé dans les articles (27070, les noms propres ont déjà été traités) ; on passe alors à 35780 n\oe uds et 56942 arêtes. Pour le moment, 18762 n\oe uds sont certains d'être conservés (ce sont des résultats primaires de requêtes positives).
+ \item On lance une requête Lookup sur chaque concept trouvé dans les articles (27070, les noms propres ont déjà été traités)~; on passe alors à 35780 n\oe{}uds et 56942 arêtes. Pour le moment, 18762 n\oe{}uds sont certains d'être conservés (ce sont des résultats primaires de requêtes positives).
 \end{itemize}
 
 
-\paragraph{Étape 3 : Extension et élagage du réseau}
+\paragraph{Étape 3~: Extension et élagage du réseau}
 
 \begin{itemize}
- \item On étend alors l'ensemble des n\oe uds encore litigieux (17018), en essayant de créer des liens vers des n\oe uds déjà existants, augmentant ainsi la connectivité du réseau. On passe à 76497 arêtes.
- \item On regarde quels n\oe uds sont bien reliés à leur voisins, après cette opération. Au total, 28583 n\oe uds semblent prometteurs.
- \item On supprime les autres n\oe uds. On obtient un réseau avec 28583 n\oe uds et 69307 arêtes.
+ \item On étend alors l'ensemble des n\oe{}uds encore litigieux (17018), en essayant de créer des liens vers des n\oe{}uds déjà existants, augmentant ainsi la connectivité du réseau. On passe à 76497 arêtes.
+ \item On regarde quels n\oe{}uds sont bien reliés à leur voisins, après cette opération. Au total, 28583 n\oe{}uds semblent prometteurs.
+ \item On supprime les autres n\oe{}uds. On obtient un réseau avec 28583 n\oe{}uds et 69307 arêtes.
 \end{itemize}
 
 
@@ -430,42 +428,42 @@ Nous avons parallélisé les requêtes afin de les effectuer dans un temps raiso
 
 \subsection{Résolution de pronoms}
 
-Le but de la résolution de pronoms\index{Résolution de pronoms} est, étant donné une phrase qui peut être par exemple :
+Le but de la résolution de pronoms\index{Résolution de pronoms} est, étant donné une phrase qui peut être par exemple~:
 
 \begin{verbatim}
  Sepp_+_Blatter is the favourite to win a Fifa race he vowed he would not stand for.
 \end{verbatim}
-de rapporter chaque pronom à un groupe nominal. Ici, les deux pronoms que l'on repère ("he") se rapportent évidemment à \verb|Sepp_+_Blatter|.
+de rapporter chaque pronom à un groupe nominal. Ici, les deux pronoms que l'on repère (``he'') se rapportent évidemment à \verb|Sepp_+_Blatter|.
 
-Nous disposons pour nous aider des données fournies par l'analyseur syntaxique de Systran. En voici une liste non exhaustive :
+Nous disposons pour nous aider des données fournies par l'analyseur syntaxique de Systran. En voici une liste non exhaustive~:
 \begin{itemize}
  \item POS\index{Part-of-speech}
- \item Type grammatical de chaque mot : nom propre, acronyme, verbe, auxiliaire, préposition...
- \item Différents liens entre les mots : adjectif relié à un nom, article...
+ \item Type grammatical de chaque mot~: nom propre, acronyme, verbe, auxiliaire, préposition\ldots{}
+ \item Différents liens entre les mots~: adjectif relié à un nom, article\ldots{}
 \end{itemize}
 
 
 \subsubsection{Étape 1}
-On commence par trouver l'ensemble des groupes nominaux. Nous avons deux choix :
+On commence par trouver l'ensemble des groupes nominaux. Nous avons deux choix~:
 \begin{itemize}
- \item Ou bien les trouver tous ;
+ \item Ou bien les trouver tous~;
  \item Ou bien se limiter d'emblée à ceux qui ont leurs chances.
 \end{itemize}
 
-Nous prenons d'abord le deuxième choix : l'analyseur de Systran nous indique en particulier, étant donné un mot, s'il est objet ou sujet d'un verbe. Nous considérons donc, dans un premier temps, que les noms concernés sont les noms principaux et que tous les groupes nominaux qui nous intéressent se construisent autour d'eux.
+Nous prenons d'abord le deuxième choix~: l'analyseur de Systran nous indique en particulier, étant donné un mot, s'il est objet ou sujet d'un verbe. Nous considérons donc, dans un premier temps, que les noms concernés sont les noms principaux et que tous les groupes nominaux qui nous intéressent se construisent autour d'eux.
 
-Après expérience, nous avons étendu le "droit" de créer un groupe nominal à de simples compléments d'objet, constatant qu'ils apparaissaient eux aussi.
+Après expérience, nous avons étendu le ``droit'' de créer un groupe nominal à de simples compléments d'objet, constatant qu'ils apparaissaient eux aussi.
 
 
 \subsubsection{Étape 2}
 On considère maintenant l'ensemble des pronoms.
 
-Pour un pronom situé à une position donnée, les groupes nominaux\index{Groupe nominal} potentiels font l'objet d'un classement, relatif à un score, que nous calculons de la manière suivante :
+Pour un pronom situé à une position donnée, les groupes nominaux\index{Groupe nominal} potentiels font l'objet d'un classement, relatif à un score, que nous calculons de la manière suivante~:
 
 \begin{itemize}
  \item Un candidat a le droit d'être situé dans une phrase précédente (sous une limite fixée à 2 ou 3). Plus il est éloigné du pronom, plus son score diminue. S'il est après le pronom, son score diminue drastiquement (voire $-\infty$).
- \item Le candidat doit vérifier certaines correspondances avec le pronom : en particulier, il doit avoir le même genre et le même nombre. Si c'est vérifié, le score augmente. Sinon, le score diminue. Cette information n'est pas tout le temps disponible. En revanche, on sait parfois si le groupe nominal concerné (son nom principal) est un humain ou non.
- \item On a parfois (notamment avec le pronom "that") de manière directe l'information de l'antécédent. L'antécédent désigné doit alors gagner un score énorme (voire $+\infty$, mais l'analyseur de Systran n'est pas infaillible).
+ \item Le candidat doit vérifier certaines correspondances avec le pronom~: en particulier, il doit avoir le même genre et le même nombre. Si c'est vérifié, le score augmente. Sinon, le score diminue. Cette information n'est pas tout le temps disponible. En revanche, on sait parfois si le groupe nominal concerné (son nom principal) est un humain ou non.
+ \item On a parfois (notamment avec le pronom ``that'') de manière directe l'information de l'antécédent. L'antécédent désigné doit alors gagner un score énorme (voire $+\infty$, mais l'analyseur de Systran n'est pas infaillible).
  \item Un groupe nominal qui apparaît au début d'une phrase doit, quels que soient les pronoms, avoir un meilleur score. Les noms propres apparaissent souvent au début de la phrase pour être ensuite rappelés par des pronoms, c'est d'ailleurs le cas dans l'exemple ci-dessus.
  \item Un groupe nominal répété gagne également en score.
  \item Un groupe nominal précédé d'une préposition perd en score.
@@ -476,7 +474,7 @@ Pour un pronom situé à une position donnée, les groupes nominaux\index{Groupe
 
 Ces différentes exigences satisfont à un impératif de simplicité. On cherche ensuite à balancer le mieux possible les augmentations/diminutions de score afin de maximiser la pertinence des résultats.
 
-Nous nous inspirons pour cette méthode de "<Robust pronoun resolution with limited knowledge">, pour sa simplicité et son adaptabilité quant aux données dont nous disposons.
+Nous nous inspirons pour cette méthode de ``<Robust pronoun resolution with limited knowledge>'', pour sa simplicité et son adaptabilité quant aux données dont nous disposons.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -566,11 +564,11 @@ L'idée est la suivante~: l'un de nous résumera un texte, nous emploierons notr
 Compte-tenu de la simplicité de l'algorithme statistique, nous espérons que le résumé produit par notre programme se situera quelque part entre le résumé statistique et le résumé humain.
 
 
-\subsubsection{\ 'Algorithme statistique}
+\subsubsection{Algorithme statistique}
 Les analyses statistiques sont basé sur la méthode TF-IDF qui permet d'évaluer l'importance d'un terme contenu dans un document, relativement à une collection ou un corpus. L'idée principale ici est de donner à chaque terme une indice d'importance et éventuellement à chaque phrase. Puis faire un résumé en tirant les phrases plus importantes.
 
 
-\subsubsection{\ 'Qualité de résumé}
+\subsubsection{Qualité de résumé}
 La qualité de résumé par la méthode TF-IDF est peu optimale. En effet, avec un regroupement simple de phrases, on perd beaucoup d'information contextuel. Et comme une phrase sans contexte est souvent peu compréhensible, c'est toujours difficile de lire ces résumés.
 En revanche, pour la recherche des mots-clés, la méthode TF-IDF est assez efficace. Nous avous remarqués qu'à partir de ces mots-clés, à l'aide d'une méthode synthétique, nous pouvons construire des phrases plus claires et éventuellement faire un résumé du texte.
  
