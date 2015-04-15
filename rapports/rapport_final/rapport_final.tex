@@ -59,7 +59,7 @@ Pour atteindre cet objectif, plusieurs modules assez indépendants ont pu être 
 \begin{description}
 	\item[Récupération de données] à utiliser pour la création d'un réseau de concepts modélisant la connaissance \textit{a priori} du programme. Responsables~: Théophane Hufschmitt, Guillaume Boisseau.
 	\item[Création du réseau de concepts] et remplissage de celui-ci. Il s'agissait ici d'une part de définir sa structure et d'autre part d'y introduire les données nécessaires. Responsables~: André Schrottenloher, Guillaume Boisseau.
-	\item[Analyse syntaxique] à l'aide d'outil existants. Il s'agissait de trouver une grammaire capable d'analyser une phrase et d'en faire ressortir les relations de type verbe-objet ou nom-qualificatif. Responsables~: Antonin Angibault, Théophane Hufschmitt, Sarah Fernandes-Pinto-Fachada.
+	\item[Analyse syntaxique] à l'aide d'outils existants. Il s'agissait de trouver une grammaire capable d'analyser une phrase et d'en faire ressortir les relations de type verbe-objet ou nom-qualificatif. Responsables~: Antonin Angibault, Théophane Hufschmitt, Sarah Fernandes-Pinto-Fachada.
 	\item[Réflexion] sur l'utilisation du réseau de concepts et de l'analyse grammaticale pour produire un réseau capable de rendre compte de la compréhension du texte. Responsables~: tous.
 	\item[Implémentation] d'un algorithme simple de résumé statistique (basé sur l'algorithme TF-IDF), devant servir de base de comparaison pour tester la qualité des résumés produits par notre algorithme.  Responsable~: Zhixing Cao.
 \end{description}
@@ -146,7 +146,7 @@ La récupération des noms propres et concepts sous forme normale permet de nous
 
 \begin{figure}[h]
  \centering
- \includegraphics[width=16cm]{./conceptsnoms.eps}
+% \includegraphics[width=16cm]{./conceptsnoms.eps}
  % conceptsnoms.eps: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=0 0 653 354
  \caption{\label{fig:conceptsnoms}Évolution en fonction du temps du nombre total de concepts et de noms propres tirés des articles}
 \end{figure}
@@ -495,15 +495,55 @@ Quelle que soit la méthode employée, une analyse syntaxique\index{Analyse synt
 Le Workspace est une zone où on va stocker des structures formées à partir de concepts et travailler dessus. Par opposition au réseau de concepts, qui représente une connaissance relativement figée du monde, ces structures visent à représenter la compréhension que l'on a pu acquérir du texte.
 Par exemple, un type de structure rencontré dans le Workspace serait un graphe décrivant l'évolution de l'état d'un objet au fur et à mesure du temps, d'après ce qu'on a pu extraire du texte.
 
-Au fur et à mesure que l'on découvre les concepts pertinents par rapport au texte grâce au réseau de concepts, on va les ajouter (instancier) au Workspace afin de pouvoir travailler dessus. Ensuite, au moyen de diverses méthodes appelées Workers\index{Worker}, on va chercher à les rassembler en des structures porteuses de sens. Les Workers pourront extraire de l'information grâce au texte, sa structure grammaticale, les liens du réseau de connaissances et les structures déjà présentes dans le Workspace.
+\subsubsection{Structure du Workspace}
+Comme on l'a dit il s'agit essentiellement d'une structure de graphe orienté.
 
-Par exemple, il y aurait un Worker capable de reconnaître l'identité d'un objet dans le texte. Lorsqu'un concept est instancié dans le Workspace, il cherchera à détecter si ce concept fait référence à un objet récurrent dans le texte, comme par exemple une personne.
-En reprenant l'exemple précédent, il y aurait aussi un Worker\index{Worker} capable de repérer dans la phrase les descriptions de succession temporelle, et qui créerait les structures dans le Workspace qui reflètent cette évolution. 
+Les nœuds représentent des concepts présents dans le texte à résumer ou bien des concepts qui lui sont liés. On différencie ces concepts en deux sous-classes, selon qu'il s'agit d'entités ou d'attributs.
 
+\begin{definition}[Entité]
+On parle d'entité pour désigner une chose ou une personne formant une unité, réelle ou non, capable d'agir ou de subir des actions dans le cadre du texte. Un fantôme ou une voiture sont des entités ; deux voitures forment deux entités distinctes ; et la joie (par exemple) n'est pas considérée comme une entité.
+\end{definition}
+\begin{definition}[Attribut]
+Un attribut est un concept altérant ou complétant le sens d'un autre. Par exemple, "Angleterre" dans "l'équipe d'Angleterre" est un attribut de "l'équipe". L'attribut n'ayant pas de sens à lui seul, on parlera toujours de l'attribut de telle entité.
+\end{definition}
+
+On voit déjà sur ces exemples simples que la distinction entre entité et attribut n'est pas triviale. En effet, dans un contexte différent, l'Angleterre pourrait être considérée comme une entité. Elle est pourtant essentielle à la compréhension du texte, et donc à son résumé, dans la mesure où ce seront les entités qui seront le sujet du texte.
+
+De plus, les structures du Workspace doivent être capables de rendre compte des actions effectuées ou subies par les entités. Pour cela, il nous a semblé plus facile d'étudier l'effet qu'ont ces actions sur l'état des entités : on parle alors d'évènement.
+
+\begin{definition}[État]
+L'état d'une entité désigne l'ensemble de ses attributs à un moment donné.
+\end{definition}
+\begin{definition}[Évènement]
+Un évènement est une arête dans le graphe présent dans le workspace, reliant une entité ou un attribut à un autre.
+\end{definition}
+
+\subsubsection{Implémentation}
+
+Pour l'implémentation, on utilise une seule classe python contenant pour seul champ une liste de concepts. Ces concepts sont des instantiations d'une classe abstraite, dont héritent trois classes \pyt{Entity}, \pyt{Attribute} et \pyt{Event}.
+
+%% Copier (un bout de) le code ?
+
+\subsubsection{Utilisation}
+
+Le fait d'ajouter des liens syntaxiques et logiques (par les évènements) entre les concepts intervenant dans le texte nous permet d'accéder de manière assez directe à leur importance relative dans le texte. En effet, du point de vue syntaxique, un concept fortement connecté sera présent dans une grande partie du texte et pourra donc être considéré comme le sujet, au moins du point de vue de l'auteur du texte, de ce dernier. Si, qui plus est, une entité ou ses attributs est l'origine ou la destination de nombreux évènements, il constituera un point central du texte au niveau du contenu.
+
+Ainsi l'importance d'un concept tant du point de vue de la forme que du fond nous semble directement relié à la connectivité des entités dans le graphe. L'algorithme de résumé procède donc comme suit :
+%% Bon je suis un peu flou sur les détails.
+
+\begin{enumerate}
+	\item On parcourt le graphe sémantique représentant le texte et, pour chaque mot, selon qu'il est entité ou attribut, le plonge à l'endroit idoine du workspace.
+	\item Les concepts proches des concepts très connectés sont ensuite plongés dans le workspace et reliés au reste.
+	\item On réduit ensuite le graphe en élaguant les nœuds moins connectés.
+	\item Les quelques nœuds restants sont présentés au lecteur.
+\end{enumerate}
+
+%% À vérifier
+Même si le résultat final n'est pas une phrase intelligible, les informations présentes dans la sortie doivent être suffisantes pour permettre au lecteur de se faire une idée de l'évènement principal dont traite l'article.
 
 \subsection{Analyse syntaxique}\index{Analyse syntaxique}
 
-Cette partie ne constituant pas le c\oe{}ur de notre psc, nous avons décidé d'utiliser un outil déjà codé, faisant partie de la plus grande librairie libre \pyt{nltk}\index{Natural Language ToolKit}.
+Cette partie ne constituant pas le c\oe{}ur de notre psc, nous avons décidé d'utiliser un outil déjà codé. L'entreprise Systran, au sein de laquelle notre tuteur travaille, a accepté de traiter nos données et nous a renvoyé un graphe sémantique contenant une analyse syntaxique complète des articles du corpus..
 
 \subsubsection{Description algorithmique d'une grammaire}\index{Grammaire}
 Une grammaire peut être décrite informatiquement de manière très simple. En effet, on peut la voir comme~:
@@ -514,22 +554,12 @@ Une grammaire peut être décrite informatiquement de manière très simple. En 
 
 Il y a par conséquent deux manières pour une grammaire d'être incomplète~: soit elle ne connaît pas assez de vocabulaire (manque d'éléments dans les cas terminaux), soit elle ne connaît pas assez de règles. La première faille est assez facile à combler par des requêtes vers WordNet\index{WordNet} (et par ailleurs un outil automatique est inclus dans \pyt{nltk}\index{Natural Language ToolKit})~; il est en revanche assez indispensable d'avoir une grammaire complète en termes de règles car il est beaucoup plus difficile d'inventer des manières de découper une phrase.
 
+Il est également à noter que les grammaires modernes s'appuient sur un entraînement statistique et traite les données de manière stochastique.
+
 \subsubsection{\'Etat du texte en fin d'analyse}
-Les grammaires \pyt{nltk} sont classées selon la forme de leur sortie. Elles attendent la liste des mots dans l'ordre dans lequel ils apparaissent dans le texte à étudier, accompagnés d'une liste de classes possibles pour ces mots. En sortie, on peut trouver~:
+Les données traitées par Systran nous sont revenues sous la forme d'un graphe sémantique. Chaque nœud, ou mot, de la phrase était de plus enrichi d'une liste de tags permettant d'établir de quel genre de mot il s'agit (humain, véhicule, lieu si c'est un nom; verbe d'action, verbe descriptif si c'est un verbe; etc.) Notons également que chaque nœud contient une liste (éventuellement vide) de fils avec lesquels il forme une entité syntaxique cohérente telle qu'un groupe nominal. Cela nous a été très utile lorsqu'il s'est agit de faire la différence entre les entités et leurs attributs lors de leur incorporation dans le workspace.
 
-\begin{itemize}
-	\item Un arbre représentant une structure grammaticale possible pour la phrase.
-	\item La liste de tous les arbres pouvant représenter la structure grammaticale de la phrase.
-	\item La liste de tous les arbres pouvant représenter la structure grammaticale de la phrase, et pour chaque arbre une mesure de la vraisemblance de cette structure.
-\end{itemize}
-
-Il y a une grande différence entre les n\oe{}uds non terminaux des arbres en sortie et leurs feuilles. En effet, ces dernières seront les unités syntaxiques présentes à l'origine dans la phrase, tandis que les n\oe{}uds internes représentent la classe grammaticale des bouts de phrases représentés par les sous-arbres dont ils sont la racine.
-
-%Un exemple serait sûrement le bienvenu, je vais voir si je me chauffe pour faire un ParseTree a l'air plausible. (Antonin)
-%Cela étant n'hésitez pas à vous chauffer vous aussi.
-
-Les n\oe{}uds internes sont en nombre fini et leurs étiquettes dépendent de si on considère des grammaires sans contexte (capables de séparer des composants autour d'un verbe) ou des grammaires à dépendance (dont le but est d'identifier le sujet et les compléments du verbe central).
-
+Par commodité, nous avons d'abord transformé ces données au format json avant des les inclure dans le workspace.
 
 \section{Suites envisagées}
 
