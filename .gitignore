@@ -15,3 +15,12 @@
 *.ind
 *.ilg
 *.idx
+*.bib
+*.bbl
+*.blg
+*_latexmk
+*.fls
+*.toc
+*.idx
+*.ind
+*.run.xml
