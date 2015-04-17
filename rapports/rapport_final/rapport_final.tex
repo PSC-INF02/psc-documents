@@ -430,54 +430,64 @@ Nous avons parallélisé les requêtes afin de les effectuer dans un temps raiso
 
 \section{Méthodes statistiques avec TF-IDF}
 
-La méthode statistique consiste à extraire des phrases par des techniques de la fouille de données textuelles. L'idée principale est de pondérer les phrases selon leur représentativité dans le texte et à afficher celles de poids le plus fort dans l'ordre de leur apparition dans le texte et dans la limite de la taille du résumé. Nous avons choisit ici l'indice TF-IDF pour mesurer ces poids.
+La méthode statistique consiste à extraire des phrases par des techniques de la fouille de données textuelles. L'idée principale est de pondérer les phrases selon leur représentativité dans le texte et à afficher celles de poids le plus fort dans l'ordre de leur apparition dans le texte et dans la limite de la taille du résumé. Nous avons choisi ici l'indice TF-IDF pour mesurer ces poids.
 
 \subsection{Algorithme statistique}
 
-Pour donner à chaque phrase un poids, on cherche d'aboard à mesurer l'importance de chaque mot. On a observé que, il y a des mots qui se présentent prêsque dans tous les documents comme les articles, les auxilliaires etc. Donc il faut filtrer ces mots non-significatifs. Et en autre part, les mots-clés d'un texte est aussi des mots qui sont fréquent qui doivent être distribués un poids important.
+Pour donner à chaque phrase un poids, on cherche d'abord à mesurer l'importance de chaque mot. On a observé qu'il y a des mots qui se présentent presque dans tous les documents comme les articles, les auxiliaires etc. Donc il faut filtrer ces mots non-significatifs. Et d'autre part, les mots-clés d'un texte sont aussi des mots qui y sont fréquents et à qui doit donc être assigné un poids important.
 
-Donc on cherche ici un indice de mot qui diminue selon le nombre d'apparition dans tous les documents et qui augmente selon le nombre d'apparition dans le texte particulier. Et l'indice TF-IDF satisfait exectement ces charactères.
+On cherche donc ici un indice qui diminue selon le nombre d'apparitions dans tous les documents, et qui augmente selon le nombre d'apparitions dans le texte particulier. Et l'indice TF-IDF satisfait exactement ces critères.
+
 
 \subsection{TF-IDF pour le résumé automatique}
 
 \subsubsection{Définition formelle}
+
+Selon un lemme de Hans Peter Luhn, le poids d'un terme est proportionnel à sa fréquence. 
+
+\begin{definition}[TF]
+ La fréquence d'un terme (\textit{term frequency}, TF) que l'on mesure ici est juste le nombre d'occurrences de ce terme dans le document considéré.
+\end{definition}
+
+\begin{definition}[IDF]
+ La fréquence inverse de document (\textit{inverse document frequency}, IDF) est une mesure de l'importance du terme dans l'ensemble du corpus. Elle vise à donner un poids plus important aux termes les moins fréquents, considérés comme plus discriminants.
+\end{definition}
+
+
+D'après la loi de Zipf, la fréquence d'occurrence $f(n)$ d'un mot est liée à son rang $n$ dans l'ordre des fréquences par une loi de la forme $f(n) = \frac{K}{n} $ où K est une constante.
+
+Donc ici, on prend la logarithme de cette fraction~:
+
+\begin{align}
+ idf_{i} =  log \frac{|D|}{|\{d_{j}: t_{i} \in d_{j}\}|}
+\end{align}
+
+Où : 
 \begin{itemize}
-\item Fréquence du terme
-
-Selon une lemme de Hans Peter Luhn, le poids d'un terme est propotionnel à son fréquence. La fréquence d'un terme(term frequency) que l'on mesure ici est juste le nombre d'occurences de ce terme dans le document considéré.
-
-\item Fréquence inverse de document
-
-La fréquence inverse de document(inverse document frequency)est une mesure de l'importance du terme dans l'ensemble du corpus. Elle vise à donner un poids plus important aux termes les moins fréquents, considérés comme plus discriminants.
-
-D'après la loi de Zipf, la fréquence d'occurence f(n) d'un mot ext liée à song rang n dans l'ordre des fréquences par une loi de la forme $f(n) = \frac{K}{n} $ où K est une constante.
-
-Donc ici, on prend la logarithme de cette fraction:
-
-$idf_{i} =  log \frac{|D|}{|\{d_{j}: t_{i} \in d_{j}\}|}$
-
-où :
-
-|D|~ : nombre total de documents dans le corpus ;
-
-$|\{d_{j} : t_{i} \in d_{j}\}|$ : nombre de documents où le terme  $t_{i}$  apparaît (c'est-à-dire  $n_{i,j} \neq 0$).
-
-Plus un mot apparaît, plus son indice idf tend vers à zero. Des mots qui se présent dans tous les documents vont être filtré car ils ont une indice null.
-
-\item TF-IDF
-
-En fin, le poids du mot s'obtient en multipliant les deux mesures.
-
-$tfidf_{i,j} = tf_{i,j} \cdot  idf_{i}$
+ \item |D| est le nombre total de documents dans le corpus ;
+ \item $|\{d_{j} : t_{i} \in d_{j}\}|$ est le nombre de documents où le terme  $t_{i}$  apparaît (c'est-à-dire  $n_{i,j} \neq 0$)
 \end{itemize}
+
+Plus un mot apparaît, plus son indice IDF tend vers zéro. Des mots qui sont présents dans tous les documents vont notamment être filtrés car ils ont un indice nul.
+
+\begin{definition}[TF-IDF]
+Le poids du mot s'obtient en multipliant les deux mesures TF et IDF.
+\end{definition}
+
+\begin{align}
+ tfidf_{i,j} = tf_{i,j} \cdot  idf_{i}
+\end{align}
+
+
 
 \subsubsection{Exemple}
 A venir....
 
 \subsection{Tests et qualité des résumés obtenus}
 
-La qualité de résumé par la méthode TF-IDF est peu optimale. En effet, avec un regroupement simple de phrases, on perd beaucoup d'information contextuel. Et comme une phrase sans contexte est souvent peu compréhensible, c'est toujours difficile de lire ces résumés.
-En revanche, pour la recherche des mots-clés, la méthode TF-IDF est assez efficace. Nous avous remarqués qu'à partir de ces mots-clés, à l'aide d'une méthode synthétique, nous pouvons construire des phrases plus claires et éventuellement faire un résumé du texte.
+La qualité des résumés obtenus par la méthode TF-IDF est peu optimale. En effet, avec un regroupement simple de phrases, on perd beaucoup d'information contextuelle. Et comme une phrase sans contexte est souvent peu compréhensible, c'est toujours difficile de lire ces résumés.
+
+En revanche, pour la recherche des mots-clés, la méthode TF-IDF est assez efficace. Nous avons remarqués qu'à partir de ces mots-clés, à l'aide d'une méthode synthétique, nous pouvons construire des phrases plus claires et éventuellement faire un résumé du texte.
 
 \subsection{TF-IDF pour l'importance conceptuelle}
 On peut utiliser l'indice TF-IDF sur des concepts et des noms.
