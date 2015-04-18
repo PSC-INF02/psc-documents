@@ -94,7 +94,7 @@ En première approximation, nous faisons renvoyer la notion de graphe sémantiqu
 
 \subsection{Données textuelles brutes}
 
-Nous avons récupéré automatiquement des données sur différents sites internet et flux rss, en moyenne 400 articles de sports par jour~; ce qui représentait à la fin du projet plus de 30~000 articles.
+Nous avons récupéré automatiquement des données sur différents sites internet et flux rss, en moyenne 300 articles de sports par jour~; ce qui représentait à la fin du projet plus de 20~000 articles.
 
 %%reprise textuelle
 Ces données servent à différents niveaux~:
@@ -171,7 +171,7 @@ Il est important de noter que Conceptnet5\index{Concepnet5} est généré à par
 Nous avons utilisé une partie de code source provenant de \href{https://github.com/commonsense/conceptnet5}{<github>}.
 
 
-\subsection{Structure de Conceptnet5}
+\subsubsection{Structure de Conceptnet5}
 %%reprise textuelle
 
 Conceptnet5\index{Conceptnet5} est un graphe sémantique\index{Graphe sémantique} contenant de l'ordre du million de nœuds et d'ar\^etes.
@@ -211,7 +211,7 @@ La correspondance entre relations de WordNet et de Conceptnet est par exemple~:
 
 Nous avons décidé après coup de conserver ces relations dans le réseau de concepts, et d'en utiliser un sous-ensemble. En effet, elles nous paraissent bien adaptées pour exprimer l'information que nous souhaitons voir contenue dans ce réseau.
 
-\subsection{Détail de l'API (\ang{Application's Programmer Interface})}
+\subsubsection{Détail de l'API (\ang{Application's Programmer Interface})}
 %%reprise textuelle
 
 Nous pouvons faire un certain nombre de requêtes à Conceptnet5. Il existe trois types différents de requêtes~:
@@ -227,7 +227,7 @@ Search permet de récupérer une liste d'arêtes (\ang{edges}) entre concepts, s
 Lookup permet d'analyser un concept (on aura par exemple accès à des listes d'arêtes dans lequel il intervient).
 
 
-\subsection{Utilisation de Conceptnet5}
+\subsubsection{Utilisation de Conceptnet5}
 
 Nous utilisons en majorité LookUp et Search, les requêtes Association étant beaucoup plus lentes et ne pouvant être réalisées en temps tout à fait raisonnable sur des données mettant en jeu plusieurs milliers de requêtes.
 
@@ -494,7 +494,29 @@ On peut utiliser l'indice TF-IDF sur des concepts et des noms.
 
 
 
-\section{À intégrer}
+\section{Traitement préalable des données}
+
+Pour assurer une certaine cohérence entre les données présentes dans le réseau de concepts et celles présentes dans le workspace, il est bien sûr nécessaire de faire le même travail de normalisation qui a eu lieu lors de la construction du premier. Cependant, le workspace étant destiné à contenir des informations beaucoup plus précises et ciblées sur un texte que le réseau, il est nécessaire de faire un travail préalable sur les données du texte avant des les introduire dans le workspace. Ces étapes sont décrites ci-dessous et se regroupent en deux parties : une analyse syntaxique, d'une part, permettant d'établir les liens entre les différents éléments du texte ; et d'autre part un travail sur la reconnaissance des pronoms permettant de distinguer les différentes entités présentes dans le texte.
+
+\subsection{Analyse syntaxique}\index{Analyse syntaxique}
+
+Cette partie ne constituant pas le c\oe{}ur de notre psc, nous avons décidé d'utiliser un outil déjà codé. L'entreprise Systran, au sein de laquelle notre tuteur travaille, a accepté de traiter nos données et nous a renvoyé un graphe sémantique contenant une analyse syntaxique complète des articles du corpus..
+
+\subsubsection{Description algorithmique d'une grammaire}\index{Grammaire}
+Une grammaire peut être décrite informatiquement de manière très simple. En effet, on peut la voir comme~:
+\begin{itemize}
+	\item Un ensemble de classes terminales (verbe, nom par exemple) associées à une liste de mots ou éventuellement d'expressions
+	\item Un ensemble de règles, souvent sous la forme d'une reconnaissance de motifs, permettant de découper une phrase en plusieurs éléments (et finalement en unités syntaxiques élémentaires).
+\end{itemize}
+
+Il y a par conséquent deux manières pour une grammaire d'être incomplète~: soit elle ne connaît pas assez de vocabulaire (manque d'éléments dans les cas terminaux), soit elle ne connaît pas assez de règles. La première faille est assez facile à combler par des requêtes vers WordNet\index{WordNet} (et par ailleurs un outil automatique est inclus dans \pyt{nltk}\index{Natural Language ToolKit})~; il est en revanche assez indispensable d'avoir une grammaire complète en termes de règles car il est beaucoup plus difficile d'inventer des manières de découper une phrase.
+
+Il est également à noter que les grammaires modernes s'appuient sur un entraînement statistique et traite les données de manière stochastique.
+
+\subsubsection{\'Etat du texte en fin d'analyse}
+Les données traitées par Systran nous sont revenues sous la forme d'un graphe sémantique. Chaque nœud, ou mot, de la phrase était de plus enrichi d'une liste de tags permettant d'établir de quel genre de mot il s'agit (humain, véhicule, lieu si c'est un nom; verbe d'action, verbe descriptif si c'est un verbe; etc.) Notons également que chaque nœud contient une liste (éventuellement vide) de fils avec lesquels il forme une entité syntaxique cohérente telle qu'un groupe nominal. Cela nous a été très utile lorsqu'il s'est agit de faire la différence entre les entités et leurs attributs lors de leur incorporation dans le workspace.
+
+Par commodité, nous avons d'abord transformé ces données au format json avant des les inclure dans le workspace.
 
 \subsection{Résolution de pronoms}
 
@@ -585,7 +607,7 @@ De plus, les structures du Workspace doivent être capables de rendre compte des
 L'état d'une entité désigne l'ensemble de ses attributs à un moment donné.
 \end{definition}
 \begin{definition}[Évènement]
-Un évènement est une arête dans le graphe présent dans le workspace, reliant une entité ou un attribut à un autre.
+Un évènement est une arête dans le graphe présent dans le workspace, reliant une entité ou un attribut à un autre. Si l'origine est une entité, il représentera le plus souvent une action ; si l'origine et la destination sont des attributs il représentera plutôt un changement dans l'état de l'entité à laquelle ils sont reliés.
 \end{definition}
 
 \subsubsection{Implémentation}
@@ -611,57 +633,45 @@ Ainsi l'importance d'un concept tant du point de vue de la forme que du fond nou
 %% À vérifier
 Même si le résultat final n'est pas une phrase intelligible, les informations présentes dans la sortie doivent être suffisantes pour permettre au lecteur de se faire une idée de l'évènement principal dont traite l'article.
 
-\subsection{Analyse syntaxique}\index{Analyse syntaxique}
 
-Cette partie ne constituant pas le c\oe{}ur de notre psc, nous avons décidé d'utiliser un outil déjà codé. L'entreprise Systran, au sein de laquelle notre tuteur travaille, a accepté de traiter nos données et nous a renvoyé un graphe sémantique contenant une analyse syntaxique complète des articles du corpus..
+\section{Bilan et améliorations envisageables}
 
-\subsubsection{Description algorithmique d'une grammaire}\index{Grammaire}
-Une grammaire peut être décrite informatiquement de manière très simple. En effet, on peut la voir comme~:
-\begin{itemize}
-	\item Un ensemble de classes terminales (verbe, nom par exemple) associées à une liste de mots ou éventuellement d'expressions
-	\item Un ensemble de règles, souvent sous la forme d'une reconnaissance de motifs, permettant de découper une phrase en plusieurs éléments (et finalement en unités syntaxiques élémentaires).
-\end{itemize}
+%% J'espère pouvoir corriger ce paragraphe dans les prochains jours
+Le projet n'a que peu de retard sur ce qui a été annoncé. Le workspace a été presque entièrement implémenté et nous sommes capables d'y introduire un texte en structures cohérentes. Nous avons cependant manqué de temps pour implémenter les parties les plus subtiles de nos algorithmes (activations dans le réseau de concepts, étoffement des liens dans le workspace).
 
-Il y a par conséquent deux manières pour une grammaire d'être incomplète~: soit elle ne connaît pas assez de vocabulaire (manque d'éléments dans les cas terminaux), soit elle ne connaît pas assez de règles. La première faille est assez facile à combler par des requêtes vers WordNet\index{WordNet} (et par ailleurs un outil automatique est inclus dans \pyt{nltk}\index{Natural Language ToolKit})~; il est en revanche assez indispensable d'avoir une grammaire complète en termes de règles car il est beaucoup plus difficile d'inventer des manières de découper une phrase.
+\subsection{Bilan des actions menées}
 
-Il est également à noter que les grammaires modernes s'appuient sur un entraînement statistique et traite les données de manière stochastique.
+Dans son état actuel, le projet constitue une excellente préparation à la mise en place des méthodes que nous avons décrites. Nous avons en effet améliorés quelques outils de traitement de données textuelles brutes (en ce qui concerne le traitement des noms propres notamment). Nous avons également pu mettre en place les structures indispensables à nos algorithme et créé les fonctions faisant l'interface avec les structures de données déjà existantes.
 
-\subsubsection{\'Etat du texte en fin d'analyse}
-Les données traitées par Systran nous sont revenues sous la forme d'un graphe sémantique. Chaque nœud, ou mot, de la phrase était de plus enrichi d'une liste de tags permettant d'établir de quel genre de mot il s'agit (humain, véhicule, lieu si c'est un nom; verbe d'action, verbe descriptif si c'est un verbe; etc.) Notons également que chaque nœud contient une liste (éventuellement vide) de fils avec lesquels il forme une entité syntaxique cohérente telle qu'un groupe nominal. Cela nous a été très utile lorsqu'il s'est agit de faire la différence entre les entités et leurs attributs lors de leur incorporation dans le workspace.
-
-Par commodité, nous avons d'abord transformé ces données au format json avant des les inclure dans le workspace.
-
-\section{Suites envisagées}
-
-Dans l'ensemble le projet avance avec peu de retard sur le plan prévisionnel écrit en novembre dernier. Le réseau de concepts est prêt à être utilisé et notre attention pourra se reporter sur le développement du \textit{workspace}\index{Workspace} et du déploiement de l'analyse syntaxique.\index{Analyse syntaxique}
-
-Cette dernière, que nous avions prise pour à peu près acquise, s'avère requérir plus de travail que prévu. En effet, l'outil que nous avions prévu d'utiliser --- les ``grammaires'' \pyt{nltk}\index{Grammaire} --- soufrent d'un manque de souplesse rédhibitoire. Elles doivent en particulier connaître en avance tous les mots de la phrase pour pouvoir l'analyser, ce qui même en construisant un dictionnaire exhaustif --- qui n'existe pas à l'heure actuelle --- est très limitant pour peu qu'une phrase contienne un néologisme où un nom propre peu connu (voire une simple faute d'orthographe). Nous penchons donc plus actuellement pour des méthodes statistiques plus souples, mais aussi plus difficiles à appréhender.
+Nous avons, d'autre part, pu implémenter un algorithme raisonnable de résumé automatique s'appuyant sur TF-IDF. % Complement needed.
 
 \vspace{1\baselineskip}
 
-La planification pour le reste du projet est la suivante~:
-\begin{description}
-	\item[Février~: ]Mise en place de l'analyseur syntaxique. Responsables~: Antonin Angibault, Théophane Hufschmitt, Sarah Fernandes-Pinto-Fachada.
-	\item[Février~: ]Fin de la spécification du contenu du \textit{workspace}.
-	\item[Février-Avril~: ]Implémentation du \textit{workspace} (donc, essentiellement, de ce qui manque à l'algorithme de résumé pour fonctionner).
-	\item[Avril~: ]Génération de résumé et évaluation de ceux-ci.
-\end{description}
-
-Les différences essentielles avec la planification initiale proviennent de la complexité inattendue de la grammaire. En revanche, le temps d'exécution prévu pour la production d'un résumé d'article étant long, nous produirons finalement peu de résumés à évaluer, cela nous permet donc de les évaluer à la main et de gagner du temps sur cette partie de la planification initiale.
-
-Globalement nous pensons être capables de mener le projet à bien comme prévu. Les sections suivantes décrivent les points prêts à être mis en place.
-
-\subsection{Apprentissage du réseau de concepts}
+\subsection{Améliorations}
+\subsubsection{Apprentissage du réseau de concepts}
 Le réseau de concept représente un \textit{a priori} sur le monde de notre programme. Il est donc normal que cette structure évolue au fur et à mesure des textes lus.
 
-Les fonctions de construction du réseau peuvent sans mal être appelées après la génération du résumé pour y apporter des modifications pérennes.
+Les fonctions de construction du réseau peuvent sans mal être appelées après la génération du résumé pour y apporter des modifications pérennes, que ce soit sur les données brutes ou, mieux encore, sur les structures encores présentes dans le workspace qui contiennent explicitement des relations entre les différents concepts présents.
 
-\subsection{\'Evaluation des résumés}
-Le faible nombre de résumés que nous prévoyons de produire nous permettra d'utiliser la méthode la plus simple parmi celles qui étaient mentionnées dans la proposition détaillée~: la comparaison à un résumé déclaré bon car produit par un humain.
+\subsubsection{Établissement de l'importance conceptuelle}
 
-L'idée est la suivante~: l'un de nous résumera un texte, nous emploierons notre programme pour résumer le même texte, et enfin nous utiliserons un simple algorithme statistique (basé sur TF-IDF) pour résumer ce même texte. Nous comparerons ensuite ces résumés du point de vue de l'information qu'ils contiennent~: sont-ils des images assez fidèles du document original~?
+Pour l'instant l'importance conceptuelle est définie de manière assez floue dans le réseau, et ce manque de confiance que nous accordons à la donnée nous empêche de l'utiliser de manière trop centrale dans nos algorithmes.
 
-Compte-tenu de la simplicité de l'algorithme statistique, nous espérons que le résumé produit par notre programme se situera quelque part entre le résumé statistique et le résumé humain.
+Il est en revanche envisageable d'adapter l'algorithme TF-IDF pour calculer une importance conceptuelle aux concepts rencontrés. En effet, notre but (rappelons-le) était de produire des résumés très courts, ce que fait en général le titre d'un article. De plus, l'importance conceptuelle modélise le fait que certains concepts, même s'ils sont rencontrés moins souvent, ont plus de portée que d'autres et méritent donc d'être gardés en tête plus longuement (rappelons aussi que la désactivation modélise l'oubli progressif du texte au fur et à mesure qu'on avance dans sa lecture ; c'est un mécanisme de tri entre les concepts qui sont mentionnés rarement et donc probablement anecdotiques, à l'inverse des concepts présents tout au long du texte et qui en constituent donc le sujet principal).
+
+Par conséquent, les termes ayant une importance conceptuelle forte sont ceux qui :
+\begin{itemize}
+	\item Sont souvent présents dans les titres~;
+	\item D'autant plus qu'ils sont peu fréquents dans le corpus (voire dans un texte donné).
+\end{itemize}
+Ce qui constitue une adaptation mineure du calcul fait pour TF-IDF.
+
+%\subsubsection{\'Evaluation des résumés}
+%Le faible nombre de résumés que nous prévoyons de produire nous permettra d'utiliser la méthode la plus simple parmi celles qui étaient mentionnées dans la proposition détaillée~: la comparaison à un résumé déclaré bon car produit par un humain.
+
+%L'idée est la suivante~: l'un de nous résumera un texte, nous emploierons notre programme pour résumer le même texte, et enfin nous utiliserons un simple algorithme statistique (basé sur TF-IDF) pour résumer ce même texte. Nous comparerons ensuite ces résumés du point de vue de l'information qu'ils contiennent~: sont-ils des images assez fidèles du document original~?
+
+%Compte-tenu de la simplicité de l'algorithme statistique, nous espérons que le résumé produit par notre programme se situera quelque part entre le résumé statistique et le résumé humain.
 
 
 
