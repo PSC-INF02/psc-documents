@@ -473,7 +473,7 @@ Où :
 
 Plus un mot apparaît, plus son indice IDF tend vers zéro. Des mots qui sont présents dans tous les documents vont notamment être filtrés car ils ont un indice nul.
 
-\begin{definition}[TF-IDF]
+\begin{definition}[TF-IDF]tf idf example
 Le poids du mot s'obtient en multipliant les deux mesures TF et IDF.
 \end{definition}
 
@@ -482,7 +482,42 @@ Le poids du mot s'obtient en multipliant les deux mesures TF et IDF.
 \end{align}
 
 \subsubsection{Exemple}
+Voyez le tableau de valeur tf-idf de 4 termes dans 3 documents sur un corpus de 1000 documents.
+\begin{center}
+	\begin{tabular}{|c|c|c|c|c|}
+	 \hline
+	 	Terme & tf(document 1) & tf(document 2) & tf(document 3) & idf \\
+	 \hline
+	 	he & 90 & 61 & 63 & 0.006 \\
+	 \hline
+	 	on & 43 & 34 & 51 & 0.008 \\
+	 \hline
+	 	discussion & 11 & 0 & 0 & 6.39 \\
+	 \hline
+	 	traveller & 0 & 13 & 0 & 6.39 \\
+	 \hline
+	\end{tabular}
+\end{center}
 
+Et le tf-idf de ces 4 termes se calculent en-dessous:
+
+\begin{center}
+	\begin{tabular}{|c|c|c|c|}
+	 \hline
+	 	Terme & tf-idf(document 1) & tf-idf(document 2) & tf-idf(document 3) \\
+	 \hline
+	 	he & 0.540 & 0.366 & 0.378 \\
+	 \hline
+	 	on & 0.344 & 0.272 & 0.408 \\
+	 \hline
+	 	discussion & 70.29 & 0 & 0 \\
+	 \hline
+	 	traveller & 0 & 83.07 & 0 \\
+	 \hline
+	\end{tabular}
+\end{center}
+
+On voit ici l'influence de la fréquence inverse sur tf-idf: dans le document 1, même si le terme 'he' soit plus fréquent que celui de 'dicussion', son indice tf-idf est petit, car il apparaît dans la pluspart de document et a une indice idf petit.
 
 \subsection{Tests et qualité des résumés obtenus}
 
