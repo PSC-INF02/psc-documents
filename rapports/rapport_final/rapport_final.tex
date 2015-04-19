@@ -522,15 +522,20 @@ Et les TF-IDF de ces 4 termes se calculent comme ci-dessous:
 	\end{tabular}
 \end{center}
 
-On voit ici l'influence de la fréquence inverse sur le TF-IDF: dans le document 1, même si le terme 'he' soit plus fréquent que celui de 'dicussion', son indice TF-IDF est petit, car il apparaît dans la pluspart de document et a une indice idf petit. Pour le document 1, 'discussion' est plus discriminant que le mot 'he'.
+On voit ici l'influence de la fréquence inverse sur le TF-IDF: dans le document 1, même si le terme 'he' est plus fréquent que celui de 'dicussion', son indice TF-IDF est petit, car il apparaît dans la plupart des documents et a un indice IDF petit. Pour le document 1, 'discussion' est plus discriminant que 'he'.
 
-Après obtenir les valeurs TF-IDF de chaque terme, on peux calculer les poids de chaque phrase. Notre résumé se construit par la première phrase d'un texte et les première quart de phrases tirant en ordre décroissant selon leur poids.
+\paragraph{}
+Après avoir obtenu les valeurs TF-IDF de chaque terme, on peut calculer les poids de chaque phrase. Notre résumé est construit en additionnant la première phrase du texte (souvent le titre, qui, riche en information, a souvent le meilleur poids) avec quelques autres ayant un poids maximal, prises dans leur ordre d'apparition dans le texte.
+
+On peut ainsi facilement agir sur la longueur du résumé par rapport à celle du texte (ne sélectionner qu'une phrase sur trois, ou sur quatre).
 
 \subsection{Tests et qualité des résumés obtenus}
 
-La qualité des résumés obtenus par la méthode TF-IDF est peu optimale. En effet, avec un regroupement simple de phrases, on perd beaucoup d'information contextuelle. Par exemple, on peut avoir souvent une phrase commence par un mystérieux 'he'(il) ou 'she'(elle). Et cette phrase sans contexte est souvent peu compréhensible.
+La qualité des résumés obtenus par la méthode TF-IDF est peu optimale. En effet, avec un regroupement simple de phrases, on perd beaucoup d'information contextuelle. Par exemple, on peut avoir souvent une phrase commençant par un mystérieux \textit{he} (il) ou \textit{she} (elle). Et cette phrase sans contexte est souvent peu compréhensible. (C'est aussi pour cela que nous choisissons d'inclure dans le résumé la première phrase, car elle contient \textit{a minima} les noms des personnes dont l'article parle).
 
-En revanche, pour la recherche des mots-clés, la méthode TF-IDF est assez efficace. Nous avons remarqués qu'à partir de ces mots-clés, à l'aide d'une méthode synthétique, nous pouvons construire des phrases plus claires et éventuellement faire un résumé du texte.
+Deux exemples sont disponibles en annexe \ref{Annexe:resumes}.
+
+%En revanche, pour la recherche des mots-clés, la méthode TF-IDF est assez efficace. Nous avons remarqués qu'à partir de ces mots-clés, à l'aide d'une méthode synthétique, nous pouvons construire des phrases plus claires et éventuellement faire un résumé du texte. ??
 
 \subsection{TF-IDF pour l'importance conceptuelle}
 
@@ -852,6 +857,90 @@ Les indices reproduits ci-dessous ne sont pas normalisés.
 \caption{Extrait de la base de données de TF-IDF pour des noms propres}
 \end{center}
 \end{figure}
+
+\section{Exemples de résumés avec une méthode statistique}
+
+\subsection{Texte 1}
+
+Tiré du site de \href{http://www.theguardian.com/football/2015/mar/29/georgia-germany-euro-2016-match-report}{\textit{The Guardian}}, le 29 mars 2015.
+
+(Notons une erreur survenue dans la récupération de l'article : la légende de l'image a été prise comme faisant partie du texte.)
+
+\begin{quotation}
+ Germany's Marco Reus,  right,  celebrates his goal against Georgia.\\
+Photograph.\\
+David Mdzinarishvili/ REUTERS.\\
+The World Cup winners Germany eased past the hosts Georgia 2-0 in their Euro 2016 qualifier on Sunday with first-half goals from Marco Reus and Thomas Müller enough to get their Group D campaign back on track.\\
+Reus put the visitors ahead after 39 minutes and Müller doubled their lead before the break as the Germans,  who had an erratic start to the qualifiers last year when they lost in Poland,  were never threatened by their weaker opponents.\\
+The win lifted Germany,  who did not need to hit top form,  to 10 points from five games to equal Poland,  who take on Ireland later on Sunday,  and Scotland.\\
+Georgia have had a tough start in Group D,  recording four defeats and a win in Gibraltar to stay on three points.\\
+It did not take long for Germany,  with several World Cup winners back in the squad including captain Bastian Schweinsteiger,  to threaten and Reus’ powerful drive was palmed on to the crossbar by the keeper Giorgi Loria after five minutes.\\
+With the coach Joachim Löw reverting to a four-man defence from a three-player experiment against Australia in a friendly on Wednesday,  Germany pressured their opponents’ box for most of the first half.\\
+Müller fired at goal directly from a corner only to see the ball fly just wide of the post and Mesut Özil missed another big chance as the visitors had the hosts firmly on the backfoot.\\
+Reus did better in the 39th when Mario Götze charged into the box and was lucky to scramble the ball to the winger,  who drilled home for his second goal this week after also scoring in their 2-2 friendly draw against Australia.\\
+Müller then added another on the stroke of halftime to firmly put Germany in the driving seat.\\
+The new Georgia coach Kakhaber Tskhadadze added a forward after the break but it was Reus who came close again,  rattling the bar for a second time on the hour with another powerful shot.\\
+\end{quotation}
+
+\subsection{Phrases du texte 1 par poids décroissants}
+
+\begin{quotation}
+ ( The win lifted Germany,  who did not need to hit top form,  to 10 points from five games to equal Poland,  who take on Ireland later on Sunday,  and Scotland. , 8242.26772072029)\\
+( Reus did better in the 39th when Mario Götze charged into the box and was lucky to scramble the ball to the winger,  who drilled home for his second goal this week after also scoring in their 2-2 friendly draw against Australia. , 7825.67291347488)\\
+( Georgia have had a tough start in Group D,  recording four defeats and a win in Gibraltar to stay on three points. , 7096.286506924158)\\
+("Germany s Marco Reus,  right,  celebrates his goal against Georgia.", 7081.905602739567)\\
+( Müller fired at goal directly from a corner only to see the ball fly just wide of the post and Mesut Özil missed another big chance as the visitors had the hosts firmly on the backfoot. , 6985.560661733021)\\
+( Photograph. , 6066.563168646177)\\
+( The new Georgia coach Kakhaber Tskhadadze added a forward after the break but it was Reus who came close again,  rattling the bar for a second time on the hour with another powerful shot. , 5585.593141599327)\\
+( Reus put the visitors ahead after 39 minutes and Müller doubled their lead before the break as the Germans,  who had an erratic start to the qualifiers last year when they lost in Poland,  were never threatened by their weaker opponents. , 5286.39283077408)\\
+( It did not take long for Germany,  with several World Cup winners back in the squad including captain Bastian Schweinsteiger,  to threaten and Reus’ powerful drive was palmed on to the crossbar by the keeper Giorgi Loria after five minutes. , 3877.015426088277)\\
+( The World Cup winners Germany eased past the hosts Georgia 2-0 in their Euro 2016 qualifier on Sunday with first-half goals from Marco Reus and Thomas Müller enough to get their Group D campaign back on track. , 3873.7065644920067)\\
+( With the coach Joachim Löw reverting to a four-man defence from a three-player experiment against Australia in a friendly on Wednesday,  Germany pressured their opponents’ box for most of the first half. , 3791.76236469219)\\
+( Müller then added another on the stroke of halftime to firmly put Germany in the driving seat. , 3071.837346062652)\\
+\end{quotation}
+
+
+\subsection{Texte 2 (extrait)}
+
+Tiré également du \href{http://www.theguardian.com/football/2015/mar/29/northern-ireland-finland-euro-2016-qualifier-match-report}{site de \textit{The Guardian}}.
+
+\begin{quotation}
+ Kyle Lafferty,  right,  celebrates with his Northern Ireland team-mates after scoring the first goal against Finland . \\
+Photograph . \\
+Andrew Paton/ EPA . \\
+Kyle Lafferty exhibited precisely why he is at the vanguard of this seismic Northern Ireland renaissance,  after helping to sink Finland’s hopes of qualification for Euro 2016
+The rangy striker may be lounging at the on-loan Turkish outpost of Caykur Rizespor,  but the Norwich City man came alive when needed at Windsor Park . \\
+
+[...]\\
+
+But it was sufficient to settle nerves amongst the Green and White Army . \\
+Finland,  reeling,  must have felt their pockets had been picked . \\
+O’Neill sent out a more focused,  organized outfit in the second half,  taking control of most situations . \\
+A sense of calm restored,  with Finland having lost their earlier verve . \\
+The visitors did recover slightly,  helping themselves to an injury time consolation with Sadik lashing home to shred home nerves . \\
+Nonetheless it will be a relieved O’Neill looking forward to matters with massive optimism . \\
+\end{quotation}
+
+\subsection{Résumé du texte 2}
+
+On remarque principalement des imprécisions des problèmes de contexte qui apparaissent naturellement lorsqu'on extrait des phrases.
+
+\begin{quotation}
+ Kyle Lafferty,  right,  celebrates with his Northern Ireland team-mates after scoring the first goal against Finland . \\
+
+Two goals in six first-half minutes have now genuinely pressed Northern Ireland into strong contention for automatic advancement to France next year . \\
+
+A late Berat Sadik effort was insufficient for the Finns as their luck ran out . \\
+
+Minutes later the lead was doubled . \\
+
+Conor McLaughlin swept a precise cross in from the right flank,  before Lafferty got his head on the end of it and nestled the ball into the left hand corner . \\
+
+Finland,  reeling,  must have felt their pockets had been picked . \\
+
+The visitors did recover slightly,  helping themselves to an injury time consolation with Sadik lashing home to shred home nerves . \\
+\end{quotation}
+
 
 \newpage
 \printindex
