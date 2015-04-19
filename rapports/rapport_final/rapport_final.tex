@@ -432,7 +432,7 @@ Nous avons parallélisé les requêtes afin de les effectuer dans un temps raiso
 
 \section{Méthodes statistiques avec TF-IDF}\label{Section:TFIDF}
 
-La méthode statistique consiste à extraire des phrases par des techniques de la fouille de données textuelles. L'idée principale est de pondérer les phrases selon leur représentativité dans le texte et à afficher celles de poids le plus fort dans l'ordre de leur apparition dans le texte et dans la limite de la taille du résumé. Nous avons choisi ici l'indice TF-IDF\index{TF-IDF} pour mesurer ces poids.
+La méthode statistique consiste à extraire des phrases par des techniques de la fouille de données textuelles. L'idée principale est de pondérer les phrases selon leur représentativité dans le texte et à afficher celles de poids le plus fort dans l'ordre de leur apparition dans le texte et dans la limite de la taille du résumé. Nous avons choisi ici l'indice TF-IDF pour mesurer ces poids.
 
 \subsection{Algorithme statistique}
 
@@ -442,25 +442,25 @@ On cherche donc ici un indice qui diminue selon le nombre d'apparitions dans tou
 
 
 \subsection{TF-IDF pour le résumé automatique}
-Selon une lemme de Hans Peter Luhn, le poids d'un terme est proportionnel à son fréquence.
+Selon une lemme de Hans Peter Luhn, le poids d'un terme est propotionnel à son fréquence.
 
 D'après la loi de Zipf, la fréquence d'occurrence $f(n)$ d'un mot est liée à son rang $n$ dans l'ordre des fréquences par une loi de la forme $f(n) = \frac{K}{n} $ où K est une constante.
 
 \includegraphics[scale=0.5]{loi_de_zipf.eps}
 
-L'abscisse x est le rang d'un terme selon la fréquence et y est l'occurrence de ce terme. Les mots plus fréquents sont 'the','of' et 'and'. On voit bien la début de courbe est proche de la fonction 1/x. C'est-à-dire que pour chercher les mots discriminants, il suffit de regarder l'inverse de la fréquence d'occurrence.
+L'abscisse x est le rang d'un terme selon la fréquence et y est l'occurence de ce terme. Les mots plus fréquents sont 'the','of' et 'and'. On voit bien la courbe tend vers la fonction K/x.(ici on a choisi K = 5200000) C'est-à-dire que pour chercher les mots indiscriminant, il suffit de regarder l'inverse de la fréquence d'occurence.
 
 \subsubsection{Définition formelle}
 
-\begin{definition}[TF]\index{TF}
- La fréquence d'un terme (\textit{term frequency}, TF) que l'on mesure ici est simplement le nombre d'occurrences de ce terme dans le document considéré.
+\begin{definition}[TF]
+ La fréquence d'un terme (\textit{term frequency}, TF) que l'on mesure ici est juste le nombre d'occurrences de ce terme dans le document considéré.
 \end{definition}
 
-\begin{definition}[IDF]\index{IDF}
+\begin{definition}[IDF]
  La fréquence inverse de document (\textit{inverse document frequency}, IDF) est une mesure de l'importance du terme dans l'ensemble du corpus. Elle vise à donner un poids plus important aux termes les moins fréquents, considérés comme plus discriminants.
 \end{definition}
 
-Ici, on prend le logarithme de cette fraction~:
+Ici, on prend la logarithme de cette fraction~:
 
 \begin{align}
  idf_{i} =  log \frac{|D|}{|\{d_{j}: t_{i} \in d_{j}\}|}
@@ -469,12 +469,12 @@ Ici, on prend le logarithme de cette fraction~:
 Où : 
 \begin{itemize}
  \item |D| est le nombre total de documents dans le corpus ;
- \item $|\{d_{j} : t_{i} \in d_{j}\}|$ est le nombre de documents $d_j$ où le terme  $t_{i}$  apparaît (c'est-à-dire  $n_{i,j} \neq 0$)
+ \item $|\{d_{j} : t_{i} \in d_{j}\}|$ est le nombre de documents où le terme  $t_{i}$  apparaît (c'est-à-dire  $n_{i,j} \neq 0$)
 \end{itemize}
 
 Plus un mot apparaît, plus son indice IDF tend vers zéro. Des mots qui sont présents dans tous les documents vont notamment être filtrés car ils ont un indice nul.
 
-\begin{definition}[TF-IDF]\index{TF-IDF}%tf idf example
+\begin{definition}[TF-IDF]
 Le poids du mot s'obtient en multipliant les deux mesures TF et IDF.
 \end{definition}
 
@@ -482,12 +482,16 @@ Le poids du mot s'obtient en multipliant les deux mesures TF et IDF.
  tfidf_{i,j} = tf_{i,j} \cdot  idf_{i}
 \end{align}
 
-\subsubsection{Exemple}
-Voici le tableau de valeurs TF-IDF de 4 termes dans 3 documents sur un corpus de 1000 documents.
+\begin{definition}[Poids d'une phrase]
+Après calculer les indices tf-idf de chaque mot dans une phrase, on les somme et divise cette somme par le nombre de mots dans cette phrase et c'est le poids de cette phrase.
+\end{definition}
+
+\subsubsection{Illustration}
+Voyez le tableau de valeur tf-idf de 4 termes dans 3 documents sur un corpus de 1000 documents.
 \begin{center}
 	\begin{tabular}{|c|c|c|c|c|}
 	 \hline
-	 	Terme & TF(document 1) & TF(document 2) & TF(document 3) & IDF \\
+	 	Terme & tf(document 1) & tf(document 2) & tf(document 3) & idf \\
 	 \hline
 	 	he & 90 & 61 & 63 & 0.006 \\
 	 \hline
@@ -500,12 +504,12 @@ Voici le tableau de valeurs TF-IDF de 4 termes dans 3 documents sur un corpus de
 	\end{tabular}
 \end{center}
 
-Et les TF-IDF de ces 4 termes se calculent comme suit~:
+Et le tf-idf de ces 4 termes se calculent en-dessous:
 
 \begin{center}
 	\begin{tabular}{|c|c|c|c|}
 	 \hline
-	 	Terme & TF-IDF(document 1) & TF-IDF(document 2) & TF-IDF(document 3) \\
+	 	Terme & tf-idf(document 1) & tf-idf(document 2) & tf-idf(document 3) \\
 	 \hline
 	 	he & 0.540 & 0.366 & 0.378 \\
 	 \hline
@@ -518,13 +522,15 @@ Et les TF-IDF de ces 4 termes se calculent comme suit~:
 	\end{tabular}
 \end{center}
 
-On voit ici l'influence de la fréquence inverse sur TF-IDF: dans le document 1, même si le terme ``he'' est plus fréquent que celui de ``dicussion'', son indice TF-IDF est petit, car il apparaît dans la plupart des documents et a un indice IDF faible.
+On voit ici l'influence de la fréquence inverse sur tf-idf: dans le document 1, même si le terme 'he' soit plus fréquent que celui de 'dicussion', son indice tf-idf est petit, car il apparaît dans la pluspart de document et a une indice idf petit. Pour le document 1, 'discussion' est plus discriminant que le mot 'he'.
+
+Après obtenir les valeurs tf-idf de chaque terme, on peux calculer les poids de chaque phrase. Notre résumé se construit par la première phrase d'un texte et les première quart de phrases tirant en ordre décroissant selon leur poids.
 
 \subsection{Tests et qualité des résumés obtenus}
 
-La qualité des résumés obtenus par la méthode TF-IDF est peu optimale. En effet, avec un regroupement simple de phrases, on perd beaucoup d'information contextuelle. Et comme une phrase sans contexte est souvent peu compréhensible, c'est toujours difficile de lire ces résumés.
+La qualité des résumés obtenus par la méthode TF-IDF est peu optimale. En effet, avec un regroupement simple de phrases, on perd beaucoup d'information contextuelle. Par exemple, on peut avoir souvent une phrase commence par un mystérieux 'he'(il) ou 'she'(elle). Et cette phrase sans contexte est souvent peu compréhensible.
 
-En revanche, pour la recherche des mots-clés, la méthode TF-IDF est assez efficace. Nous avons remarqué qu'à partir de ces mots-clés, à l'aide d'une méthode synthétique, nous pouvons construire des phrases plus claires et éventuellement faire un résumé du texte.
+En revanche, pour la recherche des mots-clés, la méthode TF-IDF est assez efficace. Nous avons remarqués qu'à partir de ces mots-clés, à l'aide d'une méthode synthétique, nous pouvons construire des phrases plus claires et éventuellement faire un résumé du texte.
 
 \subsection{TF-IDF pour l'importance conceptuelle}
 
