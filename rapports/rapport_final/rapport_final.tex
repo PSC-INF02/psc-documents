@@ -5,6 +5,7 @@
 \usepackage{makeidx}              %% permet de générer un index automatiquement
 \usepackage[style=numeric, backend=bibtex]{biblatex}				%% Utilisé pour la biblio
 \usepackage[hidelinks]{hyperref}
+\usepackage{graphicx}
 
 
 
@@ -440,10 +441,15 @@ On cherche donc ici un indice qui diminue selon le nombre d'apparitions dans tou
 
 
 \subsection{TF-IDF pour le résumé automatique}
+Selon une lemme de Hans Peter Luhn, le poids d'un terme est propotionnel à son fréquence.
+
+D'après la loi de Zipf, la fréquence d'occurrence $f(n)$ d'un mot est liée à son rang $n$ dans l'ordre des fréquences par une loi de la forme $f(n) = \frac{K}{n} $ où K est une constante.
+
+\includegraphics[scale=0.5]{loi_de_zipf.eps}
+
+L'abscisse x est le rang d'un terme selon la fréquence et y est l'occurence de ce terme. Les mots plus fréquents sont 'the','of' et 'and'. On voit bien la début de courbe est proche de la fonction 1/x. C'est-à-dire pour chercher les mots indiscriminant, il suffit de regarder l'inverse de la fréquence d'occurence.
 
 \subsubsection{Définition formelle}
-
-Selon un lemme de Hans Peter Luhn, le poids d'un terme est proportionnel à sa fréquence. 
 
 \begin{definition}[TF]
  La fréquence d'un terme (\textit{term frequency}, TF) que l'on mesure ici est juste le nombre d'occurrences de ce terme dans le document considéré.
@@ -453,10 +459,7 @@ Selon un lemme de Hans Peter Luhn, le poids d'un terme est proportionnel à sa f
  La fréquence inverse de document (\textit{inverse document frequency}, IDF) est une mesure de l'importance du terme dans l'ensemble du corpus. Elle vise à donner un poids plus important aux termes les moins fréquents, considérés comme plus discriminants.
 \end{definition}
 
-
-D'après la loi de Zipf, la fréquence d'occurrence $f(n)$ d'un mot est liée à son rang $n$ dans l'ordre des fréquences par une loi de la forme $f(n) = \frac{K}{n} $ où K est une constante.
-
-Donc ici, on prend la logarithme de cette fraction~:
+Ici, on prend la logarithme de cette fraction~:
 
 \begin{align}
  idf_{i} =  log \frac{|D|}{|\{d_{j}: t_{i} \in d_{j}\}|}
@@ -478,10 +481,8 @@ Le poids du mot s'obtient en multipliant les deux mesures TF et IDF.
  tfidf_{i,j} = tf_{i,j} \cdot  idf_{i}
 \end{align}
 
-
-
 \subsubsection{Exemple}
-A venir....
+
 
 \subsection{Tests et qualité des résumés obtenus}
 
