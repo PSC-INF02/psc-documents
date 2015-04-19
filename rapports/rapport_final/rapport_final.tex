@@ -217,30 +217,30 @@ Nous avons décidé après coup de conserver ces relations dans le réseau de co
 
 Nous pouvons faire un certain nombre de requêtes à Conceptnet5. Il existe trois types différents de requêtes~:
 \begin{itemize}
- \item Lookup~;
- \item Association~;
- \item Search~;
+ \item \texttt{Lookup}~;
+ \item \texttt{Association}~;
+ \item \texttt{Search}~;
 \end{itemize}
 Association permet de calculer la proximité entre deux concepts, ou de récupérer une liste de concepts proches d'un concept donné.
 
-Search permet de récupérer une liste d'arêtes (\ang{edges}) entre concepts, selon les paramètres spécifiés (le plus souvent, on impose le concept de départ \ang{start} ou d'arrivée \ang{end}).
+\texttt{Search} permet de récupérer une liste d'arêtes (\ang{edges}) entre concepts, selon les paramètres spécifiés (le plus souvent, on impose le concept de départ \ang{start} ou d'arrivée \ang{end}).
 
-Lookup permet d'analyser un concept (on aura par exemple accès à des listes d'arêtes dans lequel il intervient).
+\texttt{Lookup} permet d'analyser un concept (on aura par exemple accès à des listes d'arêtes dans lequel il intervient).
 
 
 \subsubsection{Utilisation de Conceptnet5}
 
-Nous utilisons en majorité LookUp et Search, les requêtes Association étant beaucoup plus lentes et ne pouvant être réalisées en temps tout à fait raisonnable sur des données mettant en jeu plusieurs milliers de requêtes.
+Nous utilisons en majorité \texttt{LookUp} et \texttt{Search}, les requêtes \texttt{Association} étant beaucoup plus lentes et ne pouvant être réalisées en temps tout à fait raisonnable sur des données mettant en jeu plusieurs milliers de requêtes.
 
 Considérons un concept dont nous cherchons des voisins dans le réseau.
 \begin{itemize}
- \item Une requête LookUp nous donne déjà une idée desdits voisins (liens entrants ou sortants) ;
- \item Une recherche Search précise pourra nous donner par exemple un certain nombre de voisins, par des liens sortants, que nous pourrons ajouter (en sélectionnant bien sûr les concepts jugés pertinents, selon quelques critères empiriques) ;
- \item Une requête Association renvoie une liste de concepts similaires. On peut alors les relier au précédent avec un lien SimilarTo.
+ \item Une requête \verb|LookUp|\index{LookUp} nous donne déjà une idée desdits voisins (liens entrants ou sortants) ;
+ \item Une recherche \verb|Search|\index{Search} précise pourra nous donner par exemple un certain nombre de voisins, par des liens sortants, que nous pourrons ajouter (en sélectionnant bien sûr les concepts jugés pertinents, selon quelques critères empiriques) ;
+ \item Une requête \verb|Association|\index{Association} renvoie une liste de concepts similaires. On peut alors les relier au précédent avec un lien \verb|SimilarTo|.
 \end{itemize}
 
 \paragraph{Pertinence des concepts}
-Conceptnet5 contient beaucoup d'information et les concepts sur lesquels il nous aiguille ne sont pas forcément pertinents. Il faut vérifier le poids des liens renvoyés, la similarité quand elle a lieu, ainsi que d'autres facteurs : nous ne pouvons pas garder les liens RelatedTo car ils renvoient souvent à la traduction du mot dans une autre langue. Nous ne pouvons pas non plus garder les concepts formés d'une expression trop longue (atteignant parfois la taille d'une phrase entière), car celle-ci renvoie souvent à un événement ou un domaine très particulier, et sera de toute façon impossible à retrouver telle quelle dans un texte.
+Conceptnet5 contient beaucoup d'information et les concepts sur lesquels il nous aiguille ne sont pas forcément pertinents. Il faut vérifier le poids des liens renvoyés, la similarité quand elle a lieu, ainsi que d'autres facteurs : nous ne pouvons pas garder les liens \verb|RelatedTo| car ils renvoient souvent à la traduction du mot dans une autre langue. Nous ne pouvons pas non plus garder les concepts formés d'une expression trop longue (atteignant parfois la taille d'une phrase entière), car celle-ci renvoie souvent à un événement ou un domaine très particulier, et sera de toute façon impossible à retrouver telle quelle dans un texte.
 
 
 \subsection{Freebase}
@@ -334,7 +334,7 @@ Où le facteur $100$ (modifiable) est dû à la normalisation. Si le concept a u
 \end{itemize}
 
 \paragraph{}
-Nous avons mis un temps plus important à extraire des importances conceptuelles véritablement utiles, et n'avons donc que peu utilisé la désactivation (qui repose sur l'importance conceptuelle). Ces importances conceptuelles ont été finalement calculées en nous inspirant de l'indice TF-IDF\index{TF-IDF}~; ce sera développé dans la partie [].
+Nous avons mis un temps plus important à extraire des importances conceptuelles véritablement utiles, et n'avons donc que peu utilisé la désactivation (qui repose sur l'importance conceptuelle). Ces importances conceptuelles ont été finalement calculées en nous inspirant de l'indice TF-IDF\index{TF-IDF}~; ce sera développé dans la partie~\ref{Partie:TF-IDF}.
 
 
 
@@ -370,9 +370,9 @@ Ce qui suggère que dans l'un des articles trouvés, quelqu'un a commis une erre
 
 \paragraph{Traitement des noms avec Freebase}
 
-Nous n'utilisons l'API Freebase que de fa\c{c}on assez simple. Chaque nom propre donne lieu à une requête. Si celle-ci aboutit, on analyse le résultat et si celui-ci comporte une donnée (exemple~: à l'envoi de \verb|"scott_jamieson"|, on récupère \verb|"soccer_midfielder"|), on ajoute un nouveau nœud correspondant au réseau, et une arête ``<IsA>'' dont le poids dépend du résultat de la requête.
+Nous n'utilisons l'API Freebase que de fa\c{c}on assez simple. Chaque nom propre donne lieu à une requête. Si celle-ci aboutit, on analyse le résultat et si celui-ci comporte une donnée (exemple~: à l'envoi de \verb|"scott_jamieson"|, on récupère \verb|"soccer_midfielder"|), on ajoute un nouveau n\oe{}ud correspondant au réseau, et une arête \verb|IsA| dont le poids dépend du résultat de la requête.
 
-L'importance conceptuelle d'un nom est prise comme importante, par défaut.
+L'importance conceptuelle d'un nom propre est prise par défaut comme importante.
 
 \paragraph{Traitement des concepts avec Conceptnet5}
 
@@ -383,7 +383,7 @@ L'importance conceptuelle allouée à un nouveau n\oe{}ud dépend pour beaucoup 
 
 \paragraph{Extension des nœuds du réseau}
 
-Pour étendre les n\oe{}uds du réseau, nous sommes souvent amenés à chercher des liens partant d'un n\oe{}ud donné. Cela est effectué avec des recherches Search. Nous pouvons aussi effectuer des requêtes Association (bien que beaucoup plus lentes) afin d'induire de nouveaux liens avec des concepts similaires.
+Pour étendre les n\oe{}uds du réseau, nous sommes souvent amenés à chercher des liens partant d'un n\oe{}ud donné. Cela est effectué avec des recherches \verb|Search|. Nous pouvons aussi effectuer des requêtes \verb|Association| (bien que beaucoup plus lentes) afin d'induire de nouveaux liens avec des concepts similaires.
 
 
 
@@ -399,23 +399,23 @@ Nous avons eu l'occasion d'effectuer différents essais de construction du rése
 \paragraph{Étape 1~: noms propres}
 
 \begin{itemize}
- \item Les requêtes Freebase liées aux noms propres créent 10405 n\oe{}uds dans le réseau, ainsi que 8255 arêtes.
- \item On lance immédiatement des requêtes Search correspondant à tous les n\oe{}uds du réseau sur Conceptnet5, afin d'acquérir plus d'information~: on passe alors à 14103 n\oe{}uds et 28393 arêtes.
+ \item Les requêtes Freebase liées aux noms propres créent 10~405 n\oe{}uds dans le réseau, ainsi que 8~255 arêtes.
+ \item On lance immédiatement des requêtes Search correspondant à tous les n\oe{}uds du réseau sur Conceptnet5, afin d'acquérir plus d'information~: on passe alors à 14~103 n\oe{}uds et 28~393 arêtes.
 \end{itemize}
 
 \paragraph{Étape 2~: concepts}
 
 \begin{itemize}
- \item On lance une requête Lookup sur chaque concept trouvé dans les articles (27070, les noms propres ont déjà été traités)~; on passe alors à 35780 n\oe{}uds et 56942 arêtes. Pour le moment, 18762 n\oe{}uds sont certains d'être conservés (ce sont des résultats primaires de requêtes positives).
+ \item On lance une requête Lookup sur chaque concept trouvé dans les articles (27~070, les noms propres ont déjà été traités)~; on passe alors à 35~780 n\oe{}uds et 56~942 arêtes. Pour le moment, 18~762 n\oe{}uds sont certains d'être conservés (ce sont des résultats primaires de requêtes positives).
 \end{itemize}
 
 
 \paragraph{Étape 3~: Extension et élagage du réseau}
 
 \begin{itemize}
- \item On étend alors l'ensemble des n\oe{}uds encore litigieux (17018), en essayant de créer des liens vers des n\oe{}uds déjà existants, augmentant ainsi la connectivité du réseau. On passe à 76497 arêtes.
- \item On regarde quels n\oe{}uds sont bien reliés à leur voisins, après cette opération. Au total, 28583 n\oe{}uds semblent prometteurs.
- \item On supprime les autres n\oe{}uds. On obtient un réseau avec 28583 n\oe{}uds et 69307 arêtes.
+ \item On étend alors l'ensemble des n\oe{}uds encore litigieux (17~018), en essayant de créer des liens vers des n\oe{}uds déjà existants, augmentant ainsi la connectivité du réseau. On passe à 76~497 arêtes.
+ \item On regarde quels n\oe{}uds sont bien reliés à leur voisins, après cette opération. Au total, 28~583 n\oe{}uds semblent prometteurs.
+ \item On supprime les autres n\oe{}uds. On obtient un réseau avec 28~583 n\oe{}uds et 69~307 arêtes.
 \end{itemize}
 
 
@@ -429,9 +429,9 @@ Nous avons parallélisé les requêtes afin de les effectuer dans un temps raiso
 
 
 
-\section{Méthodes statistiques avec TF-IDF}
+\section{Méthodes statistiques avec TF-IDF}\label{Partie:TF-IDF}
 
-La méthode statistique consiste à extraire des phrases par des techniques de la fouille de données textuelles. L'idée principale est de pondérer les phrases selon leur représentativité dans le texte et à afficher celles de poids le plus fort dans l'ordre de leur apparition dans le texte et dans la limite de la taille du résumé. Nous avons choisi ici l'indice TF-IDF pour mesurer ces poids.
+La méthode statistique consiste à extraire des phrases par des techniques de la fouille de données textuelles. L'idée principale est de pondérer les phrases selon leur représentativité dans le texte et à afficher celles de poids le plus fort dans l'ordre de leur apparition dans le texte et dans la limite de la taille du résumé. Nous avons choisi ici l'indice TF-IDF\index{TF-IDF} pour mesurer ces poids.
 
 \subsection{Algorithme statistique}
 
@@ -441,25 +441,25 @@ On cherche donc ici un indice qui diminue selon le nombre d'apparitions dans tou
 
 
 \subsection{TF-IDF pour le résumé automatique}
-Selon une lemme de Hans Peter Luhn, le poids d'un terme est propotionnel à son fréquence.
+Selon une lemme de Hans Peter Luhn, le poids d'un terme est proportionnel à son fréquence.
 
 D'après la loi de Zipf, la fréquence d'occurrence $f(n)$ d'un mot est liée à son rang $n$ dans l'ordre des fréquences par une loi de la forme $f(n) = \frac{K}{n} $ où K est une constante.
 
 \includegraphics[scale=0.5]{loi_de_zipf.eps}
 
-L'abscisse x est le rang d'un terme selon la fréquence et y est l'occurence de ce terme. Les mots plus fréquents sont 'the','of' et 'and'. On voit bien la début de courbe est proche de la fonction 1/x. C'est-à-dire pour chercher les mots indiscriminant, il suffit de regarder l'inverse de la fréquence d'occurence.
+L'abscisse x est le rang d'un terme selon la fréquence et y est l'occurrence de ce terme. Les mots plus fréquents sont 'the','of' et 'and'. On voit bien la début de courbe est proche de la fonction 1/x. C'est-à-dire que pour chercher les mots discriminants, il suffit de regarder l'inverse de la fréquence d'occurrence.
 
 \subsubsection{Définition formelle}
 
-\begin{definition}[TF]
- La fréquence d'un terme (\textit{term frequency}, TF) que l'on mesure ici est juste le nombre d'occurrences de ce terme dans le document considéré.
+\begin{definition}[TF]\index{TF}
+ La fréquence d'un terme (\textit{term frequency}, TF) que l'on mesure ici est simplement le nombre d'occurrences de ce terme dans le document considéré.
 \end{definition}
 
-\begin{definition}[IDF]
+\begin{definition}[IDF]\index{IDF}
  La fréquence inverse de document (\textit{inverse document frequency}, IDF) est une mesure de l'importance du terme dans l'ensemble du corpus. Elle vise à donner un poids plus important aux termes les moins fréquents, considérés comme plus discriminants.
 \end{definition}
 
-Ici, on prend la logarithme de cette fraction~:
+Ici, on prend le logarithme de cette fraction~:
 
 \begin{align}
  idf_{i} =  log \frac{|D|}{|\{d_{j}: t_{i} \in d_{j}\}|}
@@ -468,12 +468,12 @@ Ici, on prend la logarithme de cette fraction~:
 Où : 
 \begin{itemize}
  \item |D| est le nombre total de documents dans le corpus ;
- \item $|\{d_{j} : t_{i} \in d_{j}\}|$ est le nombre de documents où le terme  $t_{i}$  apparaît (c'est-à-dire  $n_{i,j} \neq 0$)
+ \item $|\{d_{j} : t_{i} \in d_{j}\}|$ est le nombre de documents $d_j$ où le terme  $t_{i}$  apparaît (c'est-à-dire  $n_{i,j} \neq 0$)
 \end{itemize}
 
 Plus un mot apparaît, plus son indice IDF tend vers zéro. Des mots qui sont présents dans tous les documents vont notamment être filtrés car ils ont un indice nul.
 
-\begin{definition}[TF-IDF]tf idf example
+\begin{definition}[TF-IDF]\index{TF-IDF}%tf idf example
 Le poids du mot s'obtient en multipliant les deux mesures TF et IDF.
 \end{definition}
 
@@ -482,11 +482,11 @@ Le poids du mot s'obtient en multipliant les deux mesures TF et IDF.
 \end{align}
 
 \subsubsection{Exemple}
-Voyez le tableau de valeur tf-idf de 4 termes dans 3 documents sur un corpus de 1000 documents.
+Voici le tableau de valeurs TF-IDF de 4 termes dans 3 documents sur un corpus de 1000 documents.
 \begin{center}
 	\begin{tabular}{|c|c|c|c|c|}
 	 \hline
-	 	Terme & tf(document 1) & tf(document 2) & tf(document 3) & idf \\
+	 	Terme & TF(document 1) & TF(document 2) & TF(document 3) & IDF \\
 	 \hline
 	 	he & 90 & 61 & 63 & 0.006 \\
 	 \hline
@@ -499,12 +499,12 @@ Voyez le tableau de valeur tf-idf de 4 termes dans 3 documents sur un corpus de 
 	\end{tabular}
 \end{center}
 
-Et le tf-idf de ces 4 termes se calculent en-dessous:
+Et les TF-IDF de ces 4 termes se calculent comme suit~:
 
 \begin{center}
 	\begin{tabular}{|c|c|c|c|}
 	 \hline
-	 	Terme & tf-idf(document 1) & tf-idf(document 2) & tf-idf(document 3) \\
+	 	Terme & TF-IDF(document 1) & TF-IDF(document 2) & TF-IDF(document 3) \\
 	 \hline
 	 	he & 0.540 & 0.366 & 0.378 \\
 	 \hline
@@ -517,17 +517,31 @@ Et le tf-idf de ces 4 termes se calculent en-dessous:
 	\end{tabular}
 \end{center}
 
-On voit ici l'influence de la fréquence inverse sur tf-idf: dans le document 1, même si le terme 'he' soit plus fréquent que celui de 'dicussion', son indice tf-idf est petit, car il apparaît dans la pluspart de document et a une indice idf petit.
+On voit ici l'influence de la fréquence inverse sur TF-IDF: dans le document 1, même si le terme ``he'' est plus fréquent que celui de ``dicussion'', son indice TF-IDF est petit, car il apparaît dans la plupart des documents et a un indice IDF faible.
 
 \subsection{Tests et qualité des résumés obtenus}
 
 La qualité des résumés obtenus par la méthode TF-IDF est peu optimale. En effet, avec un regroupement simple de phrases, on perd beaucoup d'information contextuelle. Et comme une phrase sans contexte est souvent peu compréhensible, c'est toujours difficile de lire ces résumés.
 
-En revanche, pour la recherche des mots-clés, la méthode TF-IDF est assez efficace. Nous avons remarqués qu'à partir de ces mots-clés, à l'aide d'une méthode synthétique, nous pouvons construire des phrases plus claires et éventuellement faire un résumé du texte.
+En revanche, pour la recherche des mots-clés, la méthode TF-IDF est assez efficace. Nous avons remarqué qu'à partir de ces mots-clés, à l'aide d'une méthode synthétique, nous pouvons construire des phrases plus claires et éventuellement faire un résumé du texte.
 
 \subsection{TF-IDF pour l'importance conceptuelle}
 On peut utiliser l'indice TF-IDF sur des concepts et des noms.
 
+%%reformuler
+
+\subsubsection{Établissement de l'importance conceptuelle}
+
+Pour l'instant l'importance conceptuelle est définie de manière assez floue dans le réseau, et ce manque de confiance que nous accordons à la donnée nous empêche de l'utiliser de manière trop centrale dans nos algorithmes.
+
+Il est en revanche envisageable d'adapter l'algorithme TF-IDF\index{TF-IDF} pour calculer une importance conceptuelle aux concepts rencontrés. En effet, notre but (rappelons-le) était de produire des résumés très courts, ce que fait en général le titre d'un article. De plus, l'importance conceptuelle modélise le fait que certains concepts, même s'ils sont rencontrés moins souvent, ont plus de portée que d'autres et méritent donc d'être gardés en tête plus longuement (rappelons aussi que la désactivation modélise l'oubli progressif du texte au fur et à mesure qu'on avance dans sa lecture ; c'est un mécanisme de tri entre les concepts qui sont mentionnés rarement et donc probablement anecdotiques, à l'inverse des concepts présents tout au long du texte et qui en constituent donc le sujet principal).
+
+Par conséquent, les termes ayant une importance conceptuelle forte sont ceux qui :
+\begin{itemize}
+	\item Sont souvent présents dans les titres~;
+	\item D'autant plus qu'ils sont peu fréquents dans le corpus (voire dans un texte donné).
+\end{itemize}
+Ce qui constitue une adaptation mineure du calcul fait pour TF-IDF.
 
 
 \section{Traitement préalable des données}
@@ -536,7 +550,7 @@ Pour assurer une certaine cohérence entre les données présentes dans le rése
 
 \subsection{Analyse syntaxique}\index{Analyse syntaxique}
 
-Cette partie ne constituant pas le c\oe{}ur de notre psc, nous avons décidé d'utiliser un outil déjà codé. L'entreprise Systran, au sein de laquelle notre tuteur travaille, a accepté de traiter nos données et nous a renvoyé un graphe sémantique contenant une analyse syntaxique complète des articles du corpus..
+Cette partie ne constituant pas le c\oe{}ur de notre PSC, nous avons décidé d'utiliser un outil déjà codé. L'entreprise Systran, au sein de laquelle notre tuteur travaille, a accepté de traiter nos données et nous a renvoyé un graphe sémantique contenant une analyse syntaxique complète des articles du corpus..
 
 \subsubsection{Description algorithmique d'une grammaire}\index{Grammaire}
 Une grammaire peut être décrite informatiquement de manière très simple. En effet, on peut la voir comme~:
@@ -552,7 +566,7 @@ Il est également à noter que les grammaires modernes s'appuient sur un entraî
 \subsubsection{\'Etat du texte en fin d'analyse}
 Les données traitées par Systran nous sont revenues sous la forme d'un graphe sémantique. Chaque nœud, ou mot, de la phrase était de plus enrichi d'une liste de tags permettant d'établir de quel genre de mot il s'agit (humain, véhicule, lieu si c'est un nom; verbe d'action, verbe descriptif si c'est un verbe; etc.) Notons également que chaque nœud contient une liste (éventuellement vide) de fils avec lesquels il forme une entité syntaxique cohérente telle qu'un groupe nominal. Cela nous a été très utile lorsqu'il s'est agit de faire la différence entre les entités et leurs attributs lors de leur incorporation dans le workspace.
 
-Par commodité, nous avons d'abord transformé ces données au format json avant des les inclure dans le workspace.
+Par commodité, nous avons d'abord transformé ces données au format JSON avant des les inclure dans le workspace.
 
 \subsection{Résolution de pronoms}
 
@@ -684,23 +698,12 @@ Nous avons, d'autre part, pu implémenter un algorithme raisonnable de résumé 
 \vspace{1\baselineskip}
 
 \subsection{Améliorations}
-\subsubsection{Apprentissage du réseau de concepts}
-Le réseau de concept représente un \textit{a priori} sur le monde de notre programme. Il est donc normal que cette structure évolue au fur et à mesure des textes lus.
 
-Les fonctions de construction du réseau peuvent sans mal être appelées après la génération du résumé pour y apporter des modifications pérennes, que ce soit sur les données brutes ou, mieux encore, sur les structures encores présentes dans le workspace qui contiennent explicitement des relations entre les différents concepts présents.
+%\subsubsection{Apprentissage du réseau de concepts}
+%Le réseau de concept représente un \textit{a priori} sur le monde de notre programme. Il est donc normal que cette structure évolue au fur et à mesure des textes lus.
 
-\subsubsection{Établissement de l'importance conceptuelle}
+%Les fonctions de construction du réseau peuvent sans mal être appelées après la génération du résumé pour y apporter des modifications pérennes, que ce soit sur les données brutes ou, mieux encore, sur les structures encores présentes dans le workspace qui contiennent explicitement des relations entre les différents concepts présents.
 
-Pour l'instant l'importance conceptuelle est définie de manière assez floue dans le réseau, et ce manque de confiance que nous accordons à la donnée nous empêche de l'utiliser de manière trop centrale dans nos algorithmes.
-
-Il est en revanche envisageable d'adapter l'algorithme TF-IDF pour calculer une importance conceptuelle aux concepts rencontrés. En effet, notre but (rappelons-le) était de produire des résumés très courts, ce que fait en général le titre d'un article. De plus, l'importance conceptuelle modélise le fait que certains concepts, même s'ils sont rencontrés moins souvent, ont plus de portée que d'autres et méritent donc d'être gardés en tête plus longuement (rappelons aussi que la désactivation modélise l'oubli progressif du texte au fur et à mesure qu'on avance dans sa lecture ; c'est un mécanisme de tri entre les concepts qui sont mentionnés rarement et donc probablement anecdotiques, à l'inverse des concepts présents tout au long du texte et qui en constituent donc le sujet principal).
-
-Par conséquent, les termes ayant une importance conceptuelle forte sont ceux qui :
-\begin{itemize}
-	\item Sont souvent présents dans les titres~;
-	\item D'autant plus qu'ils sont peu fréquents dans le corpus (voire dans un texte donné).
-\end{itemize}
-Ce qui constitue une adaptation mineure du calcul fait pour TF-IDF.
 
 %\subsubsection{\'Evaluation des résumés}
 %Le faible nombre de résumés que nous prévoyons de produire nous permettra d'utiliser la méthode la plus simple parmi celles qui étaient mentionnées dans la proposition détaillée~: la comparaison à un résumé déclaré bon car produit par un humain.
