@@ -483,11 +483,11 @@ Le poids du mot s'obtient en multipliant les deux mesures TF et IDF.
 \end{align}
 
 \begin{definition}[Poids d'une phrase]
-Après calculer les indices tf-idf de chaque mot dans une phrase, on les somme et divise cette somme par le nombre de mots dans cette phrase et c'est le poids de cette phrase.
+Après avoir calculé les indices TF-IDF de chaque mot dans une phrase, on les somme et divise cette somme par le nombre de mots dans cette phrase : c'est le poids de cette phrase (on oubliera bien sûr les phrases trop courtes, moins de deux concepts, pour lesquelles le poids peut être défini comme nul).
 \end{definition}
 
 \subsubsection{Illustration}
-Voyez le tableau de valeur tf-idf de 4 termes dans 3 documents sur un corpus de 1000 documents.
+Voyez le tableau de valeur TF-IDF de 4 termes dans 3 documents sur un corpus de 1000 documents.
 \begin{center}
 	\begin{tabular}{|c|c|c|c|c|}
 	 \hline
@@ -504,12 +504,12 @@ Voyez le tableau de valeur tf-idf de 4 termes dans 3 documents sur un corpus de 
 	\end{tabular}
 \end{center}
 
-Et le tf-idf de ces 4 termes se calculent en-dessous:
+Et les TF-IDF de ces 4 termes se calculent comme ci-dessous:
 
 \begin{center}
 	\begin{tabular}{|c|c|c|c|}
 	 \hline
-	 	Terme & tf-idf(document 1) & tf-idf(document 2) & tf-idf(document 3) \\
+	 	Terme & TF-IDF(document 1) & TF-IDF(document 2) & TF-IDF(document 3) \\
 	 \hline
 	 	he & 0.540 & 0.366 & 0.378 \\
 	 \hline
@@ -522,9 +522,9 @@ Et le tf-idf de ces 4 termes se calculent en-dessous:
 	\end{tabular}
 \end{center}
 
-On voit ici l'influence de la fréquence inverse sur tf-idf: dans le document 1, même si le terme 'he' soit plus fréquent que celui de 'dicussion', son indice tf-idf est petit, car il apparaît dans la pluspart de document et a une indice idf petit. Pour le document 1, 'discussion' est plus discriminant que le mot 'he'.
+On voit ici l'influence de la fréquence inverse sur le TF-IDF: dans le document 1, même si le terme 'he' soit plus fréquent que celui de 'dicussion', son indice TF-IDF est petit, car il apparaît dans la pluspart de document et a une indice idf petit. Pour le document 1, 'discussion' est plus discriminant que le mot 'he'.
 
-Après obtenir les valeurs tf-idf de chaque terme, on peux calculer les poids de chaque phrase. Notre résumé se construit par la première phrase d'un texte et les première quart de phrases tirant en ordre décroissant selon leur poids.
+Après obtenir les valeurs TF-IDF de chaque terme, on peux calculer les poids de chaque phrase. Notre résumé se construit par la première phrase d'un texte et les première quart de phrases tirant en ordre décroissant selon leur poids.
 
 \subsection{Tests et qualité des résumés obtenus}
 
@@ -556,21 +556,6 @@ Le résultat est un TF-IDF très important pour certains concepts, même par rap
 Une partie représentative des résultats est reproduite en annexe \ref{Annexe:TFIDF}.
 
 On remarque notamment, dans le cas des noms propres, que les faux noms propres (erreurs de POS-tagging) se sont retrouvés en bas du tableau. En effet, même lorsqu'ils apparaissent plusieurs fois, ce sera dans plusieurs textes distincts, alors qu'un véritable nom propre à même fréquence aura tendance à apparaître plusieurs fois dans le même document.
-
-%%reformuler
-
-\subsubsection{Établissement de l'importance conceptuelle}
-
-Pour l'instant l'importance conceptuelle est définie de manière assez floue dans le réseau, et ce manque de confiance que nous accordons à la donnée nous empêche de l'utiliser de manière trop centrale dans nos algorithmes.
-
-Il est en revanche envisageable d'adapter l'algorithme TF-IDF\index{TF-IDF} pour calculer une importance conceptuelle aux concepts rencontrés. En effet, notre but (rappelons-le) était de produire des résumés très courts, ce que fait en général le titre d'un article. De plus, l'importance conceptuelle modélise le fait que certains concepts, même s'ils sont rencontrés moins souvent, ont plus de portée que d'autres et méritent donc d'être gardés en tête plus longuement (rappelons aussi que la désactivation modélise l'oubli progressif du texte au fur et à mesure qu'on avance dans sa lecture ; c'est un mécanisme de tri entre les concepts qui sont mentionnés rarement et donc probablement anecdotiques, à l'inverse des concepts présents tout au long du texte et qui en constituent donc le sujet principal).
-
-Par conséquent, les termes ayant une importance conceptuelle forte sont ceux qui :
-\begin{itemize}
-	\item Sont souvent présents dans les titres~;
-	\item D'autant plus qu'ils sont peu fréquents dans le corpus (voire dans un texte donné).
-\end{itemize}
-Ce qui constitue une adaptation mineure du calcul fait pour TF-IDF.
 
 
 \section{Traitement préalable des données}
