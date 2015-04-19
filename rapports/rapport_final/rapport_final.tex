@@ -24,6 +24,7 @@
 
 \makeindex
 \addbibresource{biblio.bib}
+
 \begin{document}
 
 \titrelong{}
@@ -334,7 +335,7 @@ Où le facteur $100$ (modifiable) est dû à la normalisation. Si le concept a u
 \end{itemize}
 
 \paragraph{}
-Nous avons mis un temps plus important à extraire des importances conceptuelles véritablement utiles, et n'avons donc que peu utilisé la désactivation (qui repose sur l'importance conceptuelle). Ces importances conceptuelles ont été finalement calculées en nous inspirant de l'indice TF-IDF\index{TF-IDF}~; ce sera développé dans la partie~\ref{Partie:TF-IDF}.
+Nous avons mis un temps plus important à extraire des importances conceptuelles véritablement utiles, et n'avons donc que peu utilisé la désactivation (qui repose sur l'importance conceptuelle). Ces importances conceptuelles ont été finalement calculées en nous inspirant de l'indice TF-IDF\index{TF-IDF}~; ce sera développé dans la partie~\ref{Section:TFIDF}.
 
 
 
@@ -429,7 +430,7 @@ Nous avons parallélisé les requêtes afin de les effectuer dans un temps raiso
 
 
 
-\section{Méthodes statistiques avec TF-IDF}\label{Partie:TF-IDF}
+\section{Méthodes statistiques avec TF-IDF}\label{Section:TFIDF}
 
 La méthode statistique consiste à extraire des phrases par des techniques de la fouille de données textuelles. L'idée principale est de pondérer les phrases selon leur représentativité dans le texte et à afficher celles de poids le plus fort dans l'ordre de leur apparition dans le texte et dans la limite de la taille du résumé. Nous avons choisi ici l'indice TF-IDF\index{TF-IDF} pour mesurer ces poids.
 
@@ -526,7 +527,29 @@ La qualité des résumés obtenus par la méthode TF-IDF est peu optimale. En ef
 En revanche, pour la recherche des mots-clés, la méthode TF-IDF est assez efficace. Nous avons remarqué qu'à partir de ces mots-clés, à l'aide d'une méthode synthétique, nous pouvons construire des phrases plus claires et éventuellement faire un résumé du texte.
 
 \subsection{TF-IDF pour l'importance conceptuelle}
-On peut utiliser l'indice TF-IDF sur des concepts et des noms.
+
+Dans un premier temps, l'importance conceptuelle\index{Importance conceptuelle} n'était définie que de manière floue et n'était pas dérivée d'informations quantitatives autres que des fréquences d'apparition de concepts (des concepts apparaissant plus souvent étant favorisés).
+
+Nous avons donc adapté l'indice TF-IDF pour calculer une importance conceptuelle. Cela a même pu être adapté aux noms propres.
+
+L'idée est que les termes ayant une importance conceptuelle forte sont ceux qui~:
+\begin{itemize}
+ \item Ont une fréquence (TF) élevée ;
+ \item Mais ont un IDF faible, c'est-à-dire qu'on ne les trouve pas partout.
+\end{itemize}
+
+
+La différence avec le calcul précédent de TF-IDF est que le TF était calculé de manière locale à un document, alors qu'ici, il est calculé de manière globale, étant donné que nous ne nous positionnons pas sur un document en particulier.
+
+\paragraph{}
+Ce calcul est effectué d'une part sur les noms propres, d'autre part sur les concepts (nous n'avons pas cessé depuis le début de séparer les uns et les autres). L'intérêt reste toujours le même : pour les noms propres, cela va rendre compte de l'importance qu'a chaque personne. De manière générale, les TF globaux des concepts sont beaucoup plus importants que ceux des noms propres, et les IDF sont beaucoup plus faibles : lorsqu'il apparaît, un nom propre apparaît moins fréquemment et dans un moins grand nombre de documents.
+
+Le résultat est un TF-IDF très important pour certains concepts, même par rapport aux meilleurs noms, nous faisant conclure qu'une renormalisation différente (pour transformer en un indice entre 0 et 100) pour les deux catégories sera nécessaire.
+
+\paragraph{}
+Une partie représentative des résultats est reproduite en annexe \ref{Annexe:TFIDF}.
+
+On remarque notamment, dans le cas des noms propres, que les faux noms propres (erreurs de POS-tagging) se sont retrouvés en bas du tableau. En effet, même lorsqu'ils apparaissent plusieurs fois, ce sera dans plusieurs textes distincts, alors qu'un véritable nom propre à même fréquence aura tendance à apparaître plusieurs fois dans le même document.
 
 %%reformuler
 
@@ -616,7 +639,7 @@ Pour un pronom situé à une position donnée, les groupes nominaux\index{Groupe
 
 Ces différentes exigences satisfont à un impératif de simplicité. On cherche ensuite à balancer le mieux possible les augmentations/diminutions de score afin de maximiser la pertinence des résultats.
 
-Nous nous inspirons pour cette méthode de ``<Robust pronoun resolution with limited knowledge>'', pour sa simplicité et son adaptabilité quant aux données dont nous disposons.
+Nous nous inspirons pour cette méthode de \cite{Mitkov:1998:RPR:980691.980712}, pour sa simplicité et son adaptabilité quant aux données dont nous disposons.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -697,7 +720,7 @@ Nous avons, d'autre part, pu implémenter un algorithme raisonnable de résumé 
 
 \vspace{1\baselineskip}
 
-\subsection{Améliorations}
+%\subsection{Améliorations}
 
 %\subsubsection{Apprentissage du réseau de concepts}
 %Le réseau de concept représente un \textit{a priori} sur le monde de notre programme. Il est donc normal que cette structure évolue au fur et à mesure des textes lus.
@@ -725,8 +748,121 @@ Nous avons, d'autre part, pu implémenter un algorithme raisonnable de résumé 
 \nocite{*}
 \printbibliography{}
 
+\newpage
 \appendix
 
+\section{Indices TF-IDF pour certains concepts et noms propres}
+
+Les indices reproduits ci-dessous ne sont pas normalisés.
+
+\begin{figure}[!h]
+\begin{center}
+ \begin{tabular}{|c|c|}
+ \hline
+  \textbf{Terme} & \textbf{TF-IDF} \\
+  \hline
+  goal & 18036.355588902752 \\
+  club & 16707.84340604437 \\
+  win & 16416.987149003868 \\
+  player & 15395.13561971935 \\
+  do & 14983.099117885753 \\
+  get & 14831.125247005852 \\
+  game & 14772.460116022885 \\
+  team & 14736.039158065283 \\
+  season & 14410.376362720359 \\
+  score & 14347.834720380053 \\
+  fan & 14345.794404055676 \\
+  ball & 14183.767993101164 \\
+  say & 14041.53077169254 \\
+  play & 13932.858353857095 \\
+  go & 13866.246326872366 \\
+  share & 13220.473403693579 \\
+  year & 13048.180880727492 \\
+  football & 12974.031162373381 \\
+  time & 12476.391302456212   \\
+  right & 12370.950387951321     \\
+  think & 12340.221480751856   \\
+  first & 12325.427075870062   \\
+  watch & 12318.296129723469   \\
+  last & 12292.45714341061   \\
+  match & 12258.013990918109   \\
+  side & 12245.076493840706   \\
+  leave & 12133.864922485838   \\
+ $\cdots$ & $\cdots$ \\
+    kangaroo  & 9.025515684964109  \\
+  q  & 8.620050576855945  \\
+  wristband  & 8.620050576855945  \\
+  fifteenth  & 8.620050576855945  \\
+  refinance  & 8.620050576855945  \\
+  wishy-washy  & 8.620050576855945  \\
+  inheritance  & 8.620050576855945  \\
+  annex  & 8.332368504404164  \\
+  featherweight  & 8.332368504404164 \\
+  \hline
+ \end{tabular}
+\label{fig:TFIDFConcepts}
+\caption{Extrait de la base de données de TF-IDF pour des concepts}
+\end{center}
+\end{figure}
+
+
+\begin{figure}[!h]
+\begin{center}
+ \begin{tabular}{|c|c|}
+ \hline
+  \textbf{Nom} & \textbf{TF-IDF} \\
+  \hline
+  chelsea  & 15435.05496583199 \\
+  premier league  & 14572.723366675536 \\
+  liverpool  & 14412.6737426319 \\
+  foul  & 10777.070534251237 \\
+  steven gerrard  & 9402.731890649875 \\
+  louis van gaal  & 9163.915519209326 \\
+  cup  & 9132.154367268871 \\
+  attempt  & 8675.8177744147 \\
+  barcelona  & 8578.435422472256 \\
+  england  & 8278.73616736681 \\
+  lionel messi  & 7657.736882963432 \\
+  harry kane  & 7460.74448794179 \\
+  cristiano ronaldo  & 7375.310093934143 \\
+  tottenham  & 7119.794079790657 \\
+  burnley  & 5942.596160930355 \\
+  league  & 5847.736458560602 \\
+  diego costa  & 5674.059267902648 \\
+  wayne rooney  & 5382.705157188505 \\
+  radamel falcao  & 5141.135765623698 \\
+  gareth bale  & 4761.904077325407 \\
+ $\cdots$ & $\cdots$ \\
+  whet  & 9.718662865524054 \\
+  embrace  & 9.718662865524054 \\
+  oar  & 9.718662865524054 \\
+  autograph  & 9.718662865524054 \\
+  faith  & 9.718662865524054 \\
+  attitude  & 9.718662865524054 \\
+  place  & 9.025515684964109 \\
+  blueprint  & 9.025515684964109 \\
+  ergo  & 9.025515684964109 \\
+  subscribe  & 9.025515684964109 \\
+  bold  & 9.025515684964109 \\
+  hear  & 9.025515684964109 \\
+  thing  & 9.025515684964109 \\
+  ohio  & 9.025515684964109 \\
+  lanky  & 9.025515684964109 \\
+  mustapha carayol  & 9.025515684964109 \\
+  innocent  & 9.025515684964109 \\
+  count  & 9.025515684964109 \\
+  detroit  & 9.025515684964109 \\
+  our  & 8.620050576855945 \\
+  not  & 8.620050576855945 \\
+  fenway park  & 7.926903396296 \\
+  \hline
+ \end{tabular}
+\label{fig:TFIDFNoms}
+\caption{Extrait de la base de données de TF-IDF pour des noms propres}
+\end{center}
+\end{figure}
+
+\newpage
 \printindex
 
 
