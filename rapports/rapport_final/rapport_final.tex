@@ -33,6 +33,12 @@
 \tableofcontents
 \newpage
 
+\section*{Remerciements}
+
+Nous tenons à remercier notre tuteur Jean Senellart pour l'aide qu'il nous a apportée, notamment au début du projet lors de la phase de précision des différentes étapes à franchir.\\
+
+Nous remercions également l'entreprise Systran, qui nous a permis d'avancer plus vite sur le point délicat de l'analyse syntaxique, en nous permettant de bénéficier de son expertise dans le domaine.
+
 \section{Rappel du projet}
 
 \subsection{Notre groupe}
@@ -45,32 +51,34 @@
  \item Boisseau Guillaume, \textbf{6\textsuperscript{e}} compagnie, section \textbf{natation};
 \end{itemize}
 
+Le projet est encadré par Jean Senellart.
+
 \subsection{Notre sujet}
 
 \subsubsection{But du projet}
-%reprise textuelle
 
-%%reprise
-Nous vivons dans un \^{a}ge d'abondance d'information, qu'il convient de traiter efficacement pour en profiter. Dans ce contexte, les synthétiseurs automatiques de textes ont bénéficié d'efforts croissants de recherche au cours des années passées. Notre travail s'inscrit dans cette démarche.
+La nécessité d'effectuer des résumés automatiques, en un mot, de synthétiser de grandes masses d'information textuelle (en langage naturel\index{Langage naturel}), est tout à fait prégnante alors que l'information est toujours plus abondante, mais qu'il faut la traiter de manière efficace.\\
 
-%%reprise
-Un nombre non négligeable d'outils reposent, essentiellement, sur une extraction des phrases pertinentes \textit{via} une analyse statistique et éventuellement une analyse symbolique plus ou moins poussée (\textit{extractive summarization}\index{Extractive summarization}). Nous voulions mettre l'accent sur cette analyse de façon à donner une réelle compréhension des corpus à notre programme et, pour se convaincre de son succès, le pousser à la reformulation (\textit{abstractive summarization})\index{Abstractive summarization}.
+Le résumé automatique a fait l'objet de nombreux travaux de recherche. De nombreux outils développés reposent sur une extraction des phrases pertinentes d'un texte. La difficulté consiste alors à repérer ces phrases pertinentes, au moyen par exemple d'une analyse statistique, du repérage de mots-clés importants. On parle alors d'\textit{extractive summarization}\index{Extractive summarization}, résumé extractif.\\
 
+Toutefois, le résumé extractif souffre de nombreux défauts liés à l'absence de reformulation des phrases du texte : en définitive, le résumé est limité par la clarté du texte de départ et par l'information qu'il contient. C'est pourquoi nous voulions mettre l'accent sur une analyse sémantique, afin d'introduire un véritable facteur de \textit{sens}, et reformuler les idées contenues dans le texte, ce qui nous rapproche du résumé abstractif (\textit{abstractive summarization})\index{Abstractive summarization}.\\
 
-Le but de notre projet était de produire un programme capable d'analyser sémantiquement\index{Analyse sémantique} un texte ayant pour sujet le sport (et plus particulièrement encore le football) de façon à en produire un résumé. Il s'agit là d'une véritable innovation par rapport à l'état actuel du résumé automatique, dans la mesure où les programmes existants se basent prioritairement sur une analyse statistique plus ou moins poussée de fréquence d'apparition des mots pour juger de leur importance~; notre programme s'appuierait plutôt sur le sens pour juger de la pertinence d'un concept et savoir s'il doit le faire figurer ou non dans le résumé final.
+Nous nous limitons à des textes ayant pour sujet le sport (plus particulièrement encore le football). Le but de notre programme, s'appuyer plutôt sur le sens des mots que sur leur simple fréquence pour juger de leur pertinence, était au départ relativement vague et nous l'avons précisé et harmonisé en introduisant des structures de données utiles. Au cours de notre projet, nous avons été amenés à changer progressivement de notre point de vue, pour arriver à notre résultat final, qui s'il ne produit pas un texte complet, parvient néanmoins à sélectionner et traduire un certain nombre d'idées.
 
 
 \subsubsection{Modules du projet et répartition du travail}
-%%reprise textuelle
+
 
 Pour atteindre cet objectif, plusieurs modules assez indépendants ont pu être identifiés et traités séparément~:
 
+
 \begin{description}
-	\item[Récupération de données] à utiliser pour la création d'un réseau de concepts modélisant la connaissance \textit{a priori} du programme. Responsables~: Théophane Hufschmitt, Guillaume Boisseau.
-	\item[Création du réseau de concepts] et remplissage de celui-ci. Il s'agissait ici d'une part de définir sa structure et d'autre part d'y introduire les données nécessaires. Responsables~: André Schrottenloher, Guillaume Boisseau.
-	\item[Analyse syntaxique] à l'aide d'outils existants. Il s'agissait de trouver une grammaire capable d'analyser une phrase et d'en faire ressortir les relations de type verbe-objet ou nom-qualificatif. Responsables~: Antonin Angibault, Théophane Hufschmitt, Sarah Fernandes-Pinto-Fachada.
-	\item[Réflexion] sur l'utilisation du réseau de concepts et de l'analyse grammaticale pour produire un réseau capable de rendre compte de la compréhension du texte. Responsables~: tous.
-	\item[Implémentation] d'un algorithme simple de résumé statistique (basé sur l'algorithme TF-IDF), devant servir de base de comparaison pour tester la qualité des résumés produits par notre algorithme.  Responsable~: Zhixing Cao.
+	\item[Récupération de données textuelles] Téléchargement continuel d'articles de sport, pour constituer à la fois une connaissance de base, des informations statistiques, et servir de support de test ;
+	\item[Sources de données] Récupération de données sémantiques à l'aide d'autres sources (ce sera détaillé dans la partie \ref{Section:sources}) ;
+	\item[Définition du réseau de concepts] et remplissage de celui-ci. Définition de la structure du réseau, qui sera pleinement détaillée dans la section \ref{Section:RC} ;
+	\item[Analyse syntaxique] à l'aide d'outils existants ;
+	\item[Réflexion] sur l'utilisation du réseau de concepts et de l'analyse grammaticale pour produire une connaissance abstraite sous forme de réseau, rendant compte de l'information du texte (ce qui a été au début formalisé comme Workspace) ;
+	\item[Implémentation] d'un algorithme simple de résumé statistique (basé sur l'indice TF-IDF), devant servir de base de comparaison pour tester la qualité des résumés produits par notre algorithme.
 \end{description}
 
 \subsubsection{Outils extérieurs utilisés}
@@ -78,12 +86,19 @@ Pour atteindre cet objectif, plusieurs modules assez indépendants ont pu être 
 Nous reviendrons sur ces outils et détaillerons au fur et à mesure du rapport.
 
 \begin{itemize}
-	\item[WordNet~: ]Dictionnaire permettant d'obtenir la classe grammaticale des mots présents dans le réseau.
+	\item[Natural Language ToolKit (\pyt{nltk})~: ]Divers outils grammaticaux pour l'étude du langage naturel.
+	\item[WordNet~: ]Dictionnaire interfacé avec \pyt{nltk} permettant notamment d'obtenir la classe grammaticale des mots.
 	\item[Conceptnet~: ]Grande base de connaissances permettant d'établir la proximité conceptuelle entre différents termes du réseau.
 	\item[Freebase~: ]Cette base de connaissances très étendue permet d'identifier les noms propres, par exemple des joueurs de football ou différents stades.
-	\item[Natural Language ToolKit (\pyt{nltk})~: ]Divers outils grammaticaux pour l'étude du langage naturel.
+
 	\item Un analyseur syntaxique dont les résultats nous ont été fournis par Systran.
 \end{itemize}
+
+\subsubsection{Points techniques}
+
+Nous avons fait le choix de développer notre programme en Python du fait de toutes les possibilités offertes dans le traitement du langage naturel, ainsi que de la simplicité de développement.\\
+
+Nous n'avons pas cherché dans un premier temps à optimiser le temps de calcul. Les différents algorithmes nécessaires pour traiter un texte n'ont jamais dépassé un temps d'exécution raisonnable. Des problématiques de portabilité ou de temps réel, si elles sont elles aussi intéressantes dans ce cadre de traitement de données, dépassent le cadre de notre projet.
 
 
 \section{État de l'art} %Revue et analyse de l’état de l’art / des approches concurrentes ou alternatives
@@ -235,7 +250,7 @@ Il contient des objets qui sont instances des n\oe{}uds du Réseau de Concepts, 
 C'est sur ce point que nous nous sommes pour beaucoup éloignés de ces travaux initiaux. Il nous fallait en effet une structure proche de ce Workspace, de ce Blackboard, dans laquelle écrire, mais cette structure est à adapter aux données que nous considérons, qui sont des données textuelles.
 
 
-\section{Sources de données et traitement de celles-ci}
+\section{Sources de données et traitement de celles-ci}\label{Section:sources}
 
 \subsection{Résumé}
 
