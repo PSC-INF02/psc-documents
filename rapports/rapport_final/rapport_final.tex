@@ -919,14 +919,21 @@ Même si le résultat final n'est pas une phrase intelligible, les informations 
 
 \section{Bilan et améliorations envisageables}
 
+
 %% J'espère pouvoir corriger ce paragraphe dans les prochains jours
-Le projet n'a que peu de retard sur ce qui a été annoncé. Le workspace a été presque entièrement implémenté et nous sommes capables d'y introduire un texte en structures cohérentes. Nous avons cependant manqué de temps pour implémenter les parties les plus subtiles de nos algorithmes (activations dans le réseau de concepts, étoffement des liens dans le workspace).
+Le projet n'a que peu de retard sur ce qui a été annoncé. Le workspace a été presque entièrement implémenté et nous sommes capables d'y introduire un texte en structures cohérentes. Nous avons cependant manqué de temps pour implémenter les parties les plus subtiles de nos algorithmes (étoffement des liens dans le workspace).
+
+\subsection{Considérations techniques}
+
+Le code de notre projet, de grande taille, est entièrement documenté.
 
 \subsection{Bilan des actions menées}
 
 Dans son état actuel, le projet constitue une excellente préparation à la mise en place des méthodes que nous avons décrites. Nous avons en effet améliorés quelques outils de traitement de données textuelles brutes (en ce qui concerne le traitement des noms propres notamment). Nous avons également pu mettre en place les structures indispensables à nos algorithme et créé les fonctions faisant l'interface avec les structures de données déjà existantes.
 
 Nous avons, d'autre part, pu implémenter un algorithme raisonnable de résumé automatique s'appuyant sur TF-IDF. % Complement needed.
+
+
 
 \vspace{1\baselineskip}
 
@@ -1081,7 +1088,7 @@ Tiré du site de \href{http://www.theguardian.com/football/2015/mar/29/georgia-g
 (Notons une erreur survenue dans la récupération de l'article : la légende de l'image a été prise comme faisant partie du texte.)
 
 \begin{quotation}
-\textsc{ Germany's Marco Reus,  right,  celebrates his goal against Georgia.\\
+Germany's Marco Reus,  right,  celebrates his goal against Georgia.\\
 Photograph.\\
 David Mdzinarishvili/ REUTERS.\\
 The World Cup winners Germany eased past the hosts Georgia 2-0 in their Euro 2016 qualifier on Sunday with first-half goals from Marco Reus and Thomas Müller enough to get their Group D campaign back on track.\\
@@ -1094,7 +1101,7 @@ Müller fired at goal directly from a corner only to see the ball fly just wide 
 Reus did better in the 39th when Mario Götze charged into the box and was lucky to scramble the ball to the winger,  who drilled home for his second goal this week after also scoring in their 2-2 friendly draw against Australia.\\
 Müller then added another on the stroke of halftime to firmly put Germany in the driving seat.\\
 The new Georgia coach Kakhaber Tskhadadze added a forward after the break but it was Reus who came close again,  rattling the bar for a second time on the hour with another powerful shot.\\
-}
+
 \end{quotation}
 
 \subsection{Phrases du texte 1 par poids décroissants}
