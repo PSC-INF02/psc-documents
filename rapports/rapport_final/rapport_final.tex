@@ -50,6 +50,13 @@
 \subsubsection{But du projet}
 %reprise textuelle
 
+%%reprise
+Nous vivons dans un \^{a}ge d'abondance d'information, qu'il convient de traiter efficacement pour en profiter. Dans ce contexte, les synthétiseurs automatiques de textes ont bénéficié d'efforts croissants de recherche au cours des années passées. Notre travail s'inscrit dans cette démarche.
+
+%%reprise
+Un nombre non négligeable d'outils reposent, essentiellement, sur une extraction des phrases pertinentes \textit{via} une analyse statistique et éventuellement une analyse symbolique plus ou moins poussée (\textit{extractive summarization}\index{Extractive summarization}). Nous voulions mettre l'accent sur cette analyse de façon à donner une réelle compréhension des corpus à notre programme et, pour se convaincre de son succès, le pousser à la reformulation (\textit{abstractive summarization})\index{Abstractive summarization}.
+
+
 Le but de notre projet était de produire un programme capable d'analyser sémantiquement\index{Analyse sémantique} un texte ayant pour sujet le sport (et plus particulièrement encore le football) de façon à en produire un résumé. Il s'agit là d'une véritable innovation par rapport à l'état actuel du résumé automatique, dans la mesure où les programmes existants se basent prioritairement sur une analyse statistique plus ou moins poussée de fréquence d'apparition des mots pour juger de leur importance~; notre programme s'appuierait plutôt sur le sens pour juger de la pertinence d'un concept et savoir s'il doit le faire figurer ou non dans le résumé final.
 
 
@@ -78,6 +85,154 @@ Nous reviendrons sur ces outils et détaillerons au fur et à mesure du rapport.
 	\item Un analyseur syntaxique dont les résultats nous ont été fournis par Systran.
 \end{itemize}
 
+
+\section{État de l'art} %Revue et analyse de l’état de l’art / des approches concurrentes ou alternatives
+%%%%%%%%%%%%%%%%%%%%%ù
+%% WARNING : REPRISE TEXTUELLE
+%%%%%%%%%%%%%%%%%%%%%%
+
+D'après~\cite{jones_automatic_2007}, des recherches sur la synthèse automatique de documents se sont principalement développées depuis les années 1990, motivées par des analyses statistiques remontant aussi loin que 1958. Les méthodes d'extraction, de par la simplicité de leur mise en œuvre, ont été le plus mises en avant, utilisant dans des travaux plus récents une analyse symbolique plus poussée, menant à la reformulation de la source plut\^{o}t que de la simple extraction de son contenu (on parle alors d'abstraction). Dans cette section, nous détaillerons les techniques propres à ces deux paradigmes, puis nous indiquerons les méthodes envisageables d'évaluation de la qualité des résumés produits.
+
+\subsection{Extraction de la source (\emph{extractive summarization})}
+
+% Nous prenons le problème sous l'angle de la compréhension du texte, mais en réalité, un plus grand nombre de travaux s'intéresse à l'extraction de phrases jugées pertinentes sur des critères statistiques.
+L'idée de la méthode est d'extraire les phrases jugées importantes dans le texte et de les concaténer dans le résumé (en éliminant les redondances), après quelques modifications de forme de façon à assurer une plus grande cohérence de l'ensemble. Dans sa version la plus minimaliste, l'interprétation pourra se contenter de transcrire le texte à résumer (la source) en un tableau contenant le numéro de chaque phrase et une valeur (ou un vecteur, comme dans~\cite{fattah_ga_2009}) quantifiant son importance, la transformation devant alors simplement sélectionner les phrases les mieux notées. 
+
+Ces méthodes ont donc souvent tendance à ignorer (ou faire peu de cas) du contenu sémantique de la source, se contentant de marquer la similarité entre phrases (parfois seulement du point de vue symbolique, donc en ignorant la synonymie), de la phrase au titre, etc.
+
+L'établissement de la notation, au cours de l'interprétation, se fondera généralement sur une analyse statistique (fréquence d'apparition ou d'association de termes) et éventuellement sur une analyse plus fine des champs lexicaux et de la syntaxe.
+
+\paragraph{}
+Des méthodes d'extraction plus complexes existent, en faisant notamment intervenir des mesures de similarité entre unités syntaxiques (phrases, paragraphes) au sein d'un graphe de similarité. Dans~\cite{salton_automatic_1997}, les paragraphes les plus pertinents sont extraits du texte après établissement d'un tel graphe, sur la base de leur vocabulaire (précisément, des occurrences de \emph{termes}, qui peuvent être en première étude des mots~; il peut s'agir d'expressions indissociables à plusieurs mots telles que \textit{kick the bucket} en Anglais, qui signifie "mourir" et pas "donner un coup de pied dans le seau"). On repère alors par exemple ceux des paragraphes qui ont le plus de liens pertinents (au dessus d'une certaine similarité), en supposant qu'ils traitent simultanément d'un plus grand nombre de thèmes et sont donc plus représentatifs.
+
+La méthode décrite dans~\cite{salton_automatic_1997} applique en fait à l'intérieur d'un texte des techniques de récupération  de l'information (\emph{information retrieval}) qui sont utilisées pour établir automatiquement des liens hypertextes entre pages web ou articles.
+%Nous nous proposons de descendre au niveau des unités syntaxiques elles-mêmes, mais le traitement à effectuer se rapprochera très certainement de celui-ci et la mesure de pertinence des concepts sera sans doute proche de la mesure de pertinence des paragraphes.
+
+
+\subsection{Méthodes non extractives}
+
+Plusieurs raisons expliquent le développement relativement faible des méthodes non-extractives, comparé à celui des précédentes. Premièrement, les exigences sur la qualité des résumés produits étaient en général plutôt faibles~\cite{jones_automatic_2007}, et les méthodes extractives fournissent le plus souvent des résultats acceptables. La facilité relative de leur mise en œuvre leur a donc profité. D'autre part, les méthodes de résumé automatique se sont principalement développées incrémentalement à partir des premiers systèmes existants, ce qui n'a pas encouragé le développement de paradigmes concurrents et assez éloignés.
+
+Bien que la limite entre les méthodes extractives et non-extractives soit un peu floue, on peut remarquer que ces dernières poussent l'analyse de la source nettement plus profondément lors de son interprétation. En effet, en sus de l'analyse symbolique, la représentation machine qui en est faite gardera un contenu sémantique (contrairement à certaines méthodes extractives) et contiendra plus d'informations que la représentation pour une méthode extractive (notamment, dans les systèmes les plus évolués, sur la structure générale de la source et de son argumentation éventuelle). Surtout, la génération sera une étape bien plus importante (au lieu de sélectionner du contenu depuis la source, le programme devra créer du contenu à partir de sa représentation transformée).
+
+Ces méthodes sont, de manière générale, plus sensibles au contenu de la source que les méthodes extractives~\cite[p.1774]{jones_automatic_2007}, ce qui laisse envisager quelques difficultés à appliquer la méthode à des articles d'actualité (dont le contenu est essentiellement libre, donc varié). Nous la jugeons toutefois plus à même de tenir compte des points de désaccord entre plusieurs documents et donc plus capable de rendre compte des points de polémique dans les corpus étudiés. Pour pallier ce problème, nous réduirons donc le champ des articles étudiés à un domaine particulier (politique britannique ou sports par exemple).
+
+Notons que les résultats escomptés pour des méthodes non extractives ne sont pas tout à fait les mêmes que pour les méthodes extractives ; en effet, les résumés obtenus ne sont pas linéaires, au sens où les idées peuvent ne pas suivre l'ordre du texte. Ils ne sont donc pas adaptés si l'on veut rendre compte de l'organisation de la source, en revanche ils le seront pour faire ressortir les idées majeures, par exemple en les insérant en début de résumé.
+
+\subsection{Génération du résumé}
+Une fois la représentation informatisée d'un texte effectuée, il faut retranscrire ces données en langage naturel afin d'obtenir un résumé.
+
+Différentes recherches ont été menées~(\cite{danlos_generation_2000}, \cite{horacek_building_2001}) et il est possible de produire à partir de données un texte dans un domaine précis (météo, compte rendu médical, etc.). La restriction à un sujet permet de limiter le lexique en entrée et ainsi d'éviter différents problèmes d'homonymie, de synonymie ou de connotation. En effet, le choix, non seulement des mots, mais aussi de l'ordre de leur apparition et de la structure finale est l'un des problèmes majeurs de la génération de texte.
+
+\subsection{Évaluation}
+
+L'évaluation des programmes de résumé automatique n'est pas aussi évidente qu'elle le paraîtrait au premier abord. En effet leur évaluation en dehors de leur contexte d'utilisation est assez peu informative, et la grande variété sur la forme des sources (d'un texte de loi, très formel, à un scénario par exemple, en ne considérant que du texte) et la forme de la réponse attendue (par exemple entre une liste d'actions à mener lors d'un incendie, ou bien un bref article en prose) rend difficile la comparaison des systèmes entre eux. Trois méthodes principales ont été retenues par les programmes récents d'évaluation (à partir des années 2000)~\cite[p.1453-1461]{jones_automatic_2007}~:
+\begin{description}
+  \item [Qualité du texte et qualité du discours :] Pour des résumés sous forme de texte en langage naturel, il s'agit d'une part de vérifier la justesse grammaticale du résumé, ainsi que sa cohérence générale à plus grande échelle. Si les propriétés locales sont assez simplement vérifiables, c'est assez loin d'être le cas pour le discours en général.
+  \item [Capture du concept :] Il s'agit de vérifier que les informations centrales de la source sont également présentes dans le résumé. Pour cela, une méthode assez prometteuse est de définir un certain nombre de questions sur la source auxquelles on devrait pouvoir répondre en ayant lu seulement le résumé. Il est concevable de définir ces questions à partir de questions de compréhension de texte basiques (du genre de celles qu'on donne en primaire) ou des questions un peu plus poussées sur la structure de l'argumentation. Cependant les questions auxquelles on doit pouvoir répondre restent essentiellement fonction de l'objectif du résumé et ne permettent donc pas d'évaluer le système en toute indépendance.
+  \item [Comparaison à un modèle :] L'idée ici n'est pas de comparer le résumé à sa source mais à d'autres résumés établis comme bons. Ces modèles sont souvent créés par des humains (dont on suppose qu'ils sont entraînés à produire de bons résumés), même si cela limite la quantité des points de comparaison. Les difficultés de cette méthode résident, pour l'essentiel, à la comparaison d'un texte à l'autre (dès lors que les phrases ne sont plus simplement extraites de la source, il faut juger de l'équivalence ou de la proximité des concepts présents dans les résumés) et au désaccord des juges (ou rédacteurs) sur ce qui est important dans un texte.
+ \end{description}
+  
+  Ce dernier point illustre une difficulté fondamentale de toute évaluation : la qualité essentielle du bon résumé est de contenir les informations clés présentes dans la source, une caractérisation vague et impossible à préciser. De plus, des résumés de forme très différente peuvent servir efficacement le même objectif. Cela a participé à l'efficacité modérés des synthétiseurs automatiques de textes : s'il est difficile de qualifier un bon résumé, on mesure le fait d'éviter des résumés pathologiquement mauvais.
+
+ 
+\subsection{Idées majeures}
+
+Présentons ici brièvement certaines idées dont nous nous sommes inspirés, au moins dans un premier temps, avant de nous en écarter progressivement. Cela sera nettement visible dans la section \ref{Section:RC}, quand nous présenterons le Réseau de Concepts, une structure de données fort utile, ainsi que dans les sections suivantes, avec notre Workspace.
+
+Nous recherchions des idées de représentation des connaissances, de la manière la plus intuitive possible, et \cite{parmentier_specification_1998} nous a guidé sur ce point. L'auteur développe une architecture elle-même basée sur Copycat, une autre architecture. Certaines idées centrales sont restées tout au long de notre projet, d'autres ont été progressivement modifiées.
+
+\subsubsection{Principe de Copycat\index{Copycat}}
+
+Copycat est un système permettant d'effectuer des liens d'analogie.Sur une question de la forme : "Si abc donne abd, que donne ijk ?", le programme a pour but de construire une représentation qui fasse ressortir une structure commune à abc et ijk, en trouvant des correspondances.
+
+Ici, a correspond à i, b à j, c à k, donc la déduction est que d correspond à l.
+
+Pour ce faire, y sont développés :
+
+\begin{itemize}
+ \item Une approche de système multi-agents, avec une notion d'émergence ;
+ \item Des glissements conceptuels, la possibilité pour des concepts d'être activés et de propager cette activation. La proximité des concepts dépend du contexte. Il y a des similitudes avec les réseaux sémantiques (les concepts sont les n\oe{}uds et liens du réseau), et dans cet exemple, les paramètres du réseau dépendent de son interaction avec l'environnement ;
+ \item Un mélange de la construction des descriptions provenant de l'environnement et provenant des concepts.
+
+\item L'usage d'une température pour mesurer la qualité de la réponse : contrôle la quantité de hasard dans les décisions déjà prises par le système.
+\end{itemize}
+
+\subsubsection{Architecture de Copycat}
+
+\paragraph{Slipnet\index{Slipnet} (réseau de glissement)}
+Le principe de ce réseau est qu'il contient des concepts, entre lesquels peuvent avoir lieu des glissements. Ces concepts peuvent être vus comme des types ou des classes d'objets. Les distances entre eux déterminent la probabilité qu'il y ait un glissement ; et elles peuvent varier.
+
+Les concepts peuvent être activés au cours du programme.
+
+\begin{itemize}
+ \item Un n\oe{}ud propage son activation à ses voisins en fonction de la proximité ;
+ \item Les n\oe{}uds perdent naturellement de l'activation ;
+ \item Un n\oe{}ud est activé lorsqu'une instance de ce n\oe{}ud est perçue par les agents. Plus il est activé, plus il sera probablement considéré comme concept potentiellement organisateur ;
+ \item Le taux de désactivation dépend de la profondeur conceptuelle du n\oe{}ud (abstraction et généralité du concept), fixée par l'auteur. Les n\oe{}uds les plus profonds se désactivent moins vite (les concepts les plus abstraits perdurent) ;
+ \item Les glissements sont effectués par les agents et dépendent de la proximité conceptuelle.
+\end{itemize}
+
+Il y a de l'apprentissage au niveau du Slipnet, bien qu'aucun concept ne soit rajouté.
+
+\paragraph{Workspace}
+Le Workspace contient des instances des concepts du Slipnet : c'est une mémoire de travail.
+
+Le programme construit des "structures perceptuelles" sur la base des entrées (les chaînes de lettres) : 
+\begin{itemize}
+ \item Description d'objets ;
+ \item Relations entre objets (lien de succession entre lettres par exemple) ;
+ \item Groupes d'objets ;
+ \item Correspondances entre objets de chaînes différentes ("est analogue à") ;
+ \item Règles qui décrivent le changement entre la chaîne initiale et la chaîne modifiée ;
+ \item Règle traduite qui décrit comment modifier la chaîne cible (qui peut être issue de la règle précédente en remplaçant des concepts, par exemple).
+\end{itemize}
+
+
+\paragraph{Coderack\index{Coderack}}
+C'est une file d'attente dans laquelle des agents sont choisis stochastiquement. Les agents (ou \textit{codelets}\index{Codelets}) représentent différentes \textit{pressions} : certaines sont présentes dans toutes les situations (la volonté de trouver des relations), d'autres proviennent de la situation courante.
+
+Les codelets sont progressivement exécutés et supprimés de la salle d'attente. Ils effectuent toutes les actions : activer les n\oe{}uds du Slipnet, ajouter d'autres codelets, lancer d'autres codelets.
+
+
+\paragraph{Température\index{Température}}
+La température mesure le degré d'organisation des structures créées. Elle s'inspire directement de la physique, en contrôlant le degré du hasard dans la prise de décision.
+\begin{itemize}
+ \item De hautes températures suggèrent des structures peu fiables, on va donc prendre des décisions aléatoires avec équiprobabilité ;
+ \item De basses températures montrent qu'on travaille sur des structures fiables ;
+ \item La fin du programme est fonction de la température. La température mesure aussi la qualité de la réponse.
+\end{itemize}
+
+L'idée de température était intéressante, mais c'est l'une de celles que nous avons dû abandonner en cours de route, du fait de sa difficulté à être correctement définie et adaptée.
+
+\subsubsection{L'intérêt de cette architecture}
+
+Copycat semble à première vue être très éloigné de notre projet ; cependant, nous y avons vu un système d'exploration de possibilités. Le Slipnet et le Workspace nous ont semblé être des idées à creuser : à la lecture d'une information pléthorique et redondante, il faut former des idées. Au cours de la lecture de ces informations, le sujet précis se cerne selon les concepts activés.
+
+\subsubsection{BAsCET\index{BAsCET}}
+
+C'est une architecture très proche de Copycat (l'acronyme signifie \textit{Blackboard Agents Concepts Exemples Température}) développée dans \cite{parmentier_specification_1998} pour un problème justement beaucoup plus proche du notre.
+
+\paragraph{Concepts}
+La description du Réseau de Concepts est très précise, et nous en avons repris les idées présentes dans les calculs d'activation des concepts (voir la section \ref{Section:RC} où nous détaillerons notre architecture).
+
+\paragraph{Agents}
+L'idée que les concepts sont traités par un grand nombre de petits agents est aussi présente dans le système développé. C'est une idée qui nous a séduit mais que nous avons eu beaucoup de difficultés à mettre en pratique, préférant nous concentrer sur d'autres points. Au terme de notre travail, les concepts ne sont donc pas activés par des agents, mais de manière directe, et la propagation se fait également de manière directe.
+
+
+\paragraph{Blackboard}
+Ce dernier est proche du Workspace de Copycat.
+
+Il contient des objets qui sont instances des n\oe{}uds du Réseau de Concepts, et qui comportent :
+\begin{itemize}
+ \item Un contenu ;
+ \item Un père (concept dont l'objet est instance) ;
+ \item Une importance (dépend du père et des liens avec les autres objets) ;
+ \item Une satisfaction (déterminée par les agents) ;
+ \item Une éminence (doit-il être traité ou non ?).
+\end{itemize}
+
+C'est sur ce point que nous nous sommes pour beaucoup éloignés de ces travaux initiaux. Il nous fallait en effet une structure proche de ce Workspace, de ce Blackboard, dans laquelle écrire, mais cette structure est à adapter aux données que nous considérons, qui sont des données textuelles.
 
 
 \section{Sources de données et traitement de celles-ci}
@@ -250,7 +405,8 @@ Conceptnet5 contient beaucoup d'information et les concepts sur lesquels il nous
 Freebase\index{Freebase} est une immense base de données sémantiques qui contient beaucoup d'informations, sur des noms propres notamment. Le projet, repris par Google mais sous une licence qui laisse les données libres d'accès, de téléchargement et d'utilisation, a lui aussi une API, un peu plus complexe que celle de Conceptnet5. Freebase permet notamment de récupérer des informations sur une personne à partir de son nom, et à peu de frais, de vérifier que cette personne existe bel et bien.
 
 
-\section{Réseau de concepts}
+\section{Réseau de concepts}\label{Section:RC}
+
 
 \subsection{Cahier des charges}
 
@@ -299,13 +455,15 @@ Sur l'exemple de la figure~\ref{fig:rc_exemple}, nous revoyons les données qui 
 
 \subsection{Propagation d'activation}
 
+\subsubsection{Principe}
+
 Le réseau de concepts est dynamique. Il évolue au cours de la lecture du texte, notamment par un processus d'activation des n\oe{}uds. L'écoulement du temps est donc une donnée importante.
 
 L'activation d'un mot (provoquée par exemple par sa lecture dans un texte) est propagée à tous les n\oe{}uds voisins. Elle permet intuitivement de penser à de nouvelles idées, de compléter l'information du texte si celle-ci est parcellaire.
 
-Sur l'exemple de la figure~\ref{fig:rc_exemple}, l'activation du concept \verb|wayne_rooney| va provoquer dans un premier temps celle de \verb|soccer_player|, \verb|athlete|, mais aussi \verb|play_sport|, \verb|win_match|, etc.
+Sur l'exemple de la figure~\ref{fig:rc_exemple}, l'activation du concept \verb|wayne_rooney| va provoquer dans un premier temps celle de \verb|soccer_player|, \verb|athlete|, mais aussi \verb|play_sport|, \verb|win_match|, etc.\\
 
-La propagation d'activation doit tenir compte de plusieurs facteurs~: les poids des liens et l'importance conceptuelle des n\oe{}uds. Ainsi, un n\oe{}ud fortement relié à \verb|wayne_rooney| devra être activé plus rapidement et de façon plus importante.
+La propagation d'activation doit tenir compte de plusieurs facteurs~: les poids des liens et l'importance conceptuelle des n\oe{}uds. Ainsi, un n\oe{}ud fortement relié à \verb|wayne_rooney| devra être activé plus rapidement et de façon plus importante.\\
 
 Selon la manière dont nous voulons utiliser le réseau, il y a deux possibilités~:
 \begin{itemize}
@@ -315,8 +473,8 @@ Selon la manière dont nous voulons utiliser le réseau, il y a deux possibilit�
 
 La notion de désactivation est assez satisfaisante intuitivement~; il existe en effet des concepts fortement activés mais peu importants, que l'on espère oublier assez rapidement. 
 
-\paragraph{}
-Formellement, nous utilisons les formules suivantes, inspirées de [].
+\subsubsection{Formalisation}
+Formellement, nous utilisons les formules suivantes, inspirées de \cite{parmentier_specification_1998}.
 
 \begin{itemize}
   \item Pour l'activation du n\oe{}ud $n$ à l'instant $t+1$~:
@@ -325,18 +483,74 @@ Formellement, nous utilisons les formules suivantes, inspirées de [].
 \end{align}
 \item Pour la réactivation de ce n\oe{}ud~:
 \begin{align}
- A^t = \sum_{(n' \rightarrow n \text{\ arcs entrants})} W_{(n'\rightarrow  n)} \times A_{n'}^t
+ A^t = \sum_{(n' \rightarrow n \text{\ arcs entrants})} W_{(n'\rightarrow  n)} \times A_{n'}^t / 100
 \end{align}
 \item Pour la désactivation de ce n\oe{}ud~:
 \begin{align}
  D^t = A^t \frac{100- IC_n}{100}
 \end{align}
-Où le facteur $100$ (modifiable) est dû à la normalisation. Si le concept a une très grande importance ($IC_n = 100$), il tend donc à ne pas être désactivé du tout. S'il a une importance très faible ($IC_n \rightarrow 0$), il a une tendance à se désactiver très rapidement.
+Où les facteurs $100$ sont dus à la normalisation. Si le concept a une très grande importance ($IC_n = 100$), il tend donc à ne pas être désactivé du tout. S'il a une importance très faible ($IC_n \rightarrow 0$), il a une tendance à se désactiver très rapidement.
 \end{itemize}
 
 \paragraph{}
 Nous avons mis un temps plus important à extraire des importances conceptuelles véritablement utiles, et n'avons donc que peu utilisé la désactivation (qui repose sur l'importance conceptuelle). Ces importances conceptuelles ont été finalement calculées en nous inspirant de l'indice TF-IDF\index{TF-IDF}~; ce sera développé dans la partie~\ref{Section:TFIDF}.
 
+\subsubsection{Facteur logarithmique}
+Dans \cite{parmentier_specification_1998}, il était déjà question d'un facteur supplémentaire qui permette de tenir compte de la suractivation de n\oe{}uds fortement reliés. Effectivement, en l'absence de ce facteur supplémentaire, on remarque que des n\oe{}uds peu utiles mais fortement reliés (des mots et concepts courants comme \verb|person|, \verb|love|) vont rapidement être saturés, et dépasser les n\oe{}uds initiaux qui ont eux une grande importance.
+
+Nous avons introduit ce facteur, et l'avons heuristiquement adapté. La formule d'activation d'un n\oe{}ud $n$ devient donc :
+\begin{align}
+ A_n^{t+1} = A_n^t + D^t + \frac{A^t}{divlog}
+\end{align}
+Où $divlog = \frac{\log(13 + \text{nombre d'arcs entrants})}{\log(13)}$.
+
+Cela a donné des résultats très pertinents.
+
+\subsubsection{Exemple}
+
+Sur notre dernier et meilleur réseau de concepts, nous essayons par exemple d'activer simultanément deux concepts (\verb|wayne_rooney|, \verb|steven_gerrard|) et de propager cette activation :
+\begin{itemize}
+ \item Une fois :
+ \begin{verbatim}
+soccer_midfielder : 3
+wayne_rooney : 60
+athlete : 15
+steven_gerrard : 60
+person : 6
+soccer_player : 15
+ \end{verbatim}
+ \item Deux fois, en oubliant les n\oe{}uds trop faiblement activés ($ < 5$) :
+ \begin{verbatim}
+  at_soccer_game : 6
+wayne_rooney : 60
+soccer_player : 12
+break_record : 13
+play_sport : 12
+sport_event : 7
+win_match : 6
+head_ball : 9
+steven_gerrard : 60
+sprint : 9
+jump_high : 13
+athlete : 28
+ \end{verbatim}
+\item Quatre fois, en oubliant encore les n\oe{}uds trop faibles ($ < 10$) :
+\begin{verbatim}
+ sport_event : 13
+player : 12
+steven_gerrard : 60
+athlete : 49
+jump_high : 19
+play_sport : 18
+competition : 19
+wayne_rooney : 60
+sprint : 35
+win : 21
+break_record : 20
+soccer_player : 10
+\end{verbatim}
+\end{itemize}
+Nous pourrions aller plus loin, mais cela nous menacerait d'arriver à des n\oe{}uds fortement éloignés des deux sportifs initialement sélectionnés, et qui s'activeraient entre eux.
 
 
 \subsection{Construction du réseau}
