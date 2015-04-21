@@ -57,7 +57,7 @@ Le projet est encadré par Jean Senellart.
 
 \subsubsection{But du projet}
 
-La nécessité d'effectuer des résumés automatiques, en un mot, de synthétiser de grandes masses d'information textuelle (en langage naturel\index{Langage naturel}), est tout à fait prégnante alors que l'information est toujours plus abondante, mais qu'il faut la traiter de manière efficace.\\
+La nécessité d'effectuer des résumés automatiques, en un mot, de synthétiser de grandes masses d'informations textuelles (en langage naturel\index{Langage naturel}), est tout à fait prégnante alors que l'information est toujours plus abondante, mais qu'il faut la traiter de manière efficace.\\
 
 "Langage naturel" doit ici s'opposer au langage machine (qui est une série d'instructions comprises par les processeurs et permettent aux logiciels de fonctionner) ou même au code source, intermédiaire de programmation permettant au programmeur des instructions plus générales qui sont ensuite interprétées et décomposées pour le processeur. Ces deux derniers sont caractérisés par une syntaxe non ambiguë, et une sémantique très limitée (dans le cas du code source, seul un petit nombre de mots clés ont un sens pour l'interpréteur, qui n'est capable que de tester l'égalité entre les autres entités qui lui sont transmises ; plus simplement, l'interpréteur ne sera pas capable de comprendre "de\_couleur\_rose", mais s'il voit deux fois cette chaîne il sera capable de reconnaître qu'elles désignent la même chose).
 
@@ -129,15 +129,15 @@ Ces deux difficultés, à savoir la complexité sémantique et syntaxique d'une 
 
 \subsection{Extraction de la source (\emph{extractive summarization}\index{Extractive summarization})}
 
-L'idée derrière ce paradigme est simple : le texte a résumer est trop long, donc on va le tronquer. Cela à deux avantages : le premier et qu'il ne s'agit pas réellement de comprendre le texte ; simplement de juger ce qui peut y être important au travers de n'importe quelle métrique. D'autre part, puisqu'on ne fait qu'ôter des phrases inutiles au texte, on limite autant que faire se peut la reformulation, qui exige une certaine maîtrise du langage naturel et qui est loin d'être triviale. C'est donc pour sa simplicité que ce paradigme a d'abord été mis en avant dans la recherche, et est aujourd'hui parfois utilisé dans le monde industriel. La recherche dans ce domaine a donc essentiellement porté sur la définition d'une métrique rendant convenablement compte de l'importance des phrases les unes par rapport aux autres dans un document, souvent à l'aide d'un corpus documentaire plus vaste.
+L'idée derrière ce paradigme est simple : le texte a résumer est trop long, donc on va le tronquer. Cela a deux avantages : le premier et qu'il ne s'agit pas réellement de comprendre le texte ; simplement de juger ce qui peut y être important au travers de n'importe quelle métrique. D'autre part, puisqu'on ne fait qu'ôter des phrases inutiles au texte, on limite autant que faire se peut la reformulation, qui exige une certaine maîtrise du langage naturel et qui est loin d'être triviale. C'est donc pour sa simplicité que ce paradigme a d'abord été mis en avant dans la recherche, et est aujourd'hui parfois utilisé dans le monde industriel. La recherche dans ce domaine a donc essentiellement porté sur la définition d'une métrique rendant convenablement compte de l'importance des phrases les unes par rapport aux autres dans un document, souvent à l'aide d'un corpus documentaire plus vaste.
 
 Dans sa version la plus simple, on peut considérer la source (le texte à résumer) comme un tableau contenant le numéro de chaque phrase et une valeur (ou un vecteur, comme dans~\cite{fattah_ga_2009}) quantifiant son importance, la transformation devant alors simplement sélectionner les phrases les mieux notées. 
 
-Ces métriques n'ayant pas nécessairement de lien avec le contenu sémantique du texte, qui est par ailleurs souvent difficile d'accès, et la version la plus simple donnant déjà des résultats corrects sinon probants, il n'a pas été jugé immédiatement nécessaire de s'intéresser à ce contenu. Par conséquent la notation s'est surtout fondée sur une analyse statistique (un terme qui apparaît souvent dans un texte a l'air important ; des termes souvent associés perdent de la valeur s'ils sont séparés...) plus ou moins poussée, qui permet d'établir une notation pour chaque phrase et d'en extraire les mieux notées. Il est toutefois loin d'être exclus, dans ces considérations, de se placer à un niveau d'abstraction supérieur et de s'intéresser aux champs lexicaux plutôt qu'aux termes précisément employés.
+Ces métriques n'ayant pas nécessairement de lien avec le contenu sémantique du texte, qui est par ailleurs souvent difficile d'accès, et la version la plus simple donnant déjà des résultats corrects sinon probants, il n'a pas été jugé immédiatement nécessaire de s'intéresser à ce contenu. Par conséquent la notation s'est surtout fondée sur une analyse statistique (un terme qui apparaît souvent dans un texte a l'air important ; des termes souvent associés perdent de la valeur s'ils sont séparés...) plus ou moins poussée, qui permet d'établir une notation pour chaque phrase et d'en extraire les mieux notées. Il est toutefois loin d'être exclu, dans ces considérations, de se placer à un niveau d'abstraction supérieur et de s'intéresser aux champs lexicaux plutôt qu'aux termes précisément employés.
 
 
 \paragraph{}
-Il est cependant aisé de voir qu'un tel algorithme produira des résumés biaisés, au sens où ils ne seront pas véritablement représentatif du texte. En effet, pour peu qu'un terme important soit répété de manière régulière dans un nombre trop élevé de phrases pour que ces phrases soient sélectionner et que le résumé occulte toute une partie du texte original. Au lieu de produire une version fidèle du texte original, si ce n'est qu'elle est plus courte, cet algorithme sélectionne une information centrale et risque de la répéter, générant de la redite que le résumé se doit justement d'éliminer. C'est des méthodes d'extraction plus complexes ont été développées, en faisant notamment intervenir des mesures de similarité entre unités syntaxiques (phrases, paragraphes) au sein d'un graphe de similarité. Dans~\cite{salton_automatic_1997}, les paragraphes les plus pertinents sont d'abord extraits du texte. Il s'agit ensuite de relier les graphes entre eux sur la base de leur vocabulaire (précisément, des occurrences de \emph{termes}, qui peuvent être en première étude des mots~; une analyse plus fine devra cependant reconnaître certaines entités indissociables de plusieurs mots, telles que \textit{kick the bucket} en Anglais, qui signifie "mourir" et pas "donner un coup de pied dans le seau"). Au dessus d'un certain seuil de similarité on considère que les deux paragraphes apportent trop d'information commune pour les inclure tous les deux dans le résumé~; un choix est donc fait sur la base du nombre de sujets abordés. En effet, un paragraphe abordant plus de sujets distincts sera sans doute plus représentatif du texte général.
+Il est cependant aisé de voir qu'un tel algorithme produira des résumés biaisés, au sens où ils ne seront pas véritablement représentatifs du texte. En effet, pour peu qu'un terme important soit répété de manière régulière dans un nombre trop élevé de phrases pour que ces phrases soient sélectionnées et que le résumé occulte toute une partie du texte original. Au lieu de produire une version fidèle du texte original, si ce n'est qu'elle est plus courte, cet algorithme sélectionne une information centrale et risque de la répéter, générant de la redite que le résumé se doit justement d'éliminer. Des méthodes d'extraction plus complexes ont été développées, en faisant notamment intervenir des mesures de similarité entre unités syntaxiques (phrases, paragraphes) au sein d'un graphe de similarité. Dans~\cite{salton_automatic_1997}, les paragraphes les plus pertinents sont d'abord extraits du texte. Il s'agit ensuite de relier les graphes entre eux sur la base de leur vocabulaire (précisément, des occurrences de \emph{termes}, qui peuvent être en première étude des mots~; une analyse plus fine devra cependant reconnaître certaines entités indissociables de plusieurs mots, telles que \textit{kick the bucket} en Anglais, qui signifie "mourir" et pas "donner un coup de pied dans le seau"). Au dessus d'un certain seuil de similarité on considère que les deux paragraphes apportent trop d'information commune pour les inclure tous les deux dans le résumé~; un choix est donc fait sur la base du nombre de sujets abordés. En effet, un paragraphe abordant plus de sujets distincts sera sans doute plus représentatif du texte général.
 
 %reprise
 La méthode décrite dans~\cite{salton_automatic_1997} applique en fait à l'intérieur d'un texte des techniques de récupération  de l'information (\emph{information retrieval}) qui sont utilisées pour établir automatiquement des liens hypertextes entre pages web ou articles.
@@ -146,9 +146,9 @@ La méthode décrite dans~\cite{salton_automatic_1997} applique en fait à l'int
 
 \subsection{Méthodes non extractives (abstractives)}
 
-Plusieurs raisons expliquent le développement relativement faible des méthodes non extractives, comparé à celui des précédentes. On a déjà parlé de la performance, disons, acceptable des méthodes extractives (en particulier les plus évolués), et leur popularité a été renforcée par des exigences assez faibles en matière de qualité. Qui plus est, la recherche de manière générale est plus prompte à progresser de manière incrémentale~; ainsi le développement de paradigmes concurrents et éloignés de l'idée originale du résumé automatique n'a pas été encouragée.\\
+Plusieurs raisons expliquent le développement relativement faible des méthodes non-extractives, comparé à celui des précédentes. On a déjà parlé de la performance, disons, acceptable des méthodes extractives (en particulier les plus évoluées), et leur popularité a été renforcée par des exigences assez faibles en matière de qualité. Qui plus est, la recherche de manière générale est plus prompte à progresser de manière incrémentale~; ainsi le développement de paradigmes concurrents et éloignés de l'idée originale du résumé automatique n'a pas été encouragée.
 
-La limite entre les méthodes extractives et non extractives n'est pas clairement définie. Dans la partie précédente nous parlions des graphes de similarité, reposant sur une analyse lexicale et donc dans une certaine mesure à des considérations d'ordre sémantique, qui sont plutôt caractéristiques du résumé abstractif. Néanmoins, on peut remarquer que dans cette situation, l'analyse sémantique qui est faite n'a d'autre but que de permettre une meilleure sélection. Qui plus est on garde une trace assez faible de cette analyse, la mesure de similarité qui aide à la décision. Le paradigme non extractif, quant à lui, cherchera plutôt à mettre en avant les structures argumentatives, ou même simplement syntaxiques, du texte. Cela fait, on espère pouvoir s'abstraire des termes employés pour accéder aux idées présentes derrière le texte~; et pour ces deux raisons la génération du résumé (l'obtention d'un texte écrit en langage naturel à partir de la représentation machine du texte résumé) sera une étape beaucoup plus importante que dans la méthode concurrente.
+La limite entre les méthodes extractives et non extractives n'est pas clairement définie. Dans la partie précédente nous parlions des graphes de similarité, reposant sur une analyse lexicale et donc dans une certaine mesure à des considérations d'ordre sémantique, qui sont plutôt caractéristiques du résumé abstractif. Néanmoins, on peut remarquer que dans cette situation, l'analyse sémantique qui est faite n'a d'autre but que de permettre une meilleure sélection. Qui plus est on garde une trace assez faible de cette analyse, la mesure de similarité qui aide à la décision. Le paradigme non extractif, quant à lui, cherchera plutôt à mettre en avant les structures argumentatives, ou même simplement syntaxiques, du texte. Cela fait, on espère pouvoir s'abstraire des termes employés pour accéder aux idées présentes derrière le texte~; et pour ces deux raisons, la génération du résumé (l'obtention d'un texte écrit en langage naturel à partir de la représentation machine du texte résumé) sera une étape beaucoup plus importante que dans la méthode concurrente.
 
 Bien entendu, il n'est pas imaginable d'envisager un programme capable d'utiliser la méthode non extractive pour résumer tout article~; les méthodes extractives, déjà, se basent sur un grand corpus documentaire permettant d'observer des fréquences d'apparition d'un terme donné dans plusieurs documents et cette fréquence dépendra fortement du domaine considéré (un corpus plutôt centré sur la politique ne verra que très rarement apparaître le terme "stade", contrairement à un corpus centré sur le sport). Les méthodes non extractives sont d'autant plus sensibles au contenu du corpus~\cite[p.1774]{jones_automatic_2007} qu'elles doivent, pour les résumer, "comprendre" d'une certaine manière. C'est la principale raison pour laquelle nous avons choisi de nous limiter à un domaine particulier, qui a été celui du sport (et plus précisément encore celui du football). Dans l'optique d'un résumé de corpus documentaire (par opposition à un document unique) nous espérons que la méthode abstractive sera plus capable de détecter des variations, voire des contradictions, entre différents points de vue exprimés dans différents textes, et ainsi de produire un résumé plus intéressant et plus neutre.\\
 
@@ -158,7 +158,7 @@ Enfin, les méthodes non extractives, dans la mesure où elles déconstruisent l
 
 Après avoir résumé le texte en mémoire, quelle que soit la représentation utilisée, il faut ensuite (pour un programme complet) la reformuler en langage naturel pour la présenter à l'utilisateur. C'est presque immédiat pour une méthode extractive (encore que les méthodes les plus développées cherchent parfois à éclaircir le produit final, en explicitant certaines références qui ont été perdues lors de la découpe), et nettement moins trivial pour une méthode non extractive qui utilisera des représentations mémoire du texte plus éloignées du langage naturel.
 
-Différentes recherches ont été menées~(\cite{danlos_generation_2000}, \cite{horacek_building_2001}) et des textes ont été générés avec succès à partir de données brutes dans certains domaines précis (météo, compte rendu médical, etc.). Ces domaines ont en commun l'accent qu'ils mettent sur les faits et le peu de place qu'ils doivent laisser à l'interprétation~; en dehors des termes techniques liés à leur domaine les textes utilisent un vocabulaire et une syntaxe très simple. En effet, le choix, non seulement des mots, mais aussi de l'ordre de leur apparition et de la structure finale est l'un des problèmes majeurs de la génération de texte.
+Différentes recherches ont été menées~(\cite{danlos_generation_2000}, \cite{horacek_building_2001}) et des textes ont été générés avec succès à partir de données brutes dans certains domaines précis (météo, compte rendu médical, etc.). Ces domaines ont en commun l'accent qu'ils mettent sur les faits et le peu de place qu'ils doivent laisser à l'interprétation~; en dehors des termes techniques liés à leur domaine, les textes utilisent un vocabulaire et une syntaxe très simple. En effet, le choix, non seulement des mots, mais aussi de l'ordre de leur apparition et de la structure finale est l'un des problèmes majeurs de la génération de texte.
 
 \subsection{Évaluation}
 
@@ -167,14 +167,11 @@ L'évaluation des résumés produits est un problème assez délicat. La forme d
 \begin{description}
   \item [Qualité du texte et qualité du discours :] Cela ne concerne que la forme du texte produit, pour des résumés en langage naturel. Il s'agit de vérifier s'il est correctement formulé, grammaticalement juste, et cohérent dans sa globalité. Même si propriétés locales de justesse syntaxique sont bien connues et facilement testables, l'étude du discours dans sa globalité reste un défi à l'heure actuelle.
   %% J'ai peur de bullshiter un peu fort, please read again.
-  \item [Capture du concept :] Il est ici question de l'idée ou des idées centrales identifiées dans le texte original, et de savoir si elles sont présentes dans le résumé final. Pour tester ceci, il semble raisonnable de préparer un certain nombre de questions portant sur le texte original auxquelles la lecture du résumé doit être capable d'apporter une réponse. Ces questions peuvent être de l'ordre de la simple compréhension de texte (questions que l'on pourrait donner en primaire) ou éventuellement sur des points un peu plus subtils de l'argumentation. L'inconvénient principal de cette méthode est que le test dépend fortement de l'objectif du résumé. Prenons l'exemple d'un article scientifique. Un résumé de cet article pourrait être destiné à de la vulgarisation~: son but sera alors de faire ressortir les concepts de base. À l'inverse, il pourrait être destiné à un confrère travaillant sur un sujet proche~; les concepts de base étant alors maîtrisés, le résumé devrait insister sur les points saillants et profonds de l'argumentation scientifique. Par conséquent il est difficile, un texte étant donné, de définir un seul jeu de questions permettant d'évaluer son résumé et donc d'étudier le programme en toute indépendance.
-  \item [Comparaison à un modèle :] Plutôt que de comparer les résumés à leur source, on cherche ici à les comparer à d'autres résumés issus de la même source qui ont déjà été évalués comme bons. Cela a l'avantage de permettre la comparaison entre objets de nature plus proches. Ces modèles auront typiquement été composés par des êtres humains, entraînés à la compréhension du langage naturel depuis leur plus âge et, plus tard, à la tâche particulière du résumé. Il reste alors à établir une distance entre deux résumés, ce qui est loin d'être trivial dès que les phrases ne sont plus extraites directement de la source. Par ailleurs, force est de constater que les rédacteurs des modèles ne sont pas toujours capables de s'entendre sur ce qui devrait y figurer.
+  \item [Capture du concept :] Il est ici question de l'idée ou des idées centrales identifiées dans le texte original, et de savoir si elles sont présentes dans le résumé final. Pour tester ceci, il semble raisonnable de préparer un certain nombre de questions portant sur le texte original auxquelles la lecture du résumé doit être capable d'apporter une réponse. Ces questions peuvent être de l'ordre de la simple compréhension de texte (questions que l'on pourrait donner en classe de primaire) ou éventuellement sur des points un peu plus subtils de l'argumentation. L'inconvénient principal de cette méthode est que le test dépend fortement de l'objectif du résumé. Prenons l'exemple d'un article scientifique~: un résumé de cet article pourrait soit être destiné à de la vulgarisation~: son but sera alors de faire ressortir les concepts de base. À l'inverse il pourrait être destiné à un confrère travaillant sur un sujet proche~; les concepts de base étant alors maîtrisés, le résumé devrait insister sur les points saillants et profonds de l'argumentation scientifique. Par conséquent il est difficile, un texte étant donné, de définir un seul jeu de questions permettant d'évaluer son résumé et donc d'étudier le programme en toute indépendance.
+  \item [Comparaison à un modèle :] Plutôt que de comparer les résumés à leur source, on cherche ici à les comparer à d'autres résumés issus de la même source qui ont déjà été évalués comme bons. Cela a l'avantage de permettre la comparaison entre objets de nature plus proches. Ces modèles auront typiquement été composés par des êtres humains, entraînés à la compréhension du langage naturel depuis leur plus jeune âge et, plus tard, à la tâche particulière du résumé. Il reste alors à établir une distance entre deux résumés, ce qui est loin d'être trivial dès que les phrases ne sont plus extraites directement de la source. Par ailleurs, force est de constater que les rédacteurs des modèles ne sont pas toujours capables de s'entendre sur ce qui devrait y figurer.
  \end{description}
 
-  Ce dernier point n'est relevé qu'ici, mais aurait pu être mentionné bien avant car il est inhérent au résumé et assez indépendant de la méthode d'évaluation~: la qualité essentielle du bon résumé est de contenir les informations clés présentes dans la source, une caractérisation vague et impossible à préciser. Ajoutons également que des résumés en apparence très différents peuvent servir efficacement un objectif commun. 
-  
-  %%affirmation gratuite dans cette phrase
-  C'est une des raisons pour lesquelles les programmes de résumés automatiques sont restés de qualité moyenne~: l'investissement en temps et ressources pour évaluer un bon résumé étant jugé trop élevé, on a préféré écrire des programmes capables de produire des résumés qui n'étaient pas désespérément mauvais.
+  Ce dernier point n'est relevé qu'ici, mais aurait pu être mentionné bien avant car il est inhérent au résumé et assez indépendant de la méthode d'évaluation~: la qualité essentielle du bon résumé est de contenir les informations clés présentes dans la source, une caractérisation vague et impossible à préciser. Ajoutons également que des résumés en apparence très différents peuvent servir efficacement un objectif commun. C'est une des raisons pour lesquelles les programmes de résumés automatiques sont restés de qualité moyenne~: l'investissement en temps et ressources pour évaluer un bon résumé étant jugé trop élevé, on a préféré écrire des programmes capables de produire des résumés qui n'étaient pas désespérément mauvais.
 
  
  %à partir de maintenant, pas reprise, c'est du neuf
@@ -195,8 +192,8 @@ Pour ce faire, y sont développés~:
 \begin{itemize}
  \item Une approche de système multi-agents, avec une notion d'émergence, qui n'a pas vraiment trouvé sa place dans nos algorithmes~;
  \item Des glissements conceptuels, la possibilité pour des concepts d'être activés et de propager cette activation. La proximité des concepts dépend du contexte. Il y a des similitudes avec les réseaux sémantiques (les concepts sont les n\oe{}uds et liens du réseau), et dans cet exemple, les paramètres du réseau dépendent de son interaction avec l'environnement~;
- \item Un mélange de la construction des descriptions provenant de l'environnement et provenant des concepts.
- \item L'usage d'une température pour mesurer la qualité de la réponse~: cette dernière contrôle la quantité de hasard dans les décisions prises par le système.
+ \item Un mélange de la construction des descriptions provenant de l'environnement et provenant des concepts~;
+ \item L'usage d'une température pour mesurer la qualité de la réponse~: elle contrôle la quantité de hasard dans les décisions prises par le système.
 \end{itemize}
 
 \subsubsection{Architecture de Copycat}
@@ -233,7 +230,7 @@ Le programme construit des "structures perceptuelles" sur la base des entrées (
 
 
 \paragraph{Coderack\index{Coderack}}
-C'est une file d'attente dans laquelle des agents sont choisis stochastiquement (c'est à dire avec une certaine dose de hasard). Les agents (ou \textit{codelets}\index{Codelets}) représentent différentes \textit{pressions}~: certaines sont présentes dans toutes les situations (la volonté de trouver des relations), d'autres proviennent de la situation courante. Chaque codelet porte un degré d'urgence, qui influera sur son temps d'attente dans la file.
+C'est une file d'attente dans laquelle des agents sont choisis de manière stochastique (c'est à dire avec une certaine dose de hasard). Les agents (ou \textit{codelets}\index{Codelets}) représentent différentes \textit{pressions}~: certaines sont présentes dans toutes les situations (la volonté de trouver des relations), d'autres proviennent de la situation courante. Chaque codelet porte un degré d'urgence, qui influera sur son temps d'attente dans la file.
 
 Les codelets sont progressivement exécutés et supprimés de la file d'attente. Ils effectuent toutes les actions~: activer les n\oe{}uds du Slipnet, ajouter d'autres concepts, lancer d'autres codelets.
 
@@ -252,7 +249,7 @@ La température ayant un assez fort caractère heuristique, et s'adaptant assez 
 
 \subsubsection{L'intérêt de cette architecture}
 
-Copycat semble à première vue être très éloigné de notre projet~; cependant, nous y avons vu un système d'exploration de possibilités. Le Slipnet et le Workspace nous ont semblé être des idées à creuser~: à la lecture d'une information pléthorique et redondante, il faut former des idées. Au cours de la lecture de ces informations, le sujet précis se cerne selon les concepts activés.
+Copycat semble à première vue être très éloigné de notre projet~; cependant, nous y avons vu un système d'exploration de possibilités. Le Slipnet et le Workspace nous ont semblé être des idées à approfondir~: à la lecture d'une information pléthorique et redondante, il faut former des idées. Au cours de la lecture de ces informations, le sujet précis se cerne selon les concepts activés.
 
 \subsubsection{BAsCET\index{BAsCET}}
 
@@ -428,7 +425,7 @@ Considérons un concept dont nous cherchons des voisins dans le réseau.
 \end{itemize}
 
 \paragraph{Pertinence des concepts}
-Conceptnet5 contient beaucoup d'informations et les concepts sur lesquels il nous aiguille ne sont pas toujours pertinents. De bons indices de la valeur d'un lien sont son poids, la nature de la relation qui l'étiquette (un lien étiqueté \verb|RelatedTo|, par exemple, pointe souvent vers la traduction du mot dans une autre langue), ou la longueur du terme vers lequel le lien pointe (il arrive que ces concepts soient une phrase entière, faisant référence à un événement extrêmement particulier, et qu'on ne peut donc pas s'attendre à retrouver telle quelle dans un texte et qu'on risque de ne pas apercevoir de toute façon s'il s'y trouve).
+Conceptnet5 contient beaucoup d'informations et les concepts sur lesquels il nous aiguille ne sont pas toujours pertinents. De bons indices de la valeur d'un lien sont son poids, la nature de la relation qui l'étiquette (un lien étiqueté \verb|RelatedTo|, par exemple, pointe souvent vers la traduction du mot dans une autre langue), ou la longueur du terme vers lequel le lien pointe (il arrive que ces concepts soient une phrase entière, faisant référence à un événement extrêmement particulier, qu'on ne peut donc pas s'attendre à retrouver telle quelle dans un texte et qu'on risque de ne pas apercevoir de toute façon s'il s'y trouve).
 
 
 \subsection{Freebase}\label{Subsection:Freebase}
@@ -646,7 +643,7 @@ Nous avons eu l'occasion d'effectuer différents essais de construction du rése
 
 \begin{itemize}
  \item Les requêtes Freebase liées aux noms propres créent 10~405 n\oe{}uds dans le réseau, ainsi que 8~255 arêtes.
- \item On lance immédiatement des requêtes Search correspondant à tous les n\oe{}uds du réseau sur Conceptnet5, afin d'acquérir plus d'information~: on passe alors à 14~103 n\oe{}uds et 28~393 arêtes.
+ \item On lance immédiatement des requêtes Search correspondant à tous les n\oe{}uds du réseau sur Conceptnet5, afin d'acquérir plus d'informations~: on passe alors à 14~103 n\oe{}uds et 28~393 arêtes.
 \end{itemize}
 
 \paragraph{Étape 2~: concepts}
@@ -712,9 +709,9 @@ On cherche donc ici un indice qui diminue selon le nombre d'apparitions dans tou
 
 
 \subsection{TF-IDF pour le résumé automatique}
-Selon une lemme de Hans Peter Luhn, le poids d'un terme est proportionnel à son fréquence.
+Selon une lemme de Hans \textsc{Peter Luhn}, le poids d'un terme est proportionnel à sa fréquence.
 
-D'après la loi de Zipf, la fréquence d'occurrence $f(n)$ d'un mot est liée à son rang $n$ dans l'ordre des fréquences par une loi de la forme $f(n) = \frac{K}{n} $ où K est une constante.
+D'après la loi de \textsc{Zipf}, la fréquence d'occurrence $f(n)$ d'un mot est liée à son rang $n$ dans l'ordre des fréquences par une loi de la forme $f(n) = \frac{K}{n} $ où K est une constante.
 
 %\includegraphics[scale=0.5]{loi_de_zipf.eps}
 
@@ -742,7 +739,7 @@ Où :
  \item $|\{d_{j} : t_{i} \in d_{j}\}|$ est le nombre de documents où le terme  $t_{i}$  apparaît (c'est-à-dire  $n_{i,j} \neq 0$)
 \end{itemize}
 
-Plus un mot apparaît, plus son indice IDF tend vers zéro. Des mots qui sont présents dans tous les documents vont notamment être filtrés car ils ont un indice nul.
+Plus un mot apparaît, plus son indice IDF est proche de zéro. Des mots qui sont présents dans tous les documents vont notamment être filtrés car ils ont un indice nul.
 
 \begin{definition}[TF-IDF]
 Le poids du mot s'obtient en multipliant les deux mesures TF et IDF.
@@ -917,7 +914,7 @@ Nous nous inspirons pour cette méthode de \cite{Mitkov:1998:RPR:980691.980712},
 
 Le réseau de concepts représente, comme nous l'avons déjà dit, la connaissance \textit{a priori} de notre programme sur le domaine étudié. Pour étudier un texte particulier, il s'agit maintenant de faire agir ce texte sur nos connaissances et d'interpréter l'effet que cette lecture a.
 
-Deux méthodes ont été envisagées~: la première étudiait, essentiellement, la différence entre l'état du réseau de concepts avant et après la lecture et devait en déduire les faits importants. La seconde, qui a finalement été retenue, s'appuie sur une activation des concepts dans le réseau, puis une instanciation des concepts fortement activés dans un espace de travail appelé \textit{Workspace}\index{Workspace}. Ces concepts instanciés sont par la suite capable d'effectuer des tâches plus complexes relatives à la compréhension du texte.
+Deux méthodes ont été envisagées~: la première étudiait, essentiellement, la différence entre l'état du réseau de concepts avant et après la lecture et devait en déduire les faits importants. La seconde, qui a finalement été retenue, s'appuie sur une activation des concepts dans le réseau, puis une instanciation des concepts fortement activés dans un espace de travail appelé \textit{Workspace}\index{Workspace}. Ces concepts instanciés sont par la suite capables d'effectuer des tâches plus complexes relatives à la compréhension du texte.
 
 Quelle que soit la méthode employée, une analyse syntaxique\index{Analyse syntaxique} préalable du texte est nécessaire pour rendre compte de sa compréhension et utiliser au mieux notre réseau de connaissances.
 
@@ -945,7 +942,7 @@ De plus, les structures du Workspace doivent être capables de rendre compte des
 L'état d'une entité désigne l'ensemble de ses attributs à un moment donné.
 \end{definition}
 \begin{definition}[Évènement]
-Un évènement est une arête dans le graphe présent dans le Workspace, reliant une entité ou un attribut à un autre. Si l'origine est une entité, il représentera le plus souvent une action ; si l'origine et la destination sont des attributs il représentera plutôt un changement dans l'état de l'entité à laquelle ils sont reliés.
+Un événement est une arête dans le graphe présent dans le Workspace, reliant une entité ou un attribut à un autre. Si l'origine est une entité, il représentera le plus souvent une action ; si l'origine et la destination sont des attributs il représentera plutôt un changement dans l'état de l'entité à laquelle ils sont reliés.
 \end{definition}
 
 \subsubsection{Implémentation}
@@ -958,7 +955,7 @@ Pour l'implémentation, on utilise une seule classe python contenant pour seul c
 
 Le fait d'ajouter des liens syntaxiques et logiques (par les évènements) entre les concepts intervenant dans le texte nous permet d'accéder de manière assez directe à leur importance relative dans le texte. En effet, du point de vue syntaxique, un concept fortement connecté sera présent dans une grande partie du texte et pourra donc être considéré comme le sujet, au moins du point de vue de l'auteur du texte, de ce dernier. Si, qui plus est, une entité ou ses attributs est l'origine ou la destination de nombreux évènements, il constituera un point central du texte au niveau du contenu.
 
-Ainsi l'importance d'un concept tant du point de vue de la forme que du fond nous semble directement relié à la connectivité des entités dans le graphe. L'algorithme de résumé procède donc comme suit :
+Ainsi l'importance d'un concept, tant du point de vue de la forme que du fond, nous semble directement reliée à la connectivité des entités dans le graphe. L'algorithme de résumé procède donc comme suit :
 %% Bon je suis un peu flou sur les détails.
 
 \begin{enumerate}
@@ -984,7 +981,7 @@ Le code de notre projet, de grande taille, est entièrement documenté.
 
 \subsection{Bilan des actions menées}
 
-Dans son état actuel, le projet constitue une excellente préparation à la mise en place des méthodes que nous avons décrites. Nous avons en effet améliorés quelques outils de traitement de données textuelles brutes (en ce qui concerne le traitement des noms propres notamment). Nous avons également pu mettre en place les structures indispensables à nos algorithme et créé les fonctions faisant l'interface avec les structures de données déjà existantes.
+Dans son état actuel, le projet constitue une excellente préparation à la mise en place des méthodes que nous avons décrites. Nous avons en effet amélioré quelques outils de traitement de données textuelles brutes (en ce qui concerne le traitement des noms propres notamment). Nous avons également pu mettre en place les structures indispensables à nos algorithmes et créé les fonctions faisant l'interface avec les structures de données déjà existantes.
 
 Nous avons, d'autre part, pu implémenter un algorithme raisonnable de résumé automatique s'appuyant sur TF-IDF. % Complement needed.
 
@@ -1078,7 +1075,7 @@ Les indices reproduits ci-dessous ne sont pas normalisés.
 \end{figure}
 
 \newpage
-\begin{figure}[h!]
+\begin{figure}[!h]
 \begin{center}
  \begin{tabular}{|c|c|}
  \hline
@@ -1105,9 +1102,9 @@ Les indices reproduits ci-dessous ne sont pas normalisés.
   radamel falcao  & 5141.135765623698 \\
   gareth bale  & 4761.904077325407 \\
  $\cdots$ & $\cdots$ \\
-  %whet  & 9.718662865524054 \\
-  %embrace  & 9.718662865524054 \\
-  %oar  & 9.718662865524054 \\
+  whet  & 9.718662865524054 \\
+  embrace  & 9.718662865524054 \\
+  oar  & 9.718662865524054 \\
   autograph  & 9.718662865524054 \\
   faith  & 9.718662865524054 \\
   attitude  & 9.718662865524054 \\
@@ -1135,17 +1132,15 @@ Les indices reproduits ci-dessous ne sont pas normalisés.
 \end{figure}
 
 \newpage
-
 \section{Exemples de résumés avec une méthode statistique}
 
 \subsection{Texte 1}
 
 Tiré du site de \href{http://www.theguardian.com/football/2015/mar/29/georgia-germany-euro-2016-match-report}{\textit{The Guardian}}, le 29 mars 2015.
 
-(Notons une erreur survenue dans la récupération de l'article : la légende de l'image a été prise comme faisant partie du texte.)\\
+(Notons une erreur survenue dans la récupération de l'article : la légende de l'image a été prise comme faisant partie du texte.)
 
 \begin{quotation}
-\texttt{
 Germany's Marco Reus,  right,  celebrates his goal against Georgia.\\
 Photograph.\\
 David Mdzinarishvili/ REUTERS.\\
@@ -1159,26 +1154,24 @@ Müller fired at goal directly from a corner only to see the ball fly just wide 
 Reus did better in the 39th when Mario Götze charged into the box and was lucky to scramble the ball to the winger,  who drilled home for his second goal this week after also scoring in their 2-2 friendly draw against Australia.\\
 Müller then added another on the stroke of halftime to firmly put Germany in the driving seat.\\
 The new Georgia coach Kakhaber Tskhadadze added a forward after the break but it was Reus who came close again,  rattling the bar for a second time on the hour with another powerful shot.\\
-}
+
 \end{quotation}
 
 \subsection{Phrases du texte 1 par poids décroissants}
 
 \begin{quotation}
-\texttt{
- ( The win lifted Germany,  who did not need to hit top form,  to 10 points from five games to equal Poland,  who take on Ireland later on Sunday,  and Scotland. , 8242)\\
-( Reus did better in the 39th when Mario Götze charged into the box and was lucky to scramble the ball to the winger,  who drilled home for his second goal this week after also scoring in their 2-2 friendly draw against Australia. , 7826)\\
-( Georgia have had a tough start in Group D,  recording four defeats and a win in Gibraltar to stay on three points. , 7096)\\
-("Germany s Marco Reus,  right,  celebrates his goal against Georgia.", 7082)\\
-( Müller fired at goal directly from a corner only to see the ball fly just wide of the post and Mesut Özil missed another big chance as the visitors had the hosts firmly on the backfoot. , 6986)\\
-( Photograph. , 6066)\\
-( The new Georgia coach Kakhaber Tskhadadze added a forward after the break but it was Reus who came close again,  rattling the bar for a second time on the hour with another powerful shot. , 5585)\\
-( Reus put the visitors ahead after 39 minutes and Müller doubled their lead before the break as the Germans,  who had an erratic start to the qualifiers last year when they lost in Poland,  were never threatened by their weaker opponents. , 5286)\\
-( It did not take long for Germany,  with several World Cup winners back in the squad including captain Bastian Schweinsteiger,  to threaten and Reus’ powerful drive was palmed on to the crossbar by the keeper Giorgi Loria after five minutes. , 3877)\\
-( The World Cup winners Germany eased past the hosts Georgia 2-0 in their Euro 2016 qualifier on Sunday with first-half goals from Marco Reus and Thomas Müller enough to get their Group D campaign back on track. , 3874)\\
-( With the coach Joachim Löw reverting to a four-man defence from a three-player experiment against Australia in a friendly on Wednesday,  Germany pressured their opponents’ box for most of the first half. , 3792)\\
-( Müller then added another on the stroke of halftime to firmly put Germany in the driving seat. , 3072)
-}
+ ( The win lifted Germany,  who did not need to hit top form,  to 10 points from five games to equal Poland,  who take on Ireland later on Sunday,  and Scotland. , 8242.26772072029)\\
+( Reus did better in the 39th when Mario Götze charged into the box and was lucky to scramble the ball to the winger,  who drilled home for his second goal this week after also scoring in their 2-2 friendly draw against Australia. , 7825.67291347488)\\
+( Georgia have had a tough start in Group D,  recording four defeats and a win in Gibraltar to stay on three points. , 7096.286506924158)\\
+("Germany s Marco Reus,  right,  celebrates his goal against Georgia.", 7081.905602739567)\\
+( Müller fired at goal directly from a corner only to see the ball fly just wide of the post and Mesut Özil missed another big chance as the visitors had the hosts firmly on the backfoot. , 6985.560661733021)\\
+( Photograph. , 6066.563168646177)\\
+( The new Georgia coach Kakhaber Tskhadadze added a forward after the break but it was Reus who came close again,  rattling the bar for a second time on the hour with another powerful shot. , 5585.593141599327)\\
+( Reus put the visitors ahead after 39 minutes and Müller doubled their lead before the break as the Germans,  who had an erratic start to the qualifiers last year when they lost in Poland,  were never threatened by their weaker opponents. , 5286.39283077408)\\
+( It did not take long for Germany,  with several World Cup winners back in the squad including captain Bastian Schweinsteiger,  to threaten and Reus’ powerful drive was palmed on to the crossbar by the keeper Giorgi Loria after five minutes. , 3877.015426088277)\\
+( The World Cup winners Germany eased past the hosts Georgia 2-0 in their Euro 2016 qualifier on Sunday with first-half goals from Marco Reus and Thomas Müller enough to get their Group D campaign back on track. , 3873.7065644920067)\\
+( With the coach Joachim Löw reverting to a four-man defence from a three-player experiment against Australia in a friendly on Wednesday,  Germany pressured their opponents’ box for most of the first half. , 3791.76236469219)\\
+( Müller then added another on the stroke of halftime to firmly put Germany in the driving seat. , 3071.837346062652)\\
 \end{quotation}
 
 
@@ -1187,21 +1180,20 @@ The new Georgia coach Kakhaber Tskhadadze added a forward after the break but it
 Tiré également du \href{http://www.theguardian.com/football/2015/mar/29/northern-ireland-finland-euro-2016-qualifier-match-report}{site de \textit{The Guardian}}.
 
 \begin{quotation}
- \texttt{
- Kyle Lafferty,  right,  celebrates with his Northern Ireland team-mates after scoring the first goal against Finland. \\
-Photograph. \\
-Andrew Paton/ EPA. \\
+ Kyle Lafferty,  right,  celebrates with his Northern Ireland team-mates after scoring the first goal against Finland . \\
+Photograph . \\
+Andrew Paton/ EPA . \\
 Kyle Lafferty exhibited precisely why he is at the vanguard of this seismic Northern Ireland renaissance,  after helping to sink Finland’s hopes of qualification for Euro 2016
-The rangy striker may be lounging at the on-loan Turkish outpost of Caykur Rizespor,  but the Norwich City man came alive when needed at Windsor Park. \\
-}
+The rangy striker may be lounging at the on-loan Turkish outpost of Caykur Rizespor,  but the Norwich City man came alive when needed at Windsor Park . \\
+
 [...]\\
-\texttt{But it was sufficient to settle nerves amongst the Green and White Army. \\
-Finland,  reeling,  must have felt their pockets had been picked. \\
-O’Neill sent out a more focused,  organized outfit in the second half,  taking control of most situations. \\
-A sense of calm restored,  with Finland having lost their earlier verve. \\
-The visitors did recover slightly,  helping themselves to an injury time consolation with Sadik lashing home to shred home nerves. \\
-Nonetheless it will be a relieved O’Neill looking forward to matters with massive optimism.
-}
+
+But it was sufficient to settle nerves amongst the Green and White Army . \\
+Finland,  reeling,  must have felt their pockets had been picked . \\
+O’Neill sent out a more focused,  organized outfit in the second half,  taking control of most situations . \\
+A sense of calm restored,  with Finland having lost their earlier verve . \\
+The visitors did recover slightly,  helping themselves to an injury time consolation with Sadik lashing home to shred home nerves . \\
+Nonetheless it will be a relieved O’Neill looking forward to matters with massive optimism . \\
 \end{quotation}
 
 \subsection{Résumé du texte 2}
@@ -1209,32 +1201,19 @@ Nonetheless it will be a relieved O’Neill looking forward to matters with mass
 On remarque principalement des imprécisions, des problèmes de contexte qui apparaissent naturellement lorsqu'on extrait des phrases.
 
 \begin{quotation}
-\texttt{
-Kyle Lafferty,  right,  celebrates with his Northern Ireland team-mates after scoring the first goal against Finland.
-}\\
+ Kyle Lafferty,  right,  celebrates with his Northern Ireland team-mates after scoring the first goal against Finland . \\
 
-\texttt{
- Two goals in six first-half minutes have now genuinely pressed Northern Ireland into strong contention for automatic advancement to France next year. 
-}\\
+Two goals in six first-half minutes have now genuinely pressed Northern Ireland into strong contention for automatic advancement to France next year . \\
 
-\texttt{
- A late Berat Sadik effort was insufficient for the Finns as their luck ran out. 
-}\\
+A late Berat Sadik effort was insufficient for the Finns as their luck ran out . \\
 
-\texttt{
- Minutes later the lead was doubled. 
-}\\
+Minutes later the lead was doubled . \\
 
-\texttt{
- Conor McLaughlin swept a precise cross in from the right flank,  before Lafferty got his head on the end of it and nestled the ball into the left hand corner. 
-}\\
+Conor McLaughlin swept a precise cross in from the right flank,  before Lafferty got his head on the end of it and nestled the ball into the left hand corner . \\
 
-\texttt{
- Finland,  reeling,  must have felt their pockets had been picked. 
-}\\
+Finland,  reeling,  must have felt their pockets had been picked . \\
 
-\texttt{
- The visitors did recover slightly,  helping themselves to an injury time consolation with Sadik lashing home to shred home nerves.}\\
+The visitors did recover slightly,  helping themselves to an injury time consolation with Sadik lashing home to shred home nerves . \\
 \end{quotation}
 
 
