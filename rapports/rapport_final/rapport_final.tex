@@ -145,23 +145,23 @@ Bien entendu, il n'est pas imaginable d'envisager un programme capable d'utilise
 Enfin, les méthodes non-extractives, dans la mesure où ils déconstruisent le texte pour en faire ressortir une articulation implicite, sont moins à même de produire des résumés linéaires (correspondant à l'ordre original du texte) que leurs homologues extractifs. Cependant, cette plus grande souplesse nous offre des facilités pour faire ressortir les éléments les plus capitaux du texte, au sein même du résumé ; ce qui est difficilement envisageable dans un résumé extractif. En effet celui-ci est plutôt destiné à restituer certaine phrases du texte~; l'ensemble peut paraître assez décousu lorsqu'elles paraissent dans le même ordre que dans le document original et devenir presque mystérieuse si l'ordre est changé (voire mener à des contresens).
 
 \subsection{Génération du résumé}
-%%reprise
-Une fois la représentation informatisée d'un texte effectuée, il faut retranscrire ces données en langage naturel afin d'obtenir un résumé.
 
-Différentes recherches ont été menées~(\cite{danlos_generation_2000}, \cite{horacek_building_2001}) et il est possible de produire à partir de données un texte dans un domaine précis (météo, compte rendu médical, etc.). La restriction à un sujet permet de limiter le lexique en entrée et ainsi d'éviter différents problèmes d'homonymie, de synonymie ou de connotation. En effet, le choix, non seulement des mots, mais aussi de l'ordre de leur apparition et de la structure finale est l'un des problèmes majeurs de la génération de texte.
+Après avoir résumé le texte en mémoire, quelle que soit la représentation utilisée, il faut ensuite (pour un programme complet) la reformuler en langage naturel pour la présenter à l'utilisateur. C'est presque immédiat pour une méthode extractive (encore que les méthodes les plus développées cherchent parfois à éclaircir le produit final, en explicitant certaines références qui ont été perdues lors de la découpe), et nettement moins trivial pour une méthode non extractive qui utilisera des représentations mémoire du texte plus éloignées du langage naturel.
+
+Différentes recherches ont été menées~(\cite{danlos_generation_2000}, \cite{horacek_building_2001}) et des textes ont été générés avec succès à partir de données brutes dans certains domaines précis (météo, compte rendu médical, etc.). Ces domaines ont en commun l'accent qu'ils mettent sur les faits et le peu de place qu'ils doivent laisser à l'interprétation~; en dehors des termes techniques liés à leur domaine les textes utilisent un vocabulaire et une syntaxe très simple. En effet, le choix, non seulement des mots, mais aussi de l'ordre de leur apparition et de la structure finale est l'un des problèmes majeurs de la génération de texte.
 
 \subsection{Évaluation}
 
 L'évaluation des résumés produits est un problème assez délicat. La forme des sources (articles de journaux, textes de lois, modes d'emploi), comme celle de la réponse attendue, varie du tout au tout et cela rend difficile la comparaison. Trois méthodes principales ont été retenues par les programmes récents d'évaluation (à partir des années 2000)~\cite[p.1453-1461]{jones_automatic_2007}~:
-%reprise
+
 \begin{description}
-  \item [Qualité du texte et qualité du discours :] Pour des résumés sous forme de texte en langage naturel, il s'agit d'une part de vérifier la justesse grammaticale du résumé, ainsi que sa cohérence générale à plus grande échelle. Si les propriétés locales sont assez simplement vérifiables, c'est assez loin d'être le cas pour le discours en général.
-  \item [Capture du concept :] Il s'agit de vérifier que les informations centrales de la source sont également présentes dans le résumé. Pour cela, une méthode assez prometteuse est de définir un certain nombre de questions sur la source auxquelles on devrait pouvoir répondre en ayant lu seulement le résumé. Il est concevable de définir ces questions à partir de questions de compréhension de texte basiques (du genre de celles qu'on donne en primaire) ou des questions un peu plus poussées sur la structure de l'argumentation. Cependant les questions auxquelles on doit pouvoir répondre restent essentiellement fonction de l'objectif du résumé et ne permettent donc pas d'évaluer le système en toute indépendance.
-  \item [Comparaison à un modèle :] L'idée ici n'est pas de comparer le résumé à sa source mais à d'autres résumés établis comme bons. Ces modèles sont souvent créés par des humains (dont on suppose qu'ils sont entraînés à produire de bons résumés), même si cela limite la quantité des points de comparaison. Les difficultés de cette méthode résident, pour l'essentiel, à la comparaison d'un texte à l'autre (dès lors que les phrases ne sont plus simplement extraites de la source, il faut juger de l'équivalence ou de la proximité des concepts présents dans les résumés) et au désaccord des juges (ou rédacteurs) sur ce qui est important dans un texte.
+  \item [Qualité du texte et qualité du discours :] Cela ne concerne que la forme du texte produit, pour des résumés en langage naturel. Il s'agit de vérifier s'il est correctement formulé, grammaticalement juste, et cohérent dans sa globalité. Même si propriétés locales de justesse syntaxique sont bien connues et facilement testables, l'étude du discours dans sa globalité reste un défi à l'heure actuelle.
+  %% J'ai peur de bullshiter un peu fort, please read again.
+  \item [Capture du concept :] Il est ici question de l'idée ou des idées centrales identifiées dans le texte original, et de savoir si elles sont présentes dans le résumé final. Pour tester ceci, il semble raisonnable de préparer un certain nombre de questions portant sur le texte original auxquelles la lecture du résumé doit être capable d'apporter une réponse. Ces questions peuvent être de l'ordre de la simple compréhension de texte (questions que l'on pourrait donner en primaire) ou éventuellement sur des points un peu plus subtils de l'argumentation. L'inconvénient principal de cette méthode est que le test dépend fortement de l'objectif du résumé. Prenons l'exemple d'un article scientifique~: un résumé de cet article pourrait soit être destiné à de la vulgarisation~: son but sera alors de faire ressortir les concepts de base. À l'inverse il pourrait être destiné à un confrère travaillant sur un sujet proche~; les concepts de base étant alors maîtrisé, le résumé devrait insister sur les points saillants et profonds de l'argumentation scientifique. Par conséquent il est difficile, un texte étant donné, de définir un seul jeu de questions permettant d'évaluer son résumé et donc d'étudier le programme en toute indépendance.
+  \item [Comparaison à un modèle :] Plutôt que de comparer les résumés à leur source, on cherche ici à les comparer à d'autres résumés issus de la même source qui ont déjà été évalués comme bons. Cela a l'avantage de permettre la comparaison entre objets de nature plus proches. Ces modèles auront typiquement été composés par des êtres humains, entraînés à la compréhension du langage naturel depuis leur plus âge et, plus tard, à la tâche particulière du résumé. Il reste alors à établir une distance entre deux résumés, ce qui est loin d'être trivial dès que les phrases ne sont plus extraites directement de la source. Par ailleurs, force est de constater que les rédacteurs des modèles ne sont pas toujours capables de s'entendre sur ce qui devrait y figurer.
  \end{description}
 
- %reprise
-  Ce dernier point illustre une difficulté fondamentale de toute évaluation : la qualité essentielle du bon résumé est de contenir les informations clés présentes dans la source, une caractérisation vague et impossible à préciser. De plus, des résumés de forme très différente peuvent servir efficacement le même objectif. Cela a participé à l'efficacité modérés des synthétiseurs automatiques de textes : s'il est difficile de qualifier un bon résumé, on mesure le fait d'éviter des résumés pathologiquement mauvais.
+  Ce dernier point n'est relevé qu'ici, mais aurait pu être mentionné bien avant car il est inhérent au résumé et assez indépendant de la méthode d'évaluation~: la qualité essentielle du bon résumé est de contenir les informations clés présentes dans la source, une caractérisation vague et impossible à préciser. Ajoutons également que des résumés en apparence très différents peuvent servir efficacement un objectif commun. C'est une des raisons pour lesquelles les programmes de résumés automatiques sont restés de qualité moyenne~: l'investissement en temps et ressources pour évaluer un bon résumé étant jugé trop élevé, on a préféré écrire des programmes capables de produire des résumés qui n'étaient pas désespérément mauvais.
 
  
  %à partir de maintenant, pas reprise, c'est du neuf
@@ -662,28 +662,6 @@ Nous avons eu l'occasion d'effectuer différents essais de construction du rése
  \item On supprime les autres n\oe{}uds. On obtient un réseau avec 28~583 n\oe{}uds et 69~307 arêtes.
 \end{itemize}
 
-\paragraph{Données quantitatives sur le réseau obtenu}
-
-Chaque n\oe{}ud, ou concept, comporte en moyenne $2,4$ liens entrants et autant de liens sortants, ce qui suggère que les concepts sont bien reliés entre eux. On peut affiner cette observation (figures \ref{fig:liens_entrants} et \ref{fig:liens_sortants}).
-
-\begin{figure}[h]
- \centering
- \includegraphics[width=12cm]{./liens_entrants.eps}
- % liens_entrants.eps: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=0 0 453 255
- \caption{Nombre de n\oe{}uds en fonction du nombre de liens entrants qu'ils comportent}
- \label{fig:liens_entrants}
-\end{figure}
-
-
-\begin{figure}[h]
- \centering
- \includegraphics[width=12cm]{./liens_sortants.eps}
- % liens_entrants.eps: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=0 0 453 255
- \caption{Nombre de n\oe{}uds en fonction du nombre de liens sortants qu'ils comportent}
- \label{fig:liens_sortants}
-\end{figure}
-
-Remarquons par exemple que de très nombreux n\oe{}uds n'ont aucun lien entrant, plus de 16~000. Il s'agit en fait de concepts insérés dans le réseau au début de sa construction et qui n'ont pas ``trouvé'' de prédécesseurs lors des étapes suivantes. Ce n'est pas un défaut majeur. Ces concepts ont été trouvés dans nos textes de départ et l'on s'attend à les retrouver tels quels dans d'autres textes. Le plus important, d'obtenir une information en \textit{partant} de ces concepts, est acquis puisqu'ils possèdent des arcs sortants. En revanche, ils ne seront pas activés si on ne les trouve pas dans un texte.
 
 
 \subsection{Choix de programmation du réseau de concepts}
@@ -1024,7 +1002,7 @@ Nous avons, d'autre part, pu implémenter un algorithme raisonnable de résumé 
 
 Les indices reproduits ci-dessous ne sont pas normalisés.
 
-\begin{figure}[h!]
+\begin{figure}[!h]
 \begin{center}
  \begin{tabular}{|c|c|}
  \hline
@@ -1075,7 +1053,7 @@ Les indices reproduits ci-dessous ne sont pas normalisés.
 \end{figure}
 
 \newpage
-\begin{figure}[h!]
+\begin{figure}[!h]
 \begin{center}
  \begin{tabular}{|c|c|}
  \hline
@@ -1102,9 +1080,9 @@ Les indices reproduits ci-dessous ne sont pas normalisés.
   radamel falcao  & 5141.135765623698 \\
   gareth bale  & 4761.904077325407 \\
  $\cdots$ & $\cdots$ \\
-  %whet  & 9.718662865524054 \\
-  %embrace  & 9.718662865524054 \\
-  %oar  & 9.718662865524054 \\
+  whet  & 9.718662865524054 \\
+  embrace  & 9.718662865524054 \\
+  oar  & 9.718662865524054 \\
   autograph  & 9.718662865524054 \\
   faith  & 9.718662865524054 \\
   attitude  & 9.718662865524054 \\
@@ -1132,17 +1110,15 @@ Les indices reproduits ci-dessous ne sont pas normalisés.
 \end{figure}
 
 \newpage
-
 \section{Exemples de résumés avec une méthode statistique}
 
 \subsection{Texte 1}
 
 Tiré du site de \href{http://www.theguardian.com/football/2015/mar/29/georgia-germany-euro-2016-match-report}{\textit{The Guardian}}, le 29 mars 2015.
 
-(Notons une erreur survenue dans la récupération de l'article : la légende de l'image a été prise comme faisant partie du texte.)\\
+(Notons une erreur survenue dans la récupération de l'article : la légende de l'image a été prise comme faisant partie du texte.)
 
 \begin{quotation}
-\texttt{
 Germany's Marco Reus,  right,  celebrates his goal against Georgia.\\
 Photograph.\\
 David Mdzinarishvili/ REUTERS.\\
@@ -1156,26 +1132,24 @@ Müller fired at goal directly from a corner only to see the ball fly just wide 
 Reus did better in the 39th when Mario Götze charged into the box and was lucky to scramble the ball to the winger,  who drilled home for his second goal this week after also scoring in their 2-2 friendly draw against Australia.\\
 Müller then added another on the stroke of halftime to firmly put Germany in the driving seat.\\
 The new Georgia coach Kakhaber Tskhadadze added a forward after the break but it was Reus who came close again,  rattling the bar for a second time on the hour with another powerful shot.\\
-}
+
 \end{quotation}
 
 \subsection{Phrases du texte 1 par poids décroissants}
 
 \begin{quotation}
-\texttt{
- ( The win lifted Germany,  who did not need to hit top form,  to 10 points from five games to equal Poland,  who take on Ireland later on Sunday,  and Scotland. , 8242)\\
-( Reus did better in the 39th when Mario Götze charged into the box and was lucky to scramble the ball to the winger,  who drilled home for his second goal this week after also scoring in their 2-2 friendly draw against Australia. , 7826)\\
-( Georgia have had a tough start in Group D,  recording four defeats and a win in Gibraltar to stay on three points. , 7096)\\
-("Germany s Marco Reus,  right,  celebrates his goal against Georgia.", 7082)\\
-( Müller fired at goal directly from a corner only to see the ball fly just wide of the post and Mesut Özil missed another big chance as the visitors had the hosts firmly on the backfoot. , 6986)\\
-( Photograph. , 6066)\\
-( The new Georgia coach Kakhaber Tskhadadze added a forward after the break but it was Reus who came close again,  rattling the bar for a second time on the hour with another powerful shot. , 5585)\\
-( Reus put the visitors ahead after 39 minutes and Müller doubled their lead before the break as the Germans,  who had an erratic start to the qualifiers last year when they lost in Poland,  were never threatened by their weaker opponents. , 5286)\\
-( It did not take long for Germany,  with several World Cup winners back in the squad including captain Bastian Schweinsteiger,  to threaten and Reus’ powerful drive was palmed on to the crossbar by the keeper Giorgi Loria after five minutes. , 3877)\\
-( The World Cup winners Germany eased past the hosts Georgia 2-0 in their Euro 2016 qualifier on Sunday with first-half goals from Marco Reus and Thomas Müller enough to get their Group D campaign back on track. , 3874)\\
-( With the coach Joachim Löw reverting to a four-man defence from a three-player experiment against Australia in a friendly on Wednesday,  Germany pressured their opponents’ box for most of the first half. , 3792)\\
-( Müller then added another on the stroke of halftime to firmly put Germany in the driving seat. , 3072)
-}
+ ( The win lifted Germany,  who did not need to hit top form,  to 10 points from five games to equal Poland,  who take on Ireland later on Sunday,  and Scotland. , 8242.26772072029)\\
+( Reus did better in the 39th when Mario Götze charged into the box and was lucky to scramble the ball to the winger,  who drilled home for his second goal this week after also scoring in their 2-2 friendly draw against Australia. , 7825.67291347488)\\
+( Georgia have had a tough start in Group D,  recording four defeats and a win in Gibraltar to stay on three points. , 7096.286506924158)\\
+("Germany s Marco Reus,  right,  celebrates his goal against Georgia.", 7081.905602739567)\\
+( Müller fired at goal directly from a corner only to see the ball fly just wide of the post and Mesut Özil missed another big chance as the visitors had the hosts firmly on the backfoot. , 6985.560661733021)\\
+( Photograph. , 6066.563168646177)\\
+( The new Georgia coach Kakhaber Tskhadadze added a forward after the break but it was Reus who came close again,  rattling the bar for a second time on the hour with another powerful shot. , 5585.593141599327)\\
+( Reus put the visitors ahead after 39 minutes and Müller doubled their lead before the break as the Germans,  who had an erratic start to the qualifiers last year when they lost in Poland,  were never threatened by their weaker opponents. , 5286.39283077408)\\
+( It did not take long for Germany,  with several World Cup winners back in the squad including captain Bastian Schweinsteiger,  to threaten and Reus’ powerful drive was palmed on to the crossbar by the keeper Giorgi Loria after five minutes. , 3877.015426088277)\\
+( The World Cup winners Germany eased past the hosts Georgia 2-0 in their Euro 2016 qualifier on Sunday with first-half goals from Marco Reus and Thomas Müller enough to get their Group D campaign back on track. , 3873.7065644920067)\\
+( With the coach Joachim Löw reverting to a four-man defence from a three-player experiment against Australia in a friendly on Wednesday,  Germany pressured their opponents’ box for most of the first half. , 3791.76236469219)\\
+( Müller then added another on the stroke of halftime to firmly put Germany in the driving seat. , 3071.837346062652)\\
 \end{quotation}
 
 
@@ -1184,21 +1158,20 @@ The new Georgia coach Kakhaber Tskhadadze added a forward after the break but it
 Tiré également du \href{http://www.theguardian.com/football/2015/mar/29/northern-ireland-finland-euro-2016-qualifier-match-report}{site de \textit{The Guardian}}.
 
 \begin{quotation}
- \texttt{
- Kyle Lafferty,  right,  celebrates with his Northern Ireland team-mates after scoring the first goal against Finland. \\
-Photograph. \\
-Andrew Paton/ EPA. \\
+ Kyle Lafferty,  right,  celebrates with his Northern Ireland team-mates after scoring the first goal against Finland . \\
+Photograph . \\
+Andrew Paton/ EPA . \\
 Kyle Lafferty exhibited precisely why he is at the vanguard of this seismic Northern Ireland renaissance,  after helping to sink Finland’s hopes of qualification for Euro 2016
-The rangy striker may be lounging at the on-loan Turkish outpost of Caykur Rizespor,  but the Norwich City man came alive when needed at Windsor Park. \\
-}
+The rangy striker may be lounging at the on-loan Turkish outpost of Caykur Rizespor,  but the Norwich City man came alive when needed at Windsor Park . \\
+
 [...]\\
-\texttt{But it was sufficient to settle nerves amongst the Green and White Army. \\
-Finland,  reeling,  must have felt their pockets had been picked. \\
-O’Neill sent out a more focused,  organized outfit in the second half,  taking control of most situations. \\
-A sense of calm restored,  with Finland having lost their earlier verve. \\
-The visitors did recover slightly,  helping themselves to an injury time consolation with Sadik lashing home to shred home nerves. \\
-Nonetheless it will be a relieved O’Neill looking forward to matters with massive optimism.
-}
+
+But it was sufficient to settle nerves amongst the Green and White Army . \\
+Finland,  reeling,  must have felt their pockets had been picked . \\
+O’Neill sent out a more focused,  organized outfit in the second half,  taking control of most situations . \\
+A sense of calm restored,  with Finland having lost their earlier verve . \\
+The visitors did recover slightly,  helping themselves to an injury time consolation with Sadik lashing home to shred home nerves . \\
+Nonetheless it will be a relieved O’Neill looking forward to matters with massive optimism . \\
 \end{quotation}
 
 \subsection{Résumé du texte 2}
@@ -1206,32 +1179,19 @@ Nonetheless it will be a relieved O’Neill looking forward to matters with mass
 On remarque principalement des imprécisions, des problèmes de contexte qui apparaissent naturellement lorsqu'on extrait des phrases.
 
 \begin{quotation}
-\texttt{
-Kyle Lafferty,  right,  celebrates with his Northern Ireland team-mates after scoring the first goal against Finland.
-}\\
+ Kyle Lafferty,  right,  celebrates with his Northern Ireland team-mates after scoring the first goal against Finland . \\
 
-\texttt{
- Two goals in six first-half minutes have now genuinely pressed Northern Ireland into strong contention for automatic advancement to France next year. 
-}\\
+Two goals in six first-half minutes have now genuinely pressed Northern Ireland into strong contention for automatic advancement to France next year . \\
 
-\texttt{
- A late Berat Sadik effort was insufficient for the Finns as their luck ran out. 
-}\\
+A late Berat Sadik effort was insufficient for the Finns as their luck ran out . \\
 
-\texttt{
- Minutes later the lead was doubled. 
-}\\
+Minutes later the lead was doubled . \\
 
-\texttt{
- Conor McLaughlin swept a precise cross in from the right flank,  before Lafferty got his head on the end of it and nestled the ball into the left hand corner. 
-}\\
+Conor McLaughlin swept a precise cross in from the right flank,  before Lafferty got his head on the end of it and nestled the ball into the left hand corner . \\
 
-\texttt{
- Finland,  reeling,  must have felt their pockets had been picked. 
-}\\
+Finland,  reeling,  must have felt their pockets had been picked . \\
 
-\texttt{
- The visitors did recover slightly,  helping themselves to an injury time consolation with Sadik lashing home to shred home nerves.}\\
+The visitors did recover slightly,  helping themselves to an injury time consolation with Sadik lashing home to shred home nerves . \\
 \end{quotation}
 
 
