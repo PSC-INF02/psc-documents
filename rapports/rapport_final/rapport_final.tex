@@ -59,7 +59,11 @@ Le projet est encadré par Jean Senellart.
 
 La nécessité d'effectuer des résumés automatiques, en un mot, de synthétiser de grandes masses d'information textuelle (en langage naturel\index{Langage naturel}), est tout à fait prégnante alors que l'information est toujours plus abondante, mais qu'il faut la traiter de manière efficace.\\
 
-Le résumé automatique a fait l'objet de nombreux travaux de recherche. De nombreux outils développés reposent sur une extraction des phrases pertinentes d'un texte. La difficulté consiste alors à repérer ces phrases pertinentes, au moyen par exemple d'une analyse statistique, du repérage de mots-clés importants. On parle alors d'\textit{extractive summarization}\index{Extractive summarization}, résumé extractif.\\
+Langage naturel doit ici s'opposer au langage machine (qui est une série d'instructions comprises par les processeurs et permettent aux logiciels de fonctionner) ou même au code source, intermédiaire de programmation permettant au programmeur des instructions plus générales qui sont ensuite interprétées et décomposées pour le processeur. Ces deux derniers sont caractérisés par une syntaxe non ambiguë, et une sémantique très limitée (dans le cas du code source, seul un petit nombre de mots clés ont un sens pour l'interpréteur, qui n'est capable que de tester l'égalité entre les autres entités qui lui sont transmises ; plus simplement, l'interpréteur ne sera pas capable de comprendre "de_couleur_rose", mais s'il voit deux fois cette chaîne il sera capable de reconnaître qu'elles désignent la même chose).
+
+À l'inverse, le langage naturel, qui peut désigner n'importe quelle langue parlée par des hommes, est caractérisée par sa polysémie (un terme peut avoir plusieurs sens) et l'ambiguïté inhérente qui en découle ; c'est d'ailleurs ce qui fait sa richesse et en fait un outil de communication efficace. Cependant, cela le rend particulièrement difficile à saisir pour une machine, pour des raisons que nous expliciterons plus loin.
+
+Le résumé automatique a fait l'objet de nombreux travaux de recherche. De nombreux outils développés reposent sur une extraction des phrases pertinentes d'un texte, de manière à s'abstraire (au moins dans une certaine mesure) de la complexité syntaxique du langage naturel. La difficulté consiste alors à repérer ces phrases pertinentes, au moyen par exemple d'une analyse statistique, du repérage de mots-clés importants. On parle alors d'\textit{extractive summarization}\index{Extractive summarization}, résumé extractif.\\
 
 Toutefois, le résumé extractif souffre de nombreux défauts liés à l'absence de reformulation des phrases du texte : en définitive, le résumé est limité par la clarté du texte de départ et par l'information qu'il contient. C'est pourquoi nous voulions mettre l'accent sur une analyse sémantique, afin d'introduire un véritable facteur de \textit{sens}, et reformuler les idées contenues dans le texte, ce qui nous rapproche du résumé abstractif (\textit{abstractive summarization})\index{Abstractive summarization}.\\
 
@@ -115,7 +119,7 @@ Les méthodes extractives sont plus simples à mettre en \oe{}uvre et ont donc �
 
 \subsection{Extraction de la source (\emph{extractive summarization}\index{Extractive summarization})}
 
-On veut simplement extraire les phrases jugées importantes dans le texte et renvoyer leur concaténation. Quelques modifications mineures seront nécessaires sur la forme et il faudra éliminer les redondances.
+L'idée derrière ce paradigme est simple : le texte a résumer est trop long, donc on va le tronquer. Cela à deux avantages : le premier et qu'il ne s'agit pas réellement de comprendre le texte ; simplement de juger ce qui peut y être important au travers de n'importe quelle métrique. D'autre part, puisqu'on ne fait qu'ôter des phrases inutiles au texte, on limite autant que faire se peut la reformulation, qui exige une certaine maîtrise du langage naturel et qui est loin d'être triviale. C'est donc pour sa simplicité que ce paradigme a d'abord été mis en avant dans la recherche, et est aujourd'hui parfois utilisé dans le monde industriel. La recherche dans ce domaine a donc essentiellement porté sur la définition d'une métrique rendant convenablement compte de l'importance des phrases les unes par rapport aux autres dans un document, souvent à l'aide d'un corpus documentaire plus vaste.
 
 Dans sa version la plus simple, on peut considérer la source (le texte à résumer) comme un tableau contenant le numéro de chaque phrase et une valeur (ou un vecteur, comme dans~\cite{fattah_ga_2009}) quantifiant son importance, la transformation devant alors simplement sélectionner les phrases les mieux notées. 
 
@@ -692,7 +696,7 @@ Selon une lemme de Hans Peter Luhn, le poids d'un terme est proportionnel à son
 
 D'après la loi de Zipf, la fréquence d'occurrence $f(n)$ d'un mot est liée à son rang $n$ dans l'ordre des fréquences par une loi de la forme $f(n) = \frac{K}{n} $ où K est une constante.
 
-\includegraphics[scale=0.5]{loi_de_zipf.eps}
+%\includegraphics[scale=0.5]{loi_de_zipf.eps}
 
 L'abscisse x est le rang d'un terme selon la fréquence et y est l'occurrence de ce terme. Les mots plus fréquents sont 'the','of' et 'and'. On voit bien que la courbe tend vers la fonction $K/x$.(ici on a choisi K = 5200000) C'est-à-dire que pour chercher les mots indiscriminants, il suffit de regarder l'inverse de la fréquence d'occurrence.
 
