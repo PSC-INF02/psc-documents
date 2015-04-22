@@ -183,95 +183,102 @@ Nous recherchions des modes de représentation des connaissances, de la manière
 
 \subsubsection{Principe de Copycat\index{Copycat}}
 
-Copycat est un système permettant d'effectuer des liens d'analogie.Sur une question de la forme : "Si abc donne abd, que donne ijk ?", le programme a pour but de construire une représentation qui fasse ressortir une structure commune à abc et ijk, en trouvant des correspondances.
+Copycat est un système permettant d'effectuer des liens d'analogie. Sur une question de la forme : "Si abc donne abd, que donne ijk ?", le programme a pour but de construire une représentation qui fasse ressortir une structure commune à abc et ijk, en trouvant des correspondances.
 
 Ici, a correspond à i, b à j, c à k, donc la déduction est que d correspond à l.
 
-Pour ce faire, y sont développés :
+Pour ce faire, y sont développés~:
 
 \begin{itemize}
- \item Une approche de système multi-agents, avec une notion d'émergence ;
- \item Des glissements conceptuels, la possibilité pour des concepts d'être activés et de propager cette activation. La proximité des concepts dépend du contexte. Il y a des similitudes avec les réseaux sémantiques (les concepts sont les n\oe{}uds et liens du réseau), et dans cet exemple, les paramètres du réseau dépendent de son interaction avec l'environnement ;
+ \item Une approche de système multi-agents, avec une notion d'émergence, qui n'a pas vraiment trouvé sa place dans nos algorithmes~;
+ \item Des glissements conceptuels, la possibilité pour des concepts d'être activés et de propager cette activation. La proximité des concepts dépend du contexte. Il y a des similitudes avec les réseaux sémantiques (les concepts sont les n\oe{}uds et liens du réseau), et dans cet exemple, les paramètres du réseau dépendent de son interaction avec l'environnement~;
  \item Un mélange de la construction des descriptions provenant de l'environnement et provenant des concepts.
-
-\item L'usage d'une température pour mesurer la qualité de la réponse : contrôle la quantité de hasard dans les décisions déjà prises par le système.
+ \item L'usage d'une température pour mesurer la qualité de la réponse~: cette dernière contrôle la quantité de hasard dans les décisions prises par le système.
 \end{itemize}
 
 \subsubsection{Architecture de Copycat}
 
 \paragraph{Slipnet\index{Slipnet} (réseau de glissement)}
-Le principe de ce réseau est qu'il contient des concepts, entre lesquels peuvent avoir lieu des glissements. Ces concepts peuvent être vus comme des types ou des classes d'objets. Les distances entre eux déterminent la probabilité qu'il y ait un glissement ; et elles peuvent varier.
+Le principe de ce réseau est qu'il contient des concepts, entre lesquels peuvent avoir lieu des glissements. Ces concepts peuvent être vus comme des types ou des classes d'objets. Les distances entre eux déterminent la probabilité qu'il y ait un glissement~; et elles peuvent varier au cours du temps.
 
 Les concepts peuvent être activés au cours du programme.
 
 \begin{itemize}
- \item Un n\oe{}ud propage son activation à ses voisins en fonction de la proximité ;
- \item Les n\oe{}uds perdent naturellement de l'activation ;
- \item Un n\oe{}ud est activé lorsqu'une instance de ce n\oe{}ud est perçue par les agents. Plus il est activé, plus il sera probablement considéré comme concept potentiellement organisateur ;
- \item Le taux de désactivation dépend de la profondeur conceptuelle du n\oe{}ud (abstraction et généralité du concept), fixée par l'auteur. Les n\oe{}uds les plus profonds se désactivent moins vite (les concepts les plus abstraits perdurent) ;
+ \item Un n\oe{}ud propage son activation à ses voisins en fonction de la proximité~;
+ \item Les n\oe{}uds perdent naturellement de l'activation de manière à éviter la saturation du réseau~;
+ \item Un n\oe{}ud est activé lorsqu'une instance de ce n\oe{}ud est perçue par les agents. Plus il est activé, plus il sera probablement considéré comme concept potentiellement organisateur~;
+ \item Le taux de désactivation dépend de la profondeur conceptuelle du n\oe{}ud (abstraction et généralité du concept), fixée par l'auteur. Les n\oe{}uds les plus profonds se désactivent moins vite (les concepts les plus abstraits perdurent)~;
  \item Les glissements sont effectués par les agents et dépendent de la proximité conceptuelle.
 \end{itemize}
 
-Il y a de l'apprentissage au niveau du Slipnet, bien qu'aucun concept ne soit rajouté.
+%%Il y a de l'apprentissage au niveau du Slipnet, bien qu'aucun concept ne soit rajouté.
+%% Explicite la phrase ci-dessus, à vérifier
+Slipnet est un réseau capable d'apprendre au sens ou la proximité conceptuelle et la profondeur conceptuelle sont capables de s'adapter au cours du temps pour répondre de manière plus adéquate aux problèmes qui lui seront posés~; cependant aucun concept n'y est rajouté.
 
 \paragraph{Workspace}
-Le Workspace contient des instances des concepts du Slipnet : c'est une mémoire de travail.
+Le Workspace contient des instances des concepts du Slipnet~: c'est une mémoire de travail. Il arrive aussi de parler de \textit{blackboard} (tableau noir).
 
-Le programme construit des "structures perceptuelles" sur la base des entrées (les chaînes de lettres) : 
+Le programme construit des "structures perceptuelles" sur la base des entrées (les chaînes de lettres)~: 
 \begin{itemize}
- \item Description d'objets ;
- \item Relations entre objets (lien de succession entre lettres par exemple) ;
- \item Groupes d'objets ;
- \item Correspondances entre objets de chaînes différentes ("est analogue à") ;
- \item Règles qui décrivent le changement entre la chaîne initiale et la chaîne modifiée ;
+ \item Description d'objets~;
+ \item Relations entre objets (lien de succession entre lettres par exemple)~;
+ \item Groupes d'objets~;
+ \item Correspondances entre objets de chaînes différentes ("est analogue à")~;
+ \item Règles qui décrivent le changement entre la chaîne initiale et la chaîne modifiée~;
  \item Règle traduite qui décrit comment modifier la chaîne cible (qui peut être issue de la règle précédente en remplaçant des concepts, par exemple).
 \end{itemize}
 
 
 \paragraph{Coderack\index{Coderack}}
-C'est une file d'attente dans laquelle des agents sont choisis stochastiquement. Les agents (ou \textit{codelets}\index{Codelets}) représentent différentes \textit{pressions} : certaines sont présentes dans toutes les situations (la volonté de trouver des relations), d'autres proviennent de la situation courante.
+C'est une file d'attente dans laquelle des agents sont choisis stochastiquement (c'est à dire avec une certaine dose de hasard). Les agents (ou \textit{codelets}\index{Codelets}) représentent différentes \textit{pressions}~: certaines sont présentes dans toutes les situations (la volonté de trouver des relations), d'autres proviennent de la situation courante. Chaque codelet porte un degré d'urgence, qui influera sur son temps d'attente dans la file.
 
-Les codelets sont progressivement exécutés et supprimés de la salle d'attente. Ils effectuent toutes les actions : activer les n\oe{}uds du Slipnet, ajouter d'autres codelets, lancer d'autres codelets.
+Les codelets sont progressivement exécutés et supprimés de la file d'attente. Ils effectuent toutes les actions~: activer les n\oe{}uds du Slipnet, ajouter d'autres concepts, lancer d'autres codelets.
 
 
 \paragraph{Température\index{Température}}
-La température mesure le degré d'organisation des structures créées. Elle s'inspire directement de la physique, en contrôlant le degré du hasard dans la prise de décision.
+La température mesure le degré d'organisation des structures créées. Elle s'inspire directement de la physique, où la température est liée au désordre dans le système, et elle contrôle la quantité de hasard lors des prises de décision.
 \begin{itemize}
- \item De hautes températures suggèrent des structures peu fiables, on va donc prendre des décisions aléatoires avec équiprobabilité ;
- \item De basses températures montrent qu'on travaille sur des structures fiables ;
- \item La fin du programme est fonction de la température. La température mesure aussi la qualité de la réponse.
+ \item De hautes températures suggèrent des structures peu fiables, on va donc prendre des décisions aléatoires avec équiprobabilité~;
+ \item De basses températures montrent qu'on travaille sur des structures fiables, qu'on cherchera à ne pas trop perturber en favorisant les codelets qui se déclarent urgents~;
+ \item La température mesure l'organisation du système et donc la qualité de la réponse~: une température suffisamment basse signalera donc l'arrêt du programme.
 \end{itemize}
 
-L'idée de température était intéressante, mais c'est l'une de celles que nous avons dû abandonner en cours de route, du fait de sa difficulté à être correctement définie et adaptée.
+%%L'idée de température était intéressante, mais c'est l'une de celles que nous avons dû abandonner en cours de route, du fait de sa difficulté à être correctement définie et adaptée.
+%% Reformulation du paragraphe ci-dessus, à valider
+La température ayant un assez fort caractère heuristique, et s'adaptant assez mal aux algorithmes que nous avons mis en place, a finalement été laissée de côté.
 
 \subsubsection{L'intérêt de cette architecture}
 
-Copycat semble à première vue être très éloigné de notre projet ; cependant, nous y avons vu un système d'exploration de possibilités. Le Slipnet et le Workspace nous ont semblé être des idées à creuser : à la lecture d'une information pléthorique et redondante, il faut former des idées. Au cours de la lecture de ces informations, le sujet précis se cerne selon les concepts activés.
+Copycat semble à première vue être très éloigné de notre projet~; cependant, nous y avons vu un système d'exploration de possibilités. Le Slipnet et le Workspace nous ont semblé être des idées à creuser~: à la lecture d'une information pléthorique et redondante, il faut former des idées. Au cours de la lecture de ces informations, le sujet précis se cerne selon les concepts activés.
 
 \subsubsection{BAsCET\index{BAsCET}}
 
 C'est une architecture très proche de Copycat (l'acronyme signifie \textit{Blackboard Agents Concepts Exemples Température}) développée dans \cite{parmentier_specification_1998} pour un problème justement beaucoup plus proche du notre.
+%% C'est vrai ça ?
 
 \paragraph{Concepts}
-La description du Réseau de Concepts est très précise, et nous en avons repris les idées présentes dans les calculs d'activation des concepts (voir la section \ref{Section:RC} où nous détaillerons notre architecture).
+La description du Réseau de Concepts est très précise, et nous en avons repris les idées présentes dans les calculs d'activation des concepts (voir la section \ref{Section:RC} dans laquelle nous détaillons notre architecture).
 
 \paragraph{Agents}
-L'idée que les concepts sont traités par un grand nombre de petits agents est aussi présente dans le système développé. C'est une idée qui nous a séduit mais que nous avons eu beaucoup de difficultés à mettre en pratique, préférant nous concentrer sur d'autres points. Au terme de notre travail, les concepts ne sont donc pas activés par des agents, mais de manière directe, et la propagation se fait également de manière directe.
+L'idée que les concepts sont traités par un grand nombre de petits agents est aussi présente dans le système développé. C'est une idée qui nous a séduit mais que nous avons eu beaucoup de difficultés à mettre en pratique, préférant nous concentrer sur d'autres points. Au terme de notre travail, les concepts ne sont donc pas activés par des agents, mais de manière directe, de même que la propagation de cette activation.
 
 
 \paragraph{Blackboard}
 Ce dernier est proche du Workspace de Copycat.
 
-Il contient des objets qui sont instances des n\oe{}uds du Réseau de Concepts, et qui comportent :
+Il contient des objets qui sont instances des n\oe{}uds du Réseau de Concepts, et qui sont constitués par~:
 \begin{itemize}
- \item Un contenu ;
- \item Un père (concept dont l'objet est instance) ;
- \item Une importance (dépend du père et des liens avec les autres objets) ;
- \item Une satisfaction (déterminée par les agents) ;
+ \item Un contenu~;
+ \item Un père (concept dont l'objet est instance)~;
+ \item Une importance (dépend du père et des liens avec les autres objets)~;
+ \item Une satisfaction (déterminée par les agents), qui représente la pertinence de cette instance par rapport au problème à résoudre~;
  \item Une éminence (doit-il être traité ou non ?).
 \end{itemize}
 
-C'est sur ce point que nous nous sommes pour beaucoup éloignés de ces travaux initiaux. Il nous fallait en effet une structure proche de ce Workspace, de ce Blackboard, dans laquelle écrire, mais cette structure est à adapter aux données que nous considérons, qui sont des données textuelles.
+C'est sur ce point que nous nous sommes pour beaucoup éloignés de ces travaux initiaux. Il nous fallait en effet un espace de travail dans lequel stocker les structures dégagées du texte~; cependant dans ces deux architectures les concepts sont plutôt en nombre limité, tandis que de notre point de vue ils sont assez difficiles à dissocier des données sources. Il nous a donc fallu procéder à un important travail d'adaptation, qui a finalement abouti à une structure semblable sur le principe mais très différente dans sa forme et son contenu.
+
+%%Je garde l'ancienne version pour comparaison.
+%%Il nous fallait en effet une structure proche de ce Workspace, de ce Blackboard, dans laquelle écrire, mais cette structure est à adapter aux données que nous considérons, qui sont des données textuelles.
 
 
 \section{Sources de données et traitement de celles-ci}\label{Section:sources}
