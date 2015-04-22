@@ -287,29 +287,17 @@ C'est sur ce point que nous nous sommes pour beaucoup éloignés de ces travaux 
 
 Les données occupent une place essentielle dans notre projet et elles ont revêtu différentes formes.
 
-%%reprise textuelle
-Nous utilisons deux sources de données~: des données brutes, sous forme de langage naturel (textes d'articles écrits en anglais), et des données déjà travaillées, le plus souvent mises sous la forme de graphe sémantique.\index{Graphe sémantique}
+Les données utilisées sont des textes en langue anglaise provenant d'articles sportifs, concernant plus particulièrement le football. Ces données ont ensuite été traduites sous plusieurs formes~: un réseau de concepts, de notre fabrication~; un graphe sémantique grâce au traitement par l'entreprise Systran~; et enfin certains d'entre eux ont été résumés grâce à un algorithme largement basé sur \ref{Section:TFIDF} pour nous servir de base de comparaison.
+
+\index{Graphe sémantique}
 
 \begin{definition}[Graphe sémantique]
 En première approximation, nous faisons renvoyer la notion de graphe sémantique à un graphe où les nœuds sont étiquetés par des mots et où les arêtes représentent un lien ou expriment une relation entre ces mots.
 \end{definition}
 
-
-\subsection{Données textuelles brutes}
-
-Nous avons récupéré automatiquement des données sur différents sites internet et flux rss, en moyenne 300 articles de sports par jour~; ce qui représentait à la fin du projet plus de 20~000 articles.
-
-%%reprise textuelle
-Ces données servent à différents niveaux~:
-\begin{itemize}
- \item Dans la création du réseau de concepts (partie suivante)~;
- \item Dans la production de résumés automatiques.
-\end{itemize}
-
-
+Les données brutes ont été récupérées automatiquement sur divers flux rss par un script de notre fabrication, reposant sur une API (\ang{Application's Programmer Interface}) permettant de récupérer le contenu principal d'une page (en éliminant notamment les menus, particulièrement volumineux sur un site de journal) de \ang{readability}. Nous avons pu obtenir en moyenne 300 articles par jour sur la durée du projet, soit à l'heure actuelle plus de 20~000 articles~; seule une petite portion de ces articles ont été syntaxiquement analysés et automatiquement résumés, le reste constituant un corpus visant à fournir un contexte d'étude pour notre programme.
 
 \subsection{Traitement de données textuelles}
-%%reprise textuelle
 
 Les mots présents dans les articles, pour être reliés à leur signification et décorrélés de leur rôle grammatical, doivent être mis sous forme normale.
 
@@ -319,7 +307,7 @@ La forme normale d'un mot\index{Forme normale} est tout simplement celle qu'il a
  \item Si c'est un verbe, on le met à l'infinitif~;
  \item Au singulier si c'est un nom.
 \end{itemize}
-Mettre un mot sous forme normale permet de s'intéresser uniquement au sens du mot hors de tout contexte.
+Mettre un mot sous forme normale permet de s'intéresser uniquement au concept qu'il représente et à le séparer de son rôle dans la phrase.
 \end{definition}
 
 
@@ -328,13 +316,13 @@ Le Part-of-speech tagger\index{Part-of-speech tagger}, abrégé en POS, est un p
 \end{definition}
 
 \begin{definition}[Concept]
-Par le terme de concept\index{Concept}, qui sera constamment réutilisé par la suite, nous entendons~: un mot (adjectif, verbe, nom, nom propre, adverbe) ou un ensemble de mots exprimant une unité sémantique et que l'on peut définir. Par exemple, ``football'' est un concept, tandis que ``if'' pour nous n'en est pas un.
+Par le terme de concept\index{Concept}, qui sera constamment réutilisé par la suite, nous entendons~: un mot (adjectif, verbe, nom, nom propre, adverbe) ou un ensemble de mots exprimant une unité sémantique porteuse d'un sens concret. Par exemple, ``football'' ou ``grand'' sont des concepts, tandis que ``if'' pour nous n'en est pas un.
 \end{definition}
 
 \`A partir d'articles consacrés au sport (texte brut), les manipulations suivantes permettent de récupérer les noms propres et les concepts sous forme normale\index{forme normale}~:
 \begin{itemize}
- \item Découpage du texte en phrases et en mots (\textit{tokens})~;
- \item Utilisation d'un POS, celui de \pyt{nltk}\index{Natural Language ToolKit} par défaut~;
+ \item Découpage du texte en phrases et en mots (\ang{tokens}), ce qui n'est pas très compliqué mais nécessite un peu d'attention (par exemple pour ne pas considérer Mr. Rooney comme deux phrases distinctes)~;
+ \item Utilisation d'un POS, celui de \pyt{nltk}\index{Natural Language ToolKit}~;
  \item Récupération des noms propres et mise à part de ceux-ci (qui doivent faire plus tard l'objet d'un traitement particulier)~;
  \item Suppression des conjonctions de coordination, pronoms et autres mots qui ne sont pas de véritables concepts~;
  \item Il reste alors des adjectifs, adverbes, noms et verbes. Nous utilisons \pyt{morphy} de WordNet\index{WordNet} à l'intérieur d'un code dédié à la construction de Conceptnet5 (voir partie suivante), pour transformer chaque terme en sa forme normale~;
@@ -342,7 +330,7 @@ Par le terme de concept\index{Concept}, qui sera constamment réutilisé par la 
  \item Nous ne sommes pas à l'abri d'erreurs liées à l'une des étapes. De manière générale, un concept qui apparaît au moins deux fois dans l'ensemble du corpus considéré peut être considéré comme valide.
 \end{itemize}
 
-Les noms propres mis à part, nous parvenons à en extraire les noms complets. Dans un texte comme ceux que nous étudions, le nom complet (nom et prénom) n'est souvent mentionné qu'une seule fois, et il faut repérer sans faire d'erreur que le nom propre utilisé seul par la suite renvoie à la même personne.
+Nous parvenons à extraire les noms complets des personnes, lieux... Des noms propres précédemment mis à part. Dans un texte comme ceux que nous étudions, le nom complet (nom et prénom) n'est souvent mentionné qu'une seule fois, et il faut repérer sans faire d'erreur que le nom propre utilisé seul par la suite renvoie à la même personne.
 
 La récupération des noms propres et concepts sous forme normale permet de nous constituer des listes de termes relatifs au sport. La figure~\ref{fig:conceptsnoms} donne une idée de l'évolution de la taille de ces données. Nous n'avons jamais espéré une exhaustivité, mais il est clair que la croissance observée vers la fin peut être imputée en majeure partie aux données parasites (mots mal orthographiés, erreurs de lecture) et que nous avons, pour ainsi dire, fait le tour du sujet.
 
@@ -357,7 +345,6 @@ La récupération des noms propres et concepts sous forme normale permet de nous
 
 
 \subsection{WordNet}\label{Subsection:WordNet}
-%%reprise textuelle
 
 WordNet est une base de données lexicale pour l'anglais, produite par l'université de Princeton.
 
@@ -365,9 +352,8 @@ Nous l'utilisons à travers son interface \pyt{nltk}, pour récupérer des infor
 
 
 \subsection{Conceptnet5}\label{Subsection:Conceptnet5}
-%%reprise textuelle
 
-Conceptnet (\href{http://conceptnet5.media.mit.edu/}{leur site}) est un projet libre de réseau sémantique représentant des connaissances usuelles, aussi bien de la vie de tous les jours que culturelles et scientifiques. Il fait partie du \ang{Commonsense Computing Initiative} qui relie différents laboratoires, dont le MIT Media Lab, et entreprises.
+Conceptnet (\href{http://conceptnet5.media.mit.edu/}{leur site}) est un projet libre de graphe sémantique représentant des connaissances générales dans un spectre de domaines plutôt large. Il fait partie du \ang{Commonsense Computing Initiative} qui relie différents laboratoires, dont le MIT Media Lab, et entreprises.
 
 Il est important de noter que Conceptnet5\index{Concepnet5} est généré à partir de données brutes. Conceptnet5 est relié à DBPedia, une grande partie de ses connaissances provient de Wiktionary, une partie de WordNet.
 
@@ -375,13 +361,12 @@ Nous avons utilisé une partie de code source provenant de \href{https://github.
 
 
 \subsubsection{Structure de Conceptnet5}
-%%reprise textuelle
 
-Conceptnet5\index{Conceptnet5} est un graphe sémantique\index{Graphe sémantique} contenant de l'ordre du million de nœuds et d'ar\^etes.
+Conceptnet5\index{Conceptnet5} est un graphe sémantique\index{Graphe sémantique} un million d'arêtes, à un ordre de grandeur près.
 
-Les n\oe{}uds sont des mots et de courtes phrases, pas seulement en anglais (bien que pour notre projet, nous utilisions uniquement l'anglais). Les arêtes qui relient ces n\oe{}uds expriment une connaissance, elles contiennent chacune une relation particulière.
-
-Une arête possède aussi une source (d'où provient l'information) et un poids en fonction de cette source, selon l'importance de l'arête.
+Les n\oe{}uds sont des mots ou de courtes phrases, dans des langues variées. Les arêtes qui relient ces n\oe{}uds expriment une connaissance, elles contiennent chacune une relation particulière.
+%% Recheck
+Une arête possède aussi une source (d'où provient l'information) et un poids en fonction de cette source qui quantifie l'importance de l'arête et la fiabilité de l'information apportée.
 
 Une relation concept-arête-concept exprime une assertion\index{Assertion}. Une même assertion peut être exprimée de différentes manières. Conceptnet5 contient 1.6 million d'assertions.
 
@@ -398,11 +383,9 @@ Les relations valables dans tout langage, pour Conceptnet5, sont par exemple~:
  \item DefinedAs\ldots{}
 \end{itemize}
 
-Il en existe beaucoup d'autres.
+Mais il en existe beaucoup d'autres.
 
-Comme Conceptnet est construit en partie à l'aide de WordNet, il existe une correspondance entre relations de l'un et de l'autre~:
-
-La correspondance entre relations de WordNet et de Conceptnet est par exemple~:
+Comme Conceptnet est construit en partie à l'aide de WordNet, il existe une correspondance entre relations de l'un et de l'autre. Par exemple~:
 \begin{itemize}
  \item attribute~: Attribute~;
  \item causes~: Causes~;
@@ -412,44 +395,43 @@ La correspondance entre relations de WordNet et de Conceptnet est par exemple~:
  \item seeAlso~: RelatedTo.
 \end{itemize}
 
-Nous avons décidé après coup de conserver ces relations dans le réseau de concepts, et d'en utiliser un sous-ensemble. En effet, elles nous paraissent bien adaptées pour exprimer l'information que nous souhaitons voir contenue dans ce réseau.
+Cette structure étant assez proche du réseau de concepts que nous voulions construire, nous avons choisi de conserver un sous-ensemble des relations présentes dans Conceptnet qui nous on paru le plus pertinentes.
 
 \subsubsection{Détail de l'API (\ang{Application's Programmer Interface})}
-%%reprise textuelle
 
-Nous pouvons faire un certain nombre de requêtes à Conceptnet5. Il existe trois types différents de requêtes~:
+L'interface de Conceptnet5 nous autorise à faire un certain nombre de requêtes, de trois types~:
 \begin{itemize}
  \item \texttt{Lookup}~;
  \item \texttt{Association}~;
  \item \texttt{Search}~;
 \end{itemize}
-Association permet de calculer la proximité entre deux concepts, ou de récupérer une liste de concepts proches d'un concept donné.
+\texttt{Association} permet de calculer la proximité entre deux concepts, ou de récupérer une liste de concepts proches d'un concept donné.
 
-\texttt{Search} permet de récupérer une liste d'arêtes (\ang{edges}) entre concepts, selon les paramètres spécifiés (le plus souvent, on impose le concept de départ \ang{start} ou d'arrivée \ang{end}).
+\texttt{Search} permet de récupérer une liste d'arêtes (\ang{edges}), donc de relations, entre concepts, selon les paramètres spécifiés (le plus souvent, on impose le concept de départ \ang{start} ou d'arrivée \ang{end}).
 
 \texttt{Lookup} permet d'analyser un concept (on aura par exemple accès à des listes d'arêtes dans lequel il intervient).
 
 
 \subsubsection{Utilisation de Conceptnet5}
 
-Nous utilisons en majorité \texttt{LookUp} et \texttt{Search}, les requêtes \texttt{Association} étant beaucoup plus lentes et ne pouvant être réalisées en temps tout à fait raisonnable sur des données mettant en jeu plusieurs milliers de requêtes.
+Nous utilisons en majorité \texttt{LookUp} et \texttt{Search}, les requêtes \texttt{Association} étant beaucoup plus lentes et ne pouvant être réalisées en temps raisonnable lorsqu'il s'agit d'en réaliser plusieurs milliers.
 
+%% Pas tout compris à ce bout
 Considérons un concept dont nous cherchons des voisins dans le réseau.
 \begin{itemize}
- \item Une requête \verb|LookUp|\index{LookUp} nous donne déjà une idée desdits voisins (liens entrants ou sortants) ;
+ \item On utilise une requête \verb|LookUp|\index{LookUp} pour avoir une première idée de ces voisins (une liste de liens entrant et sortants)~;
  \item Une recherche \verb|Search|\index{Search} précise pourra nous donner par exemple un certain nombre de voisins, par des liens sortants, que nous pourrons ajouter (en sélectionnant bien sûr les concepts jugés pertinents, selon quelques critères empiriques) ;
  \item Une requête \verb|Association|\index{Association} renvoie une liste de concepts similaires. On peut alors les relier au précédent avec un lien \verb|SimilarTo|.
 \end{itemize}
 
 \paragraph{Pertinence des concepts}
-Conceptnet5 contient beaucoup d'information et les concepts sur lesquels il nous aiguille ne sont pas forcément pertinents. Il faut vérifier le poids des liens renvoyés, la similarité quand elle a lieu, ainsi que d'autres facteurs : nous ne pouvons pas garder les liens \verb|RelatedTo| car ils renvoient souvent à la traduction du mot dans une autre langue. Nous ne pouvons pas non plus garder les concepts formés d'une expression trop longue (atteignant parfois la taille d'une phrase entière), car celle-ci renvoie souvent à un événement ou un domaine très particulier, et sera de toute façon impossible à retrouver telle quelle dans un texte.
+Conceptnet5 contient beaucoup d'informations et les concepts sur lesquels il nous aiguille ne sont pas toujours pertinents. De bons indices de la valeur d'un lien sont son poids, la nature de la relation qui l'étiquette (un lien étiqueté \verb|RelatedTo|, par exemple, pointe souvent vers la traduction du mot dans une autre langue), ou la longueur du terme vers lequel le lien pointe (il arrive que ces concepts soient une phrase entière, faisant référence à un évènement extrêmement particulier, et qu'on ne peut donc pas s'attendre à retrouver telle quelle dans un texte et qu'on risque de ne pas apercevoir de toute façon s'il s'y trouve).
 
 
 \subsection{Freebase}\label{Subsection:Freebase}
-%%reprise textuelle
 
-Freebase\index{Freebase} est une immense base de données sémantiques qui contient beaucoup d'informations, sur des noms propres notamment. Le projet, repris par Google mais sous une licence qui laisse les données libres d'accès, de téléchargement et d'utilisation, a lui aussi une API, un peu plus complexe que celle de Conceptnet5. Freebase permet notamment de récupérer des informations sur une personne à partir de son nom, et à peu de frais, de vérifier que cette personne existe bel et bien.
-
+Freebase\index{Freebase}, de même que Conceptnet, est une base de données sémantiques. Elle est cependant beaucoup plus orientées vers les noms propres, et apporte donc un nombre conséquent d'informations sur les personnes, lieux... Que l'on peut rencontrer dans les textes. Le projet, repris par Google sous une licence qui laisse les données libres d'accès, de téléchargement et d'utilisation, a lui aussi une API, un peu plus complexe que celle de Conceptnet5. Freebase permet notamment de récupérer des informations sur une personne à partir de son nom, et à peu de frais, de vérifier que cette personne existe bel et bien.
+%% Pas touché à ça, peut-être expliciter "complexe" ?
 
 \section{Réseau de concepts}\label{Section:RC}
 
