@@ -144,15 +144,15 @@ La méthode décrite dans~\cite{salton_automatic_1997} applique en fait à l'int
 %Nous nous proposons de descendre au niveau des unités syntaxiques elles-mêmes, mais le traitement à effectuer se rapprochera très certainement de celui-ci et la mesure de pertinence des concepts sera sans doute proche de la mesure de pertinence des paragraphes.
 
 
-\subsection{Méthodes non extractives}
+\subsection{Méthodes non extractives (abstractives)}
 
-Plusieurs raisons expliquent le développement relativement faible des méthodes non-extractives, comparé à celui des précédentes. On a déjà parlé de la performance, disons, acceptable des méthodes extractives (en particulier les plus évolués), et leur popularité a été renforcée par des exigences rassez faibles en matière de qualité. Qui plus est, la recherche de manière générale est plus prompte à progresser de manière incrémentale~; ainsi le développement de paradigmes concurrents et éloignés de l'idée originale du résumé automatique n'a pas été encouragée.
+Plusieurs raisons expliquent le développement relativement faible des méthodes non extractives, comparé à celui des précédentes. On a déjà parlé de la performance, disons, acceptable des méthodes extractives (en particulier les plus évolués), et leur popularité a été renforcée par des exigences assez faibles en matière de qualité. Qui plus est, la recherche de manière générale est plus prompte à progresser de manière incrémentale~; ainsi le développement de paradigmes concurrents et éloignés de l'idée originale du résumé automatique n'a pas été encouragée.\\
 
 La limite entre les méthodes extractives et non extractives n'est pas clairement définie. Dans la partie précédente nous parlions des graphes de similarité, reposant sur une analyse lexicale et donc dans une certaine mesure à des considérations d'ordre sémantique, qui sont plutôt caractéristiques du résumé abstractif. Néanmoins, on peut remarquer que dans cette situation, l'analyse sémantique qui est faite n'a d'autre but que de permettre une meilleure sélection. Qui plus est on garde une trace assez faible de cette analyse, la mesure de similarité qui aide à la décision. Le paradigme non extractif, quant à lui, cherchera plutôt à mettre en avant les structures argumentatives, ou même simplement syntaxiques, du texte. Cela fait, on espère pouvoir s'abstraire des termes employés pour accéder aux idées présentes derrière le texte~; et pour ces deux raisons la génération du résumé (l'obtention d'un texte écrit en langage naturel à partir de la représentation machine du texte résumé) sera une étape beaucoup plus importante que dans la méthode concurrente.
 
-Bien entendu, il n'est pas imaginable d'envisager un programme capable d'utiliser la méthode non extractive pour résumer tout article~; les méthodes extractives, déjà, se basent sur un grand corpus documentaire permettant d'observer des fréquences d'apparition d'un terme donné dans plusieurs documents et cette fréquence dépendra fortement du domaine considéré (un corpus plutôt centré sur la politique ne verra que très rarement apparaître le terme "stade", contrairement à un corpus centré sur le sport). Les méthodes non-extractives sont d'autant plus sensibles au contenu du corpus~\cite[p.1774]{jones_automatic_2007} qu'elles doivent, pour les résumer, "comprendre" d'une certaine manière. C'est la principale raison pour laquelle nous avons choisi de nous limiter à un domaine particulier, qui a été celui du sport (et plus précisément encore celui du football). Dans l'optique d'un résumé de corpus documentaire (par opposition à un document unique) nous espérons que la méthode abstractive sera plus capable de détecter des variations, voire des contradictions, entre différents points de vue exprimés dans différents textes, et ainsi de produire un résumé plus intéressant et plus neutre.
+Bien entendu, il n'est pas imaginable d'envisager un programme capable d'utiliser la méthode non extractive pour résumer tout article~; les méthodes extractives, déjà, se basent sur un grand corpus documentaire permettant d'observer des fréquences d'apparition d'un terme donné dans plusieurs documents et cette fréquence dépendra fortement du domaine considéré (un corpus plutôt centré sur la politique ne verra que très rarement apparaître le terme "stade", contrairement à un corpus centré sur le sport). Les méthodes non extractives sont d'autant plus sensibles au contenu du corpus~\cite[p.1774]{jones_automatic_2007} qu'elles doivent, pour les résumer, "comprendre" d'une certaine manière. C'est la principale raison pour laquelle nous avons choisi de nous limiter à un domaine particulier, qui a été celui du sport (et plus précisément encore celui du football). Dans l'optique d'un résumé de corpus documentaire (par opposition à un document unique) nous espérons que la méthode abstractive sera plus capable de détecter des variations, voire des contradictions, entre différents points de vue exprimés dans différents textes, et ainsi de produire un résumé plus intéressant et plus neutre.\\
 
-Enfin, les méthodes non-extractives, dans la mesure où ils déconstruisent le texte pour en faire ressortir une articulation implicite, sont moins à même de produire des résumés linéaires (correspondant à l'ordre original du texte) que leurs homologues extractifs. Cependant, cette plus grande souplesse nous offre des facilités pour faire ressortir les éléments les plus capitaux du texte, au sein même du résumé ; ce qui est difficilement envisageable dans un résumé extractif. En effet celui-ci est plutôt destiné à restituer certaine phrases du texte~; l'ensemble peut paraître assez décousu lorsqu'elles paraissent dans le même ordre que dans le document original et devenir presque mystérieuse si l'ordre est changé (voire mener à des contresens).
+Enfin, les méthodes non extractives, dans la mesure où elles déconstruisent le texte pour en faire ressortir une articulation implicite, sont moins à même de produire des résumés linéaires (correspondant à l'ordre original du texte) que leurs homologues extractifs. Cependant, cette plus grande souplesse nous offre des facilités pour faire ressortir les éléments les plus capitaux du texte, au sein même du résumé ; ce qui est difficilement envisageable dans un résumé extractif. En effet celui-ci est plutôt destiné à restituer certaines phrases du texte~; l'ensemble peut paraître assez décousu lorsqu'elles paraissent dans le même ordre que dans le document original et devenir assez abscons si l'ordre est changé (voire mener à des contresens).
 
 \subsection{Génération du résumé}
 
@@ -167,17 +167,20 @@ L'évaluation des résumés produits est un problème assez délicat. La forme d
 \begin{description}
   \item [Qualité du texte et qualité du discours :] Cela ne concerne que la forme du texte produit, pour des résumés en langage naturel. Il s'agit de vérifier s'il est correctement formulé, grammaticalement juste, et cohérent dans sa globalité. Même si propriétés locales de justesse syntaxique sont bien connues et facilement testables, l'étude du discours dans sa globalité reste un défi à l'heure actuelle.
   %% J'ai peur de bullshiter un peu fort, please read again.
-  \item [Capture du concept :] Il est ici question de l'idée ou des idées centrales identifiées dans le texte original, et de savoir si elles sont présentes dans le résumé final. Pour tester ceci, il semble raisonnable de préparer un certain nombre de questions portant sur le texte original auxquelles la lecture du résumé doit être capable d'apporter une réponse. Ces questions peuvent être de l'ordre de la simple compréhension de texte (questions que l'on pourrait donner en primaire) ou éventuellement sur des points un peu plus subtils de l'argumentation. L'inconvénient principal de cette méthode est que le test dépend fortement de l'objectif du résumé. Prenons l'exemple d'un article scientifique~: un résumé de cet article pourrait soit être destiné à de la vulgarisation~: son but sera alors de faire ressortir les concepts de base. À l'inverse il pourrait être destiné à un confrère travaillant sur un sujet proche~; les concepts de base étant alors maîtrisé, le résumé devrait insister sur les points saillants et profonds de l'argumentation scientifique. Par conséquent il est difficile, un texte étant donné, de définir un seul jeu de questions permettant d'évaluer son résumé et donc d'étudier le programme en toute indépendance.
+  \item [Capture du concept :] Il est ici question de l'idée ou des idées centrales identifiées dans le texte original, et de savoir si elles sont présentes dans le résumé final. Pour tester ceci, il semble raisonnable de préparer un certain nombre de questions portant sur le texte original auxquelles la lecture du résumé doit être capable d'apporter une réponse. Ces questions peuvent être de l'ordre de la simple compréhension de texte (questions que l'on pourrait donner en primaire) ou éventuellement sur des points un peu plus subtils de l'argumentation. L'inconvénient principal de cette méthode est que le test dépend fortement de l'objectif du résumé. Prenons l'exemple d'un article scientifique. Un résumé de cet article pourrait être destiné à de la vulgarisation~: son but sera alors de faire ressortir les concepts de base. À l'inverse, il pourrait être destiné à un confrère travaillant sur un sujet proche~; les concepts de base étant alors maîtrisés, le résumé devrait insister sur les points saillants et profonds de l'argumentation scientifique. Par conséquent il est difficile, un texte étant donné, de définir un seul jeu de questions permettant d'évaluer son résumé et donc d'étudier le programme en toute indépendance.
   \item [Comparaison à un modèle :] Plutôt que de comparer les résumés à leur source, on cherche ici à les comparer à d'autres résumés issus de la même source qui ont déjà été évalués comme bons. Cela a l'avantage de permettre la comparaison entre objets de nature plus proches. Ces modèles auront typiquement été composés par des êtres humains, entraînés à la compréhension du langage naturel depuis leur plus âge et, plus tard, à la tâche particulière du résumé. Il reste alors à établir une distance entre deux résumés, ce qui est loin d'être trivial dès que les phrases ne sont plus extraites directement de la source. Par ailleurs, force est de constater que les rédacteurs des modèles ne sont pas toujours capables de s'entendre sur ce qui devrait y figurer.
  \end{description}
 
-  Ce dernier point n'est relevé qu'ici, mais aurait pu être mentionné bien avant car il est inhérent au résumé et assez indépendant de la méthode d'évaluation~: la qualité essentielle du bon résumé est de contenir les informations clés présentes dans la source, une caractérisation vague et impossible à préciser. Ajoutons également que des résumés en apparence très différents peuvent servir efficacement un objectif commun. C'est une des raisons pour lesquelles les programmes de résumés automatiques sont restés de qualité moyenne~: l'investissement en temps et ressources pour évaluer un bon résumé étant jugé trop élevé, on a préféré écrire des programmes capables de produire des résumés qui n'étaient pas désespérément mauvais.
+  Ce dernier point n'est relevé qu'ici, mais aurait pu être mentionné bien avant car il est inhérent au résumé et assez indépendant de la méthode d'évaluation~: la qualité essentielle du bon résumé est de contenir les informations clés présentes dans la source, une caractérisation vague et impossible à préciser. Ajoutons également que des résumés en apparence très différents peuvent servir efficacement un objectif commun. 
+  
+  %%affirmation gratuite dans cette phrase
+  C'est une des raisons pour lesquelles les programmes de résumés automatiques sont restés de qualité moyenne~: l'investissement en temps et ressources pour évaluer un bon résumé étant jugé trop élevé, on a préféré écrire des programmes capables de produire des résumés qui n'étaient pas désespérément mauvais.
 
  
  %à partir de maintenant, pas reprise, c'est du neuf
 \subsection{Idées majeures}
 
-Présentons ici brièvement certaines idées dont nous nous sommes inspirés, au moins dans un premier temps, avant de nous en écarter progressivement. Cela sera nettement visible dans la section \ref{Section:RC}, quand nous présenterons le Réseau de Concepts, une structure de données fort utile, ainsi que dans les sections suivantes, avec notre Workspace.\\
+Présentons ici brièvement certaines idées dont nous nous sommes inspirés, au moins dans un premier temps, avant de nous en écarter progressivement. Cela sera nettement visible dans la section \ref{Section:RC}, quand nous présenterons le Réseau de Concepts, une structure de données fort utile, ainsi que dans les sections suivantes, avec notre Workspace (section \ref{Section:Traitement}).\\
 
 Nous recherchions des modes de représentation des connaissances, de la manière la plus intuitive possible, et \cite{parmentier_specification_1998} nous a guidé sur ce point. L'auteur développe une architecture elle-même basée sur Copycat, une autre architecture. Certaines idées centrales sont restées tout au long de notre projet, d'autres ont été progressivement modifiées.
 
@@ -312,7 +315,7 @@ Mettre un mot sous forme normale permet de s'intéresser uniquement au concept q
 
 
 \begin{definition}[Part-of-speech tagger]
-Le Part-of-speech tagger\index{Part-of-speech tagger}, abrégé en POS, est un programme, le plus souvent entraîné sur de grandes bases de données, qui permet d'associer à chaque mot dans une phrase une valeur grammaticale.
+Le Part-of-speech tagger\index{Part-of-speech tagger}, abrégé en POS tagger, est un programme, le plus souvent entraîné sur de grandes bases de données, qui permet d'associer à chaque mot dans une phrase une valeur grammaticale.
 \end{definition}
 
 \begin{definition}[Concept]
@@ -368,7 +371,7 @@ Les n\oe{}uds sont des mots ou de courtes phrases, dans des langues variées. Le
 %% Recheck
 Une arête possède aussi une source (d'où provient l'information) et un poids en fonction de cette source qui quantifie l'importance de l'arête et la fiabilité de l'information apportée.
 
-Une relation concept-arête-concept exprime une assertion\index{Assertion}. Une même assertion peut être exprimée de différentes manières. Conceptnet5 contient 1.6 million d'assertions.
+Une relation concept-arête-concept exprime une assertion\index{Assertion}. Une même assertion peut être exprimée de différentes manières. Conceptnet5 contient 1,6 million d'assertions.
 
 Une assertion peut elle-même être utilisée comme un n\oe{}ud ou comme une arête (on peut avoir des assertions d'assertions).
 
@@ -419,18 +422,18 @@ Nous utilisons en majorité \texttt{LookUp} et \texttt{Search}, les requêtes \t
 %% Pas tout compris à ce bout
 Considérons un concept dont nous cherchons des voisins dans le réseau.
 \begin{itemize}
- \item On utilise une requête \verb|LookUp|\index{LookUp} pour avoir une première idée de ces voisins (une liste de liens entrant et sortants)~;
- \item Une recherche \verb|Search|\index{Search} précise pourra nous donner par exemple un certain nombre de voisins, par des liens sortants, que nous pourrons ajouter (en sélectionnant bien sûr les concepts jugés pertinents, selon quelques critères empiriques) ;
- \item Une requête \verb|Association|\index{Association} renvoie une liste de concepts similaires. On peut alors les relier au précédent avec un lien \verb|SimilarTo|.
+ \item On utilise une requête \verb|LookUp|\index{LookUp} pour avoir une première idée de ces voisins (une liste de liens entrant et sortants auxquels il appartient)~;
+ \item Une recherche \verb|Search|\index{Search} précise pourra nous donner par exemple un certain nombre de voisins, par des liens sortants (en sélectionnant bien sûr dans ce résultat brut les concepts jugés pertinents, selon quelques critères empiriques) ;
+ \item Une requête \verb|Association|\index{Association} renvoie une liste de concepts jugés similaires. On peut alors les relier au précédent avec un lien \verb|SimilarTo|.
 \end{itemize}
 
 \paragraph{Pertinence des concepts}
-Conceptnet5 contient beaucoup d'informations et les concepts sur lesquels il nous aiguille ne sont pas toujours pertinents. De bons indices de la valeur d'un lien sont son poids, la nature de la relation qui l'étiquette (un lien étiqueté \verb|RelatedTo|, par exemple, pointe souvent vers la traduction du mot dans une autre langue), ou la longueur du terme vers lequel le lien pointe (il arrive que ces concepts soient une phrase entière, faisant référence à un évènement extrêmement particulier, et qu'on ne peut donc pas s'attendre à retrouver telle quelle dans un texte et qu'on risque de ne pas apercevoir de toute façon s'il s'y trouve).
+Conceptnet5 contient beaucoup d'informations et les concepts sur lesquels il nous aiguille ne sont pas toujours pertinents. De bons indices de la valeur d'un lien sont son poids, la nature de la relation qui l'étiquette (un lien étiqueté \verb|RelatedTo|, par exemple, pointe souvent vers la traduction du mot dans une autre langue), ou la longueur du terme vers lequel le lien pointe (il arrive que ces concepts soient une phrase entière, faisant référence à un événement extrêmement particulier, et qu'on ne peut donc pas s'attendre à retrouver telle quelle dans un texte et qu'on risque de ne pas apercevoir de toute façon s'il s'y trouve).
 
 
 \subsection{Freebase}\label{Subsection:Freebase}
 
-Freebase\index{Freebase}, de même que Conceptnet, est une base de données sémantiques. Elle est cependant beaucoup plus orientées vers les noms propres, et apporte donc un nombre conséquent d'informations sur les personnes, lieux... Que l'on peut rencontrer dans les textes. Le projet, repris par Google sous une licence qui laisse les données libres d'accès, de téléchargement et d'utilisation, a lui aussi une API, un peu plus complexe que celle de Conceptnet5. Freebase permet notamment de récupérer des informations sur une personne à partir de son nom, et à peu de frais, de vérifier que cette personne existe bel et bien.
+Freebase\index{Freebase}, de même que Conceptnet, est une base de données sémantiques. Elle est cependant beaucoup plus orientées vers les noms propres, et apporte donc un nombre conséquent d'informations sur les personnes, lieux... Que l'on peut rencontrer dans les textes. Le projet, repris par Google sous une licence qui laisse les données libres d'accès, de téléchargement et d'utilisation, a lui aussi une API, un peu plus complexe que celle de Conceptnet5. Freebase permet notamment de récupérer des informations sur une personne à partir de son nom, et surtout à peu de frais, de vérifier que cette personne existe bel et bien.
 %% Pas touché à ça, peut-être expliciter "complexe" ?
 
 \section{Réseau de concepts}\label{Section:RC}
@@ -444,7 +447,7 @@ Le réseau de concepts\index{Réseau de concepts} est la ``mémoire à long term
 
 D'autre part, nous pouvons exiger du résumé qu'il contienne une information explicite que le texte avait sous-entendu~; par exemple, que Wayne Rooney est un joueur de football. Le réseau devra donc contenir \verb|Wayne Rooney -> isA -> Soccer player|.
 
-Ses prérogatives ont évolué au cours de notre projet. Au début, nous pensions faire reposer une plus grande partie de l'activité de résumé du texte sur lui (notamment par le processus d'activation et le repérage des nœuds activés), alors que celle-ci s'est dirigée ensuite sur le Workspace\index{Workspace}.
+Ses prérogatives ont évolué au cours de notre projet. Au début, nous pensions faire reposer une plus grande partie de l'activité de résumé du texte sur lui (notamment par le processus d'activation et le repérage des nœuds activés), alors que celle-ci s'est dirigée ensuite sur le Workspace\index{Workspace} (section \ref{Section:Traitement}).
 
 
 \subsection{Structure du réseau de concepts}
@@ -661,6 +664,29 @@ Nous avons eu l'occasion d'effectuer différents essais de construction du rése
  \item On supprime les autres n\oe{}uds. On obtient un réseau avec 28~583 n\oe{}uds et 69~307 arêtes.
 \end{itemize}
 
+
+\paragraph{Données quantitatives sur le réseau obtenu}
+
+Chaque n\oe{}ud, ou concept, comporte en moyenne $2,4$ liens entrants et autant de liens sortants, ce qui suggère que les concepts sont bien reliés entre eux. On peut affiner cette observation (figures \ref{fig:liens_entrants} et \ref{fig:liens_sortants}).
+
+\begin{figure}[h]
+ \centering
+ \includegraphics[width=12cm]{./liens_entrants.eps}
+ % liens_entrants.eps: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=0 0 453 255
+ \caption{Nombre de n\oe{}uds en fonction du nombre de liens entrants qu'ils comportent}
+ \label{fig:liens_entrants}
+\end{figure}
+
+
+\begin{figure}[h]
+ \centering
+ \includegraphics[width=12cm]{./liens_sortants.eps}
+ % liens_entrants.eps: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=0 0 453 255
+ \caption{Nombre de n\oe{}uds en fonction du nombre de liens sortants qu'ils comportent}
+ \label{fig:liens_sortants}
+\end{figure}
+
+Remarquons par exemple que de très nombreux n\oe{}uds n'ont aucun lien entrant, plus de 16~000. Il s'agit en fait de concepts insérés dans le réseau au début de sa construction et qui n'ont pas ``trouvé'' de prédécesseurs lors des étapes suivantes. Ce n'est pas un défaut majeur. Ces concepts ont été trouvés dans nos textes de départ et l'on s'attend à les retrouver tels quels dans d'autres textes. Le plus important, d'obtenir une information en \textit{partant} de ces concepts, est acquis puisqu'ils possèdent des arcs sortants. En revanche, ils ne seront pas activés si on ne les trouve pas dans un texte.
 
 
 \subsection{Choix de programmation du réseau de concepts}
@@ -887,7 +913,7 @@ Nous nous inspirons pour cette méthode de \cite{Mitkov:1998:RPR:980691.980712},
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%ù
 
-\section{Traitement du réseau}
+\section{Traitement du réseau}\label{Section:Traitement}
 
 Le réseau de concepts représente, comme nous l'avons déjà dit, la connaissance \textit{a priori} de notre programme sur le domaine étudié. Pour étudier un texte particulier, il s'agit maintenant de faire agir ce texte sur nos connaissances et d'interpréter l'effet que cette lecture a.
 
@@ -1052,7 +1078,7 @@ Les indices reproduits ci-dessous ne sont pas normalisés.
 \end{figure}
 
 \newpage
-\begin{figure}[!h]
+\begin{figure}[h!]
 \begin{center}
  \begin{tabular}{|c|c|}
  \hline
@@ -1079,9 +1105,9 @@ Les indices reproduits ci-dessous ne sont pas normalisés.
   radamel falcao  & 5141.135765623698 \\
   gareth bale  & 4761.904077325407 \\
  $\cdots$ & $\cdots$ \\
-  whet  & 9.718662865524054 \\
-  embrace  & 9.718662865524054 \\
-  oar  & 9.718662865524054 \\
+  %whet  & 9.718662865524054 \\
+  %embrace  & 9.718662865524054 \\
+  %oar  & 9.718662865524054 \\
   autograph  & 9.718662865524054 \\
   faith  & 9.718662865524054 \\
   attitude  & 9.718662865524054 \\
@@ -1109,15 +1135,17 @@ Les indices reproduits ci-dessous ne sont pas normalisés.
 \end{figure}
 
 \newpage
+
 \section{Exemples de résumés avec une méthode statistique}
 
 \subsection{Texte 1}
 
 Tiré du site de \href{http://www.theguardian.com/football/2015/mar/29/georgia-germany-euro-2016-match-report}{\textit{The Guardian}}, le 29 mars 2015.
 
-(Notons une erreur survenue dans la récupération de l'article : la légende de l'image a été prise comme faisant partie du texte.)
+(Notons une erreur survenue dans la récupération de l'article : la légende de l'image a été prise comme faisant partie du texte.)\\
 
 \begin{quotation}
+\texttt{
 Germany's Marco Reus,  right,  celebrates his goal against Georgia.\\
 Photograph.\\
 David Mdzinarishvili/ REUTERS.\\
@@ -1131,24 +1159,26 @@ Müller fired at goal directly from a corner only to see the ball fly just wide 
 Reus did better in the 39th when Mario Götze charged into the box and was lucky to scramble the ball to the winger,  who drilled home for his second goal this week after also scoring in their 2-2 friendly draw against Australia.\\
 Müller then added another on the stroke of halftime to firmly put Germany in the driving seat.\\
 The new Georgia coach Kakhaber Tskhadadze added a forward after the break but it was Reus who came close again,  rattling the bar for a second time on the hour with another powerful shot.\\
-
+}
 \end{quotation}
 
 \subsection{Phrases du texte 1 par poids décroissants}
 
 \begin{quotation}
- ( The win lifted Germany,  who did not need to hit top form,  to 10 points from five games to equal Poland,  who take on Ireland later on Sunday,  and Scotland. , 8242.26772072029)\\
-( Reus did better in the 39th when Mario Götze charged into the box and was lucky to scramble the ball to the winger,  who drilled home for his second goal this week after also scoring in their 2-2 friendly draw against Australia. , 7825.67291347488)\\
-( Georgia have had a tough start in Group D,  recording four defeats and a win in Gibraltar to stay on three points. , 7096.286506924158)\\
-("Germany s Marco Reus,  right,  celebrates his goal against Georgia.", 7081.905602739567)\\
-( Müller fired at goal directly from a corner only to see the ball fly just wide of the post and Mesut Özil missed another big chance as the visitors had the hosts firmly on the backfoot. , 6985.560661733021)\\
-( Photograph. , 6066.563168646177)\\
-( The new Georgia coach Kakhaber Tskhadadze added a forward after the break but it was Reus who came close again,  rattling the bar for a second time on the hour with another powerful shot. , 5585.593141599327)\\
-( Reus put the visitors ahead after 39 minutes and Müller doubled their lead before the break as the Germans,  who had an erratic start to the qualifiers last year when they lost in Poland,  were never threatened by their weaker opponents. , 5286.39283077408)\\
-( It did not take long for Germany,  with several World Cup winners back in the squad including captain Bastian Schweinsteiger,  to threaten and Reus’ powerful drive was palmed on to the crossbar by the keeper Giorgi Loria after five minutes. , 3877.015426088277)\\
-( The World Cup winners Germany eased past the hosts Georgia 2-0 in their Euro 2016 qualifier on Sunday with first-half goals from Marco Reus and Thomas Müller enough to get their Group D campaign back on track. , 3873.7065644920067)\\
-( With the coach Joachim Löw reverting to a four-man defence from a three-player experiment against Australia in a friendly on Wednesday,  Germany pressured their opponents’ box for most of the first half. , 3791.76236469219)\\
-( Müller then added another on the stroke of halftime to firmly put Germany in the driving seat. , 3071.837346062652)\\
+\texttt{
+ ( The win lifted Germany,  who did not need to hit top form,  to 10 points from five games to equal Poland,  who take on Ireland later on Sunday,  and Scotland. , 8242)\\
+( Reus did better in the 39th when Mario Götze charged into the box and was lucky to scramble the ball to the winger,  who drilled home for his second goal this week after also scoring in their 2-2 friendly draw against Australia. , 7826)\\
+( Georgia have had a tough start in Group D,  recording four defeats and a win in Gibraltar to stay on three points. , 7096)\\
+("Germany s Marco Reus,  right,  celebrates his goal against Georgia.", 7082)\\
+( Müller fired at goal directly from a corner only to see the ball fly just wide of the post and Mesut Özil missed another big chance as the visitors had the hosts firmly on the backfoot. , 6986)\\
+( Photograph. , 6066)\\
+( The new Georgia coach Kakhaber Tskhadadze added a forward after the break but it was Reus who came close again,  rattling the bar for a second time on the hour with another powerful shot. , 5585)\\
+( Reus put the visitors ahead after 39 minutes and Müller doubled their lead before the break as the Germans,  who had an erratic start to the qualifiers last year when they lost in Poland,  were never threatened by their weaker opponents. , 5286)\\
+( It did not take long for Germany,  with several World Cup winners back in the squad including captain Bastian Schweinsteiger,  to threaten and Reus’ powerful drive was palmed on to the crossbar by the keeper Giorgi Loria after five minutes. , 3877)\\
+( The World Cup winners Germany eased past the hosts Georgia 2-0 in their Euro 2016 qualifier on Sunday with first-half goals from Marco Reus and Thomas Müller enough to get their Group D campaign back on track. , 3874)\\
+( With the coach Joachim Löw reverting to a four-man defence from a three-player experiment against Australia in a friendly on Wednesday,  Germany pressured their opponents’ box for most of the first half. , 3792)\\
+( Müller then added another on the stroke of halftime to firmly put Germany in the driving seat. , 3072)
+}
 \end{quotation}
 
 
@@ -1157,20 +1187,21 @@ The new Georgia coach Kakhaber Tskhadadze added a forward after the break but it
 Tiré également du \href{http://www.theguardian.com/football/2015/mar/29/northern-ireland-finland-euro-2016-qualifier-match-report}{site de \textit{The Guardian}}.
 
 \begin{quotation}
- Kyle Lafferty,  right,  celebrates with his Northern Ireland team-mates after scoring the first goal against Finland . \\
-Photograph . \\
-Andrew Paton/ EPA . \\
+ \texttt{
+ Kyle Lafferty,  right,  celebrates with his Northern Ireland team-mates after scoring the first goal against Finland. \\
+Photograph. \\
+Andrew Paton/ EPA. \\
 Kyle Lafferty exhibited precisely why he is at the vanguard of this seismic Northern Ireland renaissance,  after helping to sink Finland’s hopes of qualification for Euro 2016
-The rangy striker may be lounging at the on-loan Turkish outpost of Caykur Rizespor,  but the Norwich City man came alive when needed at Windsor Park . \\
-
+The rangy striker may be lounging at the on-loan Turkish outpost of Caykur Rizespor,  but the Norwich City man came alive when needed at Windsor Park. \\
+}
 [...]\\
-
-But it was sufficient to settle nerves amongst the Green and White Army . \\
-Finland,  reeling,  must have felt their pockets had been picked . \\
-O’Neill sent out a more focused,  organized outfit in the second half,  taking control of most situations . \\
-A sense of calm restored,  with Finland having lost their earlier verve . \\
-The visitors did recover slightly,  helping themselves to an injury time consolation with Sadik lashing home to shred home nerves . \\
-Nonetheless it will be a relieved O’Neill looking forward to matters with massive optimism . \\
+\texttt{But it was sufficient to settle nerves amongst the Green and White Army. \\
+Finland,  reeling,  must have felt their pockets had been picked. \\
+O’Neill sent out a more focused,  organized outfit in the second half,  taking control of most situations. \\
+A sense of calm restored,  with Finland having lost their earlier verve. \\
+The visitors did recover slightly,  helping themselves to an injury time consolation with Sadik lashing home to shred home nerves. \\
+Nonetheless it will be a relieved O’Neill looking forward to matters with massive optimism.
+}
 \end{quotation}
 
 \subsection{Résumé du texte 2}
@@ -1178,19 +1209,32 @@ Nonetheless it will be a relieved O’Neill looking forward to matters with mass
 On remarque principalement des imprécisions, des problèmes de contexte qui apparaissent naturellement lorsqu'on extrait des phrases.
 
 \begin{quotation}
- Kyle Lafferty,  right,  celebrates with his Northern Ireland team-mates after scoring the first goal against Finland . \\
+\texttt{
+Kyle Lafferty,  right,  celebrates with his Northern Ireland team-mates after scoring the first goal against Finland.
+}\\
 
-Two goals in six first-half minutes have now genuinely pressed Northern Ireland into strong contention for automatic advancement to France next year . \\
+\texttt{
+ Two goals in six first-half minutes have now genuinely pressed Northern Ireland into strong contention for automatic advancement to France next year. 
+}\\
 
-A late Berat Sadik effort was insufficient for the Finns as their luck ran out . \\
+\texttt{
+ A late Berat Sadik effort was insufficient for the Finns as their luck ran out. 
+}\\
 
-Minutes later the lead was doubled . \\
+\texttt{
+ Minutes later the lead was doubled. 
+}\\
 
-Conor McLaughlin swept a precise cross in from the right flank,  before Lafferty got his head on the end of it and nestled the ball into the left hand corner . \\
+\texttt{
+ Conor McLaughlin swept a precise cross in from the right flank,  before Lafferty got his head on the end of it and nestled the ball into the left hand corner. 
+}\\
 
-Finland,  reeling,  must have felt their pockets had been picked . \\
+\texttt{
+ Finland,  reeling,  must have felt their pockets had been picked. 
+}\\
 
-The visitors did recover slightly,  helping themselves to an injury time consolation with Sadik lashing home to shred home nerves . \\
+\texttt{
+ The visitors did recover slightly,  helping themselves to an injury time consolation with Sadik lashing home to shred home nerves.}\\
 \end{quotation}
 
 
