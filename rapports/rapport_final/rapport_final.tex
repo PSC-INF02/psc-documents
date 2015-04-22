@@ -116,6 +116,16 @@ D'après~\cite{jones_automatic_2007}, les recherches sur le résumé automatique
 
 Les méthodes extractives sont plus simples à mettre en \oe{}uvre et ont donc été mises en avant. Dans des travaux plus récents, une analyse symbolique plus poussée est utilisée, menant de plus en plus à une reformulation de la source ; on parle alors d'abstraction. Nous donnons ci-dessous quelques détails sur les techniques propres à ces deux paradigmes, puis nous nous indiquons les méthodes d'évaluation de la qualité des résumés produits pouvant être envisagées.
 
+\subsection{Difficultés liées à la compréhension du langage naturel}
+
+Comme il a été dit en introduction, le langage naturel est caractérisé par sa polysémie et sa complexité syntaxique. Cela génère de l'ambiguïté, c'est à dire qu'une phrase donnée peut être interprétée de plusieurs manières différentes~; cela permet une forte compression de l'information (le contexte permettra en général de retrouver le sens exact) lors du dialogue d'humain à humain mais rend une interprétation exacte compliquée à mettre en place.
+
+En effet, le contexte dont on parle ici correspond le plus souvent à une situation physique, dont l'humain aura en mémoire une certaine représentation. Les informations pertinentes de cette représentation sont difficiles, sinon impossibles, à prévoir~; et il est difficile d'imaginer stocker assez d'information pour tout prévoir. Des structures de données (implantées par exemple dans Bascet\index{BAsCET} ou Copycat\index{Copycat}) permettent de simuler une partie de cette réflexion dans un cadre très particulier.
+
+Même en ayant résolu (au moins en partie) la compréhension d'un contexte dans lequel un texte en langage naturel s'inscrit, la compréhension reste difficile. Il s'agit de plus que la simple expérience de l'humain qui parle (qui a toute une vie d'expérience sur le sujet), mais aussi de la représentation physique du monde qui l'entoure. Prenons l'exemple de deux phrases relativement proches : "Marc tira la clé à l'aide de son cordon d'écouteurs" et "Marc poussa la clé à l'aide de son cordon d'écouteurs". La seule différence entre les deux phrases est le verbe~; cette différence ne portant pas sur sa nature (les deux sont des verbes transitifs directs) mais sur son sens. Un programme informatique, même longuement entraîné, n'aura probablement jamais vu ni l'une ni l'autre phrase qui pourraient être toutes deux considérées comme assez peu plausibles et globalement équivalentes (en première approche du moins). Pourtant, l'être humain sera capable de reconnaître que la première est beaucoup plus sensée que la seconde~: l'être humain reconnaît le cordon comme un objet long et mou, avec lequel il est facile de tirer et impossible de pousser. Il s'agit là d'une considération élémentaire sur le monde physique, auquel la machine n'a pas accès, du moins \emph{a priori}.
+
+Ces deux difficultés, à savoir la complexité sémantique et syntaxique d'une part, et l'inaccessibilité du monde physique d'autre part, on poussé la recherche à exploiter des méthodes ne se basant sur le contenu sémantique que de manière assez indirecte~: il s'agit des méthodes dites extractives.
+
 
 \subsection{Extraction de la source (\emph{extractive summarization}\index{Extractive summarization})}
 
