@@ -853,7 +853,16 @@ Il est également à noter que les grammaires modernes s'appuient sur un entraî
 \subsubsection{\'Etat du texte en fin d'analyse}
 Les données traitées par Systran nous sont revenues sous la forme d'un graphe sémantique. Chaque nœud, ou mot, de la phrase était de plus enrichi d'une liste de tags permettant d'établir de quel genre de mot il s'agit (humain, véhicule, lieu si c'est un nom; verbe d'action, verbe descriptif si c'est un verbe; etc.) Notons également que chaque nœud contient une liste (éventuellement vide) de fils avec lesquels il forme une entité syntaxique cohérente telle qu'un groupe nominal. Cela nous a été très utile lorsqu'il s'est agit de faire la différence entre les entités et leurs attributs lors de leur incorporation dans le Workspace.
 
-Ces données ont ensuite été transcrites sous la forme d'une classe python appelée \pyt[GrammarTree]. 
+Ces données ont ensuite été transcrites sous la forme d'une classe python appelée \pyt[GrammarTree]. Cette classe définie récursivement permet, à partir des données fournies par l'algorithme de Systran, d'expliciter la structure de la phrase en groupes nominaux et verbaux, souvent reliés entre eux par des relations de type sujet-verbe ou verbe-complément. Sans rentrer dans les détails des méthodes (disponibles dans la documentation), un objet de cette classe contiendra les champs suivants :
+\begin{description}
+    \item[\pyt{id}~:] un identifiant unique composé de quatre entiers.
+    \item[\pyt{parent}~:] un arbre dont cet objet est le fils.
+    \item[\pyt{root}~:] qui contient l'arbre dont tous les autres sont des fils.
+    \item[\pyt{children}~:] Une liste d'arbres fils.
+    \item[\pyt{contents}~:] Un dictionnaire contenant les informations grammaticales relatives à la portion de texte représentées par cet arbre.
+\end{description}
+
+Et sera capable, en plus de se construire à partir d'un fichier de données, de reconnaître des références multiples à une même entité~; données indispensables au remplissage du workspace.
 
 \subsection{Résolution de pronoms}
 
