@@ -717,9 +717,17 @@ Selon un lemme de Hans \textsc{Peter Luhn}, le poids d'un terme est proportionne
 
 D'après la loi de \textsc{Zipf}, la fréquence moyenne d'occurrence $f(n)$ d'un mot dans une langue donnée est liée à son rang $n$ dans l'ordre des fréquences par une loi de la forme $f(n) = \frac{K}{n} $ où K est une constante.
 
-%\includegraphics[scale=0.5]{loi_de_zipf.eps}
+\begin{figure}[h]
+ \centering
+ \includegraphics[width=10cm]{./loi_de_zipf.eps}
+ % loi_de_zipf.eps: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=13 175 598 616
+ \caption{Représentation de la loi de Zipf}
+ \label{fig:loi_de_zipf}
+\end{figure}
 
-L'abscisse x est le rang d'un terme selon la fréquence et y est l'occurrence de ce terme. Les mots plus fréquents sont 'the','of' et 'and'. On voit bien que la courbe tend vers la fonction $K/x$.(ici on a choisi K = 5200000) C'est-à-dire que pour chercher les mots indiscriminants, il suffit de regarder l'inverse de la fréquence d'occurrence globale.
+
+Sur la figure \ref{fig:loi_de_zipf}, l'abscisse $x$ est le rang d'un terme selon la fréquence et $y$ est l'occurrence de ce terme. Les mots plus fréquents sont 'the','of' et 'and'. On voit bien que la courbe tend vers la fonction $K/x$.(ici on a choisi K = 5200000) C'est-à-dire que pour chercher les mots indiscriminants, il suffit de regarder l'inverse de la fréquence d'occurrence globale.
+
 
 \subsubsection{Définition formelle}
 
@@ -1247,8 +1255,10 @@ Kyle Lafferty,  right,  celebrates with his Northern Ireland team-mates after sc
  The visitors did recover slightly,  helping themselves to an injury time consolation with Sadik lashing home to shred home nerves.}\\
 \end{quotation}
 
-
 \newpage
+\listoffigures
+
+
 \printindex
 
 
