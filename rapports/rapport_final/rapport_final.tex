@@ -134,7 +134,7 @@ Ces deux difficultés, à savoir la complexité sémantique et syntaxique d'une 
 
 L'idée derrière ce paradigme est simple : le texte a résumer est trop long, donc on va le tronquer. Cela a deux avantages : le premier et qu'il ne s'agit pas réellement de comprendre le texte ; simplement de juger ce qui peut y être important au travers de n'importe quelle métrique. D'autre part, puisqu'on ne fait qu'ôter des phrases inutiles au texte, on limite autant que faire se peut la reformulation, qui exige une certaine maîtrise du langage naturel et qui est loin d'être triviale. C'est donc pour sa simplicité que ce paradigme a d'abord été mis en avant dans la recherche, et est aujourd'hui parfois utilisé dans le monde industriel. La recherche dans ce domaine a donc essentiellement porté sur la définition d'une métrique rendant convenablement compte de l'importance des phrases les unes par rapport aux autres dans un document, souvent à l'aide d'un corpus documentaire plus vaste.\\
 
-Dans sa version la plus simple, on peut considérer la source (le texte à résumer) comme un tableau contenant le numéro de chaque phrase et une valeur (ou un vecteur, comme dans~\cite{fattah_ga_2009}) quantifiant son importance, la transformation devant alors simplement sélectionner les phrases les mieux notées (voir par exemple la partie \ref{TFIDFResume}). \\
+Dans sa version la plus simple, on peut considérer la source (le texte à résumer) comme un tableau contenant le numéro de chaque phrase et une valeur (ou un vecteur, comme dans~\cite{fattah_ga_2009}) quantifiant son importance, la transformation devant alors simplement sélectionner les phrases les mieux notées (voir par exemple la partie \ref{Subsection:TFIDFResume}). \\
 
 Ces métriques n'ayant pas nécessairement de lien avec le contenu sémantique du texte, qui est par ailleurs souvent difficile d'accès, et la version la plus simple donnant déjà des résultats corrects sinon probants, il n'a pas été jugé immédiatement nécessaire de s'intéresser à ce contenu. Par conséquent la notation s'est surtout fondée sur une analyse statistique (un terme qui apparaît souvent dans un texte a l'air important ; des termes souvent associés perdent de la valeur s'ils sont séparés...) plus ou moins poussée, qui permet d'établir une notation pour chaque phrase et d'en extraire les mieux notées. Il est toutefois loin d'être exclu, dans ces considérations, de se placer à un niveau d'abstraction supérieur et de s'intéresser aux champs lexicaux plutôt qu'aux termes précisément employés.
 
@@ -988,7 +988,7 @@ Finalement, l'algorithme complet se déroule ainsi~:
 Le résultat final est alors un petit nombre d'entités centrales dont parle le texte. Les relations verbales entre ces entités permettent au lecteur de se faire une idée raisonnable du contenu initial du texte, même si la représentation qui lui en est donnée n'est pas du langage naturel.
 
 
-\section{Bilan et améliorations envisageables}
+\section{Bilan}
 
 Le projet a été essentiellement mené au terme annoncé, malgré quelques changements de dernière minute qui nous ont empêché d'évaluer de manière correcte nos résultats. Dans son état actuel, nous n'avons pas exactement atteint l'objectif affiché de faire un résumé capable de s'affranchir de la formulation première du texte. Nous apportons cependant un véritable changement sur la manière d'obtenir notre résumé~: là où la plupart des algorithmes se basent sur des récurrences statistiques de termes, nous nous efforçons de reconnaître les entités et les concepts mis en jeu et de travailler sur ceux-ci.
 
@@ -1002,11 +1002,11 @@ Sous sa forme actuelle, le projet ne souffre pas particulièrement de sa restric
 
 \subsection{Bilan des actions menées}
 
-Dans son état actuel, le projet constitue une excellente préparation à la mise en place des méthodes que nous avons décrites. Nous avons en effet amélioré quelques outils de traitement de données textuelles brutes (en ce qui concerne le traitement des noms propres notamment). Nous avons également pu mettre en place les structures indispensables à nos algorithmes et créé les fonctions faisant l'interface avec les structures de données déjà existantes.
+Le produit fini du projet, à savoir l'algorithme de résumé, n'est pas le seul outil que nous avons eu à mettre en œuvre dans le cadre du projet. Nous avons en effet amélioré quelques outils de traitement de données textuelles brutes (en ce qui concerne le traitement des noms propres notamment), qui pourraient être réutilisés pour des traitements similaires. Nous avons également pu mettre en place les structures indispensables à nos algorithmes et créé les fonctions faisant l'interface avec les structures de données déjà existantes.
 
-Nous avons, d'autre part, pu implémenter un algorithme raisonnable de résumé automatique s'appuyant sur TF-IDF. % Complement needed.
+Nous avons, d'autre part, pu implémenter un algorithme raisonnable de résumé automatique s'appuyant sur TF-IDF. Les résultats produits (voir un exemple en annexe B) sont raisonnables, bien qu'un peu flous.
 
-
+Pour ce qui est de l'organisation du temps et des ressources, les réunions régulières nous ont permis de rester en synergie et de ne garder des modules indépendants mais compatibles pendant la majeure partie du développement.
 
 \vspace{1\baselineskip}
 
