@@ -53,21 +53,21 @@ Nous remercions également l'entreprise Systran, qui nous a permis d'avancer plu
 
 Le projet est encadré par Jean Senellart.
 
-\subsection{Notre sujet}
+\subsection{Description détaillée du projet}
 
 \subsubsection{But du projet}
 
 La nécessité d'effectuer des résumés automatiques, en un mot, de synthétiser de grandes masses d'informations textuelles (en langage naturel\index{Langage naturel}), est tout à fait prégnante alors que l'information est toujours plus abondante, mais qu'il faut la traiter de manière efficace.\\
 
-"Langage naturel" doit ici s'opposer au langage machine (qui est une série d'instructions comprises par les processeurs et permettent aux logiciels de fonctionner) ou même au code source, intermédiaire de programmation permettant au programmeur des instructions plus générales qui sont ensuite interprétées et décomposées pour le processeur. Ces deux derniers sont caractérisés par une syntaxe non ambiguë, et une sémantique très limitée (dans le cas du code source, seul un petit nombre de mots clés ont un sens pour l'interpréteur, qui n'est capable que de tester l'égalité entre les autres entités qui lui sont transmises ; plus simplement, l'interpréteur ne sera pas capable de comprendre "de\_couleur\_rose", mais s'il voit deux fois cette chaîne il sera capable de reconnaître qu'elles désignent la même chose).
+"Langage naturel" doit ici s'opposer au langage machine (qui est une série d'instructions comprises par les processeurs et permettant aux logiciels de fonctionner) ou même au code source, intermédiaire de programmation permettant au programmeur des instructions plus générales qui sont ensuite interprétées et décomposées pour le processeur. Ces deux derniers sont caractérisés par une syntaxe non ambiguë, et une sémantique très limitée (dans le cas du code source, seul un petit nombre de mots clés ont un sens pour l'interpréteur, qui n'est capable que de tester l'égalité entre les autres entités qui lui sont transmises ; plus simplement, l'interpréteur ne sera pas capable de comprendre "de\_couleur\_rose", mais s'il voit deux fois cette chaîne il sera capable de reconnaître qu'elles désignent la même chose).
 
 À l'inverse, le langage naturel, qui peut désigner n'importe quelle langue parlée par des hommes, est caractérisée par sa polysémie (un terme peut avoir plusieurs sens) et l'ambiguïté inhérente qui en découle ; c'est d'ailleurs ce qui fait sa richesse et en fait un outil de communication efficace. Cependant, cela le rend particulièrement difficile à saisir pour une machine, pour des raisons que nous expliciterons plus loin.\\
 
-Le résumé automatique a fait l'objet de nombreux travaux de recherche. De nombreux outils développés reposent sur une extraction des phrases pertinentes d'un texte, de manière à s'abstraire (au moins dans une certaine mesure) de la complexité syntaxique du langage naturel. La difficulté consiste alors à repérer ces phrases pertinentes, au moyen par exemple d'une analyse statistique, du repérage de mots-clés importants. On parle alors d'\textit{extractive summarization}\index{Extractive summarization}, résumé extractif.\\
+Le résumé automatique a fait l'objet de nombreux travaux de recherche. De nombreux outils développés reposent sur une extraction des phrases pertinentes d'un texte, de manière à échapper (au moins dans une certaine mesure) à la complexité syntaxique du langage naturel. La difficulté consiste alors à repérer ces phrases pertinentes, au moyen par exemple d'une analyse statistique, du repérage de mots-clés importants. On parle alors d'\textit{extractive summarization}\index{Extractive summarization}, résumé extractif.\\
 
 Toutefois, le résumé extractif souffre de nombreux défauts liés à l'absence de reformulation des phrases du texte : en définitive, le résumé est limité par la clarté du texte de départ et par l'information qu'il contient. C'est pourquoi nous voulions mettre l'accent sur une analyse sémantique, afin d'introduire un véritable facteur de \textit{sens}, et reformuler les idées contenues dans le texte, ce qui nous rapproche du résumé abstractif (\textit{abstractive summarization})\index{Abstractive summarization}.\\
 
-Nous nous limitons à des textes ayant pour sujet le sport (plus particulièrement encore le football). Le but de notre programme, s'appuyer plutôt sur le sens des mots que sur leur simple fréquence pour juger de leur pertinence, était au départ relativement vague et nous l'avons précisé et harmonisé en introduisant des structures de données utiles. Au cours de notre projet, nous avons été amenés à changer progressivement de notre point de vue, pour arriver à notre résultat final, qui s'il ne produit pas un texte complet, parvient néanmoins à sélectionner et traduire un certain nombre d'idées.
+Nous nous limitons à des textes ayant pour sujet le sport (plus particulièrement encore le football). Le but de notre programme, s'appuyer plutôt sur le sens des mots que sur leur simple fréquence pour juger de leur pertinence, était au départ relativement vague et nous l'avons précisé et harmonisé en introduisant des structures de données utiles. Au cours de notre projet, nous avons été amenés à changer progressivement notre point de vue, pour arriver à notre résultat final, qui s'il ne produit pas un texte complet, parvient néanmoins à sélectionner et traduire un certain nombre d'idées.
 
 
 \subsubsection{Modules du projet et répartition du travail}
@@ -90,7 +90,7 @@ Pour atteindre cet objectif, plusieurs modules assez indépendants ont pu être 
 Nous reviendrons sur ces outils et détaillerons au fur et à mesure du rapport.
 
 \begin{description}
-	\item[Natural Language ToolKit (\pyt{nltk})~: ]Divers outils grammaticaux pour l'étude du langage naturel.
+	\item[Natural Language ToolKit (\pyt{nltk})~: ]Module Python comportant divers outils pour l'étude du langage naturel.
 	\item[WordNet~: ]Dictionnaire interfacé avec \pyt{nltk} permettant notamment d'obtenir la classe grammaticale des mots (voir \ref{Subsection:WordNet}).
 	\item[Conceptnet~: ]Grande base de connaissances permettant d'établir la proximité conceptuelle entre différents termes du réseau (voir \ref{Subsection:Conceptnet5}).
 	\item[Freebase~: ]Cette base de connaissances très étendue permet d'identifier les noms propres, par exemple des joueurs de football, des lieux (voir \ref{Subsection:Freebase}).
@@ -118,26 +118,28 @@ Les méthodes extractives sont plus simples à mettre en \oe{}uvre et ont donc �
 
 \subsection{Difficultés liées à la compréhension du langage naturel}
 
-Comme il a été dit en introduction, le langage naturel est caractérisé par sa polysémie et sa complexité syntaxique. Cela génère de l'ambiguïté, c'est à dire qu'une phrase donnée peut être interprétée de plusieurs manières différentes~; cela permet une forte compression de l'information (le contexte permettra en général de retrouver le sens exact) lors du dialogue d'humain à humain mais rend une interprétation exacte compliquée à mettre en place.
+Comme il a été dit en introduction, le langage naturel est caractérisé par sa polysémie et sa complexité syntaxique. Cela génère de l'ambiguïté, c'est à dire qu'une phrase donnée peut être interprétée de plusieurs manières différentes~; cela permet une forte compression de l'information (le contexte permettra en général de retrouver le sens exact) lors du dialogue d'humain à humain mais rend une interprétation exacte compliquée à mettre en place.\\
 
-En effet, le contexte dont on parle ici correspond le plus souvent à une situation physique, dont l'humain aura en mémoire une certaine représentation. Les informations pertinentes de cette représentation sont difficiles, sinon impossibles, à prévoir~; et il est difficile d'imaginer stocker assez d'information pour tout prévoir. Des structures de données (implantées par exemple dans Bascet\index{BAsCET} ou Copycat\index{Copycat}) permettent de simuler une partie de cette réflexion dans un cadre très particulier.
+En effet, le contexte dont on parle ici correspond le plus souvent à une situation physique, dont l'humain aura en mémoire une certaine représentation. Les informations pertinentes de cette représentation sont difficiles, sinon impossibles, à prévoir~; et il est difficile d'imaginer stocker assez d'information pour tout prévoir. Des structures de données (implantées par exemple dans Bascet\index{BAsCET} ou Copycat\index{Copycat}) permettent de simuler une partie de cette réflexion dans un cadre très particulier.\\
 
-Même en ayant résolu (au moins en partie) la compréhension d'un contexte dans lequel un texte en langage naturel s'inscrit, la compréhension reste difficile. Il s'agit de plus que la simple expérience de l'humain qui parle (qui a toute une vie d'expérience sur le sujet), mais aussi de la représentation physique du monde qui l'entoure. Prenons l'exemple de deux phrases relativement proches : "Marc tira la clé à l'aide de son cordon d'écouteurs" et "Marc poussa la clé à l'aide de son cordon d'écouteurs". La seule différence entre les deux phrases est le verbe~; cette différence ne portant pas sur sa nature (les deux sont des verbes transitifs directs) mais sur son sens. Un programme informatique, même longuement entraîné, n'aura probablement jamais vu ni l'une ni l'autre phrase qui pourraient être toutes deux considérées comme assez peu plausibles et globalement équivalentes (en première approche du moins). Pourtant, l'être humain sera capable de reconnaître que la première est beaucoup plus sensée que la seconde~: l'être humain reconnaît le cordon comme un objet long et mou, avec lequel il est facile de tirer et impossible de pousser. Il s'agit là d'une considération élémentaire sur le monde physique, auquel la machine n'a pas accès, du moins \emph{a priori}.
+Même en ayant saisi (au moins en partie) le contexte dans lequel un texte s'inscrit, la compréhension reste difficile. Il s'agit non seulement de la simple expérience de l'humain qui parle (qui a toute une vie d'expérience sur le sujet), mais aussi de la représentation physique du monde qui l'entoure. Prenons l'exemple de deux phrases relativement proches : "Marc tira la clé à l'aide de son cordon d'écouteurs" et "Marc poussa la clé à l'aide de son cordon d'écouteurs". La seule différence entre les deux phrases est le verbe~; cette différence ne portant pas sur sa nature (les deux sont des verbes transitifs directs) mais sur son sens. Un programme informatique, même longuement entraîné, n'aura probablement jamais vu ni l'une ni l'autre phrase qui pourraient être toutes deux considérées comme assez peu plausibles et globalement équivalentes (en première approche du moins). Pourtant, l'être humain sera capable de reconnaître que la première est beaucoup plus sensée que la seconde~: l'être humain reconnaît le cordon comme un objet long et mou, avec lequel il est facile de tirer et impossible de pousser. Il s'agit là d'une considération élémentaire sur le monde physique, auquel la machine n'a pas accès, du moins \emph{a priori}.\\
 
 Ces deux difficultés, à savoir la complexité sémantique et syntaxique d'une part, et l'inaccessibilité du monde physique d'autre part, on poussé la recherche à exploiter des méthodes ne se basant sur le contenu sémantique que de manière assez indirecte~: il s'agit des méthodes dites extractives.
 
 
 \subsection{Extraction de la source (\emph{extractive summarization}\index{Extractive summarization})}
 
-L'idée derrière ce paradigme est simple : le texte a résumer est trop long, donc on va le tronquer. Cela a deux avantages : le premier et qu'il ne s'agit pas réellement de comprendre le texte ; simplement de juger ce qui peut y être important au travers de n'importe quelle métrique. D'autre part, puisqu'on ne fait qu'ôter des phrases inutiles au texte, on limite autant que faire se peut la reformulation, qui exige une certaine maîtrise du langage naturel et qui est loin d'être triviale. C'est donc pour sa simplicité que ce paradigme a d'abord été mis en avant dans la recherche, et est aujourd'hui parfois utilisé dans le monde industriel. La recherche dans ce domaine a donc essentiellement porté sur la définition d'une métrique rendant convenablement compte de l'importance des phrases les unes par rapport aux autres dans un document, souvent à l'aide d'un corpus documentaire plus vaste.
+L'idée derrière ce paradigme est simple : le texte a résumer est trop long, donc on va le tronquer. Cela a deux avantages : le premier et qu'il ne s'agit pas réellement de comprendre le texte ; simplement de juger ce qui peut y être important au travers de n'importe quelle métrique. D'autre part, puisqu'on ne fait qu'ôter des phrases inutiles au texte, on limite autant que faire se peut la reformulation, qui exige une certaine maîtrise du langage naturel et qui est loin d'être triviale. C'est donc pour sa simplicité que ce paradigme a d'abord été mis en avant dans la recherche, et est aujourd'hui parfois utilisé dans le monde industriel. La recherche dans ce domaine a donc essentiellement porté sur la définition d'une métrique rendant convenablement compte de l'importance des phrases les unes par rapport aux autres dans un document, souvent à l'aide d'un corpus documentaire plus vaste.\\
 
-Dans sa version la plus simple, on peut considérer la source (le texte à résumer) comme un tableau contenant le numéro de chaque phrase et une valeur (ou un vecteur, comme dans~\cite{fattah_ga_2009}) quantifiant son importance, la transformation devant alors simplement sélectionner les phrases les mieux notées. 
+Dans sa version la plus simple, on peut considérer la source (le texte à résumer) comme un tableau contenant le numéro de chaque phrase et une valeur (ou un vecteur, comme dans~\cite{fattah_ga_2009}) quantifiant son importance, la transformation devant alors simplement sélectionner les phrases les mieux notées (voir par exemple la partie \ref{TFIDFResume}). \\
 
 Ces métriques n'ayant pas nécessairement de lien avec le contenu sémantique du texte, qui est par ailleurs souvent difficile d'accès, et la version la plus simple donnant déjà des résultats corrects sinon probants, il n'a pas été jugé immédiatement nécessaire de s'intéresser à ce contenu. Par conséquent la notation s'est surtout fondée sur une analyse statistique (un terme qui apparaît souvent dans un texte a l'air important ; des termes souvent associés perdent de la valeur s'ils sont séparés...) plus ou moins poussée, qui permet d'établir une notation pour chaque phrase et d'en extraire les mieux notées. Il est toutefois loin d'être exclu, dans ces considérations, de se placer à un niveau d'abstraction supérieur et de s'intéresser aux champs lexicaux plutôt qu'aux termes précisément employés.
 
 
 \paragraph{}
-Il est cependant aisé de voir qu'un tel algorithme produira des résumés biaisés, au sens où ils ne seront pas véritablement représentatifs du texte. En effet, pour peu qu'un terme important soit répété de manière régulière dans un nombre trop élevé de phrases pour que ces phrases soient sélectionnées et que le résumé occulte toute une partie du texte original. Au lieu de produire une version fidèle du texte original, si ce n'est qu'elle est plus courte, cet algorithme sélectionne une information centrale et risque de la répéter, générant de la redite que le résumé se doit justement d'éliminer. Des méthodes d'extraction plus complexes ont été développées, en faisant notamment intervenir des mesures de similarité entre unités syntaxiques (phrases, paragraphes) au sein d'un graphe de similarité. Dans~\cite{salton_automatic_1997}, les paragraphes les plus pertinents sont d'abord extraits du texte. Il s'agit ensuite de relier les graphes entre eux sur la base de leur vocabulaire (précisément, des occurrences de \emph{termes}, qui peuvent être en première étude des mots~; une analyse plus fine devra cependant reconnaître certaines entités indissociables de plusieurs mots, telles que \textit{kick the bucket} en Anglais, qui signifie "mourir" et pas "donner un coup de pied dans le seau"). Au dessus d'un certain seuil de similarité on considère que les deux paragraphes apportent trop d'information commune pour les inclure tous les deux dans le résumé~; un choix est donc fait sur la base du nombre de sujets abordés. En effet, un paragraphe abordant plus de sujets distincts sera sans doute plus représentatif du texte général.
+Il est cependant aisé de voir qu'un tel algorithme produira des résumés biaisés, au sens où ils ne seront pas véritablement représentatifs du texte. Si par exemple un terme important est répété de manière régulière dans les phrases, il pourrait ne pas être sélectionné, ce qui occulterait toute une partie du texte original, ou bien provoquer la sélection de toutes ces phrases et donc générer de la redite qu'il est censé justement éliminer... \\
+
+Des méthodes d'extraction plus complexes ont été développées, en faisant notamment intervenir des mesures de similarité entre unités syntaxiques (phrases, paragraphes) au sein d'un graphe de similarité. Dans~\cite{salton_automatic_1997}, les paragraphes les plus pertinents sont d'abord extraits du texte. Il s'agit ensuite de relier les graphes entre eux sur la base de leur vocabulaire (précisément, des occurrences de \emph{termes}, qui peuvent être en première étude des mots~; une analyse plus fine devra cependant reconnaître certaines entités indissociables de plusieurs mots, telles que \textit{kick the bucket} en Anglais, qui signifie "mourir" et pas "donner un coup de pied dans le seau"). Au dessus d'un certain seuil de similarité on considère que les deux paragraphes apportent trop d'information commune pour les inclure tous les deux dans le résumé~; un choix est donc fait sur la base du nombre de sujets abordés. En effet, un paragraphe abordant plus de sujets distincts sera sans doute plus représentatif du texte général.
 
 %reprise
 La méthode décrite dans~\cite{salton_automatic_1997} applique en fait à l'intérieur d'un texte des techniques de récupération  de l'information (\emph{information retrieval}) qui sont utilisées pour établir automatiquement des liens hypertextes entre pages web ou articles.
@@ -146,9 +148,9 @@ La méthode décrite dans~\cite{salton_automatic_1997} applique en fait à l'int
 
 \subsection{Méthodes non extractives (abstractives)}
 
-Plusieurs raisons expliquent le développement relativement faible des méthodes non-extractives, comparé à celui des précédentes. On a déjà parlé de la performance, disons, acceptable des méthodes extractives (en particulier les plus évoluées), et leur popularité a été renforcée par des exigences assez faibles en matière de qualité. Qui plus est, la recherche de manière générale est plus prompte à progresser de manière incrémentale~; ainsi le développement de paradigmes concurrents et éloignés de l'idée originale du résumé automatique n'a pas été encouragée.
+Plusieurs raisons expliquent le développement relativement faible des méthodes non-extractives, comparé à celui des précédentes. On a déjà parlé de la performance, disons, acceptable des méthodes extractives (en particulier les plus évoluées), et leur popularité a été renforcée par des exigences assez faibles en matière de qualité. %Qui plus est, la recherche de manière générale est plus prompte à progresser de manière incrémentale~; ainsi le développement de paradigmes concurrents et éloignés de l'idée originale du résumé automatique n'a pas été encouragée.
 
-La limite entre les méthodes extractives et non extractives n'est pas clairement définie. Dans la partie précédente nous parlions des graphes de similarité, reposant sur une analyse lexicale et donc dans une certaine mesure à des considérations d'ordre sémantique, qui sont plutôt caractéristiques du résumé abstractif. Néanmoins, on peut remarquer que dans cette situation, l'analyse sémantique qui est faite n'a d'autre but que de permettre une meilleure sélection. Qui plus est on garde une trace assez faible de cette analyse, la mesure de similarité qui aide à la décision. Le paradigme non extractif, quant à lui, cherchera plutôt à mettre en avant les structures argumentatives, ou même simplement syntaxiques, du texte. Cela fait, on espère pouvoir s'abstraire des termes employés pour accéder aux idées présentes derrière le texte~; et pour ces deux raisons, la génération du résumé (l'obtention d'un texte écrit en langage naturel à partir de la représentation machine du texte résumé) sera une étape beaucoup plus importante que dans la méthode concurrente.
+La limite entre les méthodes extractives et non extractives n'est pas clairement définie. Dans la partie précédente nous parlions des graphes de similarité, reposant sur une analyse lexicale et donc dans une certaine mesure à des considérations d'ordre sémantique, qui sont plutôt caractéristiques du résumé abstractif. Néanmoins, on peut remarquer que dans cette situation, l'analyse sémantique qui est faite n'a d'autre but que de permettre une meilleure sélection. Qui plus est on garde une trace assez faible de cette analyse, la mesure de similarité qui aide à la décision. Le paradigme non extractif, quant à lui, cherchera plutôt à mettre en avant les structures argumentatives, ou même simplement syntaxiques, du texte. Cela fait, on espère pouvoir s'abstraire des termes employés pour accéder aux idées présentes derrière le texte~; et pour ces deux raisons, la génération du résumé (l'obtention d'un texte écrit en langage naturel à partir de la représentation machine du texte résumé) sera une étape beaucoup plus importante que dans la méthode concurrente.\\
 
 Bien entendu, il n'est pas imaginable d'envisager un programme capable d'utiliser la méthode non extractive pour résumer tout article~; les méthodes extractives, déjà, se basent sur un grand corpus documentaire permettant d'observer des fréquences d'apparition d'un terme donné dans plusieurs documents et cette fréquence dépendra fortement du domaine considéré (un corpus plutôt centré sur la politique ne verra que très rarement apparaître le terme "stade", contrairement à un corpus centré sur le sport). Les méthodes non extractives sont d'autant plus sensibles au contenu du corpus~\cite[p.1774]{jones_automatic_2007} qu'elles doivent, pour les résumer, "comprendre" d'une certaine manière. C'est la principale raison pour laquelle nous avons choisi de nous limiter à un domaine particulier, qui a été celui du sport (et plus précisément encore celui du football). Dans l'optique d'un résumé de corpus documentaire (par opposition à un document unique) nous espérons que la méthode abstractive sera plus capable de détecter des variations, voire des contradictions, entre différents points de vue exprimés dans différents textes, et ainsi de produire un résumé plus intéressant et plus neutre.\\
 
@@ -156,7 +158,7 @@ Enfin, les méthodes non extractives, dans la mesure où elles déconstruisent l
 
 \subsection{Génération du résumé}
 
-Après avoir résumé le texte en mémoire, quelle que soit la représentation utilisée, il faut ensuite (pour un programme complet) la reformuler en langage naturel pour la présenter à l'utilisateur. C'est presque immédiat pour une méthode extractive (encore que les méthodes les plus développées cherchent parfois à éclaircir le produit final, en explicitant certaines références qui ont été perdues lors de la découpe), et nettement moins trivial pour une méthode non extractive qui utilisera des représentations mémoire du texte plus éloignées du langage naturel.
+Après avoir résumé le texte en mémoire, quelle que soit la représentation utilisée, il faut ensuite (pour un programme complet) la reformuler en langage naturel pour la présenter à l'utilisateur. C'est presque immédiat pour une méthode extractive (encore que les méthodes les plus développées cherchent parfois à éclaircir le produit final, en explicitant certaines références qui ont été perdues lors de la découpe), et nettement moins trivial pour une méthode non extractive qui utilisera des représentations mémoire du texte plus éloignées du langage naturel.\\
 
 Différentes recherches ont été menées~(\cite{danlos_generation_2000}, \cite{horacek_building_2001}) et des textes ont été générés avec succès à partir de données brutes dans certains domaines précis (météo, compte rendu médical, etc.). Ces domaines ont en commun l'accent qu'ils mettent sur les faits et le peu de place qu'ils doivent laisser à l'interprétation~; en dehors des termes techniques liés à leur domaine, les textes utilisent un vocabulaire et une syntaxe très simple. En effet, le choix, non seulement des mots, mais aussi de l'ordre de leur apparition et de la structure finale est l'un des problèmes majeurs de la génération de texte.
 
@@ -165,16 +167,16 @@ Différentes recherches ont été menées~(\cite{danlos_generation_2000}, \cite{
 L'évaluation des résumés produits est un problème assez délicat. La forme des sources (articles de journaux, textes de lois, modes d'emploi), comme celle de la réponse attendue, varie du tout au tout et cela rend difficile la comparaison. Trois méthodes principales ont été retenues par les programmes récents d'évaluation (à partir des années 2000)~\cite[p.1453-1461]{jones_automatic_2007}~:
 
 \begin{description}
-  \item [Qualité du texte et qualité du discours :] Cela ne concerne que la forme du texte produit, pour des résumés en langage naturel. Il s'agit de vérifier s'il est correctement formulé, grammaticalement juste, et cohérent dans sa globalité. Même si propriétés locales de justesse syntaxique sont bien connues et facilement testables, l'étude du discours dans sa globalité reste un défi à l'heure actuelle.
+  \item [Qualité du texte et qualité du discours :] Cela ne concerne que la forme du texte produit, pour des résumés en langage naturel. Il s'agit de vérifier s'il est correctement formulé, grammaticalement juste, et cohérent dans sa globalité. Même si les propriétés locales de justesse syntaxique sont bien connues et facilement testables, l'étude du discours dans sa globalité reste un défi à l'heure actuelle.
   %% J'ai peur de bullshiter un peu fort, please read again.
-  \item [Capture du concept :] Il est ici question de l'idée ou des idées centrales identifiées dans le texte original, et de savoir si elles sont présentes dans le résumé final. Pour tester ceci, il semble raisonnable de préparer un certain nombre de questions portant sur le texte original auxquelles la lecture du résumé doit être capable d'apporter une réponse. Ces questions peuvent être de l'ordre de la simple compréhension de texte (questions que l'on pourrait donner en primaire) ou éventuellement sur des points un peu plus subtils de l'argumentation. L'inconvénient principal de cette méthode est que le test dépend fortement de l'objectif du résumé. Prenons l'exemple d'un article scientifique. Un résumé de cet article pourrait être destiné à de la vulgarisation~: son but sera alors de faire ressortir les concepts de base. À l'inverse, il pourrait être destiné à un confrère travaillant sur un sujet proche~; les concepts de base étant alors maîtrisés, le résumé devrait insister sur les points saillants et profonds de l'argumentation scientifique. Par conséquent il est difficile, un texte étant donné, de définir un seul jeu de questions permettant d'évaluer son résumé et donc d'étudier le programme en toute indépendance.
+  \item [Capture du concept :] Il est ici question de l'idée ou des idées centrales identifiées dans le texte original, et de savoir si elles sont présentes dans le résumé final. Pour tester ceci, il semble raisonnable de préparer un certain nombre de questions portant sur le texte original auxquelles la lecture du résumé doit être capable d'apporter une réponse. Ces questions peuvent être de l'ordre de la simple compréhension de texte (questions que l'on pourrait donner en classe primaire) ou éventuellement sur des points un peu plus subtils de l'argumentation. L'inconvénient principal de cette méthode est que le test dépend fortement de l'objectif du résumé. Prenons l'exemple d'un article scientifique. Un résumé de cet article pourrait être destiné à de la vulgarisation~: son but sera alors de faire ressortir les concepts de base. À l'inverse, il pourrait être destiné à un confrère travaillant sur un sujet proche~; les concepts de base étant alors maîtrisés, le résumé devrait insister sur les points saillants et profonds de l'argumentation scientifique. Par conséquent il est difficile, un texte étant donné, de définir un seul jeu de questions permettant d'évaluer son résumé et donc d'étudier le programme en toute indépendance.
   \item [Comparaison à un modèle :] Plutôt que de comparer les résumés à leur source, on cherche ici à les comparer à d'autres résumés issus de la même source qui ont déjà été évalués comme bons. Cela a l'avantage de permettre la comparaison entre objets de nature plus proches. Ces modèles auront typiquement été composés par des êtres humains, entraînés à la compréhension du langage naturel depuis leur plus jeune âge et, plus tard, à la tâche particulière du résumé. Il reste alors à établir une distance entre deux résumés, ce qui est loin d'être trivial dès que les phrases ne sont plus extraites directement de la source. Par ailleurs, force est de constater que les rédacteurs des modèles ne sont pas toujours capables de s'entendre sur ce qui devrait y figurer.
  \end{description}
 
   Ce dernier point n'est relevé qu'ici, mais aurait pu être mentionné bien avant car il est inhérent au résumé et assez indépendant de la méthode d'évaluation~: la qualité essentielle du bon résumé est de contenir les informations clés présentes dans la source, une caractérisation vague et impossible à préciser. Ajoutons également que des résumés en apparence très différents peuvent servir efficacement un objectif commun. 
   
   %%affirmation gratuite dans cette phrase
-  C'est une des raisons pour lesquelles les programmes de résumés automatiques sont restés de qualité moyenne~: l'investissement en temps et ressources pour évaluer un bon résumé étant jugé trop élevé, on a préféré écrire des programmes capables de produire des résumés qui n'étaient pas désespérément mauvais.
+  %C'est une des raisons pour lesquelles les programmes de résumés automatiques sont restés de qualité moyenne~: l'investissement en temps et ressources pour évaluer un bon résumé étant jugé trop élevé, on a préféré écrire des programmes capables de produire des résumés qui n'étaient pas désespérément mauvais.
 
  
  %à partir de maintenant, pas reprise, c'est du neuf
@@ -182,7 +184,7 @@ L'évaluation des résumés produits est un problème assez délicat. La forme d
 
 Présentons ici brièvement certaines idées dont nous nous sommes inspirés, au moins dans un premier temps, avant de nous en écarter progressivement. Cela sera nettement visible dans la section \ref{Section:RC}, quand nous présenterons le Réseau de Concepts, une structure de données fort utile, ainsi que dans les sections suivantes, avec notre Workspace (section \ref{Section:Traitement}).\\
 
-Nous recherchions des modes de représentation des connaissances, de la manière la plus intuitive possible, et \cite{parmentier_specification_1998} nous a guidé sur ce point. L'auteur développe une architecture elle-même basée sur Copycat, une autre architecture. Certaines idées centrales sont restées tout au long de notre projet, d'autres ont été progressivement modifiées.
+Nous recherchions des modes de représentation des connaissances, de la manière la plus intuitive possible, et \cite{parmentier_specification_1998} nous a guidé sur ce point. L'auteur développe une architecture elle-même basée sur Copycat, une autre architecture. Certaines idées centrales sont restées tout au long de notre projet, d'autres ont été progressivement modifiées ou abandonnées car trop éloignées de ce que nous cherchions ou pouvions faire.
 
 \subsubsection{Principe de Copycat\index{Copycat}}
 
@@ -211,15 +213,15 @@ Les concepts peuvent être activés au cours du programme.
  \item Les n\oe{}uds perdent naturellement de l'activation de manière à éviter la saturation du réseau~;
  \item Un n\oe{}ud est activé lorsqu'une instance de ce n\oe{}ud est perçue par les agents. Plus il est activé, plus il sera probablement considéré comme concept potentiellement organisateur~;
  \item Le taux de désactivation dépend de la profondeur conceptuelle du n\oe{}ud (abstraction et généralité du concept), fixée par l'auteur. Les n\oe{}uds les plus profonds se désactivent moins vite (les concepts les plus abstraits perdurent)~;
- \item Les glissements sont effectués par les agents et dépendent de la proximité conceptuelle.
+ \item Les glissements sont effectués par des agents et dépendent de la proximité conceptuelle.
 \end{itemize}
 
 %%Il y a de l'apprentissage au niveau du Slipnet, bien qu'aucun concept ne soit rajouté.
 %% Explicite la phrase ci-dessus, à vérifier
-Slipnet est un réseau capable d'apprendre au sens ou la proximité conceptuelle et la profondeur conceptuelle sont capables de s'adapter au cours du temps pour répondre de manière plus adéquate aux problèmes qui lui seront posés~; cependant aucun concept n'y est rajouté.
+Le Slipnet est un réseau capable d'apprendre au sens ou la proximité conceptuelle et la profondeur conceptuelle sont capables de s'adapter au cours du temps pour répondre de manière plus adéquate aux problèmes qui lui seront posés~; cependant aucun concept n'y est rajouté.
 
 \paragraph{Workspace}
-Le Workspace contient des instances des concepts du Slipnet~: c'est une mémoire de travail. Il arrive aussi de parler de \textit{blackboard} (tableau noir).
+Le Workspace contient des instances des concepts du Slipnet~: c'est une mémoire de travail.% Il arrive aussi de parler de \textit{blackboard} (tableau noir).
 
 Le programme construit des "structures perceptuelles" sur la base des entrées (les chaînes de lettres)~: 
 \begin{itemize}
@@ -256,8 +258,9 @@ Copycat semble à première vue être très éloigné de notre projet~; cependan
 
 \subsubsection{BAsCET\index{BAsCET}}
 
-C'est une architecture très proche de Copycat (l'acronyme signifie \textit{Blackboard Agents Concepts Exemples Température}) développée dans \cite{parmentier_specification_1998} pour un problème justement beaucoup plus proche du notre.
+C'est une architecture très proche de Copycat (l'acronyme signifie \textit{Blackboard Agents Concepts Exemples Température}) développée dans \cite{parmentier_specification_1998} pour un problème plus proche du notre : l'objet est de reconnaître des champs de références bibliographiques dans des articles scientifiques.
 %% C'est vrai ça ?
+%%oui
 
 \paragraph{Concepts}
 La description du Réseau de Concepts est très précise, et nous en avons repris les idées présentes dans les calculs d'activation des concepts (voir la section \ref{Section:RC} dans laquelle nous détaillons notre architecture).
@@ -286,11 +289,11 @@ C'est sur ce point que nous nous sommes pour beaucoup éloignés de ces travaux 
 
 \section{Sources de données et traitement de celles-ci}\label{Section:sources}
 
-\subsection{Résumé}
-
 Les données occupent une place essentielle dans notre projet et elles ont revêtu différentes formes.
 
-Les données utilisées sont des textes en langue anglaise provenant d'articles sportifs, concernant plus particulièrement le football. Ces données ont ensuite été traduites sous plusieurs formes~: un réseau de concepts, de notre fabrication~; un graphe sémantique grâce au traitement par l'entreprise Systran~; et enfin certains d'entre eux ont été résumés grâce à un algorithme largement basé sur \ref{Section:TFIDF} pour nous servir de base de comparaison.
+\subsection{Sources de données textuelles}
+
+Les données textuelles (langage naturel) utilisées sont des textes en langue anglaise provenant d'articles sportifs, concernant plus particulièrement le football. Ces données ont ensuite été traduites en plusieurs formes~: un réseau de concepts, de notre fabrication~; un graphe sémantique grâce au traitement par l'entreprise Systran~; et enfin certains d'entre eux ont été résumés grâce à un algorithme largement basé sur \ref{Section:TFIDF} pour nous servir de base de comparaison.
 
 \index{Graphe sémantique}
 
@@ -300,7 +303,7 @@ En première approximation, nous faisons renvoyer la notion de graphe sémantiqu
 
 Les données brutes ont été récupérées automatiquement sur divers flux rss par un script de notre fabrication, reposant sur une API (\ang{Application's Programmer Interface}) permettant de récupérer le contenu principal d'une page (en éliminant notamment les menus, particulièrement volumineux sur un site de journal) de \ang{readability}. Nous avons pu obtenir en moyenne 300 articles par jour sur la durée du projet, soit à l'heure actuelle plus de 20~000 articles~; seule une petite portion de ces articles ont été syntaxiquement analysés et automatiquement résumés, le reste constituant un corpus visant à fournir un contexte d'étude pour notre programme.
 
-\subsection{Traitement de données textuelles}
+\subsection{Extraction de concepts}
 
 Les mots présents dans les articles, pour être reliés à leur signification et décorrélés de leur rôle grammatical, doivent être mis sous forme normale.
 
@@ -322,18 +325,18 @@ Le Part-of-speech tagger\index{Part-of-speech tagger}, abrégé en POS tagger, e
 Par le terme de concept\index{Concept}, qui sera constamment réutilisé par la suite, nous entendons~: un mot (adjectif, verbe, nom, nom propre, adverbe) ou un ensemble de mots exprimant une unité sémantique porteuse d'un sens concret. Par exemple, ``football'' ou ``grand'' sont des concepts, tandis que ``if'' pour nous n'en est pas un.
 \end{definition}
 
-\`A partir d'articles consacrés au sport (texte brut), les manipulations suivantes permettent de récupérer les noms propres et les concepts sous forme normale\index{forme normale}~:
+\`A partir de texte brut, les manipulations suivantes permettent de récupérer les noms propres et les concepts sous forme normale\index{forme normale}~:
 \begin{itemize}
  \item Découpage du texte en phrases et en mots (\ang{tokens}), ce qui n'est pas très compliqué mais nécessite un peu d'attention (par exemple pour ne pas considérer Mr. Rooney comme deux phrases distinctes)~;
  \item Utilisation d'un POS, celui de \pyt{nltk}\index{Natural Language ToolKit}~;
  \item Récupération des noms propres et mise à part de ceux-ci (qui doivent faire plus tard l'objet d'un traitement particulier)~;
  \item Suppression des conjonctions de coordination, pronoms et autres mots qui ne sont pas de véritables concepts~;
- \item Il reste alors des adjectifs, adverbes, noms et verbes. Nous utilisons \pyt{morphy} de WordNet\index{WordNet} à l'intérieur d'un code dédié à la construction de Conceptnet5 (voir partie suivante), pour transformer chaque terme en sa forme normale~;
+ \item Il reste alors des adjectifs, adverbes, noms et verbes. Nous utilisons \pyt{morphy} de WordNet\index{WordNet} (\ref{Subsection:WordNet}) à l'intérieur d'un code dédié initialement à la construction de Conceptnet5 (\ref{Subsection:Conceptnet5}), pour transformer chaque terme en sa forme normale~;
  \item Les termes restants sont alors tous les concepts auxquels le texte fait appel~;
  \item Nous ne sommes pas à l'abri d'erreurs liées à l'une des étapes. De manière générale, un concept qui apparaît au moins deux fois dans l'ensemble du corpus considéré peut être considéré comme valide.
 \end{itemize}
 
-Nous parvenons à extraire les noms complets des personnes, lieux... Des noms propres précédemment mis à part. Dans un texte comme ceux que nous étudions, le nom complet (nom et prénom) n'est souvent mentionné qu'une seule fois, et il faut repérer sans faire d'erreur que le nom propre utilisé seul par la suite renvoie à la même personne.
+Nous parvenons à extraire les noms complets des personnes, lieux... des noms propres précédemment mis à part. Dans un texte comme ceux que nous étudions, le nom complet (nom et prénom) n'est souvent mentionné qu'une seule fois, et il faut repérer sans faire d'erreur que le nom propre utilisé seul par la suite renvoie à la même personne.\\
 
 La récupération des noms propres et concepts sous forme normale permet de nous constituer des listes de termes relatifs au sport. La figure~\ref{fig:conceptsnoms} donne une idée de l'évolution de la taille de ces données. Nous n'avons jamais espéré une exhaustivité, mais il est clair que la croissance observée vers la fin peut être imputée en majeure partie aux données parasites (mots mal orthographiés, erreurs de lecture) et que nous avons, pour ainsi dire, fait le tour du sujet.
 
@@ -356,7 +359,7 @@ Nous l'utilisons à travers son interface \pyt{nltk}, pour récupérer des infor
 
 \subsection{Conceptnet5}\label{Subsection:Conceptnet5}
 
-Conceptnet (\href{http://conceptnet5.media.mit.edu/}{leur site}) est un projet libre de graphe sémantique représentant des connaissances générales dans un spectre de domaines plutôt large. Il fait partie du \ang{Commonsense Computing Initiative} qui relie différents laboratoires, dont le MIT Media Lab, et entreprises.
+Conceptnet (\href{http://conceptnet5.media.mit.edu/}{leur site}) est un projet libre de graphe sémantique représentant des connaissances générales dans un spectre de domaines plutôt large. Il fait partie du \ang{Commonsense Computing Initiative} qui relie différents laboratoires, dont le MIT Media Lab, et entreprises.\\
 
 Il est important de noter que Conceptnet5\index{Concepnet5} est généré à partir de données brutes. Conceptnet5 est relié à DBPedia, une grande partie de ses connaissances provient de Wiktionary, une partie de WordNet.
 
@@ -398,21 +401,16 @@ Comme Conceptnet est construit en partie à l'aide de WordNet, il existe une cor
  \item seeAlso~: RelatedTo.
 \end{itemize}
 
-Cette structure étant assez proche du réseau de concepts que nous voulions construire, nous avons choisi de conserver un sous-ensemble des relations présentes dans Conceptnet qui nous on paru le plus pertinentes.
+Cette structure étant assez proche du réseau de concepts que nous voulions construire, nous avons choisi de conserver un sous-ensemble des relations présentes dans Conceptnet qui nous ont paru le plus pertinentes.
 
 \subsubsection{Détail de l'API (\ang{Application's Programmer Interface})}
 
-L'interface de Conceptnet5 nous autorise à faire un certain nombre de requêtes, de trois types~:
+L'interface de Conceptnet5 nous autorise à faire notamment des requêtes, de trois types~:
 \begin{itemize}
- \item \texttt{Lookup}~;
- \item \texttt{Association}~;
- \item \texttt{Search}~;
+ \item \texttt{Lookup}~: permet d'analyser un concept (on aura par exemple accès à des listes d'arêtes dans lequel il intervient) ;
+ \item \texttt{Association}~:permet de calculer la proximité entre deux concepts, ou de récupérer une liste de concepts proches d'un concept donné ;
+ \item \texttt{Search}~:permet de récupérer une liste d'arêtes (\ang{edges}), donc de relations, entre concepts, selon les paramètres spécifiés (le plus souvent, on impose le concept de départ \ang{start} ou d'arrivée \ang{end}) ;
 \end{itemize}
-\texttt{Association} permet de calculer la proximité entre deux concepts, ou de récupérer une liste de concepts proches d'un concept donné.
-
-\texttt{Search} permet de récupérer une liste d'arêtes (\ang{edges}), donc de relations, entre concepts, selon les paramètres spécifiés (le plus souvent, on impose le concept de départ \ang{start} ou d'arrivée \ang{end}).
-
-\texttt{Lookup} permet d'analyser un concept (on aura par exemple accès à des listes d'arêtes dans lequel il intervient).
 
 
 \subsubsection{Utilisation de Conceptnet5}
@@ -422,7 +420,7 @@ Nous utilisons en majorité \texttt{LookUp} et \texttt{Search}, les requêtes \t
 %% Pas tout compris à ce bout
 Considérons un concept dont nous cherchons des voisins dans le réseau.
 \begin{itemize}
- \item On utilise une requête \verb|LookUp|\index{LookUp} pour avoir une première idée de ces voisins (une liste de liens entrant et sortants auxquels il appartient)~;
+ \item On utilise une requête \verb|LookUp|\index{LookUp} pour avoir une première idée de ces voisins (une liste de liens entrants et sortants auxquels il appartient)~;
  \item Une recherche \verb|Search|\index{Search} précise pourra nous donner par exemple un certain nombre de voisins, par des liens sortants (en sélectionnant bien sûr dans ce résultat brut les concepts jugés pertinents, selon quelques critères empiriques) ;
  \item Une requête \verb|Association|\index{Association} renvoie une liste de concepts jugés similaires. On peut alors les relier au précédent avec un lien \verb|SimilarTo|.
 \end{itemize}
@@ -433,11 +431,10 @@ Conceptnet5 contient beaucoup d'informations et les concepts sur lesquels il nou
 
 \subsection{Freebase}\label{Subsection:Freebase}
 
-Freebase\index{Freebase}, de même que Conceptnet, est une base de données sémantiques. Elle est cependant beaucoup plus orientées vers les noms propres, et apporte donc un nombre conséquent d'informations sur les personnes, lieux... Que l'on peut rencontrer dans les textes. Le projet, repris par Google sous une licence qui laisse les données libres d'accès, de téléchargement et d'utilisation, a lui aussi une API, un peu plus complexe que celle de Conceptnet5. Freebase permet notamment de récupérer des informations sur une personne à partir de son nom, et surtout à peu de frais, de vérifier que cette personne existe bel et bien.
+Freebase\index{Freebase}, de même que Conceptnet, est une base de données sémantiques. Elle est cependant beaucoup plus orientées vers les noms propres, et apporte donc un nombre conséquent d'informations sur les personnes, lieux... Que l'on peut rencontrer dans les textes. Le projet, repris par Google sous une licence qui laisse les données libres d'accès, de téléchargement et d'utilisation, a lui aussi une API, qui offre plus de possibilités que celle de Conceptnet5 et que nous avons nettement moins exploitée. Freebase nous a permis notamment de récupérer des informations fiables sur les noms propres.
 %% Pas touché à ça, peut-être expliciter "complexe" ?
 
 \section{Réseau de concepts}\label{Section:RC}
-
 
 \subsection{Cahier des charges}
 
@@ -445,7 +442,7 @@ Le réseau de concepts\index{Réseau de concepts} est la ``mémoire à long term
 %% Not really up to date. Advise suppression of last part.
 Étant donné un concept (par exemple \verb|Wayne Rooney|), à quels autres concepts est-il relié et par quelles relations~? Il est essentiel, lorsque le texte ne contient pas suffisamment d'informations ou qu'elles ne sont pas exploitables (on n'a pas toujours ``vu'' à la lecture que Wayne Rooney était un nom propre ou un humain, par exemple), d'insérer ce type de données au cœur du processus de lecture. C'est pourquoi nous avons besoin du réseau de concepts.
 %% Once again, great as an upgrade to our program, but we're not doing that
-D'autre part, nous pouvons exiger du résumé qu'il contienne une information explicite que le texte avait sous-entendu~; par exemple, que Wayne Rooney est un joueur de football. Le réseau devra donc contenir \verb|Wayne Rooney -> isA -> Soccer player|.
+%D'autre part, nous pouvons exiger du résumé qu'il contienne une information explicite que le texte avait sous-entendu~; par exemple, que Wayne Rooney est un joueur de football. Le réseau devra donc contenir \verb|Wayne Rooney -> isA -> Soccer player|.
 
 Ses prérogatives ont évolué au cours de notre projet. Au début, nous pensions faire reposer une plus grande partie de l'activité de résumé du texte sur lui (notamment par le processus d'activation et le repérage des nœuds activés), alors que celle-ci s'est dirigée ensuite sur le Workspace\index{Workspace} (section \ref{Section:Traitement}). La solution finale s'appuie de manière équilibrée sur les deux structures.
 
@@ -487,9 +484,10 @@ Sur l'exemple de la figure~\ref{fig:rc_exemple}, nous revoyons les données qui 
 
 \subsubsection{Principe}
 %% Out of date.
-Le réseau de concepts est dynamique. Il évolue au cours de la lecture du texte, notamment par un processus d'activation des n\oe{}uds. L'écoulement du temps est donc une donnée importante.
+Le réseau de concepts est dynamique. Il peut évoluer par un processus d'activation des n\oe{}uds. 
+% Il évolue au cours de la lecture du texte, notamment par un processus d'activation des n\oe{}uds. L'écoulement du temps est donc une donnée importante.
 
-L'activation d'un mot (provoquée par exemple par sa lecture dans un texte) est propagée à tous les n\oe{}uds voisins. Elle permet intuitivement de penser à de nouvelles idées, de compléter l'information du texte si celle-ci est parcellaire.
+L'activation d'un n\oe{}ud (provoquée par exemple par la lecture du mot dans un texte) est propagée à tous les n\oe{}uds voisins. Elle permet intuitivement de penser à de nouvelles idées, de compléter l'information du texte si celle-ci est parcellaire.\\
 
 Sur l'exemple de la figure~\ref{fig:rc_exemple}, l'activation du concept \verb|wayne_rooney| va provoquer dans un premier temps celle de \verb|soccer_player|, \verb|athlete|, mais aussi \verb|play_sport|, \verb|win_match|, etc.\\
 
@@ -497,11 +495,12 @@ La propagation d'activation doit tenir compte de plusieurs facteurs~: les poids 
 
 Selon la manière dont nous voulons utiliser le réseau, il y a deux possibilités~:
 \begin{itemize}
-  \item Ou bien introduire un facteur de désactivation des n\oe{}uds au cours du temps, permettant éventuellement d'arriver à un état d'équilibre~;%% RQ : L'activation s'assimilant à un procédé de chaîne de Markov, la limite est indépendante de l'entrée
+  \item Ou bien introduire un facteur de désactivation des n\oe{}uds au cours du temps~;%% RQ : L'activation s'assimilant à un procédé de chaîne de Markov, la limite est indépendante de l'entrée
  \item Ou bien rester en situation potentielle de déséquilibre (l'activation de chaque n\oe{}ud de la composante connexe ne cesse d'augmenter).
 \end{itemize}
 
-La notion de désactivation est assez satisfaisante intuitivement~; L'idée qui s'y cache est qu'à l'instant de la lecture, le concept qu'on vient de voir nous semble important, mais que si aucun concept proche n'apparaît dans le reste du texte, il est finalement assez anecdotique. Le mécanisme de désactivation correspond donc à l'oubli des concepts peu présents, et modélise bien une partie de l'activité humaine de résumer.
+La notion de désactivation est assez satisfaisante intuitivement~; l'idée qui s'y cache est qu'à l'instant de la lecture, le concept qu'on vient de voir nous semble important, mais que si aucun concept proche n'apparaît dans le reste du texte, il est finalement assez anecdotique. Le mécanisme de désactivation correspond donc à l'oubli des concepts peu présents, et modélise bien une partie de l'activité humaine de résumer.\\
+
 
 \subsubsection{Formalisation}
 Formellement, nous utilisons les formules suivantes, inspirées de \cite{parmentier_specification_1998}.
@@ -580,17 +579,17 @@ break_record : 20
 soccer_player : 10
 \end{verbatim}
 \end{itemize}
-Nous pourrions aller plus loin, mais cela nous menacerait d'arriver à des n\oe{}uds fortement éloignés des deux sportifs initialement sélectionnés, et qui s'activeraient entre eux.
+Nous pourrions aller plus loin, mais cela nous menacerait d'arriver à des n\oe{}uds fortement éloignés des deux sportifs initialement sélectionnés, et donc véritablement inutiles.%, et qui s'activeraient entre eux.
 
 
 \subsection{Construction du réseau}
-Comme cela a déjà été souligné plus haut, nous nous limitons au domaine du sport, domaine balayé par les articles qui constituent notre première source de données. 
+Comme cela a déjà été souligné plus haut, nous nous limitons au domaine du sport, domaine balayé par les articles qui constituent notre première source de données.
 
 La construction du réseau se déroule en différentes étapes, qui font intervenir quasiment toutes les sources de données de notre projet.
 
 
 \paragraph{}
-Certaines informations sur les éléments du réseau (poids des liens entre concepts notamment) sont relativement faciles à extraire des bases de données utilisées (Freebase, Conceptnet5 comportent déjà de telles informations, qu'il faut simplement renormaliser). En revanche, la seule manière probante d'obtenir une importance conceptuelle est de la calculer nous-mêmes.
+Certaines informations sur les éléments du réseau (poids des liens entre concepts notamment) sont relativement faciles à extraire des bases de données utilisées (Freebase, Conceptnet5 comportent déjà de telles informations, qu'il faut simplement renormaliser). En revanche, la seule manière probante d'obtenir une importance conceptuelle est de la calculer nous-mêmes.\\
 
 Le réseau comporte à la fois des noms propres et des noms communs, des adjectifs, des verbes à l'infinitif~; des termes tout à fait courants (et qui ne sont pas inhérents au sport), comme des termes spécialisés.
 
@@ -603,7 +602,7 @@ Nous analysons un certain nombre d'articles, ici 17~000 issus de 7 flux rss diff
 
 Nous avons écrit des \ang{tokenizers} adaptés aux contraintes techniques et erreurs d'écriture des données récupérées, qui viennent compléter ceux fournis par \pyt{nltk}.
 
-Pour récupérer les noms propres, nous repérons à l'intérieur d'un article les mots marqués comme noms propres par le POS-tagger\index{Part-of-speech tagger} de \pyt{nltk}. Puis nous concaténons deux noms propres successifs. Enfin, nous retirons de la liste des noms propres ceux qui sont contenus à l'intérieur d'autres. Cette étape, largement sous-estimée au début, est cruciale puisqu'elle évite de considérer ``< nom + prénom >'' et ``<prénom>'' comme deux personnes différentes.
+Pour récupérer les noms propres, nous repérons à l'intérieur d'un article les mots marqués comme noms propres par le POS-tagger\index{Part-of-speech tagger} de \pyt{nltk}. Puis nous concaténons deux noms propres successifs. Enfin, nous retirons de la liste des noms propres ceux qui sont contenus à l'intérieur d'autres. Cette étape, largement sous-estimée au début, est cruciale puisqu'elle évite de considérer ``< nom + prénom >'' et ``<prénom>'' comme deux personnes différentes.\\
 
 Nous comptons aussi la fréquence d'apparition de chaque nom et de chaque concept. 
 On obtient 32~702 concepts et 35~488 noms. En réalité, un tiers d'entre eux sont des mots qui n'apparaissent qu'une seule fois, contenant par exemple des fautes d'orthographe, des néologismes ou résultant d'erreurs de notre part. On obtient par exemple~:
@@ -631,10 +630,9 @@ L'importance conceptuelle allouée à un nouveau n\oe{}ud dépend pour beaucoup 
 Pour étendre les n\oe{}uds du réseau, nous sommes souvent amenés à chercher des liens partant d'un n\oe{}ud donné. Cela est effectué avec des recherches \verb|Search|. Nous pouvons aussi effectuer des requêtes \verb|Association| (bien que beaucoup plus lentes) afin d'induire de nouveaux liens avec des concepts similaires.
 
 
-
 \paragraph{Suppression des nœuds inutiles}
 
-Malgré les nombreux paramètres servant à filtrer, les requêtes n'ont pas donné des résultats toujours pertinents. Il arrive en effet qu'un terme donné (disons, \ang{captain}) soit fortement relié à deux termes n'ayant aucun rapport entre eux (ici, \ang{team} et \ang{spaceship}). Les deux liens sont très raisonnables dans l'absolu mais le second pointe vers un concept qui n'est absolument pas relié au contexte sportif~: ce genre de concepts sera isolé du reste du graphe. Nous décidons donc, pour garder un réseau aussi centré que possible sur le contexte étudié, de supprimer les concepts qui n'ont qu'un lien dans le réseau. Notons que cette méthode a ses limites, certains concepts étant liés à de très nombreux autres. C'est par exemple le cas de \ang{water}, qui est relié (entre de nombreux autre exemples) à \ang{ship}. \ang{ship} étant aussi connecté à \ang{captain}, il est resté dans la version finale du réseau de concepts.
+Malgré les nombreux paramètres servant à filtrer, les requêtes n'ont pas donné des résultats toujours pertinents. Il arrive en effet qu'un terme donné (disons, \ang{captain}) soit fortement relié à deux termes n'ayant aucun rapport entre eux (ici, \ang{team} et \ang{spaceship}). Les deux liens sont très raisonnables dans l'absolu mais le second pointe vers un concept qui n'est absolument pas relié au contexte sportif~: ce genre de concept sera isolé du reste du graphe. Nous décidons donc, pour garder un réseau aussi centré que possible sur le contexte étudié, de supprimer les concepts qui n'ont qu'un lien dans le réseau. Notons que cette méthode a ses limites, certains concepts étant liés à de très nombreux autres. C'est par exemple le cas de \ang{water}, qui est relié (entre de nombreux autre exemples) à \ang{ship}. \ang{ship} étant aussi connecté à \ang{captain}, il est resté dans la version finale du réseau de concepts.
 
 
 \subsection{Exemple de réseau de concepts}
@@ -645,13 +643,13 @@ Nous avons eu l'occasion d'effectuer différents essais de construction du rése
 
 \begin{itemize}
  \item Les requêtes Freebase liées aux noms propres créent 10~405 n\oe{}uds dans le réseau, ainsi que 8~255 arêtes.
- \item On lance immédiatement des requêtes Search correspondant à tous les n\oe{}uds du réseau sur Conceptnet5, afin d'acquérir plus d'informations~: on passe alors à 14~103 n\oe{}uds et 28~393 arêtes.
+ \item On lance immédiatement des requêtes \texttt{Search} correspondant à tous les n\oe{}uds du réseau sur Conceptnet5, afin d'acquérir plus d'informations~: on passe alors à 14~103 n\oe{}uds et 28~393 arêtes.
 \end{itemize}
 
 \paragraph{Étape 2~: concepts}
 
 \begin{itemize}
- \item On lance une requête Lookup sur chaque concept trouvé dans les articles (27~070, les noms propres ont déjà été traités)~; on passe alors à 35~780 n\oe{}uds et 56~942 arêtes. Pour le moment, 18~762 n\oe{}uds sont certains d'être conservés (ce sont des résultats primaires de requêtes positives).
+ \item On lance une requête \texttt{Lookup} sur chaque concept trouvé dans les articles (27~070, les noms propres ont déjà été traités)~; on passe alors à 35~780 n\oe{}uds et 56~942 arêtes. Pour le moment, 18~762 n\oe{}uds sont certains d'être conservés (ce sont des résultats primaires de requêtes positives).
 \end{itemize}
 
 
@@ -685,7 +683,7 @@ Chaque n\oe{}ud, ou concept, comporte en moyenne $2,4$ liens entrants et autant 
  \label{fig:liens_sortants}
 \end{figure}
 
-Remarquons par exemple que de très nombreux n\oe{}uds n'ont aucun lien entrant, plus de 16~000. Il s'agit en fait de concepts insérés dans le réseau au début de sa construction et qui n'ont pas ``trouvé'' de prédécesseurs lors des étapes suivantes. Ce n'est pas un défaut majeur. Ces concepts ont été trouvés dans nos textes de départ et l'on s'attend à les retrouver tels quels dans d'autres textes. Le plus important, d'obtenir une information en \textit{partant} de ces concepts, est acquis puisqu'ils possèdent des arcs sortants. En revanche, ils ne seront pas activés si on ne les trouve pas dans un texte.
+Remarquons par exemple que de très nombreux n\oe{}uds n'ont aucun lien entrant, plus de 16~000. Il s'agit en fait de concepts insérés dans le réseau au début de sa construction et qui n'ont pas ``trouvé'' de prédécesseurs lors des étapes suivantes. Ce n'est pas un défaut majeur. Ces concepts ont été trouvés dans nos textes de départ et l'on s'attend à les retrouver tels quels dans d'autres textes. Le plus important, obtenir une information en \textit{partant} de ces concepts, est acquis puisqu'ils possèdent des arcs sortants. En revanche, ils ne seront pas activés si on ne les trouve pas dans un texte.
 
 
 \subsection{Choix de programmation du réseau de concepts}
@@ -705,13 +703,13 @@ La méthode statistique consiste à extraire des phrases par des techniques de l
 
 \subsection{Algorithme statistique}
 
-Pour donner à chaque phrase un poids, on cherche d'abord à mesurer l'importance de chaque mot. On a observé qu'il y a des mots qui se présentent presque dans tous les documents comme les articles, les auxiliaires, etc. Il faut donc filtrer ces mots non-significatifs. D'autre part, les mots-clés d'un texte sont aussi des mots qui y sont fréquents et à qui doit donc être assigné un poids important.
+Pour donner à chaque phrase un poids, on cherche d'abord à mesurer l'importance de chaque mot. On a observé qu'il y a des mots qui se présentent presque dans tous les documents comme les articles, les auxiliaires, etc. Il faut donc filtrer ces mots non-significatifs. D'autre part, les mots-clés d'un texte sont aussi des mots qui y sont fréquents et à qui doit donc être assigné un poids important.\\
 
 On cherche donc ici un indice qui diminue selon le nombre d'apparitions dans tous les documents, et qui augmente selon le nombre d'apparitions dans un texte en particulier. L'indice TF-IDF satisfait exactement ces critères.
 
 
-\subsection{TF-IDF pour le résumé automatique}
-Selon une lemme de Hans \textsc{Peter Luhn}, le poids d'un terme est proportionnel à sa fréquence d'apparition.
+\subsection{TF-IDF pour le résumé automatique}\label{Subsection:TFIDFResume}
+Selon un lemme de Hans \textsc{Peter Luhn}, le poids d'un terme est proportionnel à sa fréquence d'apparition.
 
 D'après la loi de \textsc{Zipf}, la fréquence moyenne d'occurrence $f(n)$ d'un mot dans une langue donnée est liée à son rang $n$ dans l'ordre des fréquences par une loi de la forme $f(n) = \frac{K}{n} $ où K est une constante.
 
@@ -791,7 +789,7 @@ Et les TF-IDF de ces 4 termes se calculent comme ci-dessous:
 	\end{tabular}
 \end{center}
 
-On voit ici l'influence de la fréquence inverse sur le TF-IDF: dans le document 1, même si le terme 'he' est plus fréquent que celui de 'dicussion', son indice TF-IDF est petit, car il apparaît dans la plupart des documents et a un indice IDF petit. Pour le document 1, 'discussion' est plus discriminant que 'he'.
+On voit ici l'influence de la fréquence inverse sur le TF-IDF~: dans le document 1, même si le terme 'he' est plus fréquent que celui de 'dicussion', son indice TF-IDF est petit, car il apparaît dans la plupart des documents et a un indice IDF petit. Pour le document 1, 'discussion' est plus discriminant que 'he'.
 
 \paragraph{}
 Après avoir obtenu les valeurs TF-IDF de chaque terme, on peut calculer les poids de chaque phrase. Notre résumé est construit en additionnant la première phrase du texte (souvent le titre, qui, riche en information, a souvent le meilleur poids) avec quelques autres ayant un poids maximal, prises dans leur ordre d'apparition dans le texte.
@@ -800,7 +798,7 @@ On peut ainsi facilement agir sur la longueur du résumé par rapport à celle d
 
 \subsection{Tests et qualité des résumés obtenus}
 
-Même que la méthode TF-IDF est efficace pour la recherche de mot clé, la qualité des résumés obtenus est peu optimale. En effet, avec un regroupement simple de phrases, on perd beaucoup d'information contextuelle. Par exemple, on peut avoir souvent une phrase commençant par un mystérieux \textit{he} (il) ou \textit{she} (elle). Et cette phrase sans contexte est souvent peu compréhensible. (C'est aussi pour cela que nous choisissons d'inclure dans le résumé la première phrase, car elle contient \textit{a minima} les noms des personnes dont l'article traite).
+Même si la méthode TF-IDF est efficace pour la recherche de mots-clés, la qualité des résumés obtenus est faible. En effet, avec un regroupement simple de phrases, on perd beaucoup d'information contextuelle. Par exemple, on peut avoir souvent une phrase commençant par un mystérieux \textit{he} (il) ou \textit{she} (elle). Et cette phrase sans contexte est souvent peu compréhensible. (C'est aussi pour cela que nous choisissons d'inclure dans le résumé la première phrase, car elle contient \textit{a minima} les noms des personnes dont l'article traite).
 
 Deux exemples sont disponibles en annexe \ref{Annexe:resumes}.
 
@@ -809,7 +807,7 @@ Deux exemples sont disponibles en annexe \ref{Annexe:resumes}.
 
 Dans un premier temps, l'importance conceptuelle\index{Importance conceptuelle} n'était définie que de manière floue et n'était pas dérivée d'informations quantitatives autres que des fréquences d'apparition de concepts (des concepts apparaissant plus souvent étant favorisés).
 
-Nous avons donc adapté l'indice TF-IDF pour calculer une importance conceptuelle. Cela a même pu être adapté aux noms propres.
+Nous avons donc adapté l'indice TF-IDF pour calculer une importance conceptuelle. Cela a même pu être adapté aux noms propres.\\
 
 L'idée est que les termes ayant une importance conceptuelle forte sont ceux qui~:
 \begin{itemize}
@@ -820,7 +818,7 @@ L'idée est que les termes ayant une importance conceptuelle forte sont ceux qui
 La différence avec le calcul précédent de TF-IDF est que le TF était calculé de manière locale à un document, alors qu'ici, il est calculé de manière globale, étant donné que nous ne nous positionnons pas sur un document en particulier.
 
 \paragraph{}
-Ce calcul est effectué d'une part sur les noms propres, d'autre part sur les concepts (nous n'avons pas cessé depuis le début de séparer les uns et les autres). L'intérêt reste toujours le même : pour les noms propres, cela va rendre compte de l'importance qu'a chaque personne. De manière générale, les TF globaux des concepts sont beaucoup plus importants que ceux des noms propres, et les IDF sont beaucoup plus faibles : lorsqu'il apparaît, un nom propre apparaît moins fréquemment et dans un moins grand nombre de documents.
+Ce calcul est effectué d'une part sur les noms propres, d'autre part sur les concepts (nous n'avons pas cessé depuis le début de séparer les uns et les autres). L'intérêt reste toujours le même : pour les noms propres, cela va rendre compte de l'importance qu'a chaque personne. De manière générale, les TF globaux des concepts sont beaucoup plus importants que ceux des noms propres, et les IDF sont beaucoup plus faibles : lorsqu'il apparaît, un nom propre apparaît moins fréquemment et dans un moins grand nombre de documents.\\
 
 Le résultat est un TF-IDF très important pour certains concepts, même par rapport aux meilleurs noms, nous faisant conclure qu'une renormalisation différente (pour transformer en un indice entre 0 et 100) pour les deux catégories sera nécessaire.
 
@@ -836,7 +834,7 @@ Pour assurer une certaine cohérence entre les données présentes dans le rése
 
 \subsection{Analyse syntaxique}\index{Analyse syntaxique}
 
-Cette partie ne constituant pas le c\oe{}ur de notre PSC, nous avons décidé d'utiliser un outil déjà codé. L'entreprise Systran, au sein de laquelle notre tuteur travaille, a accepté de traiter nos données et nous a renvoyé un graphe sémantique contenant une analyse syntaxique complète des articles du corpus..
+Cette partie ne constituant pas le c\oe{}ur de notre PSC, nous avons décidé d'utiliser un outil déjà codé. L'entreprise Systran, au sein de laquelle notre tuteur travaille, a accepté de traiter nos données et nous a renvoyé un graphe sémantique contenant une analyse syntaxique complète des articles du corpus.
 
 \subsubsection{Description algorithmique d'une grammaire}\index{Grammaire}
 Une grammaire peut être décrite informatiquement de manière très simple. En effet, on peut la voir comme~:
@@ -847,12 +845,12 @@ Une grammaire peut être décrite informatiquement de manière très simple. En 
 
 Il y a par conséquent deux manières pour une grammaire d'être incomplète~: soit elle ne connaît pas assez de vocabulaire (manque d'éléments dans les cas terminaux), soit elle ne connaît pas assez de règles. La première faille est assez facile à combler par des requêtes vers WordNet\index{WordNet} (et par ailleurs un outil automatique est inclus dans \pyt{nltk}\index{Natural Language ToolKit})~; il est en revanche assez indispensable d'avoir une grammaire complète en termes de règles car il est beaucoup plus difficile d'inventer des manières de découper une phrase.
 
-Il est également à noter que les grammaires modernes s'appuient sur un entraînement statistique et traite les données de manière stochastique.
+Il est également à noter que les grammaires modernes s'appuient sur un entraînement statistique et traitent les données de manière stochastique.
 
 \subsubsection{\'Etat du texte en fin d'analyse}
-Les données traitées par Systran nous sont revenues sous la forme d'un graphe sémantique. Chaque nœud, ou mot, de la phrase était de plus enrichi d'une liste de tags permettant d'établir de quel genre de mot il s'agit (humain, véhicule, lieu si c'est un nom; verbe d'action, verbe descriptif si c'est un verbe; etc.) Notons également que chaque nœud contient une liste (éventuellement vide) de fils avec lesquels il forme une entité syntaxique cohérente telle qu'un groupe nominal. Cela nous a été très utile lorsqu'il s'est agit de faire la différence entre les entités et leurs attributs lors de leur incorporation dans le Workspace.
+Les données traitées par Systran nous sont revenues sous la forme d'un graphe sémantique. Chaque nœud, ou mot, de la phrase était de plus enrichi d'une liste de tags permettant d'établir de quel genre de mot il s'agit (humain, véhicule, lieu si c'est un nom ; verbe d'action, verbe descriptif si c'est un verbe ; etc. ). Notons également que chaque nœud contient une liste (éventuellement vide) de fils avec lesquels il forme une entité syntaxique cohérente telle qu'un groupe nominal. Cela nous a été très utile lorsqu'il s'est agit de faire la différence entre les entités et leurs attributs lors de leur incorporation dans le Workspace.
 
-Ces données ont ensuite été transcrites sous la forme d'une classe python appelée \pyt[GrammarTree]. Cette classe définie récursivement permet, à partir des données fournies par l'algorithme de Systran, d'expliciter la structure de la phrase en groupes nominaux et verbaux, souvent reliés entre eux par des relations de type sujet-verbe ou verbe-complément. Sans rentrer dans les détails des méthodes (disponibles dans la documentation), un objet de cette classe contiendra les champs suivants :
+Ces données ont ensuite été transcrites sous la forme d'une classe python appelée \pyt{GrammarTree}. Cette classe définie récursivement permet, à partir des données fournies par l'algorithme de Systran, d'expliciter la structure de la phrase en groupes nominaux et verbaux, souvent reliés entre eux par des relations de type sujet-verbe ou verbe-complément. Sans rentrer dans les détails des méthodes (disponibles dans la documentation), un objet de cette classe contiendra les champs suivants :
 \begin{description}
     \item[\pyt{id}~:] un identifiant unique composé de quatre entiers.
     \item[\pyt{parent}~:] un arbre dont cet objet est le fils.
@@ -889,7 +887,7 @@ On commence par trouver l'ensemble des groupes nominaux. Nous avons deux choix~:
 
 Nous prenons d'abord le deuxième choix~: l'analyseur de Systran nous indique en particulier, étant donné un mot, s'il est objet ou sujet d'un verbe. Nous considérons donc, dans un premier temps, que les noms concernés sont les noms principaux et que tous les groupes nominaux qui nous intéressent se construisent autour d'eux.
 
-Après expérience, nous avons étendu le ``droit'' de créer un groupe nominal à de simples compléments d'objet, constatant qu'ils apparaissaient eux aussi.
+Après expérience, nous avons étendu le ``droit'' de créer un groupe nominal à de simples compléments d'objet, constatant qu'ils apparaissaient eux aussi de manière non anecdotique.
 
 
 \subsubsection{Étape 2}
@@ -900,7 +898,7 @@ Pour un pronom situé à une position donnée, les groupes nominaux\index{Groupe
 \begin{itemize}
  \item Un candidat a le droit d'être situé dans une phrase précédente (sous une limite fixée à 2 ou 3). Plus il est éloigné du pronom, plus son score diminue. S'il est après le pronom, son score diminue drastiquement (voire $-\infty$).
  \item Le candidat doit vérifier certaines correspondances avec le pronom~: en particulier, il doit avoir le même genre et le même nombre. Si c'est vérifié, le score augmente. Sinon, le score diminue. Cette information n'est pas tout le temps disponible. En revanche, on sait parfois si le groupe nominal concerné (son nom principal) est un humain ou non.
- \item On a parfois (notamment avec le pronom ``that'') de manière directe l'information de l'antécédent. L'antécédent désigné doit alors gagner un score énorme (voire $+\infty$, mais l'analyseur de Systran n'est pas infaillible).
+ \item On a parfois (notamment avec le pronom ``that'') de manière directe l'information de l'antécédent. L'antécédent désigné doit alors gagner un score énorme (voire $+\infty$).
  \item Un groupe nominal qui apparaît au début d'une phrase doit, quels que soient les pronoms, avoir un meilleur score. Les noms propres apparaissent souvent au début de la phrase pour être ensuite rappelés par des pronoms, c'est d'ailleurs le cas dans l'exemple ci-dessus.
  \item Un groupe nominal répété gagne également en score.
  \item Un groupe nominal précédé d'une préposition perd en score.
@@ -914,12 +912,6 @@ Ces différentes exigences satisfont à un impératif de simplicité. On cherche
 Nous nous inspirons pour cette méthode de \cite{Mitkov:1998:RPR:980691.980712}, pour sa simplicité et son adaptabilité quant aux données dont nous disposons.
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%ù
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%ù
-
 \section{Traitement du réseau}\label{Section:Traitement}
 
 Le réseau de concepts représente, comme nous l'avons déjà dit, la connaissance \textit{a priori} de notre programme sur le domaine étudié. Pour étudier un texte particulier, il s'agit maintenant de faire agir ce texte sur nos connaissances et d'interpréter l'effet que cette lecture a.
@@ -929,7 +921,11 @@ Deux méthodes ont été envisagées~: la première étudiait, essentiellement, 
 Quelle que soit la méthode employée, une analyse syntaxique\index{Analyse syntaxique} préalable du texte est nécessaire pour rendre compte de sa compréhension et utiliser au mieux notre réseau de connaissances.
 
 \subsection{Workspace}\index{Workspace}
+
+\begin{definition}[Workspace]
 Le Workspace est une zone où on va stocker des structures formées à partir de concepts et travailler dessus. Par opposition au réseau de concepts, qui représente une connaissance relativement figée du monde, ces structures visent à représenter la compréhension que l'on a pu acquérir du texte.
+\end{definition}
+
 Par exemple, un type de structure rencontré dans le Workspace serait un graphe décrivant l'évolution de l'état d'un objet au fur et à mesure du temps, d'après ce qu'on a pu extraire du texte.
 
 \subsubsection{Structure du Workspace}
@@ -940,52 +936,57 @@ Les nœuds représentent des concepts présents dans le texte à résumer ou bie
 \begin{definition}[Entité]
 On parle d'entité pour désigner une chose ou une personne formant une unité, réelle ou non, capable d'agir ou de subir des actions dans le cadre du texte. Un fantôme ou une voiture sont des entités ; deux voitures forment deux entités distinctes ; et la joie (par exemple) n'est pas considérée comme une entité.
 \end{definition}
+
 \begin{definition}[Attribut]
 Un attribut est un concept altérant ou complétant le sens d'un autre. Par exemple, "Angleterre" dans "l'équipe d'Angleterre" est un attribut de "l'équipe". L'attribut n'ayant pas de sens à lui seul, on parlera toujours de l'attribut de telle entité.
 \end{definition}
 
-On voit déjà sur ces exemples simples que la distinction entre entité et attribut n'est pas triviale. En effet, dans un contexte différent, l'Angleterre pourrait être considérée comme une entité. Elle est pourtant essentielle à la compréhension du texte, et donc à son résumé, dans la mesure où ce seront les entités qui seront le sujet du texte.
+On voit déjà sur ces exemples simples que la distinction entre entité et attribut n'est pas triviale. En effet, dans un contexte différent, l'Angleterre pourrait être considérée comme une entité. Elle est pourtant essentielle à la compréhension du texte, et donc à son résumé, dans la mesure où ce seront les entités qui seront le sujet du texte.\\
 
-De plus, les structures du Workspace doivent être capables de rendre compte des actions effectuées ou subies par les entités. Pour cela, il nous a semblé plus facile d'étudier l'effet qu'ont ces actions sur l'état des entités : on parle alors d'évènement.
+De plus, les structures du Workspace doivent être capables de rendre compte des actions effectuées ou subies par les entités. Pour cela, il nous a semblé plus facile d'étudier l'effet qu'ont ces actions sur l'état des entités : on parle alors d'événement.
 
 \begin{definition}[État]
 L'état d'une entité désigne l'ensemble de ses attributs à un moment donné.
 \end{definition}
-\begin{definition}[Évènement]
+\begin{definition}[Événement]
 Un événement est une arête dans le graphe présent dans le Workspace, reliant une entité ou un attribut à un autre. Si l'origine est une entité, il représentera le plus souvent une action ; si l'origine et la destination sont des attributs il représentera plutôt un changement dans l'état de l'entité à laquelle ils sont reliés.
 \end{definition}
 
 \subsubsection{Implémentation}
 
-Pour l'implémentation, on utilise une seule classe python implémentant Networkx. Cela nous fournit une architecture agréable pour traiter les liens entre nos diverses entités et attributs (qui existent en tant que nœuds du réseau). Les évènements sont implémenté en tant qu'arêtes étiquetés du graphe.
+Pour l'implémentation, on utilise une seule classe python implémentant \pyt{Networkx}. Cela nous fournit une architecture agréable pour traiter les liens entre nos diverses entités et attributs (qui existent en tant que nœuds du réseau). Les événements sont implémentés en tant qu'arêtes étiquetées du graphe.
 
 \subsubsection{Utilisation}
 
-Le fait d'ajouter des liens syntaxiques et logiques (par les évènements) entre les concepts intervenant dans le texte nous permet d'accéder de manière assez directe à leur importance relative dans le texte. En effet, du point de vue syntaxique, un concept fortement connecté sera présent dans une grande partie du texte et pourra donc être considéré comme le sujet, au moins du point de vue de l'auteur du texte, de ce dernier. Si, qui plus est, une entité ou ses attributs est l'origine ou la destination de nombreux évènements, il constituera un point central du texte au niveau du contenu.
+Le fait d'ajouter des liens syntaxiques et logiques (par les événements) entre les concepts intervenant dans le texte nous permet d'accéder de manière assez directe à leur importance relative dans le texte. En effet, du point de vue syntaxique, un concept fortement connecté sera présent dans une grande partie du texte et pourra donc être considéré comme le sujet, au moins du point de vue de l'auteur du texte, de ce dernier. Si, qui plus est, une entité ou ses attributs est l'origine ou la destination de nombreux événements, il constituera un point central du texte au niveau du contenu.\\
 
-Ainsi l'importance d'un concept, tant du point de vue de la forme que du fond, nous semble directement reliée à la connectivité des entités dans le graphe. Cependant, si la résolution des pronoms et des entités nous permet de repérer des références communes à une entité donnée dans le texte, la structure du workspace n'est pas adaptée à mesurer des rapprochements conceptuels entre diverses entités ou attributs. Par conséquent, nous avons décidé de nous servir des termes présents dans le workspace pour activer les concepts auxquels ils réfèrent dans le réseau de concepts, et ce d'autant plus qu'ils étaient bien connectés au reste du graphe sémantique représentant le texte source. La propagation de l'activation au sein du réseau de concepts permet alors de régulariser quelque peu l'importance des diverses entités mises en jeu, et surtout de faire les rapprochements conceptuels souhaités.
+Ainsi l'importance d'un concept, tant du point de vue de la forme que du fond, nous semble directement reliée à la connectivité des entités dans le graphe. Cependant, si la résolution des pronoms et des entités nous permet de repérer des références communes à une entité donnée dans le texte, la structure du workspace n'est pas adaptée à mesurer des rapprochements conceptuels entre diverses entités ou attributs. Par conséquent, nous avons décidé de nous servir des termes présents dans le workspace pour activer les concepts auxquels ils réfèrent dans le réseau de concepts, et ce d'autant plus qu'ils étaient bien connectés au reste du graphe sémantique représentant le texte source. La propagation de l'activation au sein du réseau de concepts permet alors de régulariser quelque peu l'importance des diverses entités mises en jeu, et surtout de faire les rapprochements conceptuels souhaités.\\
 
 Finalement, l'algorithme complet se déroule ainsi~:
 %% TODO : Recheck
 
 \begin{enumerate}
-	\item On parcourt l'arbre grammatical représentant le texte et on plonge chaque entité, attribut, et évènement rencontré dans le workspace. Au préalable, s'il y a plusieurs références à une entité donnée existent, elles sont toutes gardées et leurs attributs sont mutualisés~;
+	\item On parcourt l'arbre grammatical représentant le texte et on plonge chaque entité, attribut, et événement rencontré dans le workspace. Au préalable, s'il y a plusieurs références à une entité donnée existent, elles sont toutes gardées et leurs attributs sont mutualisés~;
 	\item Sur la base de la connectivité des différents termes présents dans le workspace, on active les concepts correspondant dans le réseau de concepts~;
 	\item Les entités correspondant aux concepts les moins activés sont éliminés du workspace~;
 	\item Les quelques nœuds restants sont présentés au lecteur.
 \end{enumerate}
 
 %% À vérifier
-Le résultat final est alors un petit nombre d'entités centrales dont parle le sujet. Les relations verbales entre ces entités permettent au lecteur de se faire une idée raisonnable du contenu initial du texte, même si la représentation qui lui en est donnée n'est pas du langage naturel.
+Le résultat final est alors un petit nombre d'entités centrales dont parle le texte. Les relations verbales entre ces entités permettent au lecteur de se faire une idée raisonnable du contenu initial du texte, même si la représentation qui lui en est donnée n'est pas du langage naturel.
 
 
 \section{Bilan et améliorations envisageables}
 
 Le projet a été essentiellement mené au terme annoncé, malgré quelques changements de dernière minute qui nous ont empêché d'évaluer de manière correcte nos résultats. Dans son état actuel, nous n'avons pas exactement atteint l'objectif affiché de faire un résumé capable de s'affranchir de la formulation première du texte. Nous apportons cependant un véritable changement sur la manière d'obtenir notre résumé~: là où la plupart des algorithmes se basent sur des récurrences statistiques de termes, nous nous efforçons de reconnaître les entités et les concepts mis en jeu et de travailler sur ceux-ci.
 
+
 \subsection{Considérations techniques}
 
-Le code de notre projet, de grande taille, est entièrement documenté.
+Le code de notre projet est entièrement constitué en Python. De taille raisonnable, nous l'avons entièrement documenté au cours de sa production, et avons mis à profit un répertoire partagé afin d'y travailler de manière collégiale.\\
+
+Sous sa forme actuelle, le projet ne souffre pas particulièrement de sa restriction aux articles de sport : il est possible, en changeant simplement les sources de données en langage naturel (du moment qu'il  y en a une quantité similaire), de reprendre l'ensemble de notre démarche sur un autre domaine.
+
 
 \subsection{Bilan des actions menées}
 
