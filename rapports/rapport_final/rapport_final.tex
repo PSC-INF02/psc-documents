@@ -481,7 +481,7 @@ Ces différentes données numériques (proximité conceptuelle, activation, impo
 \end{figure}
 
 \paragraph{}
-Sur l'exemple de la figure~\ref{fig:rc_exemple}, nous revoyons les données qui nous intéressent. Les relations entre concepts sont exprimées de manière intuitive (\textit{Wayne Rooney IsA soccer player}, \textit{a soccer player is capableOf winning a match}). Nous ne représentons pas ici les poids, mais nous attendons d'eux qu'ils rendent compte du fait que si Wayne Rooney est effectivement un \textit{athlete}, il est plus pertinent de dire de lui qu'il est un \textit{soccer player}.
+Sur l'exemple de la figure~\ref{fig:rc_exemple}, nous revoyons les données qui nous intéressent. Les relations entre concepts sont exprimées de manière intuitive (\textit{Wayne Rooney IsA soccer player}, \textit{a soccer player is capableOf winning a match}). Nous ne représentons pas ici les poids, mais de manière générale ils favorisent la précision~: nous attendons d'eux qu'ils rendent compte du fait que si Wayne Rooney est effectivement un \textit{athlete}, il est plus pertinent de dire de lui qu'il est un \textit{soccer player}.
 
 
 \subsection{Propagation d'activation}
@@ -524,7 +524,7 @@ Où les facteurs $100$ sont dus à la normalisation. Si le concept a une très g
 \end{itemize}
 
 \paragraph{}
-Nous avons mis un temps plus important à extraire des importances conceptuelles véritablement utiles, et n'avons donc que peu utilisé la désactivation (qui repose sur l'importance conceptuelle). Ces importances conceptuelles ont été finalement calculées en nous inspirant de l'indice TF-IDF\index{TF-IDF}~; ce sera développé dans la partie~\ref{Section:TFIDF}.
+Nous avons mis un temps plus important que prévu à extraire des importances conceptuelles véritablement utiles, et n'avons donc que peu utilisé la désactivation (qui repose sur l'importance conceptuelle). Ces importances conceptuelles ont été finalement calculées en nous inspirant de l'indice TF-IDF\index{TF-IDF}~; ce sera développé dans la partie~\ref{Section:TFIDF}.
 
 \subsubsection{Facteur logarithmique}
 Dans \cite{parmentier_specification_1998}, il était déjà question d'un facteur supplémentaire qui permette de tenir compte de la suractivation de n\oe{}uds fortement reliés. Effectivement, en l'absence de ce facteur supplémentaire, on remarque que des n\oe{}uds peu utiles mais fortement reliés (des mots et concepts courants comme \verb|person|, \verb|love|) vont rapidement être saturés, et dépasser les n\oe{}uds initiaux qui ont eux une grande importance.
@@ -634,8 +634,8 @@ Pour étendre les n\oe{}uds du réseau, nous sommes souvent amenés à chercher 
 
 
 \paragraph{Suppression des nœuds inutiles}
-%%reprise textuelle
-Malgré les nombreux paramètres servant à filtrer, les requêtes n'ont pas donné des résultats toujours pertinents. Nous choisissons de retirer du réseau les nœuds faiblement reliés (un seul voisin). Ceux-ci seront de toute fa\c{c}on peu utiles lors de la propagation de l'activation.
+
+Malgré les nombreux paramètres servant à filtrer, les requêtes n'ont pas donné des résultats toujours pertinents. Il arrive en effet qu'un terme donné (disons, \ang{captain}) soit fortement relié à deux termes n'ayant aucun rapport entre eux (ici, \ang{team} et \ang{spaceship}). Les deux liens sont très raisonnables dans l'absolu mais le second pointe vers un concept qui n'est absolument pas relié au contexte sportif~: ce genre de concepts sera isolé du reste du graphe. Nous décidons donc, pour garder un réseau aussi centré que possible sur le contexte étudié, de supprimer les concepts qui n'ont qu'un lien dans le réseau.
 
 
 \subsection{Exemple de réseau de concepts}
