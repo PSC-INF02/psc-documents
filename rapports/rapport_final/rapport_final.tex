@@ -35,9 +35,12 @@
 
 \section*{Remerciements}
 
-Nous tenons à remercier notre tuteur Jean Senellart pour l'aide qu'il nous a apportée, notamment au début du projet lors de la phase de précision des différentes étapes à franchir.\\
+Nous tenons à remercier notre tuteur Jean Senellart pour l'aide qu'il nous a apportée, notamment sur la partie de définition et de formalisation du projet, ainsi que sur sa constitution en étapes ; processus essentiel, \textit{a fortiori} dans un cadre très ouvert comme celui dans lequel nous nous étions placés, et dans lequel de nombreux sous-problèmes devaient être résolus dépendamment les uns des autres.\\
 
-Nous remercions également l'entreprise Systran\footnote{\href{http://www.systran.fr}{http://www.systran.fr}}, qui nous a permis d'avancer plus vite sur le point délicat de l'analyse syntaxique, en nous permettant de bénéficier de son expertise dans le domaine.
+Plusieurs idées-clés qui traversent ce rapport nous ont été directement suggérées par M.Senellart (utilisation de Freebase et de bases de données similaires).\\
+
+Nous remercions également l'entreprise Systran\footnote{\href{http://www.systran.fr}{http://www.systran.fr}}, qui nous a permis de faire un grand bond en avant sur le point délicat de l'analyse syntaxique, que nous avions certainement sous-estimé, grâce à son expertise dans ce domaine.
+
 
 \section{Rappel du projet}
 
@@ -294,7 +297,7 @@ Les données occupent une place essentielle dans notre projet et elles ont revê
 
 \subsection{Sources de données textuelles}
 
-Les données textuelles (langage naturel) utilisées sont des textes en langue anglaise provenant d'articles sportifs, concernant plus particulièrement le football. Ces données ont ensuite été traduites en plusieurs formes~: un réseau de concepts, de notre fabrication~; un graphe sémantique grâce au traitement par l'entreprise Systran~; et enfin certains d'entre eux ont été résumés grâce à un algorithme largement basé sur \ref{Section:TFIDF} pour nous servir de base de comparaison.
+Les données textuelles (langage naturel) utilisées sont des textes en langue anglaise provenant d'articles sportifs, concernant plus particulièrement le football. Ces données ont ensuite été traduites en plusieurs formes~: un réseau de concepts, de notre fabrication~; un graphe sémantique grâce au traitement par l'entreprise Systran~; et enfin certains d'entre eux ont été résumés grâce à un algorithme largement basé sur TF-IDF (\ref{Section:TFIDF}) pour nous servir de base de comparaison.
 
 \index{Graphe sémantique}
 
@@ -364,7 +367,7 @@ Conceptnet\footnote{\href{http://conceptnet5.media.mit.edu/}{http://conceptnet5.
 
 Il est important de noter que Conceptnet5\index{Concepnet5} est généré à partir de données brutes. Conceptnet5 est relié à DBPedia, une grande partie de ses connaissances provient de Wiktionary, une partie de WordNet.
 
-Nous avons utilisé une partie de code source provenant de \href{https://github.com/commonsense/conceptnet5}{<github>}.
+Nous avons utilisé une partie de code source provenant de \href{https://github.com/commonsense/conceptnet5}{github}.
 
 
 \subsubsection{Structure de Conceptnet5}
@@ -1021,7 +1024,7 @@ Nous avons, d'autre part, pu implémenter un algorithme raisonnable de résumé 
 \section{Références bibliographiques}
 
 \begin{quotation}
- This work includes data from ConceptNet 5, which was compiled by the Commonsense Computing Initiative. ConceptNet 5 is freely available under the Creative Commons Attribution-ShareAlike license (CC BY SA 3.0) from http://conceptnet5.media.mit.edu. The included data was created by contributors to Commonsense Computing projects, contributors to Wikimedia projects, Games with a Purpose, Princeton University's WordNet, DBPedia, OpenCyc, and Umbel.
+ This work includes data from ConceptNet 5, which was compiled by the Commonsense Computing Initiative. ConceptNet 5 is freely available under the Creative Commons Attribution-ShareAlike license (CC BY SA 3.0) from \href{http://conceptnet5.media.mit.edu}{http://conceptnet5.media.mit.edu}. The included data was created by contributors to Commonsense Computing projects, contributors to Wikimedia projects, Games with a Purpose, Princeton University's WordNet, DBPedia, OpenCyc, and Umbel.
 \end{quotation}
 
 \nocite{*}
