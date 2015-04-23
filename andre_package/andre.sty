@@ -21,7 +21,8 @@
 \RequirePackage{textcomp}
 \RequirePackage{xparse}
 \RequirePackage{listings}%%pour les insertions de code
-\RequirePackage[top=3cm, bottom=4cm, left=2cm, right=2cm,headsep = 0.5cm,headheight = 1cm, footskip = 1cm,marginparsep = 0cm,marginparwidth=0cm]{geometry} %%pour aller vite
+\RequirePackage[top=3cm, bottom=3cm, left=2cm, right=2cm,headsep = 0.5cm,headheight = 1cm, footskip = 1cm,marginparsep = 0cm,marginparwidth=0cm]{geometry} %%pour aller vite
+\RequirePackage[hidelinks]{hyperref}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -104,7 +105,9 @@ stringstyle=\color[rgb]{0.627,0.126,0.941},
 }
 
 
-\newcommand{\titrecourt}{\maketitle}
+\newcommand{\titrecourt}{\maketitle
+   \thispagestyle{corps}
+}
 
 \newcommand{\grandtitre}{\thetitle}
 \newcommand{\petittitre}{\thetitle}
@@ -239,20 +242,23 @@ Boisseau Guillaume
 
 \pretitle{%Commandes qui s'appliqueront avant le titre
 	\begin{center}
-	\vspace{0cm}
+	\vspace{-2.7cm}
 	\rule{\textwidth}{2pt}%Le premier filet horizontal
 	\\\vspace{0.3cm}\Huge%met le titre en grands
 }
 \posttitle{%Commandes qui s'appliqueront après le titre mais avant l'auteur
 	\\[-0.1cm]
 	\rule{\textwidth}{2pt}
-	\end{center}}
+	\end{center}
+	 
+	}
 
   \preauthor{\noindent}%Supprime l'indentation par défaut pour que le nom d'auteur soit colle a gauche
   \postauthor{}
 
   \predate{\hspace*{\fill}}
-  \postdate{}
+  \postdate{
+  }
   
   \AtBeginDocument{\pagestyle{corps}}
   
