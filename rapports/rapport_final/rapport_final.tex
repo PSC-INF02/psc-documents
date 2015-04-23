@@ -950,26 +950,26 @@ Un événement est une arête dans le graphe présent dans le Workspace, reliant
 
 \subsubsection{Implémentation}
 
-Pour l'implémentation, on utilise une seule classe python contenant pour seul champ une liste de concepts. Ces concepts sont des instantiations d'une classe abstraite, dont héritent trois classes \pyt{Entity}, \pyt{Attribute} et \pyt{Event}.
-
-%% Copier (un bout de) le code ?
+Pour l'implémentation, on utilise une seule classe python implémentant Networkx. Cela nous fournit une architecture agréable pour traiter les liens entre nos diverses entités et attributs (qui existent en tant que nœuds du réseau). Les évènements sont implémenté en tant qu'arêtes étiquetés du graphe.
 
 \subsubsection{Utilisation}
 
 Le fait d'ajouter des liens syntaxiques et logiques (par les évènements) entre les concepts intervenant dans le texte nous permet d'accéder de manière assez directe à leur importance relative dans le texte. En effet, du point de vue syntaxique, un concept fortement connecté sera présent dans une grande partie du texte et pourra donc être considéré comme le sujet, au moins du point de vue de l'auteur du texte, de ce dernier. Si, qui plus est, une entité ou ses attributs est l'origine ou la destination de nombreux évènements, il constituera un point central du texte au niveau du contenu.
 
-Ainsi l'importance d'un concept, tant du point de vue de la forme que du fond, nous semble directement reliée à la connectivité des entités dans le graphe. L'algorithme de résumé procède donc comme suit :
-%% Bon je suis un peu flou sur les détails.
+Ainsi l'importance d'un concept, tant du point de vue de la forme que du fond, nous semble directement reliée à la connectivité des entités dans le graphe. Cependant, si la résolution des pronoms et des entités nous permet de repérer des références communes à une entité donnée dans le texte, la structure du workspace n'est pas adaptée à mesurer des rapprochements conceptuels entre diverses entités ou attributs. Par conséquent, nous avons décidé de nous servir des termes présents dans le workspace pour activer les concepts auxquels ils réfèrent dans le réseau de concepts, et ce d'autant plus qu'ils étaient bien connectés au reste du graphe sémantique représentant le texte source. La propagation de l'activation au sein du réseau de concepts permet alors de régulariser quelque peu l'importance des diverses entités mises en jeu, et surtout de faire les rapprochements conceptuels souhaités.
+
+Finalement, l'algorithme complet se déroule ainsi~:
+%% TODO : Recheck
 
 \begin{enumerate}
-	\item On parcourt le graphe sémantique représentant le texte et, pour chaque mot, selon qu'il est entité ou attribut, le plonge à l'endroit idoine du Workspace.
-	\item Les concepts proches des concepts très connectés sont ensuite plongés dans le Workspace et reliés au reste.
-	\item On réduit ensuite le graphe en élaguant les nœuds moins connectés.
+	\item On parcourt l'arbre grammatical représentant le texte et on plonge chaque entité, attribut, et évènement rencontré dans le workspace. Au préalable, s'il y a plusieurs références à une entité donnée existent, elles sont toutes gardées et leurs attributs sont mutualisés~;
+	\item Sur la base de la connectivité des différents termes présents dans le workspace, on active les concepts correspondant dans le réseau de concepts~;
+	\item Les entités correspondant aux concepts les moins activés sont éliminés du workspace~;
 	\item Les quelques nœuds restants sont présentés au lecteur.
 \end{enumerate}
 
 %% À vérifier
-Même si le résultat final n'est pas une phrase intelligible, les informations présentes dans la sortie doivent être suffisantes pour permettre au lecteur de se faire une idée de l'évènement principal dont traite l'article.
+Le résultat final est alors un petit nombre d'entités centrales dont parle le sujet. Les relations verbales entre ces entités permettent au lecteur de se faire une idée raisonnable du contenu initial du texte, même si la représentation qui lui en est donnée n'est pas du langage naturel.
 
 
 \section{Bilan et améliorations envisageables}
