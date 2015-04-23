@@ -707,22 +707,22 @@ La méthode statistique consiste à extraire des phrases par des techniques de l
 
 Pour donner à chaque phrase un poids, on cherche d'abord à mesurer l'importance de chaque mot. On a observé qu'il y a des mots qui se présentent presque dans tous les documents comme les articles, les auxiliaires, etc. Il faut donc filtrer ces mots non-significatifs. D'autre part, les mots-clés d'un texte sont aussi des mots qui y sont fréquents et à qui doit donc être assigné un poids important.
 
-On cherche donc ici un indice qui diminue selon le nombre d'apparitions dans tous les documents, et qui augmente selon le nombre d'apparitions dans le texte particulier. Et l'indice TF-IDF satisfait exactement ces critères.
+On cherche donc ici un indice qui diminue selon le nombre d'apparitions dans tous les documents, et qui augmente selon le nombre d'apparitions dans un texte en particulier. L'indice TF-IDF satisfait exactement ces critères.
 
 
 \subsection{TF-IDF pour le résumé automatique}
-Selon une lemme de Hans \textsc{Peter Luhn}, le poids d'un terme est proportionnel à sa fréquence.
+Selon une lemme de Hans \textsc{Peter Luhn}, le poids d'un terme est proportionnel à sa fréquence d'apparition.
 
-D'après la loi de \textsc{Zipf}, la fréquence d'occurrence $f(n)$ d'un mot est liée à son rang $n$ dans l'ordre des fréquences par une loi de la forme $f(n) = \frac{K}{n} $ où K est une constante.
+D'après la loi de \textsc{Zipf}, la fréquence moyenne d'occurrence $f(n)$ d'un mot dans une langue donnée est liée à son rang $n$ dans l'ordre des fréquences par une loi de la forme $f(n) = \frac{K}{n} $ où K est une constante.
 
 %\includegraphics[scale=0.5]{loi_de_zipf.eps}
 
-L'abscisse x est le rang d'un terme selon la fréquence et y est l'occurrence de ce terme. Les mots plus fréquents sont 'the','of' et 'and'. On voit bien que la courbe tend vers la fonction $K/x$.(ici on a choisi K = 5200000) C'est-à-dire que pour chercher les mots indiscriminants, il suffit de regarder l'inverse de la fréquence d'occurrence.
+L'abscisse x est le rang d'un terme selon la fréquence et y est l'occurrence de ce terme. Les mots plus fréquents sont 'the','of' et 'and'. On voit bien que la courbe tend vers la fonction $K/x$.(ici on a choisi K = 5200000) C'est-à-dire que pour chercher les mots indiscriminants, il suffit de regarder l'inverse de la fréquence d'occurrence globale.
 
 \subsubsection{Définition formelle}
 
 \begin{definition}[TF]
- La fréquence d'un terme (\textit{term frequency}, TF) que l'on mesure ici est juste le nombre d'occurrences de ce terme dans le document considéré.
+ La fréquence d'un terme (\textit{term frequency}, TF) que l'on mesure ici n'est rien de plus que le nombre d'occurrences de ce terme dans le document considéré.
 \end{definition}
 
 \begin{definition}[IDF]
@@ -740,8 +740,8 @@ Où :
  \item |D| est le nombre total de documents dans le corpus ;
  \item $|\{d_{j} : t_{i} \in d_{j}\}|$ est le nombre de documents où le terme  $t_{i}$  apparaît (c'est-à-dire  $n_{i,j} \neq 0$)
 \end{itemize}
-
-Plus un mot apparaît, plus son indice IDF est proche de zéro. Des mots qui sont présents dans tous les documents vont notamment être filtrés car ils ont un indice nul.
+% c'est comme ça que je comprends le logarithme, à check
+Le logarithme permet de faire tendre l'indice IDF d'un terme vers 0 lorsque le nombre d'occurences du terme dans le corpus augmente. En particulier, les mots qui sont présents dans tous les documents seront filtrés car ils ont un indice nul.
 
 \begin{definition}[TF-IDF]
 Le poids du mot s'obtient en multipliant les deux mesures TF et IDF.
@@ -813,7 +813,7 @@ Nous avons donc adapté l'indice TF-IDF pour calculer une importance conceptuell
 
 L'idée est que les termes ayant une importance conceptuelle forte sont ceux qui~:
 \begin{itemize}
- \item Ont une fréquence (TF) élevée ;
+ \item Ont une fréquence (TF) élevée~;
  \item Et un IDF fort, c'est-à-dire qu'on les trouve rarement dans l'ensemble du corpus.
 \end{itemize}
 
