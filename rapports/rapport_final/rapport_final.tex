@@ -738,8 +738,8 @@ Où :
  \item |D| est le nombre total de documents dans le corpus ;
  \item $|\{d_{j} : t_{i} \in d_{j}\}|$ est le nombre de documents où le terme  $t_{i}$  apparaît (c'est-à-dire  $n_{i,j} \neq 0$)
 \end{itemize}
-
-Le logarithme permet de faire tendre l'indice IDF d'un terme vers 0 lorsque le nombre d'occurences du terme dans le corpus augmente. En particulier, les mots qui sont présents dans tous les documents seront filtrés car ils ont un indice nul.
+% c'est comme ça que je comprends le logarithme, à check
+Le logarithme permet de faire tendre l'indice IDF d'un terme vers 0 lorsque le nombre d'occurrences du terme dans le corpus augmente. En particulier, les mots qui sont présents dans tous les documents seront filtrés car ils ont un indice nul.
 
 \begin{definition}[TF-IDF]
 Le poids du mot s'obtient en multipliant les deux mesures TF et IDF.
