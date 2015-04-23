@@ -441,13 +441,13 @@ Freebase\index{Freebase}, de même que Conceptnet, est une base de données sém
 
 \subsection{Cahier des charges}
 
-Le réseau de concepts\index{Réseau de concepts} est la ``mémoire à long terme'' de notre programme. L'objectif est de disposer d'une représentation souple (sous forme de graphe sémantique) de données conceptuelles qui puissent ensuite être utilisées à mieux comprendre le texte lu.
-
+Le réseau de concepts\index{Réseau de concepts} est la ``mémoire à long terme'' de notre programme. L'objectif est de disposer d'une représentation souple (sous forme de graphe sémantique) de données conceptuelles qui puissent ensuite être utilisées pour mieux comprendre le texte lu.
+%% Not really up to date. Advise suppression of last part.
 Étant donné un concept (par exemple \verb|Wayne Rooney|), à quels autres concepts est-il relié et par quelles relations~? Il est essentiel, lorsque le texte ne contient pas suffisamment d'informations ou qu'elles ne sont pas exploitables (on n'a pas toujours ``vu'' à la lecture que Wayne Rooney était un nom propre ou un humain, par exemple), d'insérer ce type de données au cœur du processus de lecture. C'est pourquoi nous avons besoin du réseau de concepts.
-
+%% Once again, great as an upgrade to our program, but we're not doing that
 D'autre part, nous pouvons exiger du résumé qu'il contienne une information explicite que le texte avait sous-entendu~; par exemple, que Wayne Rooney est un joueur de football. Le réseau devra donc contenir \verb|Wayne Rooney -> isA -> Soccer player|.
 
-Ses prérogatives ont évolué au cours de notre projet. Au début, nous pensions faire reposer une plus grande partie de l'activité de résumé du texte sur lui (notamment par le processus d'activation et le repérage des nœuds activés), alors que celle-ci s'est dirigée ensuite sur le Workspace\index{Workspace} (section \ref{Section:Traitement}).
+Ses prérogatives ont évolué au cours de notre projet. Au début, nous pensions faire reposer une plus grande partie de l'activité de résumé du texte sur lui (notamment par le processus d'activation et le repérage des nœuds activés), alors que celle-ci s'est dirigée ensuite sur le Workspace\index{Workspace} (section \ref{Section:Traitement}). La solution finale s'appuie de manière équilibrée sur les deux structures.
 
 
 \subsection{Structure du réseau de concepts}
@@ -456,7 +456,6 @@ Ses prérogatives ont évolué au cours de notre projet. Au début, nous pension
 Ce réseau est au carrefour entre les réseaux sémantiques\index{Graphe sémantique} et les réseaux de neurones. Les nœuds du réseau peuvent être vus comme représentant les concepts\index{Concept}.
 \end{definition}
 
-%%reprise textuelle
 Le Réseau est constitué de n\oe{}uds. Chaque n\oe{}ud comporte~:
 \begin{itemize}
   \item Une étiquette (mot) nommée concept\index{Concept}~;
@@ -487,7 +486,7 @@ Sur l'exemple de la figure~\ref{fig:rc_exemple}, nous revoyons les données qui 
 \subsection{Propagation d'activation}
 
 \subsubsection{Principe}
-
+%% Out of date.
 Le réseau de concepts est dynamique. Il évolue au cours de la lecture du texte, notamment par un processus d'activation des n\oe{}uds. L'écoulement du temps est donc une donnée importante.
 
 L'activation d'un mot (provoquée par exemple par sa lecture dans un texte) est propagée à tous les n\oe{}uds voisins. Elle permet intuitivement de penser à de nouvelles idées, de compléter l'information du texte si celle-ci est parcellaire.
@@ -498,11 +497,11 @@ La propagation d'activation doit tenir compte de plusieurs facteurs~: les poids 
 
 Selon la manière dont nous voulons utiliser le réseau, il y a deux possibilités~:
 \begin{itemize}
-  \item Ou bien introduire un facteur de désactivation des n\oe{}uds au cours du temps, permettant éventuellement d'arriver à un état d'équilibre~;
+  \item Ou bien introduire un facteur de désactivation des n\oe{}uds au cours du temps, permettant éventuellement d'arriver à un état d'équilibre~;%% RQ : L'activation s'assimilant à un procédé de chaîne de Markov, la limite est indépendante de l'entrée
  \item Ou bien rester en situation potentielle de déséquilibre (l'activation de chaque n\oe{}ud de la composante connexe ne cesse d'augmenter).
 \end{itemize}
 
-La notion de désactivation est assez satisfaisante intuitivement~; il existe en effet des concepts fortement activés mais peu importants, que l'on espère oublier assez rapidement. 
+La notion de désactivation est assez satisfaisante intuitivement~; L'idée qui s'y cache est qu'à l'instant de la lecture, le concept qu'on vient de voir nous semble important, mais que si aucun concept proche n'apparaît dans le reste du texte, il est finalement assez anecdotique. Le mécanisme de désactivation correspond donc à l'oubli des concepts peu présents, et modélise bien une partie de l'activité humaine de résumer.
 
 \subsubsection{Formalisation}
 Formellement, nous utilisons les formules suivantes, inspirées de \cite{parmentier_specification_1998}.
@@ -635,7 +634,7 @@ Pour étendre les n\oe{}uds du réseau, nous sommes souvent amenés à chercher 
 
 \paragraph{Suppression des nœuds inutiles}
 
-Malgré les nombreux paramètres servant à filtrer, les requêtes n'ont pas donné des résultats toujours pertinents. Il arrive en effet qu'un terme donné (disons, \ang{captain}) soit fortement relié à deux termes n'ayant aucun rapport entre eux (ici, \ang{team} et \ang{spaceship}). Les deux liens sont très raisonnables dans l'absolu mais le second pointe vers un concept qui n'est absolument pas relié au contexte sportif~: ce genre de concepts sera isolé du reste du graphe. Nous décidons donc, pour garder un réseau aussi centré que possible sur le contexte étudié, de supprimer les concepts qui n'ont qu'un lien dans le réseau.
+Malgré les nombreux paramètres servant à filtrer, les requêtes n'ont pas donné des résultats toujours pertinents. Il arrive en effet qu'un terme donné (disons, \ang{captain}) soit fortement relié à deux termes n'ayant aucun rapport entre eux (ici, \ang{team} et \ang{spaceship}). Les deux liens sont très raisonnables dans l'absolu mais le second pointe vers un concept qui n'est absolument pas relié au contexte sportif~: ce genre de concepts sera isolé du reste du graphe. Nous décidons donc, pour garder un réseau aussi centré que possible sur le contexte étudié, de supprimer les concepts qui n'ont qu'un lien dans le réseau. Notons que cette méthode a ses limites, certains concepts étant liés à de très nombreux autres. C'est par exemple le cas de \ang{water}, qui est relié (entre de nombreux autre exemples) à \ang{ship}. \ang{ship} étant aussi connecté à \ang{captain}, il est resté dans la version finale du réseau de concepts.
 
 
 \subsection{Exemple de réseau de concepts}
