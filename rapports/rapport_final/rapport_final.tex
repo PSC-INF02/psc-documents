@@ -65,9 +65,9 @@ La nécessité d'effectuer des résumés automatiques, en un mot, de synthétise
 
 Le résumé automatique a fait l'objet de nombreux travaux de recherche. De nombreux outils développés reposent sur une extraction des phrases pertinentes d'un texte, de manière à échapper (au moins dans une certaine mesure) à la complexité syntaxique du langage naturel. La difficulté consiste alors à repérer ces phrases pertinentes, au moyen par exemple d'une analyse statistique, du repérage de mots-clés importants. On parle alors d'\textit{extractive summarization}\index{Extractive summarization}, résumé extractif.\\
 
-Toutefois, le résumé extractif souffre de nombreux défauts liés à l'absence de reformulation des phrases du texte : en définitive, le résumé est limité par la clarté du texte de départ et par l'information qu'il contient. C'est pourquoi nous voulions mettre l'accent sur une analyse sémantique, afin d'introduire un véritable facteur de \textit{sens}, et reformuler les idées contenues dans le texte, ce qui nous rapproche du résumé abstractif (\textit{abstractive summarization})\index{Abstractive summarization}.\\
+Toutefois, le résumé extractif souffre de nombreux défauts liés à l'absence de reformulation des phrases du texte : en définitive, le résumé est limité par la clarté du texte de départ et par l'information qu'il contient explicitement. C'est pourquoi nous voulions mettre l'accent sur une analyse sémantique, afin d'introduire un véritable facteur de \textit{sens}, et reformuler les idées contenues dans le texte, ce qui nous rapproche du résumé abstractif (\textit{abstractive summarization})\index{Abstractive summarization}.\\
 
-Nous nous limitons à des textes ayant pour sujet le sport (plus particulièrement encore le football). Le but de notre programme, s'appuyer plutôt sur le sens des mots que sur leur simple fréquence pour juger de leur pertinence, était au départ relativement vague et nous l'avons précisé et harmonisé en introduisant des structures de données utiles. Au cours de notre projet, nous avons été amenés à changer progressivement notre point de vue, pour arriver à notre résultat final, qui s'il ne produit pas un texte complet, parvient néanmoins à sélectionner et traduire un certain nombre d'idées.
+Nous nous limitons à des textes ayant pour sujet le sport (plus particulièrement encore le football). Le but de notre programme, s'appuyer plutôt sur le sens des mots que sur leur simple fréquence pour juger de leur pertinence, était au départ relativement vague et nous l'avons précisé et harmonisé en introduisant des structures de données utiles. Au cours de notre projet, nous avons été amenés à changer progressivement notre point de vue, pour arriver à notre résultat final, qui, s'il ne produit pas un texte complet, parvient néanmoins à sélectionner et traduire un certain nombre d'idées importantes d'un texte.
 
 
 \subsubsection{Modules du projet et répartition du travail}
@@ -173,12 +173,12 @@ L'évaluation des résumés produits est un problème assez délicat. La forme d
   \item [Comparaison à un modèle :] Plutôt que de comparer les résumés à leur source, on cherche ici à les comparer à d'autres résumés issus de la même source qui ont déjà été évalués comme bons. Cela a l'avantage de permettre la comparaison entre objets de nature plus proches. Ces modèles auront typiquement été composés par des êtres humains, entraînés à la compréhension du langage naturel depuis leur plus jeune âge et, plus tard, à la tâche particulière du résumé. Il reste alors à établir une distance entre deux résumés, ce qui est loin d'être trivial dès que les phrases ne sont plus extraites directement de la source. Par ailleurs, force est de constater que les rédacteurs des modèles ne sont pas toujours capables de s'entendre sur ce qui devrait y figurer.
  \end{description}
 
-  Ce dernier point n'est relevé qu'ici, mais aurait pu être mentionné bien avant car il est inhérent au résumé et assez indépendant de la méthode d'évaluation~: la qualité essentielle du bon résumé est de contenir les informations clés présentes dans la source, une caractérisation vague et impossible à préciser. Ajoutons également que des résumés en apparence très différents peuvent servir efficacement un objectif commun. 
-  
+  Ce dernier point n'est relevé qu'ici, mais aurait pu être mentionné bien avant car il est inhérent au résumé et assez indépendant de la méthode d'évaluation~: la qualité essentielle du bon résumé est de contenir les informations clés présentes dans la source, une caractérisation vague et impossible à préciser. Ajoutons également que des résumés en apparence très différents peuvent servir efficacement un objectif commun.
+
   %%affirmation gratuite dans cette phrase
   %C'est une des raisons pour lesquelles les programmes de résumés automatiques sont restés de qualité moyenne~: l'investissement en temps et ressources pour évaluer un bon résumé étant jugé trop élevé, on a préféré écrire des programmes capables de produire des résumés qui n'étaient pas désespérément mauvais.
 
- 
+
  %à partir de maintenant, pas reprise, c'est du neuf
 \subsection{Idées majeures}
 
@@ -221,9 +221,10 @@ Les concepts peuvent être activés au cours du programme.
 Le Slipnet est un réseau capable d'apprendre au sens ou la proximité conceptuelle et la profondeur conceptuelle sont capables de s'adapter au cours du temps pour répondre de manière plus adéquate aux problèmes qui lui seront posés~; cependant aucun concept n'y est rajouté.
 
 \paragraph{Workspace}
-Le Workspace contient des instances des concepts du Slipnet~: c'est une mémoire de travail.% Il arrive aussi de parler de \textit{blackboard} (tableau noir).
+Le Workspace contient des instances des concepts du Slipnet~: c'est une mémoire de travail.% Il lui arrive aussi de parler de \textit{blackboard} (tableau noir).
 
-Le programme construit des "structures perceptuelles" sur la base des entrées (les chaînes de lettres)~: 
+
+Le programme construit des "structures perceptuelles" sur la base des entrées (les chaînes de lettres)~:
 \begin{itemize}
  \item Description d'objets~;
  \item Relations entre objets (lien de succession entre lettres par exemple)~;
@@ -484,7 +485,7 @@ Sur l'exemple de la figure~\ref{fig:rc_exemple}, nous revoyons les données qui 
 
 \subsubsection{Principe}
 %% Out of date.
-Le réseau de concepts est dynamique. Il peut évoluer par un processus d'activation des n\oe{}uds. 
+Le réseau de concepts est dynamique. Il peut évoluer par un processus d'activation des n\oe{}uds.
 % Il évolue au cours de la lecture du texte, notamment par un processus d'activation des n\oe{}uds. L'écoulement du temps est donc une donnée importante.
 
 L'activation d'un n\oe{}ud (provoquée par exemple par la lecture du mot dans un texte) est propagée à tous les n\oe{}uds voisins. Elle permet intuitivement de penser à de nouvelles idées, de compléter l'information du texte si celle-ci est parcellaire.\\
@@ -604,7 +605,7 @@ Nous avons écrit des \ang{tokenizers} adaptés aux contraintes techniques et er
 
 Pour récupérer les noms propres, nous repérons à l'intérieur d'un article les mots marqués comme noms propres par le POS-tagger\index{Part-of-speech tagger} de \pyt{nltk}. Puis nous concaténons deux noms propres successifs. Enfin, nous retirons de la liste des noms propres ceux qui sont contenus à l'intérieur d'autres. Cette étape, largement sous-estimée au début, est cruciale puisqu'elle évite de considérer ``< nom + prénom >'' et ``<prénom>'' comme deux personnes différentes.\\
 
-Nous comptons aussi la fréquence d'apparition de chaque nom et de chaque concept. 
+Nous comptons aussi la fréquence d'apparition de chaque nom et de chaque concept.
 On obtient 32~702 concepts et 35~488 noms. En réalité, un tiers d'entre eux sont des mots qui n'apparaissent qu'une seule fois, contenant par exemple des fautes d'orthographe, des néologismes ou résultant d'erreurs de notre part. On obtient par exemple~:
 \begin{verbatim}
 ["aaron cresswell", 78]
@@ -733,7 +734,7 @@ Ici, on prend le logarithme de cette fraction~:
  IDF_{i} =  log \frac{|D|}{|\{d_{j}: t_{i} \in d_{j}\}|}
 \end{align}
 
-Où : 
+Où :
 \begin{itemize}
  \item |D| est le nombre total de documents dans le corpus ;
  \item $|\{d_{j} : t_{i} \in d_{j}\}|$ est le nombre de documents où le terme  $t_{i}$  apparaît (c'est-à-dire  $n_{i,j} \neq 0$)
@@ -902,7 +903,7 @@ Pour un pronom situé à une position donnée, les groupes nominaux\index{Groupe
  \item Un groupe nominal qui apparaît au début d'une phrase doit, quels que soient les pronoms, avoir un meilleur score. Les noms propres apparaissent souvent au début de la phrase pour être ensuite rappelés par des pronoms, c'est d'ailleurs le cas dans l'exemple ci-dessus.
  \item Un groupe nominal répété gagne également en score.
  \item Un groupe nominal précédé d'une préposition perd en score.
- \item Un groupe nominal sujet gagne en score, et un groupe objet perd en score. 
+ \item Un groupe nominal sujet gagne en score, et un groupe objet perd en score.
  \item Un groupe nominal comportant un article indéfini perd en score.
  \item Un groupe nominal comportant un nom propre gagne en score.
 \end{itemize}
@@ -1015,7 +1016,7 @@ Nous avons, d'autre part, pu implémenter un algorithme raisonnable de résumé 
 
 
 
- 
+
 
 \section{Références bibliographiques}
 
@@ -1220,23 +1221,23 @@ Kyle Lafferty,  right,  celebrates with his Northern Ireland team-mates after sc
 }\\
 
 \texttt{
- Two goals in six first-half minutes have now genuinely pressed Northern Ireland into strong contention for automatic advancement to France next year. 
+ Two goals in six first-half minutes have now genuinely pressed Northern Ireland into strong contention for automatic advancement to France next year.
 }\\
 
 \texttt{
- A late Berat Sadik effort was insufficient for the Finns as their luck ran out. 
+ A late Berat Sadik effort was insufficient for the Finns as their luck ran out.
 }\\
 
 \texttt{
- Minutes later the lead was doubled. 
+ Minutes later the lead was doubled.
 }\\
 
 \texttt{
- Conor McLaughlin swept a precise cross in from the right flank,  before Lafferty got his head on the end of it and nestled the ball into the left hand corner. 
+ Conor McLaughlin swept a precise cross in from the right flank,  before Lafferty got his head on the end of it and nestled the ball into the left hand corner.
 }\\
 
 \texttt{
- Finland,  reeling,  must have felt their pockets had been picked. 
+ Finland,  reeling,  must have felt their pockets had been picked.
 }\\
 
 \texttt{
