@@ -37,7 +37,7 @@
 
 Nous tenons à remercier notre tuteur Jean Senellart pour l'aide qu'il nous a apportée, notamment au début du projet lors de la phase de précision des différentes étapes à franchir.\\
 
-Nous remercions également l'entreprise Systran, qui nous a permis d'avancer plus vite sur le point délicat de l'analyse syntaxique, en nous permettant de bénéficier de son expertise dans le domaine.
+Nous remercions également l'entreprise Systran\footnote{\href{http://www.systran.fr}{http://www.systran.fr}}, qui nous a permis d'avancer plus vite sur le point délicat de l'analyse syntaxique, en nous permettant de bénéficier de son expertise dans le domaine.
 
 \section{Rappel du projet}
 
@@ -120,7 +120,7 @@ Les méthodes extractives sont plus simples à mettre en \oe{}uvre et ont donc �
 
 Comme il a été dit en introduction, le langage naturel est caractérisé par sa polysémie et sa complexité syntaxique. Cela génère de l'ambiguïté, c'est à dire qu'une phrase donnée peut être interprétée de plusieurs manières différentes~; cela permet une forte compression de l'information (le contexte permettra en général de retrouver le sens exact) lors du dialogue d'humain à humain mais rend une interprétation exacte compliquée à mettre en place.\\
 
-En effet, le contexte dont on parle ici correspond le plus souvent à une situation physique, dont l'humain aura en mémoire une certaine représentation. Les informations pertinentes de cette représentation sont difficiles, sinon impossibles, à prévoir~; et il est difficile d'imaginer stocker assez d'information pour tout prévoir. Des structures de données (implantées par exemple dans Bascet\index{BAsCET} ou Copycat\index{Copycat}) permettent de simuler une partie de cette réflexion dans un cadre très particulier.\\
+En effet, le contexte dont on parle ici correspond le plus souvent à une situation physique, dont l'humain aura en mémoire une certaine représentation. Les informations pertinentes de cette représentation sont difficiles, sinon impossibles, à prévoir~; et il est difficile d'imaginer stocker assez d'information pour tout prévoir.\footnote{Des structures de données (implantées par exemple dans BAsCET\index{BAsCET} ou Copycat\index{Copycat}) permettent de simuler une partie de cette réflexion dans un cadre très particulier.}\\
 
 Même en ayant saisi (au moins en partie) le contexte dans lequel un texte s'inscrit, la compréhension reste difficile. Il s'agit non seulement de la simple expérience de l'humain qui parle (qui a toute une vie d'expérience sur le sujet), mais aussi de la représentation physique du monde qui l'entoure. Prenons l'exemple de deux phrases relativement proches : "Marc tira la clé à l'aide de son cordon d'écouteurs" et "Marc poussa la clé à l'aide de son cordon d'écouteurs". La seule différence entre les deux phrases est le verbe~; cette différence ne portant pas sur sa nature (les deux sont des verbes transitifs directs) mais sur son sens. Un programme informatique, même longuement entraîné, n'aura probablement jamais vu ni l'une ni l'autre phrase qui pourraient être toutes deux considérées comme assez peu plausibles et globalement équivalentes (en première approche du moins). Pourtant, l'être humain sera capable de reconnaître que la première est beaucoup plus sensée que la seconde~: l'être humain reconnaît le cordon comme un objet long et mou, avec lequel il est facile de tirer et impossible de pousser. Il s'agit là d'une considération élémentaire sur le monde physique, auquel la machine n'a pas accès, du moins \emph{a priori}.\\
 
@@ -169,7 +169,7 @@ L'évaluation des résumés produits est un problème assez délicat. La forme d
 \begin{description}
   \item [Qualité du texte et qualité du discours :] Cela ne concerne que la forme du texte produit, pour des résumés en langage naturel. Il s'agit de vérifier s'il est correctement formulé, grammaticalement juste, et cohérent dans sa globalité. Même si les propriétés locales de justesse syntaxique sont bien connues et facilement testables, l'étude du discours dans sa globalité reste un défi à l'heure actuelle.
   %% J'ai peur de bullshiter un peu fort, please read again.
-  \item [Capture du concept :] Il est ici question de l'idée ou des idées centrales identifiées dans le texte original, et de savoir si elles sont présentes dans le résumé final. Pour tester ceci, il semble raisonnable de préparer un certain nombre de questions portant sur le texte original auxquelles la lecture du résumé doit être capable d'apporter une réponse. Ces questions peuvent être de l'ordre de la simple compréhension de texte (questions que l'on pourrait donner en classe primaire) ou éventuellement sur des points un peu plus subtils de l'argumentation. L'inconvénient principal de cette méthode est que le test dépend fortement de l'objectif du résumé. Prenons l'exemple d'un article scientifique. Un résumé de cet article pourrait être destiné à de la vulgarisation~: son but sera alors de faire ressortir les concepts de base. À l'inverse, il pourrait être destiné à un confrère travaillant sur un sujet proche~; les concepts de base étant alors maîtrisés, le résumé devrait insister sur les points saillants et profonds de l'argumentation scientifique. Par conséquent il est difficile, un texte étant donné, de définir un seul jeu de questions permettant d'évaluer son résumé et donc d'étudier le programme en toute indépendance.
+  \item [Capture du concept :] Il est ici question de l'idée ou des idées centrales identifiées dans le texte original, et de savoir si elles sont présentes dans le résumé final. Pour tester ceci, il semble raisonnable de préparer un certain nombre de questions portant sur le texte original auxquelles la lecture du résumé doit être capable d'apporter une réponse. Ces questions peuvent être de l'ordre de la simple compréhension de texte (questions que l'on pourrait donner en classe primaire) ou éventuellement sur des points un peu plus subtils de l'argumentation. L'inconvénient principal de cette méthode est que le test dépend fortement de l'objectif du résumé. \footnote{Prenons l'exemple d'un article scientifique. Un résumé de cet article pourrait être destiné à de la vulgarisation~: son but sera alors de faire ressortir les concepts de base. À l'inverse, il pourrait être destiné à un confrère travaillant sur un sujet proche~; les concepts de base étant alors maîtrisés, le résumé devrait insister sur les points saillants et profonds de l'argumentation scientifique.} Par conséquent il est difficile, un texte étant donné, de définir un seul jeu de questions permettant d'évaluer son résumé et donc d'étudier le programme en toute indépendance.
   \item [Comparaison à un modèle :] Plutôt que de comparer les résumés à leur source, on cherche ici à les comparer à d'autres résumés issus de la même source qui ont déjà été évalués comme bons. Cela a l'avantage de permettre la comparaison entre objets de nature plus proches. Ces modèles auront typiquement été composés par des êtres humains, entraînés à la compréhension du langage naturel depuis leur plus jeune âge et, plus tard, à la tâche particulière du résumé. Il reste alors à établir une distance entre deux résumés, ce qui est loin d'être trivial dès que les phrases ne sont plus extraites directement de la source. Par ailleurs, force est de constater que les rédacteurs des modèles ne sont pas toujours capables de s'entendre sur ce qui devrait y figurer.
  \end{description}
 
@@ -360,7 +360,7 @@ Nous l'utilisons à travers son interface \pyt{nltk}, pour récupérer des infor
 
 \subsection{Conceptnet5}\label{Subsection:Conceptnet5}
 
-Conceptnet (\href{http://conceptnet5.media.mit.edu/}{leur site}) est un projet libre de graphe sémantique représentant des connaissances générales dans un spectre de domaines plutôt large. Il fait partie du \ang{Commonsense Computing Initiative} qui relie différents laboratoires, dont le MIT Media Lab, et entreprises.\\
+Conceptnet\footnote{\href{http://conceptnet5.media.mit.edu/}{http://conceptnet5.media.mit.edu/}} est un projet libre de graphe sémantique représentant des connaissances générales dans un spectre de domaines plutôt large. Il fait partie du \ang{Commonsense Computing Initiative} qui relie différents laboratoires, dont le MIT Media Lab, et entreprises.\\
 
 Il est important de noter que Conceptnet5\index{Concepnet5} est généré à partir de données brutes. Conceptnet5 est relié à DBPedia, une grande partie de ses connaissances provient de Wiktionary, une partie de WordNet.
 
@@ -669,7 +669,7 @@ Chaque n\oe{}ud, ou concept, comporte en moyenne $2,4$ liens entrants et autant 
 
 \begin{figure}[h]
  \centering
-% \includegraphics[width=12cm]{./liens_entrants.eps}
+ \includegraphics[width=12cm]{./liens_entrants.eps}
  % liens_entrants.eps: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=0 0 453 255
  \caption{Nombre de n\oe{}uds en fonction du nombre de liens entrants qu'ils comportent}
  \label{fig:liens_entrants}
@@ -678,7 +678,7 @@ Chaque n\oe{}ud, ou concept, comporte en moyenne $2,4$ liens entrants et autant 
 
 \begin{figure}[h]
  \centering
-% \includegraphics[width=12cm]{./liens_sortants.eps}
+ \includegraphics[width=12cm]{./liens_sortants.eps}
  % liens_entrants.eps: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=0 0 453 255
  \caption{Nombre de n\oe{}uds en fonction du nombre de liens sortants qu'ils comportent}
  \label{fig:liens_sortants}
@@ -689,9 +689,9 @@ Remarquons par exemple que de très nombreux n\oe{}uds n'ont aucun lien entrant,
 
 \subsection{Choix de programmation du réseau de concepts}
 
-Le réseau est enregistré sous forme de JSON Stream\index{JSON Stream}, un type de données repris à Conceptnet5, qui permet sans contrainte technique majeure de l'écrire sous forme facilement lisible par un utilisateur extérieur. Il s'agit tout simplement d'une liste d'objets Python pouvant être transformés en JSON (typiquement, n\oe{}uds et arêtes du graphe), écrits l'un après l'autre, ligne par ligne dans un fichier.\\
+Le réseau est enregistré sous forme de JSON Stream\index{JSON Stream}, un type de données repris à Conceptnet5, qui permet sans contrainte technique majeure de l'écrire sous forme facilement lisible par un utilisateur extérieur. Il s'agit tout simplement d'une liste d'objets Python pouvant être transformés en JSON\index{JSON} (typiquement, n\oe{}uds et arêtes du graphe), écrits l'un après l'autre, ligne par ligne dans un fichier.\\
 
-Le stade suivant consisterait bien sûr à utiliser une base de données pour stocker et traiter le réseau, mais le nombre de n\oe{}uds étant resté raisonnable, nous n'avons pas eu à abandonner le package \pyt{networkx} qui nous permet de le représenter en mémoire sous forme de graphe.
+Le stade suivant consisterait bien sûr à utiliser une base de données pour stocker et traiter le réseau, mais le nombre de n\oe{}uds étant resté raisonnable, nous n'avons pas eu à abandonner le package \pyt{Networkx}\index{Networkx} qui nous permet de le représenter en mémoire sous forme de graphe.
 
 \paragraph{}
 Nous avons parallélisé les requêtes afin de les effectuer dans un temps raisonnable, même si l'opération de construction du réseau (sa version à 30~000 n\oe{}uds) reste longue dans son ensemble (plus d'une heure) et que les quantités de données mises en jeu suggèrent qu'une utilisation différente, notamment de Conceptnet5 (téléchargement et recherche dans la base de données de façon locale), pourrait être faite.
@@ -860,7 +860,7 @@ Ces données ont ensuite été transcrites sous la forme d'une classe python app
     \item[\pyt{contents}~:] Un dictionnaire contenant les informations grammaticales relatives à la portion de texte représentées par cet arbre.
 \end{description}
 
-Et sera capable, en plus de se construire à partir d'un fichier de données, de reconnaître des références multiples à une même entité~; données indispensables au remplissage du workspace.
+Et sera capable, en plus de se construire à partir d'un fichier de données, de reconnaître des références multiples à une même entité~; données indispensables au remplissage du Workspace.
 
 \subsection{Résolution de pronoms}
 
@@ -955,21 +955,21 @@ Un événement est une arête dans le graphe présent dans le Workspace, reliant
 
 \subsubsection{Implémentation}
 
-Pour l'implémentation, on utilise une seule classe python implémentant \pyt{Networkx}. Cela nous fournit une architecture agréable pour traiter les liens entre nos diverses entités et attributs (qui existent en tant que nœuds du réseau). Les événements sont implémentés en tant qu'arêtes étiquetées du graphe.
+Pour l'implémentation, on utilise une seule classe python implémentant \pyt{Networkx}\index{Networkx}. Cela nous fournit une architecture agréable pour traiter les liens entre nos diverses entités et attributs (qui existent en tant que nœuds du réseau). Les événements sont implémentés en tant qu'arêtes étiquetées du graphe.
 
 \subsubsection{Utilisation}
 
 Le fait d'ajouter des liens syntaxiques et logiques (par les événements) entre les concepts intervenant dans le texte nous permet d'accéder de manière assez directe à leur importance relative dans le texte. En effet, du point de vue syntaxique, un concept fortement connecté sera présent dans une grande partie du texte et pourra donc être considéré comme le sujet, au moins du point de vue de l'auteur du texte, de ce dernier. Si, qui plus est, une entité ou ses attributs est l'origine ou la destination de nombreux événements, il constituera un point central du texte au niveau du contenu.\\
 
-Ainsi l'importance d'un concept, tant du point de vue de la forme que du fond, nous semble directement reliée à la connectivité des entités dans le graphe. Cependant, si la résolution des pronoms et des entités nous permet de repérer des références communes à une entité donnée dans le texte, la structure du workspace n'est pas adaptée à mesurer des rapprochements conceptuels entre diverses entités ou attributs. Par conséquent, nous avons décidé de nous servir des termes présents dans le workspace pour activer les concepts auxquels ils réfèrent dans le réseau de concepts, et ce d'autant plus qu'ils étaient bien connectés au reste du graphe sémantique représentant le texte source. La propagation de l'activation au sein du réseau de concepts permet alors de régulariser quelque peu l'importance des diverses entités mises en jeu, et surtout de faire les rapprochements conceptuels souhaités.\\
+Ainsi l'importance d'un concept, tant du point de vue de la forme que du fond, nous semble directement reliée à la connectivité des entités dans le graphe. Cependant, si la résolution des pronoms et des entités nous permet de repérer des références communes à une entité donnée dans le texte, la structure du Workspace n'est pas adaptée à mesurer des rapprochements conceptuels entre diverses entités ou attributs. Par conséquent, nous avons décidé de nous servir des termes présents dans le Workspace pour activer les concepts auxquels ils réfèrent dans le réseau de concepts, et ce d'autant plus qu'ils étaient bien connectés au reste du graphe sémantique représentant le texte source. La propagation de l'activation au sein du réseau de concepts permet alors de régulariser quelque peu l'importance des diverses entités mises en jeu, et surtout de faire les rapprochements conceptuels souhaités.\\
 
 Finalement, l'algorithme complet se déroule ainsi~:
 %% TODO : Recheck
 
 \begin{enumerate}
-	\item On parcourt l'arbre grammatical représentant le texte et on plonge chaque entité, attribut, et événement rencontré dans le workspace. Au préalable, s'il y a plusieurs références à une entité donnée existent, elles sont toutes gardées et leurs attributs sont mutualisés~;
-	\item Sur la base de la connectivité des différents termes présents dans le workspace, on active les concepts correspondant dans le réseau de concepts~;
-	\item Les entités correspondant aux concepts les moins activés sont éliminés du workspace~;
+	\item On parcourt l'arbre grammatical représentant le texte et on plonge chaque entité, attribut, et événement rencontré dans le Workspace. Au préalable, s'il y a plusieurs références à une entité donnée existent, elles sont toutes gardées et leurs attributs sont mutualisés~;
+	\item Sur la base de la connectivité des différents termes présents dans le Workspace, on active les concepts correspondant dans le réseau de concepts~;
+	\item Les entités correspondant aux concepts les moins activés sont éliminés du Workspace~;
 	\item Les quelques nœuds restants sont présentés au lecteur.
 \end{enumerate}
 
