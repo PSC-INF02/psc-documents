@@ -671,7 +671,7 @@ Chaque n\oe{}ud, ou concept, comporte en moyenne $2,4$ liens entrants et autant 
 
 \begin{figure}[h]
  \centering
- \includegraphics[width=12cm]{./liens_entrants.eps}
+% \includegraphics[width=12cm]{./liens_entrants.eps}
  % liens_entrants.eps: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=0 0 453 255
  \caption{Nombre de n\oe{}uds en fonction du nombre de liens entrants qu'ils comportent}
  \label{fig:liens_entrants}
@@ -680,7 +680,7 @@ Chaque n\oe{}ud, ou concept, comporte en moyenne $2,4$ liens entrants et autant 
 
 \begin{figure}[h]
  \centering
- \includegraphics[width=12cm]{./liens_sortants.eps}
+% \includegraphics[width=12cm]{./liens_sortants.eps}
  % liens_entrants.eps: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=0 0 453 255
  \caption{Nombre de n\oe{}uds en fonction du nombre de liens sortants qu'ils comportent}
  \label{fig:liens_sortants}
@@ -974,9 +974,7 @@ Le résultat final est alors un petit nombre d'entités centrales dont parle le 
 
 \section{Bilan et améliorations envisageables}
 
-
-%% J'espère pouvoir corriger ce paragraphe dans les prochains jours
-Le projet n'a que peu de retard sur ce qui a été annoncé. Le Workspace a été presque entièrement implémenté et nous sommes capables d'y introduire un texte en structures cohérentes. Nous avons cependant manqué de temps pour implémenter les parties les plus subtiles de nos algorithmes (étoffement des liens dans le Workspace).
+Le projet a été essentiellement mené au terme annoncé, malgré quelques changements de dernière minute qui nous ont empêché d'évaluer de manière correcte nos résultats. Dans son état actuel, nous n'avons pas exactement atteint l'objectif affiché de faire un résumé capable de s'affranchir de la formulation première du texte. Nous apportons cependant un véritable changement sur la manière d'obtenir notre résumé~: là où la plupart des algorithmes se basent sur des récurrences statistiques de termes, nous nous efforçons de reconnaître les entités et les concepts mis en jeu et de travailler sur ceux-ci.
 
 \subsection{Considérations techniques}
 
