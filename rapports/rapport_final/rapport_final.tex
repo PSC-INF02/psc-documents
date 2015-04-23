@@ -854,7 +854,7 @@ Il est également à noter que les grammaires modernes s'appuient sur un entraî
 \subsubsection{\'Etat du texte en fin d'analyse}
 Les données traitées par Systran nous sont revenues sous la forme d'un graphe sémantique. Chaque nœud, ou mot, de la phrase était de plus enrichi d'une liste de tags permettant d'établir de quel genre de mot il s'agit (humain, véhicule, lieu si c'est un nom; verbe d'action, verbe descriptif si c'est un verbe; etc.) Notons également que chaque nœud contient une liste (éventuellement vide) de fils avec lesquels il forme une entité syntaxique cohérente telle qu'un groupe nominal. Cela nous a été très utile lorsqu'il s'est agit de faire la différence entre les entités et leurs attributs lors de leur incorporation dans le Workspace.
 
-Par commodité, nous avons d'abord transformé ces données au format JSON avant des les inclure dans le Workspace.
+Ces données ont ensuite été transcrites sous la forme d'une classe python appelée \pyt[GrammarTree]. 
 
 \subsection{Résolution de pronoms}
 
