@@ -1,0 +1,171 @@
+\documentclass[12pt]{beamer}
+\usepackage[polytechnique, psc, complexe, unicouleur]{persobeamer}
+%nocouleur ou: unicouleur ou : bicouleur
+%complexe ou : simple
+%voir dans le package pour changer les couleurs
+
+\title{Projet Scientifique collectif INF02}
+\subtitle{Soutenance finale}
+\author{}
+\date{\today}
+
+\begin{document}
+
+    \begin{frame}
+      \titlepage
+    \end{frame}		
+
+    %% sommaire %%		
+    \begin{frame}
+      \frametitle{Sommaire}
+      %\tableofcontents[pausesections]
+      \tableofcontents
+    \end{frame}
+
+\section{Évolution du projet}
+\subsection{Avancement général}
+
+\begin{frame}
+  \begin{block}{État actuel}
+    \begin{itemize}
+      \item Traitement syntaxique offert par systran.
+      \item Réseau de concepts opérationnel
+      \item TF-IDF opérationnel
+      \item Workspace en cours de développement
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\subsection{Réseau de concepts}
+% Schrotty !
+\begin{frame}
+\frametitle{État actuel du réseau}
+
+\begin{itemize}
+ \item Environ 7000 articles analysés (30 jours);
+ \item Environ 12 000 concepts et 8000 noms récupérés (chiffre stable);
+ \item Génération à partir d'un grand nombre de requêtes, de types différents, d'un réseau de :
+ \begin{itemize}
+  \item 21 000 n\oe uds ;
+  \item 60 000 arêtes ;
+ \end{itemize}
+ \pause
+ Où l'on atteint les limites d'une utilisation intensive de \texttt{networkx}
+ 
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Utilisation du réseau}
+
+\begin{itemize}
+ \item Pour l'instant : sur des exemples précis, des résultats très encourageants : une bonne interconnectivité et le respect du sens commun ;
+ \item Utilisation sur des phrases complètes dans les prochains jours.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Exemple}
+
+\begin{itemize}
+ \item "wayne rooney"
+ \item athlete, person, "soccer player"
+ \item "sport event", profession, "break record", sprint, "very competitive", "jump high", "play sport"
+ \item television, obsolete, entertainment, addictive, watch, "in live room", bedroom, entertain, appliance...
+\end{itemize}
+
+%%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+%%ce n'était pas mentionné dans le rapport
+%%mais c'est ce que je pense, là, à l'instant t
+\begin{block}{Données importantes}
+L'ordre dans lequel vont être activés les n\oe uds, le nombre de n\oe uds que l'on va activer.
+
+Nécessite de complexifier notre vision initiale.
+\end{block}
+
+
+\end{frame}
+
+
+\subsection{Élaboration du workspace}
+\begin{frame}
+  \begin{block}{Ajustements de direction}
+    \begin{itemize}
+      \item Une part non négligeable du travail sur le workspace sera faite sans workers, qui seront implémentés plus tard.
+      \item Nous nous orientons désormais vers des résumés très synthétiques (une ou deux phrases au plus)
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Structure du workspace}
+   \begin{itemize}
+     \item Projection du texte dans un espace plus abstrait
+     \item L'importance d'un concept dans le workspace correspond à l'importance sémantique dans le texte
+   \end{itemize} 
+  \end{block}
+\end{frame}
+
+\section{Prochaines étapes}
+
+\subsection{Workspace}
+\begin{frame}
+  \begin{block}{Structure}
+  \begin{itemize}
+    \item Graphe représentant l'information du texte
+    \item Deux types de nœuds~:
+      \begin{itemize}
+        \item Objets
+        \item Attributs de objets
+      \end{itemize}
+    \item Attributs peuvent évoluer au fil du temps
+    \begin{itemize}
+    	\item Les changements sont représentés par des liens entre les attributs.
+    \end{itemize}
+  \end{itemize}
+  
+  Exemple : "Wayne Rooney was appointed captain as the fans turned their backs on the team."
+  \end{block}
+\end{frame}
+
+\subsection{Importance conceptuelle}
+\begin{frame}
+  \begin{block}{Objectif~:}
+    Rendre compte de l'importance à accorder à la présence d'un concept
+  \end{block}
+
+  \begin{block}{Calcul de l'indice}
+    \begin{itemize}
+      \item Équivalent dans l'espace des concepts de l'indice idf
+      \item Calculé par une analyse statistique sur un corpus
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\section{Synthèse}
+% Un petit résumé, ça fait pas de mal !
+\subsection{Calendrier de travail}
+\begin{frame}
+	\begin{block}{Retour sur le plan prévisionnel}
+		\begin{itemize}
+			\item Grammaire -> Problème résolu par Systran.
+			\item Résumés basés sur TF-IDF pour évaluation de notre algorithme -> Terminé
+			\item Réseau de concepts -> 80\% terminé, reste à affiner l'importance conceptuelle.
+			\item Workspace -> Spécification largement établie, début de l'implémentation avec un léger retard
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\begin{block}{Plan actuel}
+		\begin{itemize}
+			\item Implémenter une surcouche de TF-IDF pour développer le réseau de concepts~: deux semaines.
+			\item Entraîner le réseau de concepts sur les données obtenues~: une semaine supplémentaire.
+			\item Fin de la spécification du workspace et implémentation~: un mois.
+			\item Génération de résumés, évaluation~: mars, avril.
+		\end{itemize}
+	\end{block}
+\end{frame}
+	
+\end{document}

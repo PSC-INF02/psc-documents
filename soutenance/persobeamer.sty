@@ -1,0 +1,309 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{persobeamer}[2015/04/28 Package pour réaliser de beaux beamers]
+
+
+%=======================================================
+% Packages requis
+%======================================================
+\RequirePackage{pgfpages}
+\RequirePackage[francais]{babel}
+\RequirePackage[T1]{fontenc}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage{amsmath,amsthm}
+\RequirePackage{amsfonts,amssymb}
+\RequirePackage{multimedia}
+\RequirePackage{url}
+
+%====================================================
+% Rappel sur les ANIMATIONS
+%====================================================
+
+%\transblindshorizontal
+%\transblindsvertical
+%\transboxin
+%\transboxout
+%\transglitter
+%\transreplace
+%\transsplitverticalin
+%\transsplitverticalout
+%\transsplithorizontalin
+%\transsplithorizontalout
+%\transwipe
+%\transduration
+
+%============================================
+% Rappel sur les thèmes
+%==========================================
+
+%thèmes principaux
+%JuanLesPins Malmoe PaloAlto Berlin Boadilla Copenhagen Hannover Goettingen Montpellier Rochester
+%Madrid Antibes Singapore Szeged Warsaw, thème par défaut Ilmenau Luebeck AnnArbor CambridgeUS Dresden
+
+%themes de polices : professionalfonts serif structurebold structureitalicserif structuresmallcapsserif 
+
+%==============================================
+% Commandes initiales et COULEURS principales
+%==============================================
+
+%white gray darkgray lightgray black red
+%lime green yellow olive blue purple teal cyan
+%magenta brown orange pink violet
+
+%\definecolor{couleurun}{rgb}{0.4,0.3,0.3}
+%\definecolor{couleurun}{rgb}{0.3,0,0.3}
+%\definecolor{couleurun}{rgb}{0.57,0.06,0.03}
+\definecolor{couleurun}{rgb}{0.02,0.10,0.45}
+\definecolor{couleurdeux}{rgb}{0.4,0.3,0.3}
+
+%===============================================
+
+%\setbeamertemplate{itemize item}[triangle]
+%\setbeamertemplate{enumerate item}[square]
+\setbeamertemplate{blocks} [rounded] [shadow=true]
+
+%%barre de navigation
+\setbeamertemplate{navigation symbols}{%
+%\insertslidenavigationsymbol
+%\insertframenavigationsymbol
+%\insertsubsectionnavigationsymbol
+%\insertsectionnavigationsymbol
+%\insertdocnavigationsymbol
+%\insertbackfindforwardnavigationsymbol
+}
+
+
+%==================================================
+% Options
+%=================================================
+
+
+%polytechnique
+\DeclareOption{polytechnique}{
+  \institute{École polytechnique}
+  \logo{\includegraphics[height=0.8cm]{logohori.eps}}
+}
+
+
+%%l'option psc : tout ce dont on peut avoir besoin pour le psc
+\DeclareOption{psc}{
+  \newcommand{\membres}{Fernandes-Pinto-Fachada Sarah,
+    Schrottenloher Andr\'e,\\
+    Angibault Antonin,
+    Hufschmitt Th\'eophane,\\
+    Cao Zhixing,
+    Boisseau Guillaume
+  }
+  \subtitle{Projet INF02}
+  \author{\membres}
+}
+
+
+%faire une présentation complexe et/ou longue
+\DeclareOption{complexe}{
+  \AtEndOfPackage{
+    \usetheme{Hannover}
+
+    \usefonttheme{structurebold}
+
+    \usecolortheme{dolphin}
+    \useinnertheme{rectangles}
+    %\useoutertheme{split}
+
+    %\setbeamercovered{dynamic}
+    \AtBeginSection[]% génère une tableofcontents au début de chaque section
+    {
+      \begin{frame}
+      \frametitle{Sommaire}
+	    \tableofcontents[sectionstyle = show/shaded,subsectionstyle = show/show/shaded]
+	    %\tableofcontents[currentsection, hideothersubsections]
+      \end{frame} 
+    }
+  }
+}
+
+%faire une présentation simple et/ou courte
+\DeclareOption{simple}{
+  \AtEndOfPackage{
+    \usetheme{default}
+    \usefonttheme{structurebold}
+    \usecolortheme{dolphin}
+    \useinnertheme{rectangles}
+  }
+}
+
+\DeclareOption{nocouleur}{
+  \AtEndOfPackage{
+  
+    \setbeamercolor{background canvas}{bg=white}%%couleur unie
+
+    \setbeamercolor{title}{bg=couleurdeux,fg=white}
+
+    \setbeamercolor{sidebar}{bg=couleurdeux,fg=white}
+
+    \setbeamercolor{author in sidebar}{fg=white}
+    \setbeamercolor{title in sidebar}{fg=white}
+    \setbeamercolor{section in sidebar}{fg=white}
+     \setbeamercolor{section}{fg=couleurdeux}
+    \setbeamercolor{subsection in sidebar}{fg=white}
+
+    \setbeamercolor{section in toc}{fg=black,bg=white}
+    \setbeamercolor{subsection in toc}{fg=black, bg=white}
+    \setbeamercolor{section number projected}{bg=couleurdeux,fg=white}
+    \setbeamercolor{subsection number projected}{bg=couleurdeux, fg=white}
+    
+    \setbeamercolor{normal text}{fg=black,bg=couleurdeux!20!white}
+
+    \setbeamercolor{alerted text}{fg=red!50!couleurdeux}
+    \setbeamercolor{example text}{fg=green!50!couleurdeux}
+
+    %\setbeamercolor{frametitle}{fg=white, bg=couleurun!50!black}%%avec fond
+    %ou
+    \setbeamercolor{frametitle}{fg=black}%%sans fond
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %% blocs et boîtes
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    \setbeamercolor{block title}{bg=couleurdeux,fg=white}
+    \setbeamercolor{block body}{bg=couleurdeux!20!white,fg=black}
+
+    \setbeamercolor{upperboite}{bg=couleurdeux, fg=white}
+    \setbeamercolor{lowerboite}{bg=couleurdeux!20!white, fg=black}
+
+    %%commande pour créer une boîte
+    \newcommand{\boite}[2]{
+    \begin{beamerboxesrounded}[shadow=true, upper=upperboite, lower=lowerboite]{#1}
+    #2
+    \end{beamerboxesrounded}
+    }
+  }
+}
+
+%une seule couleur
+\DeclareOption{unicouleur}{
+  \AtEndOfPackage{
+    \colorlet{couleurfoncee}{couleurun!20!black}
+    \colorlet{couleurclaire}{couleurun!20!white}
+
+    \setbeamercolor{structure}{fg=couleurfoncee, bg=couleurclaire}
+
+    %\setbeamercolor{background canvas}{bg=couleurun}%%couleur unie
+    \setbeamertemplate{background canvas}[vertical shading]%
+    [top=couleurun!05,bottom=couleurun!50]
+    %%un beau dégradé
+
+    %\setbeamertemplate{sidebar canvas left}[vertical shading][top=couleurun!50,bottom=couleurun]
+    %%dégradé sur la sidebar
+
+    \setbeamercolor{title}{bg=couleurun,fg=white}
+
+    \setbeamercolor{sidebar}{bg=couleurun,fg=white}
+
+    \setbeamercolor{author in sidebar}{fg=white}
+    \setbeamercolor{title in sidebar}{fg=white}
+    \setbeamercolor{section in sidebar}{fg=white}
+    \setbeamercolor{subsection in sidebar}{fg=white}
+
+     \setbeamercolor{section in toc}{fg=black,bg=white}
+    \setbeamercolor{subsection in toc}{fg=black, bg=white}
+    \setbeamercolor{section number projected}{bg=couleurun,fg=white}
+    \setbeamercolor{subsection number projected}{bg=couleurun, fg=white}
+    
+    \setbeamercolor{normal text}{fg=black,bg=couleurclaire}
+
+    \setbeamercolor{alerted text}{fg=red!50!couleurun}
+    \setbeamercolor{example text}{fg=green!50!couleurun}
+
+    %\setbeamercolor{frametitle}{fg=white, bg=couleurun!50!black}%%avec fond
+    %ou
+    \setbeamercolor{frametitle}{fg=black}%%sans fond
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %% blocs et boîtes
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    \setbeamercolor{block title}{bg=couleurun,fg=white}
+    \setbeamercolor{block body}{bg=couleurclaire,fg=black}
+
+    \setbeamercolor{upperboite}{bg=couleurun, fg=white}
+    \setbeamercolor{lowerboite}{bg=couleurclaire, fg=black}
+
+    %%commande pour créer une boîte
+    \newcommand{\boite}[2]{
+    \begin{beamerboxesrounded}[shadow=true, upper=upperboite, lower=lowerboite]{#1}
+    #2
+    \end{beamerboxesrounded}
+    }
+  }
+}
+
+%deux couleurs
+\DeclareOption{bicouleur}{
+  \AtEndOfPackage{
+    \colorlet{couleurfoncee}{couleurdeux!20!black}
+    \colorlet{couleurclaire}{couleurun!20!white}
+
+    \setbeamercolor{structure}{fg=couleurfoncee, bg=couleurclaire}
+
+
+    %\setbeamercolor{background canvas}{bg=couleurun}%%couleur unie
+    \setbeamertemplate{background canvas}[vertical shading]%
+    [top=couleurdeux!05,bottom=couleurdeux!50]
+    %%un beau dégradé
+
+    \setbeamertemplate{sidebar canvas left}[vertical shading][top=couleurun,bottom=couleurun!50]
+    %%dégradé sur la sidebar
+
+    \setbeamercolor{title}{bg=couleurun,fg=white}
+
+    \setbeamercolor{sidebar}{bg=couleurun,fg=white}
+
+    \setbeamercolor{author in sidebar}{fg=white}
+    \setbeamercolor{title in sidebar}{fg=white}
+    \setbeamercolor{section in sidebar}{fg=white}
+    \setbeamercolor{subsection in sidebar}{fg=white}
+
+    \setbeamercolor{section in toc}{fg=black,bg=white}
+    \setbeamercolor{subsection in toc}{fg=black, bg=white}
+    \setbeamercolor{section number projected}{bg=couleurun,fg=white}
+    \setbeamercolor{subsection number projected}{bg=couleurun, fg=white}
+    
+    \setbeamercolor{normal text}{fg=black,bg=couleurclaire}
+
+    \setbeamercolor{alerted text}{fg=red!50!couleurun}
+    \setbeamercolor{example text}{fg=green!50!couleurun}
+
+    %\setbeamercolor{frametitle}{fg=white, bg=couleurun!50!black}%%avec fond
+    %ou
+    \setbeamercolor{frametitle}{fg=black}%%sans fond
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %% blocs et boîtes
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    \setbeamercolor{block title}{bg=couleurun,fg=white}
+    \setbeamercolor{block body}{bg=couleurun!20!white,fg=black}
+
+    \setbeamercolor{upperboite}{bg=couleurdeux, fg=white}
+    \setbeamercolor{lowerboite}{bg=couleurdeux!20!white, fg=black}
+
+    %%commande pour créer une boîte
+    \newcommand{\boite}[2]{
+    \begin{beamerboxesrounded}[shadow=true, upper=upperboite, lower=lowerboite]{#1}
+    #2
+    \end{beamerboxesrounded}
+    }
+  }
+}
+
+
+%%code utilisé si on passe une autre option
+\DeclareOption*{
+
+}
+
+
+%\ExecuteOptions{complexe, polytechnique, psc, unicouleur}
+\ProcessOptions\relax
+
+
