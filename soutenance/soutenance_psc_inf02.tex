@@ -7,7 +7,7 @@
 \title{Projet Scientifique collectif INF02}
 \subtitle{Soutenance finale}
 \author{}
-\date{\today}
+\date{19 mai 2015}
 
 \begin{document}
 
@@ -22,150 +22,232 @@
       \tableofcontents
     \end{frame}
 
-\section{Évolution du projet}
-\subsection{Avancement général}
+\section{Rappel du projet}
+
 
 \begin{frame}
-  \begin{block}{État actuel}
-    \begin{itemize}
-      \item Traitement syntaxique offert par systran.
-      \item Réseau de concepts opérationnel
-      \item TF-IDF opérationnel
-      \item Workspace en cours de développement
-    \end{itemize}
-  \end{block}
-\end{frame}
-
-\subsection{Réseau de concepts}
-% Schrotty !
-\begin{frame}
-\frametitle{État actuel du réseau}
-
-\begin{itemize}
- \item Environ 7000 articles analysés (30 jours);
- \item Environ 12 000 concepts et 8000 noms récupérés (chiffre stable);
- \item Génération à partir d'un grand nombre de requêtes, de types différents, d'un réseau de :
- \begin{itemize}
-  \item 21 000 n\oe uds ;
-  \item 60 000 arêtes ;
- \end{itemize}
- \pause
- Où l'on atteint les limites d'une utilisation intensive de \texttt{networkx}
+ \frametitle{But du projet}
  
-\end{itemize}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Utilisation du réseau}
-
-\begin{itemize}
- \item Pour l'instant : sur des exemples précis, des résultats très encourageants : une bonne interconnectivité et le respect du sens commun ;
- \item Utilisation sur des phrases complètes dans les prochains jours.
-\end{itemize}
-
+ 
 \end{frame}
 
 
 \begin{frame}
-\frametitle{Exemple}
-
-\begin{itemize}
- \item "wayne rooney"
- \item athlete, person, "soccer player"
- \item "sport event", profession, "break record", sprint, "very competitive", "jump high", "play sport"
- \item television, obsolete, entertainment, addictive, watch, "in live room", bedroom, entertain, appliance...
-\end{itemize}
-
-%%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-%%ce n'était pas mentionné dans le rapport
-%%mais c'est ce que je pense, là, à l'instant t
-\begin{block}{Données importantes}
-L'ordre dans lequel vont être activés les n\oe uds, le nombre de n\oe uds que l'on va activer.
-
-Nécessite de complexifier notre vision initiale.
-\end{block}
-
-
+ \frametitle{Modules}
+ 
+ 
 \end{frame}
 
 
-\subsection{Élaboration du workspace}
 \begin{frame}
-  \begin{block}{Ajustements de direction}
-    \begin{itemize}
-      \item Une part non négligeable du travail sur le workspace sera faite sans workers, qui seront implémentés plus tard.
-      \item Nous nous orientons désormais vers des résumés très synthétiques (une ou deux phrases au plus)
-    \end{itemize}
-  \end{block}
-
-  \begin{block}{Structure du workspace}
-   \begin{itemize}
-     \item Projection du texte dans un espace plus abstrait
-     \item L'importance d'un concept dans le workspace correspond à l'importance sémantique dans le texte
-   \end{itemize} 
-  \end{block}
+ \frametitle{Outils extérieurs et points techniques}
+ 
+ 
 \end{frame}
 
-\section{Prochaines étapes}
+%%je pense qu'on peut franchement réduire l'état de l'art,
+%% à un bref rappel.
+%ce n'est pas ce qu'ils veulent entendre à une soutenance
+\section{État de l'art}
+
+\begin{frame}
+ \frametitle{Traitement du langage naturel}
+ 
+ 
+\end{frame}
+
+\begin{frame}
+ \frametitle{\textit{Extractive summarization}}
+ 
+ 
+\end{frame}
+
+\begin{frame}
+ \frametitle{\textit{Abstractive summarization}}
+ 
+ 
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{Génération du résumé et évaluation}
+ 
+ 
+\end{frame}
+
+%je vire copycat/bascet, on détaillera mieux
+%%sur le RC lui-même
+
+\section{Sources de données}
+
+\subsection{Données textuelles}
+
+\begin{frame}
+ \frametitle{Données textuelles}
+ 
+ 
+\end{frame}
+
+\subsection{Données conceptuelles}
+
+\begin{frame}
+ \frametitle{Extraction de concepts}
+ 
+ 
+\end{frame}
+
+\begin{frame}
+ \frametitle{WordNet}
+ 
+ 
+\end{frame}
+
+\begin{frame}
+ \frametitle{Conceptnet5}
+ 
+ 
+\end{frame}
+
+\begin{frame}
+ \frametitle{Freebase}
+ 
+ 
+\end{frame}
+
+
+
+\section{Réseau de concepts}
+% Schrotty !
+
+\subsection{Structure}
+
+\begin{frame}
+ \frametitle{Objectifs et utilité du réseau}
+ 
+ 
+\end{frame}
+
+\begin{frame}[allowframebreaks = 0.7]
+ \frametitle{Structure du réseau}
+ 
+ 
+\end{frame}
+
+\begin{frame}
+ \frametitle{Propagation d'activation}
+ 
+ 
+\end{frame}
+
+\subsection{Construction}
+
+\begin{frame}
+ \frametitle{Construction du réseau}
+ 
+ 
+\end{frame}
+
+\begin{frame}
+ \frametitle{Exemple obtenu}
+ 
+ 
+\end{frame}
+
+
+%%optionnel, et même beaucoup trop chiant
+\begin{frame}
+ \frametitle{Choix de programmation}
+ 
+ 
+\end{frame}
+
+
+\section{TF-IDF et méthodes statistiques}
+
+\subsection{TF-IDF pour le résumé automatique}
+
+\begin{frame}
+ \frametitle{Définition de l'indice TF-IDF}
+ 
+ 
+\end{frame}
+
+\begin{frame}
+ \frametitle{Utilisation de TF-IDF}
+ 
+ 
+\end{frame}
+
+\subsection{TF-IDF pour l'importance conceptuelle}
+
+\begin{frame}
+ \frametitle{}
+ 
+ 
+\end{frame}
+
+
+\section{Traitement préalable des données}
+
+\subsection{Analyse syntaxique}
+
+\begin{frame}
+ \frametitle{Grammaires}
+ 
+ 
+\end{frame}
+
+\begin{frame}
+ \frametitle{État du texte en fin d'analyse}
+ 
+ 
+\end{frame}
+
+\subsection{Résolution de pronoms}
+
+\begin{frame}[allowframebreaks = 0.7]
+ \frametitle{Résolution de pronoms}
+ 
+ 
+\end{frame}
+
+\section{Traitement du réseau}
 
 \subsection{Workspace}
-\begin{frame}
-  \begin{block}{Structure}
-  \begin{itemize}
-    \item Graphe représentant l'information du texte
-    \item Deux types de nœuds~:
-      \begin{itemize}
-        \item Objets
-        \item Attributs de objets
-      \end{itemize}
-    \item Attributs peuvent évoluer au fil du temps
-    \begin{itemize}
-    	\item Les changements sont représentés par des liens entre les attributs.
-    \end{itemize}
-  \end{itemize}
-  
-  Exemple : "Wayne Rooney was appointed captain as the fans turned their backs on the team."
-  \end{block}
-\end{frame}
 
-\subsection{Importance conceptuelle}
 \begin{frame}
-  \begin{block}{Objectif~:}
-    Rendre compte de l'importance à accorder à la présence d'un concept
-  \end{block}
-
-  \begin{block}{Calcul de l'indice}
-    \begin{itemize}
-      \item Équivalent dans l'espace des concepts de l'indice idf
-      \item Calculé par une analyse statistique sur un corpus
-    \end{itemize}
-  \end{block}
-\end{frame}
-
-\section{Synthèse}
-% Un petit résumé, ça fait pas de mal !
-\subsection{Calendrier de travail}
-\begin{frame}
-	\begin{block}{Retour sur le plan prévisionnel}
-		\begin{itemize}
-			\item Grammaire -> Problème résolu par Systran.
-			\item Résumés basés sur TF-IDF pour évaluation de notre algorithme -> Terminé
-			\item Réseau de concepts -> 80\% terminé, reste à affiner l'importance conceptuelle.
-			\item Workspace -> Spécification largement établie, début de l'implémentation avec un léger retard
-		\end{itemize}
-	\end{block}
+ \frametitle{Workspace}
+ 
+ 
 \end{frame}
 
 \begin{frame}
-	\begin{block}{Plan actuel}
-		\begin{itemize}
-			\item Implémenter une surcouche de TF-IDF pour développer le réseau de concepts~: deux semaines.
-			\item Entraîner le réseau de concepts sur les données obtenues~: une semaine supplémentaire.
-			\item Fin de la spécification du workspace et implémentation~: un mois.
-			\item Génération de résumés, évaluation~: mars, avril.
-		\end{itemize}
-	\end{block}
+ \frametitle{}
+ 
+ 
 \end{frame}
-	
+
+\subsection{Algorithme final}
+
+\begin{frame}
+ \frametitle{Algorithme final}
+ 
+ 
+\end{frame}
+
+\begin{frame}
+ \frametitle{Exemples}
+ 
+ 
+\end{frame}
+
+\section{Conclusion}
+
+\begin{frame}
+ \frametitle{Conclusion}
+ 
+C'était vraiment trop mythe comme PSC.
+ 
+\end{frame}
+
 \end{document}
