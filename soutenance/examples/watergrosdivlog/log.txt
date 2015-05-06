@@ -1,0 +1,11 @@
+Water a 44 voisins avec des bons poids
+-> pb de normalisation
+
+Étape 0 : 1
+Étape 1 : 45
+Étape 2 : 111
+Étape 3 : 134
+Étape 4 : 202
+Étape 5 : 258
+Étape 6 : 347
+Étape 7 : 474

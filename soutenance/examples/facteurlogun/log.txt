@@ -1,0 +1,17 @@
+
+Même que les précédents, en affichant a > 10, avec facteur log égal à 1.
+
+
+Étape 0 : 2
+Étape 1 : 5
+Étape 2 : 14
+Étape 3 : 26
+Étape 4 : 51
+Étape 5 : 114
+Étape 6 : 209
+Étape 7 : 334
+Étape 8 : 535
+Étape 9 : 765
+Étape 10 : 1060
+Étape 11 : 1363
+Étape 12 : 1644

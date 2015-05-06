@@ -1,0 +1,17 @@
+facteur log augmenté (plus fort)
+
+Étape 0 : 2
+Étape 1 : 3
+Étape 2 : 2
+Étape 3 : 3
+Étape 4 : 3
+Étape 5 : 4
+Étape 6 : 6
+Étape 7 : 9
+Étape 8 : 11
+Étape 9 : 16
+Étape 10 : 16
+Étape 11 : 19
+Étape 12 : 27
+Étape 13 : 40
+Étape 14 : 55

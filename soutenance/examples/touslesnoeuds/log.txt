@@ -1,0 +1,18 @@
+
+
+["wayne_rooney", "manchester_united_f.c."], 60)
+
+tous les noeuds activés sont affichés, tous les liens entre eux aussi
+
+nombre de noeuds activés :
+
+Étape 0 : 2
+Étape 1 : 6
+Étape 2 : 67
+Étape 3 : 51
+Étape 4 : 59
+Étape 5 : 133
+Étape 6 : 185
+Étape 7 : 208
+Étape 8 : 252
+Étape 9 : 337

@@ -1,0 +1,24 @@
+
+En ne gardant que les noeuds a > 10
+les liens ne sont affichés que si les 2 noeuds sont a > 10
+les noeuds ne sont affichés que si > 10
+
+["wayne_rooney", "manchester_united_f.c."] activés à 60
+
+Étape 0 : 2
+Étape 1 : 3
+Étape 2 : 4
+Étape 3 : 4
+Étape 4 : 5
+Étape 5 : 9
+Étape 6 : 16
+Étape 7 : 22
+Étape 8 : 34
+Étape 9 : 54
+Étape 10 : 88
+Étape 11 : 133
+Étape 12 : 196
+Étape 13 : 269
+Étape 14 : 383
+
+
