@@ -3,17 +3,27 @@
 %nocouleur ou: unicouleur ou : bicouleur
 %complexe ou : simple
 %voir dans le package pour changer les couleurs
+\usepackage{tikz}
 
 \title{Projet Scientifique collectif INF02}
 \subtitle{Soutenance finale}
 \author{}
 \date{19 mai 2015}
 
+
 \begin{document}
 
+  \addtobeamertemplate{frametitle}{}{
+    \begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=south east,yshift=2pt] at (current page.south east) {\includegraphics[height=0.7cm]{logohori.eps}};
+
+    \end{tikzpicture}
+   }
+
     \begin{frame}
-      \titlepage
+      \maketitle
     \end{frame}		
+
 
     %% sommaire %%		
     \begin{frame}
@@ -22,16 +32,18 @@
       \tableofcontents
     \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Rappel du projet}
+%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
+%%%%%%%%%%%%%%%%
 \begin{frame}
  \frametitle{But du projet}
  
 
 \end{frame}
 
-
+%%%%%%%%%%%%%%%%%%%
 \begin{frame}
  \frametitle{Modules}
  
@@ -115,8 +127,9 @@
 \end{frame}
 
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Réseau de concepts}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Schrotty !
 
 \subsection{Structure}
@@ -124,23 +137,68 @@
 \begin{frame}
  \frametitle{Objectifs et utilité du réseau}
  
+ \begin{itemize}
+  \item Représenter des données conceptuelles ;
+  \item Établir des relations sémantiques ;
+  \item Fournir des informations de contexte.
+ \end{itemize}
+ 
+ Le réseau n'effectue pas la \textbf{sélection} de l'information, mais il en ajoute.
  
 \end{frame}
+
 
 \begin{frame}[allowframebreaks = 0.7]
- \frametitle{Structure du réseau}
+ \frametitle{Structure statique du réseau}
  
+\begin{block}{N\oe uds}
+\begin{itemize}
+ \item Étiquette : concept ;
+ \item Importance conceptuelle ;
+ \item Activation ;
+\end{itemize}
+
+Exemple : ["hyperactivity", "ic": 34, "a": 10].
+
+\end{block}
+ 
+\begin{block}{Arêtes}
+ \begin{itemize}
+  \item Orientées ;
+  \item Proximité ;
+  \item Relation.
+ \end{itemize}
+
+Exemple : ["hyperactivity", "disorder", {"r": "IsA", "w": 47}].
+ 
+\end{block}
+
  
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
- \frametitle{Propagation d'activation}
+ \frametitle{Propriétés dynamiques du réseau}
  
+ \begin{itemize}
+  \item  L'activation d'un n\oe ud se propage à ses fils ;
+  \item Les n\oe uds se désactivent naturellement.
+ \end{itemize}
+ 
+ Exemple 1 : en partant de "wayne rooney" et  "manchester united f.c.".
+ 
+ Exemple 2 : en considérant les n\oe uds fortement activés (plus de 10\%).
+ 
+ \note{Sur ce premier exemple, on ne montre pas le degré d'activation de chaque noeud, c'est juste pour voir la propagation. Sur le deuxième on s'intéresse déjà plus à la pertinence.}
  
 \end{frame}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Exemple}
+  \frametitle{Exemple 1}
+  
+  %\iffalse
   
   \begin{block}{Nombre de n\oe uds activés}
    \begin{overprint}
@@ -164,12 +222,15 @@
    \only<7>{\includegraphics[height=7cm]{examples/touslesnoeuds/6.png}}
   \end{overlayarea}
 
+ % \fi
 
 \end{frame}
 
 
 \begin{frame}
   \frametitle{Exemple 2}
+  
+  %\iffalse
   
   \begin{block}{Nombre de n\oe uds activés}
    \begin{overprint}
@@ -200,6 +261,70 @@
    \only<10>{\includegraphics[height=7cm]{examples/noeudsbienactives/9.png}}
   \end{overlayarea}
 
+ % \fi
+  
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[allowframebreaks = 0.7]
+ \frametitle{Détails}
+ 
+ \begin{itemize}
+  \item Les concepts "font penser" à d'autres concepts : contexte ;
+  \item Certains concepts sont oubliés : sélection.
+ \end{itemize}
+
+ On ne cherche pas un état d'équilibre. Il faut tirer parti de ces deux propriétés en réglant le nombre d'étapes.
+ 
+ \begin{block}{Comment désactiver ?}
+ \begin{itemize}
+  \item En fonction de l'importance conceptuelle ;
+  \item En fonction du nombre de liens.
+  \end{itemize}
+ \end{block}
+
+ Exemple 3 :  N\oe uds bien activés, sans tenir compte du nombre de liens.
+ 
+ \note{!!!! Pour l'importance conceptuelle, on verra plus tard avec les méthodes statistiques. Même exemple que le deuxième, mais avec cette fois un facteur log égal à 1, donc aucune dépendance avec le nombre de liens.}
+ 
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Exemple 3}
+
+%\iffalse
+
+  \begin{block}{Nombre de n\oe uds activés}
+   \begin{overprint}
+\onslide<1> Étape 0 : 2
+Étape 1 : 5
+Étape 2 : 14
+Étape 3 : 26
+Étape 4 : 51
+Étape 5 : 114
+Étape 6 : 209
+Étape 7 : 334
+Étape 8 : 535
+Étape 9 : 765
+Étape 10 : 1060
+Étape 11 : 1363
+Étape 12 : 1644
+
+\end{overprint}
+  \end{block}
+
+  
+  \begin{overlayarea}{8cm}{8cm}
+   \only<1>{\includegraphics[height=7cm]{examples/facteurlogun/0.png}}
+   \only<2>{\includegraphics[height=7cm]{examples/facteurlogun/1.png}}
+   \only<3>{\includegraphics[height=7cm]{examples/facteurlogun/2.png}}
+
+  \end{overlayarea}
+
+ % \fi
+  
 
 \end{frame}
 
