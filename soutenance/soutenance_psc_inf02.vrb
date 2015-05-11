@@ -1,22 +1,21 @@
 \frametitle{Exemple obtenu}
 
  \begin{block}{Meilleurs en liens sortants}
- \begin{verbatim}
- human : 41
+  \begin{verbatim}
+human : 41
 water : 44
 person : 50
 someone : 161
 something : 192
-\end{verbatim}
+  \end{verbatim}
  \end{block}
 
- \begin{block}{Meilleurs en liens entrants}
- \begin{verbatim}
-  soccer_player : 1931
+  \begin{block}{Meilleurs en liens entrants}
+    \begin{verbatim}
+soccer_player : 1931
 soccer_midfielder : 1575
 athlete : 2182
 person : 3469
-Et bien d'autres... (organisation, country...)
-\end{verbatim}
- \end{block}
-
+organisation, country...
+    \end{verbatim}
+  \end{block}
