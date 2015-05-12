@@ -1,7 +1,7 @@
 \documentclass[12pt, handout]{beamer}
 \usepackage[polytechnique, psc, complexe, unicouleur]{persobeamer}
-%nocouleur ou: unicouleur ou : bicouleur
-%complexe ou : simple
+%nocouleur ou: unicouleur ou~: bicouleur
+%complexe ou~: simple
 %voir dans le package pour changer les couleurs
 \usepackage{tikz}
 
@@ -13,7 +13,7 @@
 
 \begin{document}
 
-  \addtobeamertemplate{frametitle}{}{
+  \addtobeamertemplate{frametitle}{}{%
     \begin{tikzpicture}[remember picture,overlay]
     \node[anchor=south east,yshift=2pt] at (current page.south east) {\includegraphics[height=0.7cm]{logohori.eps}};
 
@@ -139,8 +139,8 @@
  \frametitle{Objectifs et utilité du réseau}
  
  \begin{itemize}
-  \item Représenter des données conceptuelles ;
-  \item Établir des relations sémantiques ;
+  \item Représenter des données conceptuelles~;
+  \item Établir des relations sémantiques~;
   \item Fournir des informations de contexte.
  \end{itemize}
  
@@ -152,25 +152,25 @@
 \begin{frame}[allowframebreaks = 0.7, fragile]
  \frametitle{Structure statique du réseau}
  
-\begin{block}{N\oe uds}
+ \begin{block}{N\oe{}uds}
 \begin{itemize}
- \item Étiquette : concept ;
- \item Importance conceptuelle ;
- \item Activation ;
+ \item Étiquette~: concept~;
+ \item Importance conceptuelle~;
+ \item Activation~;
 \end{itemize}
 
-\textbf{Exemple :} ["hyperactivity", "ic": 34, "a": 10].
+\textbf{Exemple~:} [``hyperactivity'', ``ic'': 34, ``a'': 10].
 
 \end{block}
  
 \begin{block}{Arêtes}
  \begin{itemize}
-  \item Orientées ;
-  \item Proximité ;
+  \item Orientées~;
+  \item Proximité~;
   \item Relation.
  \end{itemize}
 
-\textbf{Exemple :} ["hyperactivity", "disorder", \{"r": "IsA", "w": 47\}].
+\textbf{Exemple~:} [``hyperactivity'', ``disorder'', \{``r'': ``IsA'', ``w'': 47\}].
  
 \end{block}
 
@@ -182,13 +182,13 @@
  \frametitle{Propriétés dynamiques du réseau}
  
  \begin{itemize}
-  \item  L'activation d'un n\oe ud se propage à ses fils ;
-  \item Les n\oe uds se désactivent naturellement.
+  \item  L'activation d'un n\oe{}ud se propage à ses fils~;
+  \item Les n\oe{}uds se désactivent naturellement.
  \end{itemize}
  
- \textbf{Exemple 1 :} en partant de \verb|"wayne_rooney"| et  \verb|"manchester_united_f.c."|.
+ \textbf{Exemple 1~:} en partant de \verb|``wayne_rooney''| et  \verb|``manchester_united_f.c.''|.
  
- \textbf{Exemple 2 :} en considérant les n\oe uds fortement activés (plus de 10\%).
+ \textbf{Exemple 2~:} en considérant les n\oe{}uds fortement activés (plus de 10\%).
  
  \note{Sur ce premier exemple, on ne montre pas le degré d'activation de chaque noeud, c'est juste pour voir la propagation. Sur le deuxième on s'intéresse déjà plus à la pertinence.}
  
@@ -200,12 +200,12 @@
   \frametitle{Exemple 1}
 % 
 %    \begin{overprint}
-% \onslide<1> Étape 0 : 2    n\oe uds activés.
-% \onslide<2> Étape 1 : 6   n\oe uds activés.
-% \onslide<3> Étape 2 : 67   n\oe uds activés.
-% \onslide<4> Étape 3 : 51   n\oe uds activés.
-% \onslide<5> Étape 4 : 59   n\oe uds activés.
-% \onslide<6> Étape 5 : 133   n\oe uds activés.
+% \onslide<1> Étape 0~: 2    n\oe{}uds activés.
+% \onslide<2> Étape 1~: 6   n\oe{}uds activés.
+% \onslide<3> Étape 2~: 67   n\oe{}uds activés.
+% \onslide<4> Étape 3~: 51   n\oe{}uds activés.
+% \onslide<5> Étape 4~: 59   n\oe{}uds activés.
+% \onslide<6> Étape 5~: 133   n\oe{}uds activés.
 % \end{overprint}
 %   
 %   \begin{overlayarea}{8cm}{8cm}
@@ -225,16 +225,16 @@
   \frametitle{Exemple 2}
 % 
 %    \begin{overprint}
-% \onslide<1> Étape 0 : 2    n\oe uds activés.
-% \onslide<2> Étape 1 : 3    n\oe uds activés.
-% \onslide<3> Étape 2 : 4    n\oe uds activés.
-% \onslide<4> Étape 3 : 4   n\oe uds activés.
-% \onslide<5> Étape 4 : 5   n\oe uds activés.
-% \onslide<6> Étape 5 : 9   n\oe uds activés.
-% \onslide<7> Étape 6 : 16   n\oe uds activés.
-% \onslide<8> Étape 7 : 22   n\oe uds activés.
-% \onslide<9> Étape 8 : 34   n\oe uds activés.
-% \onslide<10> Étape 9 : 54   n\oe uds activés.
+% \onslide<1> Étape 0~: 2    n\oe{}uds activés.
+% \onslide<2> Étape 1~: 3    n\oe{}uds activés.
+% \onslide<3> Étape 2~: 4    n\oe{}uds activés.
+% \onslide<4> Étape 3~: 4   n\oe{}uds activés.
+% \onslide<5> Étape 4~: 5   n\oe{}uds activés.
+% \onslide<6> Étape 5~: 9   n\oe{}uds activés.
+% \onslide<7> Étape 6~: 16   n\oe{}uds activés.
+% \onslide<8> Étape 7~: 22   n\oe{}uds activés.
+% \onslide<9> Étape 8~: 34   n\oe{}uds activés.
+% \onslide<10> Étape 9~: 54   n\oe{}uds activés.
 % \end{overprint}
 % 
 %   
@@ -259,8 +259,8 @@
  \frametitle{Détails}
  
  \begin{itemize}
-  \item Les concepts "font penser" à d'autres concepts : \textbf{contexte} ;
-  \item Certains concepts sont oubliés : \textbf{sélection}.
+  \item Les concepts ``font penser'' à d'autres concepts~: \textbf{contexte}~;
+  \item Certains concepts sont oubliés~: \textbf{sélection}.
  \end{itemize}
 
  On ne cherche pas un état d'équilibre. Il faut tirer parti de ces deux propriétés en réglant le nombre d'étapes.
@@ -270,20 +270,20 @@
 \begin{frame}
   \frametitle{Désactivation}
  
- \begin{block}{Comment désactiver ?}
+ \begin{block}{Comment désactiver~?}
  \begin{itemize}
-  \item En fonction de l'importance conceptuelle ;
+  \item En fonction de l'importance conceptuelle~;
   \item En fonction du nombre de liens.
   \end{itemize}
  \end{block}
 
- \textbf{Exemple 3 :}  N\oe uds bien activés, sans tenir compte du nombre de liens.
+ \textbf{Exemple 3~:}  N\oe{}uds bien activés, sans tenir compte du nombre de liens.
  
- \textbf{Exemple 4 :} En introduisant maintenant une dépendance du nombre de liens.
+ \textbf{Exemple 4~:} En introduisant maintenant une dépendance du nombre de liens.
  
  \note{!!!! Pour l'importance conceptuelle, on verra plus tard avec les méthodes statistiques. Grosso modo, plus un noeud est important, moins vite il se désactive. Pour l'exemple 3, même exemple que le deuxième, mais avec cette fois un facteur log égal à 1, donc aucune dépendance avec le nombre de liens.}
  
- \note{Exemple pathologique : un mot comme "<water"> a 44 voisins avec de bons poids}
+ \note{Exemple pathologique~: un mot comme ``<water''> a 44 voisins avec de bons poids}
  
 \end{frame}
 
@@ -293,14 +293,14 @@
 \frametitle{Exemple 3}
 
 %     \begin{overprint}
-%       \onslide<1> Étape 0 : 2  n\oe uds activés.
-%       \onslide<2> Étape 1 : 5  n\oe uds activés.
-%       \onslide<3> Étape 2 : 14 n\oe uds activés.
-%       \onslide<4> Étape 3 : 26 n\oe uds activés.
-%       \onslide<5> Étape 4 : 51 n\oe uds activés.
-%       \onslide<6> Étape 5 : 114 n\oe uds activés.
-%       \onslide<7> Étape 6 : 209 n\oe uds activés.
-%       \onslide<8> Étape 7 : 334 n\oe uds activés.
+%       \onslide<1> Étape 0~: 2  n\oe{}uds activés.
+%       \onslide<2> Étape 1~: 5  n\oe{}uds activés.
+%       \onslide<3> Étape 2~: 14 n\oe{}uds activés.
+%       \onslide<4> Étape 3~: 26 n\oe{}uds activés.
+%       \onslide<5> Étape 4~: 51 n\oe{}uds activés.
+%       \onslide<6> Étape 5~: 114 n\oe{}uds activés.
+%       \onslide<7> Étape 6~: 209 n\oe{}uds activés.
+%       \onslide<8> Étape 7~: 334 n\oe{}uds activés.
 %     \end{overprint} 
 % 
 %   
@@ -322,14 +322,14 @@
  \frametitle{Exemple 4}
  
 %     \begin{overprint}
-%       \onslide<1> Étape 0 : 2  n\oe uds activés.
-%       \onslide<2> Étape 1 : 3   n\oe uds activés.
-%       \onslide<3> Étape 2 : 2  n\oe uds activés.
-%       \onslide<4> Étape 3 : 3  n\oe uds activés.
-%       \onslide<5> Étape 4 : 3  n\oe uds activés.
-%       \onslide<6> Étape 5 : 4  n\oe uds activés.
-%       \onslide<7> Étape 6 : 6  n\oe uds activés.
-%       \onslide<8> Étape 7 : 9  n\oe uds activés.
+%       \onslide<1> Étape 0~: 2  n\oe{}uds activés.
+%       \onslide<2> Étape 1~: 3   n\oe{}uds activés.
+%       \onslide<3> Étape 2~: 2  n\oe{}uds activés.
+%       \onslide<4> Étape 3~: 3  n\oe{}uds activés.
+%       \onslide<5> Étape 4~: 3  n\oe{}uds activés.
+%       \onslide<6> Étape 5~: 4  n\oe{}uds activés.
+%       \onslide<7> Étape 6~: 6  n\oe{}uds activés.
+%       \onslide<8> Étape 7~: 9  n\oe{}uds activés.
 %     \end{overprint} 
 % 
 %   
@@ -356,24 +356,24 @@
 \begin{frame}
  \frametitle{Construction du réseau}
  
- Récupération de listes :
+ Récupération de listes~:
  
  \begin{itemize}
-  \item De concepts (noms communs, verbes...) ;
+  \item De concepts (noms communs, verbes\ldots{})~;
   \item De noms propres.
  \end{itemize}
 
- \pause
+ \pause{}
  
- Lancement de requêtes :
+ Lancement de requêtes~:
  \begin{itemize}
-  \item Conceptnet5 ;
+  \item Conceptnet5~;
   \item Freebase.
  \end{itemize}
  
- \pause
+ \pause{}
  
- Extension à partir des premiers n\oe uds, par d'autres requêtes.
+ Extension à partir des premiers n\oe{}uds, par d'autres requêtes.
  
  \note{Nous partons de texte brut, digéré avec différents outils.}
  
@@ -384,9 +384,9 @@
   \frametitle{Exemple obtenu}
   
   \begin{itemize}
-   \item Plus de 18~000 noms propres et concepts comme base (ayant donné des résultats positifs lors des requêtes) ;
-   \item Extension à plus de 28~000 n\oe uds bien reliés entre eux ;
-   \item Plus de 16~000 n\oe uds sans lien entrant.
+   \item Plus de 18~000 noms propres et concepts comme base (ayant donné des résultats positifs lors des requêtes)~;
+   \item Extension à plus de 28~000 n\oe{}uds bien reliés entre eux~;
+   \item Plus de 16~000 n\oe{}uds sans lien entrant.
   \end{itemize}
 
 \note{Les noeuds sans lien entrant ne seront pas activés si on ne les trouve pas tels quels dans un texte.}
@@ -399,21 +399,21 @@
  
  \begin{block}{Meilleurs en liens sortants}
   \begin{verbatim}
-human : 41
-water : 44
-person : 50
-someone : 161
-something : 192 
+human~: 41
+water~: 44
+person~: 50
+someone~: 161
+something~: 192 
   \end{verbatim}
  \end{block}
 
   \begin{block}{Meilleurs en liens entrants}
     \begin{verbatim}
-soccer_player : 1931
-soccer_midfielder : 1575
-athlete : 2182
-person : 3469
-organisation, country...
+soccer_player~: 1931
+soccer_midfielder~: 1575
+athlete~: 2182
+person~: 3469
+organisation, country\ldots{}
     \end{verbatim}
   \end{block}
 \end{frame}
@@ -434,8 +434,8 @@ organisation, country...
 \begin{frame}
  \frametitle{Définition de l'indice TF-IDF}
  \begin{itemize}
-  \item TF: fréquence d'un terme ;
-  \item IDF: fréquence inverse de document ;
+  \item TF~: fréquence d'un terme~;
+  \item IDF~: fréquence inverse de document~;
   \item TF-IDF et poids d'une phrase.
  \end{itemize}
  
@@ -524,7 +524,7 @@ organisation, country...
 \begin{frame}
  \frametitle{Conclusion}
  
-C'était vraiment trop mythe comme PSC.
+C'était vraiment trop mythe comme PSC\@.
  
 \end{frame}
 
