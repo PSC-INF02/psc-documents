@@ -567,7 +567,14 @@ organisation, country\ldots{}
 
 \begin{frame}
  \frametitle{Algorithme final}
- 
+ L'algorithme de résumé en tant que tel utilise toutes les structures précédemment mentionnées~:
+ \begin{enumerate}
+  \item À partir d'un objet GrammarTree, il construit un Workspace~;
+  \item Dans le Workspace, il repère les multiples références à une même entité et les relie~;
+  \item Sur la base de la connectivité dans le Workspace, il active les concepts correspondants dans le Réseau de Concepts~;
+  \item Il propage l'activation dans le réseau de manière à ce que les concepts proches se renforcent~;
+  \item Sur la base de l'activation du Réseau de Concepts, il supprime les entités et attributs de faible importance dans le Workspace.
+ \end{enumerate}
  
 \end{frame}
 
