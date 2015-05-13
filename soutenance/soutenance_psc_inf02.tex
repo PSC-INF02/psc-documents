@@ -65,26 +65,41 @@
 
 \begin{frame}
  \frametitle{Traitement du langage naturel}
- 
+ Des outils existent déjà pour~:
+ \begin{itemize}
+  \item Reconnaître des mots, synonymes, etc. (nltk, wordnet)
+  \item Établir la structure grammaticale d'une phrase (nltk, Systran)
+ \end{itemize}
+ Nous voulions utiliser ces outils pour résumer des textes.
  
 \end{frame}
 
 \begin{frame}
  \frametitle{\textit{Extractive summarization}}
- 
+ Un algorithme de résumé extractif~:
+ \begin{itemize}
+  \item Sépare les phrases du texte~;
+  \item Note ces phrases d'après une étude statistique~;
+  \item Sélectionne les phrases les mieux notées et les copie dans le résumé.
+ \end{itemize}
  
 \end{frame}
 
 \begin{frame}
  \frametitle{\textit{Abstractive summarization}}
- 
- 
+ Un algorithme de résumé abstractif tentera d'étudier les informations du texte~:
+ \begin{itemize}
+  \item Représentation du texte en mémoire sous forme d'un arbre syntaxique~;
+  \item Élagage de cet arbre pour ne garder que les nœuds importants~;
+  \item Génération d'un texte en langage naturel à partir de l'arbre simplifié.
+ \end{itemize}
+ On remarque que la première et la dernière étape sont beaucoup plus difficiles que leurs analogues en résumé extractif.
 \end{frame}
 
 
 \begin{frame}
  \frametitle{Génération du résumé et évaluation}
- 
+ %% D'avis de virer ça (Antonin)
  
 \end{frame}
 
