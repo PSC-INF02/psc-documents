@@ -39,21 +39,30 @@
 %%%%%%%%%%%%%%%%
 \begin{frame}
  \frametitle{But du projet}
+ Notre but était de produire un programme qui, étant donné un article sportif (de foot), serait capable d'en donner l'idée principale.
  
+ La complexité de l'analyse syntaxique nous a amené à travailler sur des données pré-traitées contenant déjà l'information grammaticale du texte.
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%
 \begin{frame}
  \frametitle{Modules}
- 
+ Nous avons pu séparer le travail en plusieurs modules relativement indépendants~:
+ \begin{itemize}
+  \item Construction d'un Réseau de Concepts contenant une information statique sur le monde~;
+  \item Traitement des données grammaticales fournies par Systran~;
+  \item Construction d'un Workspace représentant l'état de compréhension du texte~;
+  \item Algorithme de résumé statistique servant de base de comparaison~;
+  \item Algorithme de résumé abstractif utilisant ces divers modules.
+ \end{itemize}
  
 \end{frame}
 
 
 \begin{frame}
  \frametitle{Outils extérieurs et points techniques}
- 
+ %% Je serais d'avis d'éliminer cette slide (Antonin)
  
 \end{frame}
 
