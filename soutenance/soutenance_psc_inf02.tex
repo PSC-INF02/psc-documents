@@ -319,6 +319,18 @@
 \begin{frame}
 \frametitle{Exemple 3}
 
+\begin{itemize}
+ \item Étape 0~: 2  n\oe{}uds activés.
+ \item Étape 1~: 5  n\oe{}uds activés.
+ \item Étape 2~: 14 n\oe{}uds activés.
+ \item Étape 3~: 26 n\oe{}uds activés.
+ \item Étape 4~: 51 n\oe{}uds activés.
+ \item Étape 5~: 114 n\oe{}uds activés.
+ \item Étape 6~: 209 n\oe{}uds activés.
+ \item Étape 7~: 334 n\oe{}uds activés.
+\end{itemize}
+
+
 %     \begin{overprint}
 %       \onslide<1> Étape 0~: 2  n\oe{}uds activés.
 %       \onslide<2> Étape 1~: 5  n\oe{}uds activés.
@@ -426,24 +438,45 @@
  
  \begin{block}{Meilleurs en liens sortants}
   \begin{verbatim}
-human~: 41
-water~: 44
-person~: 50
-someone~: 161
-something~: 192 
+human : 41
+water : 44
+person : 50
+someone : 161
+something : 192 
   \end{verbatim}
  \end{block}
 
   \begin{block}{Meilleurs en liens entrants}
     \begin{verbatim}
-soccer_player~: 1931
-soccer_midfielder~: 1575
-athlete~: 2182
-person~: 3469
-organisation, country\ldots{}
+soccer_player : 1931
+soccer_midfielder : 1575
+athlete : 2182
+person : 3469
+organisation, country...
     \end{verbatim}
   \end{block}
 \end{frame}
+
+%%%%%%%%%%%%%%%%%
+\begin{frame}
+ \frametitle{Exemple obtenu}
+ 
+ \begin{block}{Composantes connexes}
+ \begin{itemize}
+  \item Majoritairement une composante de 26825 n\oe uds ;
+  \item Environ 72 autres composantes entre 2 et 18 n\oe uds.
+ \end{itemize}
+
+ \end{block}
+
+ \includegraphics[height=5cm]{./examples/comp_connexe_3.png}
+
+ 
+ 
+   \note{Plus précisément :  16: 1, 2: 83, 3: 43, 4: 19, 5: 1, 6: 5, 9: 2, 26825: 1, 18: 1. Tout ça est très satisfaisant et RAS. L'autre ex de comp connexe bête, c'est un antonyme.}
+ 
+\end{frame}
+
 
 
 %%optionnel, et même beaucoup trop chiant
@@ -471,12 +504,12 @@ organisation, country\ldots{}
 \begin{frame}
  \frametitle{TF-IDF pour résumer}
  \begin{itemize}
-  \item Algorithme;
+  \item Algorithme :
   	\begin{itemize}
-  	\item Cacule de poids
+  	\item Calcul de poids
   	\item Extraction de phrases
   	\end{itemize}
-  \item Qualité de résumé.
+  \item Qualité des résumés.
  \end{itemize}
  
 \end{frame}
@@ -485,8 +518,8 @@ organisation, country\ldots{}
 \begin{frame}
  \frametitle{TF-IDF pour l'importance conceptuelle}
  \begin{itemize}
-  	\item Qeulques charactères de l'importance conceptuelle
-  	\item Le cacule adapté
+  	\item Quelques caractéristiques de l'importance conceptuelle
+  	\item Le calcul adapté
   \end{itemize}
  
 \end{frame}
@@ -522,7 +555,7 @@ organisation, country\ldots{}
 \end{frame}
 
 
-\begin{frame}[allowframebreaks = 0.7]
+\begin{frame}%[allowframebreaks = 0.7]
  \frametitle{Résolution de pronoms}
  
  
