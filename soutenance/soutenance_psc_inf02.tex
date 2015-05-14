@@ -50,11 +50,11 @@
  \frametitle{Modules}
  Nous avons pu séparer le travail en plusieurs modules relativement indépendants~:
  \begin{itemize}
-  \item Construction d'un Réseau de Concepts contenant une information statique sur le monde~;
-  \item Traitement des données grammaticales fournies par Systran~;
-  \item Construction d'un Workspace représentant l'état de compréhension du texte~;
-  \item Algorithme de résumé statistique servant de base de comparaison~;
-  \item Algorithme de résumé abstractif utilisant ces divers modules.
+  \item Construction d'un Réseau de Concepts~;
+  \item Traitement des données grammaticales~;
+  \item Construction d'un Workspace~;
+  \item Algorithme de résumé statistique~;
+  \item Algorithme de résumé abstractif.
  \end{itemize}
  
 \end{frame}
@@ -501,7 +501,6 @@ organisation, country...
   \item Un ensemble de feuilles de la forme (unité syntaxique) -> (liste de fonctions possibles)
   \item Un ensemble de règles pour découper la phrase en portions de plus en plus réduites.
  \end{itemize}
- La plupart des grammaires sont aujourd'hui stochastiques, et estiment quelle est la structure de phrase la plus probable.
  
 \end{frame}
 
@@ -515,8 +514,6 @@ organisation, country...
   \item une liste de tags catégorisant le mot (humain, idée, etc.)~;
   \item une liste de liens étiquetés vers d'autres mots de la phrase.
  \end{itemize}
- 
- Pour rendre ces données plus agréables à étudier, nous avons explicité la structure d'arbre ainsi créée dans une classe GrammarTree.
  
 \end{frame}
 
@@ -544,7 +541,7 @@ organisation, country...
   \begin{block}{Intérêt}
     \begin{itemize}
       \item Représente l'état de compréhension du texte
-      \item À la fin du traitement, les structures importantes du workspace représentent l'information importante du texte
+      \item À la fin du traitement, les structures importantes du workspace représentent l'information importante du texte.
     \end{itemize}
   \end{block}
 
@@ -568,11 +565,11 @@ organisation, country...
  \frametitle{Algorithme final}
  L'algorithme de résumé en tant que tel utilise toutes les structures précédemment mentionnées~:
  \begin{enumerate}
-  \item À partir d'un objet GrammarTree, il construit un Workspace~;
-  \item Dans le Workspace, il repère les multiples références à une même entité et les relie~;
-  \item Sur la base de la connectivité dans le Workspace, il active les concepts correspondants dans le Réseau de Concepts~;
-  \item Il propage l'activation dans le réseau de manière à ce que les concepts proches se renforcent~;
-  \item Sur la base de l'activation du Réseau de Concepts, il supprime les entités et attributs de faible importance dans le Workspace.
+  \item Construit un Workspace~;
+  \item Dans le Workspace, groupe les entités;
+  \item Active les concepts associés aux éléments du Workspace~;
+  \item Propage l'activation dans le Réseau de Concepts~;
+  \item Supprime les éléments du Workspace correspondant aux concepts les moins activés.
  \end{enumerate}
  
 \end{frame}
