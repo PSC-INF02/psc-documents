@@ -10,6 +10,8 @@
 \author{}
 \date{19 mai 2015}
 
+%%change to "<hide notes"> if you want
+\setbeameroption{show notes}
 
 \begin{document}
 
@@ -39,16 +41,26 @@
 %%%%%%%%%%%%%%%%
 \begin{frame}
  \frametitle{But du projet}
- Notre but était de produire un programme qui, étant donné un article sportif (de foot), serait capable d'en donner l'idée principale.
  
- La complexité de l'analyse syntaxique nous a amené à travailler sur des données pré-traitées contenant déjà l'information grammaticale du texte.
+ \begin{block}{Résumer un texte}
+   \begin{itemize}
+  \item Étant donné un article sportif ;
+  \item En donner les idées majeures.
+ \end{itemize}
+ \end{block}
 
+ Travail sur des données pré-traitées sur le plan grammatical.
+
+ \note{ Notre but était de produire un programme qui, étant donné un article sportif (de foot), serait capable d'en donner l'idée principale.
+ 
+ La complexité de l'analyse syntaxique nous a amené à travailler sur des données pré-traitées contenant déjà l'information grammaticale du texte.}
+ 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%
 \begin{frame}
  \frametitle{Modules}
- Nous avons pu séparer le travail en plusieurs modules relativement indépendants~:
+ 
  \begin{itemize}
   \item Construction d'un Réseau de Concepts~;
   \item Traitement des données grammaticales~;
@@ -57,35 +69,44 @@
   \item Algorithme de résumé abstractif.
  \end{itemize}
  
+ \note{Nous avons pu séparer le travail en plusieurs modules relativement indépendants.}
+ 
 \end{frame}
 
+
+\begin{frame}
+ \frametitle{Organisation générale}
+ %% qui a fait quoi, comment, quand etc...
+ 
+\end{frame}
 
 \begin{frame}
  \frametitle{Outils extérieurs et points techniques}
  %% Je serais d'avis d'éliminer cette slide (Antonin)
+ %% pareil (andré)
  
 \end{frame}
 
-%%je pense qu'on peut franchement réduire l'état de l'art,
-%% à un bref rappel.
-%ce n'est pas ce qu'ils veulent entendre à une soutenance
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{État de l'art}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
  \frametitle{Traitement du langage naturel}
  Des outils existent déjà pour~:
  \begin{itemize}
-  \item Reconnaître des mots, synonymes, etc. (nltk, wordnet)
-  \item Établir la structure grammaticale d'une phrase (nltk, Systran)
+  \item Reconnaître des mots, synonymes, etc. (\texttt{nltk}, \texttt{WordNet})
+  \item Établir la structure grammaticale d'une phrase (\texttt{nltk}, \texttt{Systran})
  \end{itemize}
  Nous voulions utiliser ces outils pour résumer des textes.
  
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%ù
 \begin{frame}
  \frametitle{\textit{Extractive summarization}}
- Un algorithme de résumé extractif~:
+%% Un algorithme de résumé extractif~:
  \begin{itemize}
   \item Sépare les phrases du texte~;
   \item Note ces phrases d'après une étude statistique~;
@@ -94,28 +115,29 @@
  
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
  \frametitle{\textit{Abstractive summarization}}
- Un algorithme de résumé abstractif tentera d'étudier les informations du texte~:
+ %%Un algorithme de résumé abstractif tentera d'étudier les informations du texte~:
  \begin{itemize}
   \item Représentation du texte en mémoire sous forme d'un arbre syntaxique~;
   \item Élagage de cet arbre pour ne garder que les nœuds importants~;
   \item Génération d'un texte en langage naturel à partir de l'arbre simplifié.
  \end{itemize}
- On remarque que la première et la dernière étape sont beaucoup plus difficiles que leurs analogues en résumé extractif.
+ \note{On remarque que la première et la dernière étape sont beaucoup plus difficiles que leurs analogues en résumé extractif.}
 \end{frame}
 
 
 \begin{frame}
  \frametitle{Génération du résumé et évaluation}
  %% D'avis de virer ça (Antonin)
+ %% pareil, même si ça me rend triste (andré)
  
 \end{frame}
 
-%je vire copycat/bascet, on détaillera mieux
-%%sur le RC lui-même
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Sources de données}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%ù
 
 %\subsection{Données textuelles}
 
@@ -130,27 +152,44 @@
 
 %\subsection{Données conceptuelles}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
  \frametitle{Extraction de concepts}
+
+ \begin{itemize}
+  \item Mise sous forme normale (WordNet) ;
+  \item \textit{POS-tagger} ;
+  \item Sélection des noms propres.
+ \end{itemize}
  
+ \note{Du texte brut, on peut extraire les concepts en un certain nombre d'étapes.}
  
 \end{frame}
 
-\begin{frame}
- \frametitle{WordNet}
- 
- 
-\end{frame}
-
+%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
  \frametitle{Conceptnet5}
  
+ Graphe sémantique porteur de nombreuses relations. (RelatedTo, IsA...)
+
+ Requêtes :
+ \begin{itemize}
+  \item LookUp ;
+  \item Search ;
+  \item Association.
+ \end{itemize}
+
+On sélectionne les concepts les plus pertinents.
  
+ \note{Commonsense computing initiative, généré à partir de données brutes.
+ 1,6 millions d'assertions. Code source de github pour les jsonstream.}
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%
 \begin{frame}
  \frametitle{Freebase}
  
+ Traitement des noms propres.
  
 \end{frame}
 
@@ -175,33 +214,34 @@
  
 \end{frame}
 
-
-\begin{frame}[allowframebreaks = 0.7, fragile]
+%%%%%%%%%%%%%%%%
+\begin{frame}
  \frametitle{Structure statique du réseau}
  
  \begin{block}{N\oe{}uds}
-\begin{itemize}
- \item Étiquette~: concept~;
- \item Importance conceptuelle~;
- \item Activation~;
-\end{itemize}
-
-\textbf{Exemple~:} [``hyperactivity'', ``ic'': 34, ``a'': 10].
-
+    \begin{itemize}
+      \item Étiquette~: concept~;
+      \item Importance conceptuelle~;
+      \item Activation~;
+    \end{itemize}
+    \textbf{Exemple~:} [``hyperactivity'', ``ic'': 34, ``a'': 10].
 \end{block}
  
-\begin{block}{Arêtes}
- \begin{itemize}
-  \item Orientées~;
-  \item Proximité~;
-  \item Relation.
- \end{itemize}
+\end{frame}
 
-\textbf{Exemple~:} [``hyperactivity'', ``disorder'', \{``r'': ``IsA'', ``w'': 47\}].
+%%%%%%%%%%%%%%%%%
+\begin{frame}
+ \frametitle{Structure statique du réseau}
  
-\end{block}
+  \begin{block}{Arêtes}
+    \begin{itemize}
+      \item Orientées~;
+      \item Proximité~;
+      \item Relation.
+    \end{itemize}
+    \textbf{Exemple~:} [``hyperactivity'', ``disorder'', \{``r'': ``IsA'', ``w'': 47\}]. 
+  \end{block}
 
- 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -440,10 +480,10 @@ organisation, country...
 \begin{frame}
  \frametitle{Définition de l'indice TF-IDF}
  \begin{block}{TF}
- 	La fréquence d'un terme
+ 	La fréquence d'un terme.
  \end{block}
  \begin{block}{IDF}
- 	La fréquence inverse de document\\
+ 	La fréquence inverse de document.\\
  	\begin{center}
  	 	$IDF_{i} =  log \frac{|D|}{|\{d_{j}: t_{i} \in d_{j}\}|}$
  	\end{center}
@@ -458,16 +498,16 @@ organisation, country...
 %%%%%%%%%%%%%%%%%%
 \begin{frame}
  \frametitle{TF-IDF pour résumer}
-  \begin{block}{Poids de phrase}
- 	La somme de valeur TF-IDF de chaque concept dans une phrase
+  \begin{block}{Poids d'une phrase}
+ 	La somme des valeurs TF-IDF de chaque concept dans une phrase.
  \end{block}
  \begin{itemize}
-  \item Algorithme :
+  \item Algorithme simple :
   	\begin{itemize}
-  	\item Calcul les poids;
+  	\item Calcul les poids ;
   	\item Extraction de phrases.
   	\end{itemize}
-  \item Qualité des résumés.
+%  \item Qualité des résumés.
  \end{itemize}
  
 \end{frame}
@@ -481,15 +521,15 @@ organisation, country...
   		\item Les termes importants ont une fréquence (TF) élevée~;
  		\item Les termes qui se présentent rarement dans l'ensemble du corpus ont un IDF fort.
   	\end{itemize}
-  	\item Pour une résumé, le TF est calculé localement à un document, ici, il est calculé de manière globale.
+  	\item Pour un résumé, le TF est calculé localement à un document, ici de manière globale.
   \end{itemize}
  
 \end{frame}
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Traitement préalable des données}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 %%\subsection{Analyse syntaxique}
 
@@ -498,7 +538,7 @@ organisation, country...
  \frametitle{Grammaires}
  Une grammaire, c'est~:
  \begin{itemize}
-  \item Un ensemble de feuilles de la forme (unité syntaxique) -> (liste de fonctions possibles)
+  \item Un ensemble de feuilles de la forme (unité syntaxique) $\rightarrow$ (liste de fonctions possibles)
   \item Un ensemble de règles pour découper la phrase en portions de plus en plus réduites.
  \end{itemize}
  
@@ -507,13 +547,15 @@ organisation, country...
 %%%%%%%%%%%%%%%%%
 \begin{frame}
  \frametitle{État du texte en fin d'analyse}
- En fin d'analyse par l'algorithme de Systran, le texte est une liste de mots contenant~:
+ Chaque mot donne~:
  \begin{itemize}
   \item lui-même, tel que présent dans le texte~;
   \item la forme normale associée~;
   \item une liste de tags catégorisant le mot (humain, idée, etc.)~;
   \item une liste de liens étiquetés vers d'autres mots de la phrase.
  \end{itemize}
+ 
+ \note{En fin d'analyse par l'algorithme de Systran, le texte est une liste de mots contenant~:}
  
 \end{frame}
 
