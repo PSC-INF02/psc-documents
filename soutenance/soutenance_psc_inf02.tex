@@ -168,29 +168,29 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
- \frametitle{Conceptnet5}
+ \frametitle{Données conceptuelles}
  
- Graphe sémantique porteur de nombreuses relations. (RelatedTo, IsA...)
+ \begin{block}{Conceptnet5}
+   Graphe sémantique porteur de nombreuses relations. %(RelatedTo, IsA...)
+    
+  Requêtes :
+  \begin{itemize}
+    \item LookUp ;
+    \item Search ;
+    \item Association.
+  \end{itemize}
 
- Requêtes :
- \begin{itemize}
-  \item LookUp ;
-  \item Search ;
-  \item Association.
- \end{itemize}
+  On sélectionne les concepts les plus pertinents.
+ \end{block}
 
-On sélectionne les concepts les plus pertinents.
+ \pause
  
+\begin{block}{Freebase}
+ Traitement des noms propres.
+\end{block}
+
  \note{Commonsense computing initiative, généré à partir de données brutes.
  1,6 millions d'assertions. Code source de github pour les jsonstream.}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%
-\begin{frame}
- \frametitle{Freebase}
- 
- Traitement des noms propres.
- 
 \end{frame}
 
 
@@ -554,7 +554,26 @@ organisation, country...
 
 \begin{frame}
  \frametitle{Résolution d'anaphores}
+ 
+ Il s'agit de remplacer les pronoms (personnels et possessifs).
+ 
+  \begin{itemize}
+   \item \textbf{Trouver} les groupes nominaux ;
+   \item Pour chaque pronom, \textbf{classer} les groupes candidats par score.
+  \end{itemize}
 
+  \pause
+  
+  Le score dépend de :
+  \begin{itemize}
+   \item La position absolue (début de phrase) ;
+   \item La \textbf{position relative} au pronom ;
+   \item Caractéristiques grammaticales relatives au pronom ;
+   \item Caractéristiques grammaticales (défini, indéfini, nom propre).
+  \end{itemize}
+
+ 
+ \note{Il s'agit de supprimer les ambiguités liées à l'utilisation de pronoms. Interviennent dans le score : éloignement vis-à-vis du pronom, correspondances de genre, de nombre, du caractère humain/non-humain, apparaître au début d'une phrase, GN répété, GN précédé d'une préposition ou non, GN sujet gagne en score, GN indéfini - avec article indéfini -, GN avec un nom propre gagne en score}
  
 \end{frame}
 
@@ -599,7 +618,7 @@ organisation, country...
  \frametitle{Algorithme final}
 
  \begin{enumerate}
-  \item Construction d'un Workspace~;
+  \item Construction du Workspace~;
   \item Dans le Workspace, groupement des entités;
   \item Activation des concepts associés aux éléments du Workspace~;
   \item Propagation de l'activation dans le Réseau de Concepts~;
