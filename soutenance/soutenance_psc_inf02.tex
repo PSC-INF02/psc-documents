@@ -439,22 +439,33 @@ organisation, country...
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}
  \frametitle{Définition de l'indice TF-IDF}
- \begin{itemize}
-  \item TF~: fréquence d'un terme~;
-  \item IDF~: fréquence inverse de document~;
-  \item TF-IDF et poids d'une phrase.
- \end{itemize}
- 
+ \begin{block}{TF}
+ 	La fréquence d'un terme
+ \end{block}
+ \begin{block}{IDF}
+ 	La fréquence inverse de document\\
+ 	\begin{center}
+ 	 	$IDF_{i} =  log \frac{|D|}{|\{d_{j}: t_{i} \in d_{j}\}|}$
+ 	\end{center}
+ \end{block}
+ \begin{block}{TF-IDF}
+ 	\begin{center}
+ 		$TFIDF_{i,j} = TF_{i,j} \cdot  IDF_{i}$;
+ 	\end{center}
+ \end{block}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%
 \begin{frame}
  \frametitle{TF-IDF pour résumer}
+  \begin{block}{Poids de phrase}
+ 	La somme de valeur TF-IDF de chaque concept dans une phrase
+ \end{block}
  \begin{itemize}
   \item Algorithme :
   	\begin{itemize}
-  	\item Calcul de poids
-  	\item Extraction de phrases
+  	\item Calcul les poids;
+  	\item Extraction de phrases.
   	\end{itemize}
   \item Qualité des résumés.
  \end{itemize}
@@ -465,8 +476,12 @@ organisation, country...
 \begin{frame}
  \frametitle{TF-IDF pour l'importance conceptuelle}
  \begin{itemize}
-  	\item Quelques caractéristiques de l'importance conceptuelle
-  	\item Le calcul adapté
+  	\item Les caractéristiques de l'importance conceptuelle
+  	\begin{itemize}
+  		\item Les termes importants ont une fréquence (TF) élevée~;
+ 		\item Les termes qui se présentent rarement dans l'ensemble du corpus ont un IDF fort.
+  	\end{itemize}
+  	\item Pour une résumé, le TF est calculé localement à un document, ici, il est calculé de manière globale.
   \end{itemize}
  
 \end{frame}
