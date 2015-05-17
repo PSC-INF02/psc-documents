@@ -11,6 +11,7 @@
 \date{19 mai 2015}
 
 %%change to "<hide notes"> if you want
+%% avec show notes, le logo plante, c'est normal
 \setbeameroption{show notes}
 
 \begin{document}
@@ -128,12 +129,12 @@
 \end{frame}
 
 
-\begin{frame}
- \frametitle{Génération du résumé et évaluation}
- %% D'avis de virer ça (Antonin)
- %% pareil, même si ça me rend triste (andré)
- 
-\end{frame}
+% \begin{frame}
+%  \frametitle{Génération du résumé et évaluation}
+%  %% D'avis de virer ça (Antonin)
+%  %% pareil, même si ça me rend triste (andré)
+%  
+% \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Sources de données}
@@ -219,7 +220,7 @@
 
 %%%%%%%%%%%%%%%%
 \begin{frame}
- \frametitle{Structure statique du réseau}
+ \frametitle{Structure du réseau}
  
  \begin{block}{N\oe{}uds}
     \begin{itemize}
@@ -227,17 +228,9 @@
       \item Importance conceptuelle~;
       \item Activation~;
     \end{itemize}
-    \textbf{Exemple~:} [``hyperactivity'', ``ic'': 34, ``a'': 10].
+   \textbf{Exemple~:} [``hyperactivity'', ``ic'': 34, ``a'': 10].
 \end{block}
 
-\note{RC - réseau sémantique, les noeuds ont quelques informations qui s'interprètent facilement, un mot, une importance conceptuelle dont il faudra parler plus tard mais qui rep. juste le degré d'abstraction et d'importance du concept : pour nous, lié au foot implique très important, matériel implique moins important. Ici ça a son importance, mais c'est peu important dans notre contexte, donc ic assez bas.}
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%
-\begin{frame}
- \frametitle{Structure statique du réseau}
- 
   \begin{block}{Arêtes}
     \begin{itemize}
       \item Orientées~;
@@ -247,16 +240,19 @@
     \textbf{Exemple~:} [``hyperactivity'', ``disorder'', \{``r'': ``IsA'', ``w'': 47\}]. 
   \end{block}
 
-  \note{Les relations, sur le modèle de conceptnet5, et tout aussi proches de l'intuition. Représentent une connaissance. Le poids est une proximité, à quel point il est facile de penser à un concept en partant d'un autre.}
-  
+\note{RC - réseau sémantique, les noeuds ont quelques informations qui s'interprètent facilement, un mot, une importance conceptuelle dont il faudra parler plus tard mais qui rep. juste le degré d'abstraction et d'importance du concept : pour nous, lié au foot implique très important, matériel implique moins important. Ici ça a son importance, mais c'est peu important dans notre contexte, donc ic assez bas.}
+
+  \note{---------------------------- Les relations, sur le modèle de conceptnet5, et tout aussi proches de l'intuition. Représentent une connaissance. Le poids est une proximité, à quel point il est facile de penser à un concept en partant d'un autre.}
+
 \end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]
  \frametitle{Propriétés dynamiques du réseau}
  
  \begin{itemize}
-  \item  L'activation d'un n\oe{}ud se propage à ses fils~;
+  \item L'activation d'un n\oe{}ud se propage à ses fils~;
   \item Les n\oe{}uds se désactivent naturellement.
  \end{itemize}
  
@@ -328,7 +324,8 @@
 
  \textbf{Exemple 3~:}  N\oe{}uds bien activés, sans tenir compte du nombre de liens.
  
- \textbf{Exemple 4~:} En introduisant maintenant une dépendance du nombre de liens.
+ %% supprimé pour raccourcir cette partie !
+ % \textbf{Exemple 4~:} En introduisant maintenant une dépendance du nombre de liens.
  
  \note{Un concept faiblement conceptuel se désactive très vite, c'est typiquement un truc qu'on a dans n'importe quel texte... donc qui n'a rien de nouveau ou qui n'a rien à évoquer de spécial... !!!! Pour l'importance conceptuelle, on verra plus tard avec les méthodes statistiques. Grosso modo, plus un noeud est important, moins vite il se désactive. Pour l'exemple 3, même exemple que le deuxième, mais avec cette fois un facteur log égal à 1, donc aucune dépendance avec le nombre de liens.}
  
@@ -357,23 +354,23 @@
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
- \frametitle{Exemple 4}
- 
- \begin{itemize}
- \item Étape 0~: 2  n\oe{}uds activés.
- \item Étape 1~: 3  n\oe{}uds activés.
- \item Étape 2~: 2 n\oe{}uds activés.
- \item Étape 3~: 3 n\oe{}uds activés.
- \item Étape 4~: 3 n\oe{}uds activés.
- \item Étape 5~: 4 n\oe{}uds activés.
- \item Étape 6~: 6 n\oe{}uds activés.
- \item Étape 7~: 9 n\oe{}uds activés.
-\end{itemize}
-
-\note{Envoyer ici l'exemple 4, grosfacteurlog. (Plus gros que celui qu'on retient pour l'instant).}
- 
-\end{frame}
+% \begin{frame}
+%  \frametitle{Exemple 4}
+%  
+%  \begin{itemize}
+%  \item Étape 0~: 2  n\oe{}uds activés.
+%  \item Étape 1~: 3  n\oe{}uds activés.
+%  \item Étape 2~: 2 n\oe{}uds activés.
+%  \item Étape 3~: 3 n\oe{}uds activés.
+%  \item Étape 4~: 3 n\oe{}uds activés.
+%  \item Étape 5~: 4 n\oe{}uds activés.
+%  \item Étape 6~: 6 n\oe{}uds activés.
+%  \item Étape 7~: 9 n\oe{}uds activés.
+% \end{itemize}
+% 
+% \note{Envoyer ici l'exemple 4, grosfacteurlog. (Plus gros que celui qu'on retient pour l'instant).}
+%  
+% \end{frame}
 
 
 
@@ -422,30 +419,30 @@
   
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]
- \frametitle{Exemple obtenu}
- 
- \begin{block}{Meilleurs en liens sortants}
-  \begin{verbatim}
-human : 41
-water : 44
-person : 50
-someone : 161
-something : 192 
-  \end{verbatim}
- \end{block}
-
-  \begin{block}{Meilleurs en liens entrants}
-    \begin{verbatim}
-soccer_player : 1931
-soccer_midfielder : 1575
-athlete : 2182
-person : 3469
-organisation, country...
-    \end{verbatim}
-  \end{block}
-\end{frame}
+% %%%%%%%%%%%%%%%%%%%%
+% \begin{frame}[fragile]
+%  \frametitle{Exemple obtenu}
+%  
+%  \begin{block}{Meilleurs en liens sortants}
+%   \begin{verbatim}
+% human : 41
+% water : 44
+% person : 50
+% someone : 161
+% something : 192 
+%   \end{verbatim}
+%  \end{block}
+% 
+%   \begin{block}{Meilleurs en liens entrants}
+%     \begin{verbatim}
+% soccer_player : 1931
+% soccer_midfielder : 1575
+% athlete : 2182
+% person : 3469
+% organisation, country...
+%     \end{verbatim}
+%   \end{block}
+% \end{frame}
 
 %%%%%%%%%%%%%%%%%
 \begin{frame}
@@ -465,8 +462,7 @@ organisation, country...
 \end{frame}
 
 
-
-%%optionnel, et même beaucoup trop chiant
+%%optionnel
 %\begin{frame}
 % \frametitle{Choix de programmation}
  

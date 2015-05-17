@@ -1,21 +1,13 @@
-\frametitle{Exemple obtenu}
+\frametitle{Propriétés dynamiques du réseau}
 
- \begin{block}{Meilleurs en liens sortants}
-  \begin{verbatim}
-human : 41
-water : 44
-person : 50
-someone : 161
-something : 192
-  \end{verbatim}
- \end{block}
+ \begin{itemize}
+  \item L'activation d'un n\oe{}ud se propage à ses fils~;
+  \item Les n\oe{}uds se désactivent naturellement.
+ \end{itemize}
 
-  \begin{block}{Meilleurs en liens entrants}
-    \begin{verbatim}
-soccer_player : 1931
-soccer_midfielder : 1575
-athlete : 2182
-person : 3469
-organisation, country...
-    \end{verbatim}
-  \end{block}
+ \textbf{Exemple 1~:} en partant de \verb|``wayne_rooney''| et  \verb|``manchester_united_f.c.''|.
+
+ \textbf{Exemple 2~:} en considérant les n\oe{}uds fortement activés (plus de 10\%).
+
+ \note{ Sur le premier exemple, on ne montre pas le degré d'activation de chaque noeud, c'est juste pour voir la propagation. Sur le deuxième on s'intéresse déjà plus à la pertinence.}
+
