@@ -148,6 +148,8 @@
   \item Pré-traitement par une API (readability) pour n'obtenir que le corps de l'article.
  \end{itemize}
  
+ \note{Notes à compléter ?}
+ 
 \end{frame}
 
 %\subsection{Données conceptuelles}
@@ -162,7 +164,7 @@
   \item Sélection des noms propres.
  \end{itemize}
  
- \note{Du texte brut, on peut extraire les concepts en un certain nombre d'étapes.}
+ \note{Du texte brut, on peut extraire les concepts en un certain nombre d'étapes. Pour ça on se sert de wordnet interfacé avec nltk, et de toutes ses infos grammaticales, avec morphy qui "morphe" les mots, ie les met sous forme normale directement. Le POS-taggers de nltk est utile car l'envoi d'une info supplémentaire de pos à morphy permet de limiter d'autant plus le nombre d'erreurs. Enfin, ça permet aussi de sélectionner les noms propres dont le traitement doit se faire à part.}
  
 \end{frame}
 
@@ -189,8 +191,8 @@
  Traitement des noms propres.
 \end{block}
 
- \note{Commonsense computing initiative, généré à partir de données brutes.
- 1,6 millions d'assertions. Code source de github pour les jsonstream.}
+ \note{Conceptnet5 appartient au Commonsense computing initiative, généré à partir de données brutes.
+ 1,6 millions d'assertions. On récupère une partie des concepts, une partie des assertions (on évite certaines relations trop floues comme RelatedTo). Freebase : permet de traiter les noms propres, on n'a pas utilisé toutes les possibilités offertes par l'API mais déjà ça c'était utile.}
 \end{frame}
 
 
@@ -211,7 +213,8 @@
  \end{itemize}
  
  Le réseau sert à \textbf{sélectionner} de l'information.
- \note{Explication : plus loin on verra que les noeuds du RC activés, propagent, et on supprime dans le Workspace les concepts les moins activés.} 
+ \note{Initialement le RC naît de la nécessité d'ajouter de l'info de type contexte lorsqu'on lit le texte. Ses prérogatives ont évolué au cours du projet ; finalement il s'est convenablement marié au workspace que l'on verra plus tard. Son caractère dynamique est resté essentiel même s'il a lui aussi évolué. -----------
+ Explication : plus loin on verra que les noeuds du RC activés, propagent, et on supprime dans le Workspace les concepts les moins activés.} 
 \end{frame}
 
 %%%%%%%%%%%%%%%%
@@ -226,7 +229,9 @@
     \end{itemize}
     \textbf{Exemple~:} [``hyperactivity'', ``ic'': 34, ``a'': 10].
 \end{block}
- 
+
+\note{Blabla}
+
 \end{frame}
 
 %%%%%%%%%%%%%%%%%
