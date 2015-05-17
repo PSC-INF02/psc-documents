@@ -81,12 +81,12 @@
  
 \end{frame}
 
-\begin{frame}
- \frametitle{Outils extérieurs et points techniques}
+%\begin{frame}
+% \frametitle{Outils extérieurs et points techniques}
  %% Je serais d'avis d'éliminer cette slide (Antonin)
  %% pareil (andré)
  
-\end{frame}
+%\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{État de l'art}
@@ -231,6 +231,8 @@
    \textbf{Exemple~:} [``hyperactivity'', ``ic'': 34, ``a'': 10].
 \end{block}
 
+\pause
+
   \begin{block}{Arêtes}
     \begin{itemize}
       \item Orientées~;
@@ -255,6 +257,8 @@
   \item L'activation d'un n\oe{}ud se propage à ses fils~;
   \item Les n\oe{}uds se désactivent naturellement.
  \end{itemize}
+ 
+ \pause
  
  \textbf{Exemple 1~:} en partant de \verb|``wayne_rooney''| et  \verb|``manchester_united_f.c.''|.
  
@@ -455,6 +459,8 @@
  \end{itemize}
  \end{block}
 
+ \pause
+ 
  \includegraphics[height=5cm]{./images/comp_connexe_3.png}
  
    \note{Plus précisément :  16: 1, 2: 83, 3: 43, 4: 19, 5: 1, 6: 5, 9: 2, 26825: 1, 18: 1. Tout ça est très satisfaisant et RAS. L'autre ex de comp connexe bête, c'est deux éléments antonymes. Il y a 2120 relations Antonym, sur les 60 000, ce qui est pas mal, et des petites comp connexes du genre : ["inflammable", "incombustible", \{"r": "Antonym", "w": 30\}].}
@@ -480,12 +486,18 @@
  \begin{block}{TF}
  	La fréquence d'un terme.
  \end{block}
+ 
+ \pause
+ 
  \begin{block}{IDF}
  	La fréquence inverse de document.\\
  	\begin{center}
  	 	$IDF_{i} =  log \frac{|D|}{|\{d_{j}: t_{i} \in d_{j}\}|}$
  	\end{center}
  \end{block}
+ 
+ \pause
+ 
  \begin{block}{TF-IDF}
  	\begin{center}
  		$TFIDF_{i,j} = TF_{i,j} \cdot  IDF_{i}$;
@@ -502,6 +514,9 @@
   \begin{block}{Poids d'une phrase}
  	La somme des valeurs TF-IDF de chaque concept dans une phrase.
  \end{block}
+ 
+ \pause
+ 
  \begin{itemize}
   \item Algorithme simple :
   	\begin{itemize}
@@ -554,10 +569,10 @@
  \frametitle{État du texte en fin d'analyse}
  Chaque mot donne~:
  \begin{itemize}
-  \item lui-même, tel que présent dans le texte~;
-  \item la forme normale associée~;
-  \item une liste de tags catégorisant le mot (humain, idée, etc.)~;
-  \item une liste de liens étiquetés vers d'autres mots de la phrase.
+  \item Lui-même, tel que présent dans le texte~;
+  \item La forme normale associée~;
+  \item Une liste de tags catégorisant le mot (humain, idée, etc.)~;
+  \item Une liste de liens étiquetés vers d'autres mots de la phrase.
  \end{itemize}
  
  \note{En fin d'analyse par l'algorithme de Systran, le texte est une liste de mots contenant...}
@@ -604,6 +619,9 @@
       \item «~Projection~» du texte dans un espace plus abstrait
     \end{itemize}
   \end{block}
+  
+  \pause
+  
   \begin{block}{Intérêt}
     \begin{itemize}
       \item Représente l'état de compréhension du texte
@@ -611,6 +629,8 @@
     \end{itemize}
   \end{block}
 
+  \note{Question : typiquement, une structure, ça ressemble à quoi ?}
+  
 \end{frame}
 
 \begin{frame}
@@ -630,7 +650,7 @@
 \begin{frame}
  \frametitle{Algorithme final}
 
- \begin{enumerate}
+ \begin{enumerate}[<+->]
   \item Construction du Workspace~;
   \item Dans le Workspace, groupement des entités;
   \item Activation des concepts associés aux éléments du Workspace~;
@@ -653,6 +673,8 @@
  \frametitle{Conclusion}
  
 C'était vraiment trop mythe comme PSC\@.
+ 
+ Merci de votre attention.
  
 \end{frame}
 

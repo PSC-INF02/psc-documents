@@ -5,6 +5,8 @@
   \item Les n\oe{}uds se désactivent naturellement.
  \end{itemize}
 
+ \pause
+
  \textbf{Exemple 1~:} en partant de \verb|``wayne_rooney''| et  \verb|``manchester_united_f.c.''|.
 
  \textbf{Exemple 2~:} en considérant les n\oe{}uds fortement activés (plus de 10\%).
