@@ -230,7 +230,7 @@
     \textbf{Exemple~:} [``hyperactivity'', ``ic'': 34, ``a'': 10].
 \end{block}
 
-\note{Blabla}
+\note{RC - réseau sémantique, les noeuds ont quelques informations qui s'interprètent facilement, un mot, une importance conceptuelle dont il faudra parler plus tard mais qui rep. juste le degré d'abstraction et d'importance du concept : pour nous, lié au foot implique très important, matériel implique moins important. Ici ça a son importance, mais c'est peu important dans notre contexte, donc ic assez bas.}
 
 \end{frame}
 
@@ -247,6 +247,8 @@
     \textbf{Exemple~:} [``hyperactivity'', ``disorder'', \{``r'': ``IsA'', ``w'': 47\}]. 
   \end{block}
 
+  \note{Les relations, sur le modèle de conceptnet5, et tout aussi proches de l'intuition. Représentent une connaissance. Le poids est une proximité, à quel point il est facile de penser à un concept en partant d'un autre.}
+  
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -262,7 +264,7 @@
  
  \textbf{Exemple 2~:} en considérant les n\oe{}uds fortement activés (plus de 10\%).
  
- \note{Sur ce premier exemple, on ne montre pas le degré d'activation de chaque noeud, c'est juste pour voir la propagation. Sur le deuxième on s'intéresse déjà plus à la pertinence.}
+ \note{ Sur le premier exemple, on ne montre pas le degré d'activation de chaque noeud, c'est juste pour voir la propagation. Sur le deuxième on s'intéresse déjà plus à la pertinence.}
  
 \end{frame}
 
@@ -277,7 +279,7 @@
  \item Étape 2~: 67 n\oe{}uds activés.
   \end{itemize}
 
-  \note{Envoyer ici l'exemple touslesnoeuds sur une autre fenêtre.}
+  \note{Envoyer ici l'exemple touslesnoeuds sur une autre fenêtre. Ce sont wayne rooney et manchester activés tous les deux en même temps à 60\%. On remarque que le nombre de noeuds touchés augmente assez vite, forte connexité. Ça veut dire aussi que si on ne contrôle pas, ça part dans tous les sens.}
 
 \end{frame}
 
@@ -293,7 +295,7 @@
  \item Étape 4~: 5 n\oe{}uds activés.
 \end{itemize}
   
-  \note{Envoyer ici l'exemple noeudsbienactivés.}
+  \note{Envoyer ici l'exemple noeudsbienactivés. Typiquement considérer les noeuds activés à partir d'une certaine valeur (ici 10\% d'activation). Ça permet de se concentrer sur les concepts majeurs (et même parmi ceux-ci, ceux qui sont VRAIMENT bien activés). Typiquement, ceux qui ont beaucoup de pères, ceux qui vont être activés de plusieurs côtés, ceux qui auront des liens très intéressants (IsA) avec des poids très importants...}
 
 \end{frame}
 
@@ -309,8 +311,11 @@
 
  On ne cherche pas un état d'équilibre. Il faut tirer parti de ces deux propriétés en réglant le nombre d'étapes.
  
+ \note{Activation : donne corps à l'idée de "faire penser à" puisque les noeuds activent leurs fils. La désactivation est un oubli. La combinaison des deux ne provoque pas d'état d'équilibre (du moins ce n'est pas recherché) mais permet de se faire une idée du contexte, en partant d'un ensemble de concepts, et de se faire une idée de l'importance de ces concepts. Donc deux intérêts distincts. C'est cette importance qui a finalement été retenue.}
+ 
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Désactivation}
  
@@ -325,9 +330,9 @@
  
  \textbf{Exemple 4~:} En introduisant maintenant une dépendance du nombre de liens.
  
- \note{!!!! Pour l'importance conceptuelle, on verra plus tard avec les méthodes statistiques. Grosso modo, plus un noeud est important, moins vite il se désactive. Pour l'exemple 3, même exemple que le deuxième, mais avec cette fois un facteur log égal à 1, donc aucune dépendance avec le nombre de liens.}
+ \note{Un concept faiblement conceptuel se désactive très vite, c'est typiquement un truc qu'on a dans n'importe quel texte... donc qui n'a rien de nouveau ou qui n'a rien à évoquer de spécial... !!!! Pour l'importance conceptuelle, on verra plus tard avec les méthodes statistiques. Grosso modo, plus un noeud est important, moins vite il se désactive. Pour l'exemple 3, même exemple que le deuxième, mais avec cette fois un facteur log égal à 1, donc aucune dépendance avec le nombre de liens.}
  
- \note{Exemple pathologique~: un mot comme ``<water''> a 44 voisins avec de bons poids}
+ \note{Exemple pathologique : un mot comme ``water'' a 44 voisins avec de bons poids}
  
 \end{frame}
 
@@ -347,7 +352,7 @@
  \item Étape 7~: 334 n\oe{}uds activés.
 \end{itemize}
 
-\note{Envoyer ici l'exemple 3, facteurlogun.}
+\note{Envoyer ici l'exemple 3, facteurlogun. Toujours noeuds d'activation sup. à 10\% en partant de WR et manchester.}
 
 \end{frame}
 
@@ -366,7 +371,7 @@
  \item Étape 7~: 9 n\oe{}uds activés.
 \end{itemize}
 
-\note{Envoyer ici l'exemple 4, grosfacteurlog.}
+\note{Envoyer ici l'exemple 4, grosfacteurlog. (Plus gros que celui qu'on retient pour l'instant).}
  
 \end{frame}
 
@@ -399,7 +404,7 @@
  
  Extension à partir des premiers n\oe{}uds, par d'autres requêtes.
  
- \note{Nous partons de texte brut, digéré avec différents outils.}
+ \note{Nous partons de texte brut, digéré avec différents outils, nous voulons que tous ces concepts, qu'ils soient généraux (water, human) ou liés au football (FIFA, wayne rooney) entrent dans le réseau. La recherche dans FB et conceptnet5 est à la fois une vérification, car il y a des erreurs de tokenization ou d'orthographe, et le moyen d'obtenir des infos qui vont relier ces concepts entre eux.}
  
 \end{frame}
 
@@ -455,18 +460,18 @@ organisation, country...
 
  \includegraphics[height=5cm]{./images/comp_connexe_3.png}
  
-   \note{Plus précisément :  16: 1, 2: 83, 3: 43, 4: 19, 5: 1, 6: 5, 9: 2, 26825: 1, 18: 1. Tout ça est très satisfaisant et RAS. L'autre ex de comp connexe bête, c'est un antonyme.}
+   \note{Plus précisément :  16: 1, 2: 83, 3: 43, 4: 19, 5: 1, 6: 5, 9: 2, 26825: 1, 18: 1. Tout ça est très satisfaisant et RAS. L'autre ex de comp connexe bête, c'est deux éléments antonymes.}
  
 \end{frame}
 
 
 
 %%optionnel, et même beaucoup trop chiant
-\begin{frame}
- \frametitle{Choix de programmation}
+%\begin{frame}
+% \frametitle{Choix de programmation}
  
  
-\end{frame}
+%\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -490,7 +495,10 @@ organisation, country...
  		$TFIDF_{i,j} = TF_{i,j} \cdot  IDF_{i}$;
  	\end{center}
  \end{block}
-\end{frame}
+
+ \note{Blabla}
+ 
+ \end{frame}
 
 %%%%%%%%%%%%%%%%%%
 \begin{frame}
@@ -506,6 +514,8 @@ organisation, country...
   	\end{itemize}
 %  \item Qualité des résumés.
  \end{itemize}
+
+ \note{Blabla}
  
 \end{frame}
 
@@ -520,7 +530,9 @@ organisation, country...
   	\end{itemize}
   	\item Pour un résumé, le TF est calculé localement à un document, ici de manière globale.
   \end{itemize}
- 
+
+  \note{Blabla}
+  
 \end{frame}
 
 
