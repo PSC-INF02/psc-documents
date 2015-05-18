@@ -4,9 +4,9 @@
 %% dans la version papier : show notes, handout
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\documentclass[12pt, handout]{beamer}
-%\usepackage{pgfpages}
-%\pgfpagesuselayout{2 on 1}[a4paper,border shrink=5mm]
+\documentclass[12pt]{beamer}
+\usepackage{pgfpages}
+%\pgfpagesuselayout{4 on 1}[a4paper,border shrink=2mm, landscape]
 \usepackage[polytechnique, psc, complexe, unicouleur]{persobeamer}
 %nocouleur ou: unicouleur ou~: bicouleur
 %complexe ou~: simple
@@ -20,14 +20,15 @@
 
 %%change to "<hide notes"> if you want
 %% avec show notes, le logo plante, c'est normal
-\setbeameroption{show notes}
+
+%\setbeameroption{show notes}
 
 
 \begin{document}
 
   \addtobeamertemplate{frametitle}{}{%
     \begin{tikzpicture}[remember picture,overlay]
-    \node[anchor=south east,yshift=2pt] at (current page.south east) { \includegraphics[height=0.7cm]{./images/logohori.jpg} \hspace{1pt} \normalsize \raisebox{0.2cm}{\insertframenumber /\inserttotalframenumber}};
+    \node[anchor=south east,yshift=2pt] at (current page.south east) { \includegraphics[height=0.7cm]{./images/logohori.eps} \hspace{1pt} \normalsize \raisebox{0.2cm}{\insertframenumber /\inserttotalframenumber}};
 
     \end{tikzpicture}
    }
@@ -748,7 +749,7 @@
  \large{}Avez-vous des questions ?
  \end{center}
  
-\note{"Merci de votre attention."}
+%%\note{"Merci de votre attention."}
 \end{frame}
 
 \end{document}
