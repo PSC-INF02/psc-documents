@@ -521,20 +521,21 @@
 %%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
  \frametitle{Exemple}
- \begin{verbatim}
-  	Sepp_Blatter is the favourite to win a Fifa race.
- \end{verbatim}
+ \texttt{Sepp Blatter is the favourite to win a Fifa race.}
+ 
+ \small
+ 
  \begin{table}
 	\begin{tabular}{c|c|c|c|c|c|c|c|c|c}
-	 	  & Sepp_Blatter & is & the & favourite & to & win & a & Fifa & race \\
+	 	  SB & is & the & fav. & to & win & a & Fifa & race \\
 	 \hline
-	 	TF & 4 & 32 & 45 & 2 & 27 & 7 & 18 & 6 & 10\\
+	 	 4 & 32 & 45 & 2 & 27 & 7 & 18 & 6 & 10\\
 	 \hline
-	 	IDF & 3.98 & 0 & 0 & 3.08 & 0.0001 & 0.243 & 0 & 3.21 & 1.09\\
+	 	 3.98 & 0 & 0 & 3.08 & 0.0001 & 0.243 & 0 & 3.21 & 1.09\\
 	 \hline
-	 	$TF-IDF$ & 15.92 & 0 & 0 & 6.16 & 0.0027 & 1.701 & 0 & 19.26 \\
+	       15.92 & 0 & 0 & 6.16 & 0.0027 & 1.701 & 0 & 19.26 & 10.9 \\
 	\end{tabular}
-	\caption{TF-IDF results}
+	\caption{TF, IDF, TF-IDF}
  \end{table}
 \end{frame}
 
@@ -726,11 +727,28 @@
 
 \begin{frame}
  \frametitle{Conclusion}
+
+ \begin{itemize}
+  \item Projet intéressant (vaste);
+  \item Travail réutilisable.
+ \end{itemize}
+
+  \note{Intéressant parce que vaste, à la fois par les aspects étudiés et par ceux que nous avons dû laisser de côté. Le travail fait est réutilisable, code correctement documenté. Projet ambitieux à ses débuts, que nous avons dû limiter en cours de route ; l'algorithme produit, s'il ne résout pas entièrement le problème, présente toutefois un certain nombre d'originalités (RC, Workspace, ), et la structure des données produites (RC) a cet avantage d'être suffisamment généraliste pour pouvoir être appliquée à d'autres thématiques.}
  
-C'était vraiment trop mythe comme PSC\@.
+ \end{frame}
  
- Merci de votre attention.
+ \begin{frame}
+\frametitle{} 
+
+\begin{center}
+ \includegraphics[width=7cm]{./images/comp_connexe_1}
+\end{center}
+
+\begin{center}
+ \large{}Avez-vous des questions ?
+ \end{center}
  
+\note{"Merci de votre attention."}
 \end{frame}
 
 \end{document}
