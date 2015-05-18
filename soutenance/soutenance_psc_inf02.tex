@@ -520,6 +520,26 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
+ \frametitle{Exemple}
+ \begin{verbatim}
+  	Sepp_Blatter is the favourite to win a Fifa race.
+ \end{verbatim}
+ \begin{table}
+	\begin{tabular}{c|c|c|c|c|c|c|c|c|c}
+	 	  & Sepp_Blatter & is & the & favourite & to & win & a & Fifa & race \\
+	 \hline
+	 	TF & 4 & 32 & 45 & 2 & 27 & 7 & 18 & 6 & 10\\
+	 \hline
+	 	IDF & 3.98 & 0 & 0 & 3.08 & 0.0001 & 0.243 & 0 & 3.21 & 1.09\\
+	 \hline
+	 	$TF-IDF$ & 15.92 & 0 & 0 & 6.16 & 0.0027 & 1.701 & 0 & 19.26 \\
+	\end{tabular}
+	\caption{TF-IDF results}
+ \end{table}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
  \frametitle{TF-IDF pour l'importance conceptuelle}
  \begin{itemize}
   	\item Les caractéristiques de l'importance conceptuelle
