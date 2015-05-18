@@ -5,6 +5,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \documentclass[12pt, handout]{beamer}
+%\usepackage{pgfpages}
+%\pgfpagesuselayout{2 on 1}[a4paper,border shrink=5mm]
 \usepackage[polytechnique, psc, complexe, unicouleur]{persobeamer}
 %nocouleur ou: unicouleur ou~: bicouleur
 %complexe ou~: simple
@@ -20,11 +22,12 @@
 %% avec show notes, le logo plante, c'est normal
 \setbeameroption{show notes}
 
+
 \begin{document}
 
   \addtobeamertemplate{frametitle}{}{%
     \begin{tikzpicture}[remember picture,overlay]
-    \node[anchor=south east,yshift=2pt] at (current page.south east) {\includegraphics[height=0.7cm]{./images/logohori.jpg}};
+    \node[anchor=south east,yshift=2pt] at (current page.south east) { \includegraphics[height=0.7cm]{./images/logohori.jpg} \hspace{1pt} \normalsize \raisebox{0.2cm}{\insertframenumber /\inserttotalframenumber}};
 
     \end{tikzpicture}
    }
