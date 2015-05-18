@@ -1,3 +1,9 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% soutenance psc du 19 mai
+%% dans la version écran : pas de handout, et hide notes
+%% dans la version papier : show notes, handout
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \documentclass[12pt, handout]{beamer}
 \usepackage[polytechnique, psc, complexe, unicouleur]{persobeamer}
 %nocouleur ou: unicouleur ou~: bicouleur
@@ -5,7 +11,7 @@
 %voir dans le package pour changer les couleurs
 \usepackage{tikz}
 
-\title{Projet Scientifique collectif INF02}
+\title{Projet Scientifique Collectif INF02}
 \subtitle{Soutenance finale}
 \author{}
 \date{19 mai 2015}
@@ -50,7 +56,7 @@
  \end{itemize}
  \end{block}
 
- Travail sur des données pré-traitées sur le plan grammatical.
+%% Travail sur des données pré-traitées sur le plan grammatical.
 
  \note{ Notre but était de produire un programme qui, étant donné un article sportif (de foot), serait capable d'en donner l'idée principale.
  
@@ -75,18 +81,6 @@
 \end{frame}
 
 
-\begin{frame}
- \frametitle{Organisation générale}
- %% qui a fait quoi, comment, quand etc...
- 
-\end{frame}
-
-%\begin{frame}
-% \frametitle{Outils extérieurs et points techniques}
- %% Je serais d'avis d'éliminer cette slide (Antonin)
- %% pareil (andré)
- 
-%\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{État de l'art}
@@ -108,10 +102,11 @@
 \begin{frame}
  \frametitle{\textit{Extractive summarization}}
 %% Un algorithme de résumé extractif~:
+
  \begin{itemize}
-  \item Sépare les phrases du texte~;
-  \item Note ces phrases d'après une étude statistique~;
-  \item Sélectionne les phrases les mieux notées et les copie dans le résumé.
+  \item Sépare les \textbf{groupes de mots}~;
+  \item Sélectionne~;
+  \item \textbf{Recopie}.
  \end{itemize}
  
 \end{frame}
@@ -121,32 +116,23 @@
  \frametitle{\textit{Abstractive summarization}}
  %%Un algorithme de résumé abstractif tentera d'étudier les informations du texte~:
  \begin{itemize}
-  \item Représentation du texte en mémoire sous forme d'un arbre syntaxique~;
-  \item Élagage de cet arbre pour ne garder que les nœuds importants~;
-  \item Génération d'un texte en langage naturel à partir de l'arbre simplifié.
+  \item Représente les idées~;
+  \item Sélectionne les idées majeures.
  \end{itemize}
- \note{On remarque que la première et la dernière étape sont beaucoup plus difficiles que leurs analogues en résumé extractif.}
-\end{frame}
+ \note{Contrairement à l'extractif, on ne recopie pas des phrases ou groupes de mots, mais des idées.}
 
+ \end{frame}
 
-% \begin{frame}
-%  \frametitle{Génération du résumé et évaluation}
-%  %% D'avis de virer ça (Antonin)
-%  %% pareil, même si ça me rend triste (andré)
-%  
-% \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Sources de données}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%ù
 
-%\subsection{Données textuelles}
-
 \begin{frame}
  \frametitle{Données textuelles}
  \begin{itemize}
   \item Sélection d'un certain nombre de flux RSS pour téléchargement automatique d'articles~;
-  \item Pré-traitement par une API (readability) pour n'obtenir que le corps de l'article.
+  \item Pré-traitement par une API (\texttt{readability}) pour n'obtenir que le corps de l'article.
  \end{itemize}
  
  \note{Notes à compléter ?}
@@ -200,7 +186,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Réseau de concepts}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Schrotty !
 
 \subsection{Structure}
 
@@ -504,7 +489,7 @@
  	\end{center}
  \end{block}
 
- \note{Blabla}
+ \note{Un corpus, des documents.}
  
  \end{frame}
 
@@ -512,7 +497,7 @@
 \begin{frame}
  \frametitle{TF-IDF pour résumer}
   \begin{block}{Poids d'une phrase}
- 	La somme des valeurs TF-IDF de chaque concept dans une phrase.
+ 	La somme des valeurs TF-IDF de chaque terme dans une phrase.
  \end{block}
  
  \pause
@@ -526,7 +511,7 @@
 %  \item Qualité des résumés.
  \end{itemize}
 
- \note{Blabla}
+ \note{Extraction de phrases, à mettre dans le bon ordre après coup... éventuellement quelques problèmes mineurs de contexte à résoudre.}
  
 \end{frame}
 
@@ -542,7 +527,7 @@
   	\item Pour un résumé, le TF est calculé localement à un document, ici de manière globale.
   \end{itemize}
 
-  \note{Blabla}
+  \note{On a utilisé TF-IDF pour l'ic, dont on vous parlait dans la partie précédente, parce qu'il y a une analogie forte entre les objectifs des deux.}
   
 \end{frame}
 
@@ -558,30 +543,77 @@
  \frametitle{Grammaires}
  Une grammaire, c'est~:
  \begin{itemize}
-  \item Un ensemble de feuilles de la forme (unité syntaxique) $\rightarrow$ (liste de fonctions possibles)
+  \item Un ensemble de feuilles de la forme (unité syntaxique) $\rightarrow$ (liste de fonctions possibles) ;
   \item Un ensemble de règles pour découper la phrase en portions de plus en plus réduites.
  \end{itemize}
  
 \end{frame}
 
 %%%%%%%%%%%%%%%%%
+% \begin{frame}
+%  \frametitle{État du texte en fin d'analyse}
+%  Chaque mot donne~:
+%  \begin{itemize}
+%   \item Lui-même, tel que présent dans le texte~;
+%   \item La forme normale associée~;
+%   \item Une liste de tags catégorisant le mot (humain, idée, etc.)~;
+%   \item Une liste de liens étiquetés vers d'autres mots de la phrase.
+%  \end{itemize}
+%  
+%  \note{En fin d'analyse par l'algorithme de Systran, le texte est une liste de mots contenant...}
+%  
+% \end{frame}
+
+
 \begin{frame}
- \frametitle{État du texte en fin d'analyse}
- Chaque mot donne~:
- \begin{itemize}
-  \item Lui-même, tel que présent dans le texte~;
-  \item La forme normale associée~;
-  \item Une liste de tags catégorisant le mot (humain, idée, etc.)~;
+ \frametitle{De quoi avons-nous besoin ?}
+ 
+ Pour chaque mot :
+  \begin{itemize}
+  \item La \textbf{forme normale} associée~;
+  \item Une liste de tags \textbf{catégorisant} le mot (humain, idée, etc.)~;
   \item Une liste de liens étiquetés vers d'autres mots de la phrase.
  \end{itemize}
  
- \note{En fin d'analyse par l'algorithme de Systran, le texte est une liste de mots contenant...}
+ Ainsi que des \textbf{groupes} nominaux et verbaux.
+ 
+% Insérer ici l'exemple !!
+ 
+% \includegraphics[width=10cm]{}
+ 
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%
+\begin{frame}
+ \frametitle{Pré-traitement}
+ 
+ \begin{itemize}
+  \item Grammaire \texttt{nltk} insuffisante ;
+  \item Utilisation des outils de \texttt{Systran}.
+ \end{itemize} 
+ 
+ \note{Transition : avec... une réso de groupes et de pronoms.}
+ 
+\end{frame}
+
+%%%%%%%%%%%%%%%%
+\begin{frame}
+ \frametitle{Pré-traitement}
+ 
+  \begin{itemize}
+   \item Reconnaissance de groupes nominaux ;
+   \item Résolution d'anaphores.
+  \end{itemize}
+
+  %insérer ici un autre exemple !!
  
 \end{frame}
 
 
+
+%%%%%%%%%%%%%%%%%
 \begin{frame}
- \frametitle{Résolution d'anaphores}
+ \frametitle{Résolution de pronoms}
  
  Il s'agit de remplacer les pronoms (personnels et possessifs).
  
